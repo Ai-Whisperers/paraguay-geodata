@@ -2,7 +2,7 @@
 
 Live state of the repo. Updated before every commit.
 
-Last update: 2026-07-10
+Last update: 2026-07-10 (Phase 0 shipped — commit `73a96bb`)
 
 ## Phase Tracker
 
@@ -43,19 +43,21 @@ git fetch origin && git log @{u}..HEAD
 
 ## Phase 0 — In Progress
 
-### Open work
+> **Status (2026-07-10)**: SHIPPED ✅ — commit `73a96bb` on `origin/main`, byte-perfect verified.
+
+### Shipped
 
 - [x] Create `Ai-Whisperers/paraguay-geodata` (private)
 - [x] 4-doc canonical skeleton (README / ARCHITECTURE / CLAUDE / STATUS)
-- [x] Tile index script (`tools/national_tile_index.py`)
-- [ ] Per-tile fetch orchestrator (`tools/fetch_tile.py`) — drafted, not yet run
-- [ ] Scraper spec + ethics gate (`docs/operations/properties-pipeline.md` + `docs/ethics/scraper-policy.md`)
-- [ ] First end-to-end smoke (Paraguarí tile, Phase 0 deliverable)
-- [ ] Phase 0 commit + push + raw URLs
+- [x] Tile index script (`tools/national_tile_index.py`) → 7,912 tiles confirmed
+- [x] Per-tile fetch orchestrator (`tools/fetch_tile.py` — stub for Phase 1 to fill in)
+- [x] Scraper spec + ethics gate (`docs/operations/properties-pipeline.md` + `docs/ethics/scraper-policy.md`)
+- [x] First end-to-end smoke (`6/6 tests pass`, dry-run completes in <1s)
+- [x] Phase 0 commit + push + raw URLs
 
 ### Blocked on / awaiting
 
-- (none — Phase 0 is self-contained)
+- (none — Phase 0 was self-contained)
 
 ### Decisions made (this phase)
 
@@ -63,7 +65,7 @@ git fetch origin && git log @{u}..HEAD
 - **License**: MIT (code) + CC0 (data) — same as LQV.
 - **Listings source**: Public portals (infocasas + propiedades.com.py + baiker) cross-referenced against escritura anchors. Most ambitious option, best trust signal.
 - **Storage**: Cloudflare R2 for heavy rasters, Pages for HTML + small JSON. R2 free tier covers ~100-500 GB/year.
-- **Tile size**: 10×10 km, EPSG:4326. ~1,000 tiles covering Paraguay.
+- **Tile size**: 10×10 km, EPSG:4326. ~7,900 tiles covering Paraguay (corrected from early "~1,000" estimate).
 - **Viewer pattern**: ONE `/mapa.html` with `?tile=<id>&r=<km>` + UI picker (LQV single-source-of-truth pattern).
 
 ## Phase 1 — Queued
