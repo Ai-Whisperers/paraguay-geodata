@@ -1,0 +1,31 @@
+{
+  "tile_id": "-59.558_-21.435",
+  "centroid": [
+    -59.509513698734764,
+    -21.390053629243752
+  ],
+  "bbox_wsen": [
+    -59.55775194952346,
+    -21.435272215891608,
+    -59.461275447946065,
+    -21.344835042595896
+  ],
+  "utm_zone_hint": 21,
+  "data_state": {
+    "dem": false,
+    "esri_hd_lod2": false,
+    "esri_hd_lod3": false,
+    "sentinel2": false,
+    "osm_10km": false,
+    "mapbiomas": false,
+    "hansen": false,
+    "jrc_gsw": false,
+    "hydrosheds": false,
+    "firms": false,
+    "gbif": false,
+    "cerros": false,
+    "streams": false,
+    "properties": false,
+    "price_surface": false
+  }
+}

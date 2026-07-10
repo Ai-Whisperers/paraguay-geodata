@@ -1,0 +1,56 @@
+[project]
+name = "paraguay-geodata"
+version = "0.1.0"
+description = "National-scale Paraguay satellite + geospatial data platform"
+license = { file = "LICENSE" }
+authors = [{ name = "AI Whisperers", email = "ivan@ai-whisperers.org" }]
+requires-python = ">=3.11"
+
+dependencies = [
+    "affine",
+    "click",
+    "earthaccess",
+    "geoalchemy2",
+    "geopandas",
+    "httpx",
+    "numpy>=1.26",
+    "pandas",
+    "Pillow",
+    "planetary-computer",
+    "psycopg2-binary",
+    "pystac-client",
+    "pykrige",
+    "pydantic",
+    "pyproj",
+    "rasterio",
+    "requests",
+    "rioxarray",
+    "shapely",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["tools"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
