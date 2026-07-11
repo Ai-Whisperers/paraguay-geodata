@@ -101,6 +101,16 @@
         .climate-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
         .climate-widget .row .k { color: var(--fg-dim); }
         .climate-widget .row .v { font-family: monospace; }
+        .inbio-widget {
+            background: var(--bg-elev-2); border: 1px solid #c084fc;
+            padding: 12px; border-radius: var(--radius); font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .inbio-widget h3 { margin: 0 0 6px 0; font-size: 11px; color: #c084fc; text-transform: uppercase; letter-spacing: .05em; }
+        .inbio-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .inbio-widget .row .k { color: var(--fg-dim); }
+        .inbio-widget .row .v { font-family: monospace; }
+        .inbio-widget .insight { color: var(--fg-dim); font-size: 10px; font-style: italic; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
         .city-list { display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto; }
         .city { padding: 6px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; font-size: 12px; display: flex; justify-content: space-between; transition: all .12s; }
         .city:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
@@ -195,6 +205,18 @@
             <div class="row"><span class="k">Avg solar</span><span class="v">—</span></div>
         </div>
 
+        <h2>INBIO zafra 2025-2026 (soybean area, satellite-based)</h2>
+        <div class="inbio-widget" id="inbioWidget">
+            <h3>Per-depto satellite crop estimates</h3>
+            <div class="row"><span class="k">Soja total</span><span class="v">—</span></div>
+            <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Arroz total</span><span class="v">—</span></div>
+            <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Maíz zaf. total</span><span class="v">—</span></div>
+            <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
+            <div class="insight">—</div>
+        </div>
+
         <h2>Layers (toggleable)</h2>
         <div class="layer-grid" id="layerGrid"></div>
 
@@ -243,6 +265,7 @@ const layerState = {
     tile_fabric:        { label: 'National tile fabric',     active: true,  features: '?', source: 'derived' },
     priority_tiles:     { label: 'Priority tiles',           active: true,  features: '?', source: 'derived' },
     departamentos_py:   { label: 'Departamentos (OSM)',      active: true,  features: '?', source: 'OSM' },
+    inbio_soja:         { label: 'Soja area zafra 2025-2026',active: true,  features: '?', source: 'INBIO (PDF)' },
     properties_infocasas:{label: 'Properties (infocasas)',   active: true,  features: '?', source: 'infocasas.com.py' },
     gbif_species:       { label: 'Species (GBIF)',           active: false, features: '?', source: 'GBIF' },
     bcp_overlay:        { label: 'BCP indicators',           active: true,  features: 'widget-only', source: 'BCP' },
@@ -305,6 +328,7 @@ const LAYER_GROUPS = {
     tile_fabric:        [L.layerGroup()],
     priority_tiles:     [L.layerGroup()],
     departamentos_py:   [L.layerGroup()],
+    inbio_soja:         [L.layerGroup()],
     properties_infocasas:[L.layerGroup()],
     gbif_species:       [L.layerGroup()],
 };
@@ -335,6 +359,37 @@ async function loadBCP() {
     } catch (e) {
         console.error('BCP load failed:', e);
         document.getElementById('bcpWidget').innerHTML = `<h3>BCP load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+    }
+}
+
+// ========== INBIO WIDGET ==========
+async function loadINBIOWidget() {
+    try {
+        const r = await fetch('./data/inbio_zafra_2025_2026.json');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const fmt = (n) => n == null ? '—' : `${(n/1000).toFixed(0)}K ha`;
+        const delta = (cur, prev) => {
+            if (cur == null || prev == null) return '—';
+            const d = cur - prev;
+            const pct = (d / prev * 100).toFixed(1);
+            return `${d > 0 ? '+' : ''}${d.toLocaleString()} ha (${d > 0 ? '+' : ''}${pct}%)`;
+        };
+        const T = d.totals_national;
+        const w = document.getElementById('inbioWidget');
+        w.innerHTML = `
+            <h3>${d.zafra} (satellite ${d.published})</h3>
+            <div class="row"><span class="k">Soja total</span><span class="v" style="color:#c084fc">${fmt(T.soja.area_ha_2025_2026)}</span></div>
+            <div class="row"><span class="k">  vs 24/25</span><span class="v ${T.soja.delta_ha >= 0 ? '' : 'warn'}">${fmt(T.soja.delta_ha)} (${T.soja.delta_pct > 0 ? '+' : ''}${T.soja.delta_pct.toFixed(1)}%)</span></div>
+            <div class="row"><span class="k">Arroz total</span><span class="v">${fmt(T.arroz.area_ha_2025_2026)}</span></div>
+            <div class="row"><span class="k">  vs 24/25</span><span class="v warn">${fmt(T.arroz.delta_ha)} (${T.arroz.delta_pct.toFixed(1)}%)</span></div>
+            <div class="row"><span class="k">Maíz zafriña</span><span class="v">${fmt(T.maiz_zaf.area_ha_2025_2026)}</span></div>
+            <div class="row"><span class="k">  vs 24/25</span><span class="v warn">${fmt(T.maiz_zaf.delta_ha)} (${T.maiz_zaf.delta_pct.toFixed(1)}%)</span></div>
+            <div class="insight">⚠️ Arroz down -22%, Maíz zafriña down -29% — south PY (Itapúa, Misiones) drought signal</div>
+        `;
+    } catch (e) {
+        console.error('INBIO widget failed:', e);
+        document.getElementById('inbioWidget').innerHTML = `<h3>INBIO load failed</h3><div style="color:var(--err)">${e.message}</div>`;
     }
 }
 
@@ -443,6 +498,95 @@ async function loadDepartamentos() {
         if (layerState.departamentos_py.active) group.addTo(map);
     } catch (e) {
         console.error('Departamentos failed:', e);
+    }
+}
+
+// ========== INBIO SOJA CHOROPLETH (live PDF data) ==========
+async function loadINBIOSoja() {
+    try {
+        const [deptRes, inbioRes] = await Promise.all([
+            fetch('./data/admin/departamentos.geojson'),
+            fetch('./data/inbio_zafra_2025_2026.json'),
+        ]);
+        if (!deptRes.ok || !inbioRes.ok) throw new Error('INBIO data fetch failed');
+        const [dept, inbio] = await Promise.all([deptRes.json(), inbioRes.json()]);
+        // Build iso -> {soja_25_26, soja_24_25, arroz_25_26, ...}
+        const index = {};
+        inbio.rows_by_dept.forEach(r => {
+            // Try multiple iso variants
+            const codes = [r.iso];
+            if (r.iso && r.iso.startsWith('PY-')) {
+                const codeNum = r.iso.replace('PY-', '').padStart(2, '0');
+                codes.push('PY-' + codeNum);  // canonical
+            }
+            codes.forEach(c => {
+                index[c] = {
+                    ...r,
+                    soja: r.soja_25_26,
+                    soja_prev: r.soja_24_25,
+                    arroz: r.arroz_25_26,
+                    maiz: r.maiz_zaf_25_26,
+                };
+            });
+            // Also by name match (for deptos that don't have iso)
+            index[r.depto] = {
+                ...r,
+                soja: r.soja_25_26,
+                soja_prev: r.soja_24_25,
+                arroz: r.arroz_24_25,
+                maiz: r.maiz_zaf_25_26,
+            };
+        });
+        const features = dept.features.filter(f => f.geometry && f.geometry.coordinates);
+        updateLayerCount('inbio_soja', features.length);
+
+        // Compute max soja for choropleth scaling
+        const sojaValues = Object.values(index).map(x => x.soja).filter(x => x != null);
+        const maxSoja = Math.max(...sojaValues, 1);
+
+        const group = LAYER_GROUPS.inbio_soja[0];
+        features.forEach(f => {
+            const p = f.properties;
+            const iso = p.iso_code || '';
+            const data = index[iso] || index[p.name] || {};
+            // Color by soja density
+            const soja = data.soja || 0;
+            const ratio = soja / maxSoja;
+            // purple gradient
+            const r = Math.round(160 + 95 * ratio);
+            const g = Math.round(100 + 60 * ratio);
+            const b = Math.round(220 + 30 * ratio);
+            const fill = `rgba(${r},${g},${b},${0.1 + 0.45 * ratio})`;
+            const layer = L.geoJSON(f, {
+                style: { color: '#c084fc', weight: 1.0, fillColor: `rgb(${r},${g},${b})`, fillOpacity: 0.15 + 0.45 * ratio },
+                onEachFeature: (feat, l) => {
+                    const formatHA = (x) => x == null ? '—' : `${x.toLocaleString()} ha`;
+                    const formatDelta = (cur, prev) => {
+                        if (cur == null || prev == null) return '—';
+                        const d = cur - prev;
+                        const pct = (d / prev * 100).toFixed(1);
+                        return `${d > 0 ? '+' : ''}${d.toLocaleString()} ha (${d > 0 ? '+' : ''}${pct}%)`;
+                    };
+                    const cent = l.getBounds().getCenter();
+                    l.bindPopup(`
+                        <h3>${p.name || data.depto}</h3>
+                        <div style="font-size:10px; color:var(--fg-dim);">ISO ${iso}</div>
+                        <hr style="border-color:var(--line); margin:6px 0;">
+                        <div style="font-size:11px; color:var(--accent); margin-bottom:4px;"><strong>INBIO zafra 2025/2026</strong></div>
+                        <div class="row"><span class="k">Soja</span><span class="v">${formatHA(data.soja)}</span></div>
+                        <div class="row"><span class="k">  vs 24/25</span><span class="v">${formatDelta(data.soja, data.soja_prev)}</span></div>
+                        <div class="row"><span class="k">Arroz</span><span class="v">${formatHA(data.arroz)}</span></div>
+                        <div class="row"><span class="k">Maíz zafriña</span><span class="v">${formatHA(data.maiz)}</span></div>
+                        <hr style="border-color:var(--line); margin:6px 0;">
+                        <div style="font-size:10px; color:var(--fg-dim);">Source: INBIO satellite estimate Apr 2026</div>
+                    `);
+                }
+            });
+            layer.addTo(group);
+        });
+        if (layerState.inbio_soja.active) group.addTo(map);
+    } catch (e) {
+        console.error('INBIO load failed:', e);
     }
 }
 
@@ -579,8 +723,10 @@ async function loadGBIF() {
 renderLayerGrid();
 loadBCP();
 loadClimate();
+loadINBIOWidget();
 loadTileFabric();
 loadDepartamentos();
+loadINBIOSoja();
 loadProperties();
 loadGBIF();
 

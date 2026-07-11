@@ -1,0 +1,38 @@
+{
+  "source": "INBIO - Instituto de Biotecnología Agrícola (inbio.org.py)",
+  "as_of": "2026-07-10",
+  "published": "2026-04",
+  "pdf": "https://inbio.org.py/wp-content/uploads/2026/04/Superficie-SOJA-ARROZ-MAIZ-Zafra-2025-2026.pdf",
+  "zafra": "2025/2026",
+  "previous_zafra": "2024/2025",
+  "summary": "INBIO satellite-based crop area estimates for Paraguay Zafra 2025/2026 vs 2024/2025.",
+  "totals_national": {
+    "soja":     {"area_ha_2024_2025": 3633845, "area_ha_2025_2026": 3683148, "delta_ha": 49303,  "delta_pct": 1.36},
+    "arroz":    {"area_ha_2024_2025": 266327,  "area_ha_2025_2026": 208949,  "delta_ha": -57378, "delta_pct": -21.55},
+    "maiz_zaf": {"area_ha_2024_2025": 55408,   "area_ha_2025_2026": 39311,   "delta_ha": -16097, "delta_pct": -29.05}
+  },
+  "rows_by_dept": [
+    {"depto": "Concepción",     "iso": "PY-1",  "soja_25_26": 16744,  "soja_24_25": 10064,  "arroz_25_26": null,  "arroz_24_25": null,  "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null},
+    {"depto": "San Pedro",      "iso": "PY-2",  "soja_25_26": 378607, "soja_24_25": 354811, "arroz_25_26": 18782, "arroz_24_25": 24196, "maiz_zaf_25_26": 4018,  "maiz_zaf_24_25": 4356},
+    {"depto": "Cordillera",     "iso": "PY-3",  "soja_25_26": 1614,   "soja_24_25": 856,    "arroz_25_26": 1909,  "arroz_24_25": 3161,  "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null},
+    {"depto": "Guairá",         "iso": "PY-4",  "soja_25_26": 21455,  "soja_24_25": 20287,  "arroz_25_26": 1783,  "arroz_24_25": 526,   "maiz_zaf_25_26": 82,     "maiz_zaf_24_25": null},
+    {"depto": "Caaguazú",       "iso": "PY-5",  "soja_25_26": 456509, "soja_24_25": 447773, "arroz_25_26": null,  "arroz_24_25": null,  "maiz_zaf_25_26": 8724,   "maiz_zaf_24_25": 12063},
+    {"depto": "Caazapá",        "iso": "PY-6",  "soja_25_26": 221136, "soja_24_25": 211289, "arroz_25_26": 8043,  "arroz_24_25": 9767,  "maiz_zaf_25_26": 3352,   "maiz_zaf_24_25": 2923},
+    {"depto": "Itapúa",         "iso": "PY-7",  "soja_25_26": 726519, "soja_24_25": 793794, "arroz_25_26": 21905, "arroz_24_25": 19126, "maiz_zaf_25_26": 5940,   "maiz_zaf_24_25": 15262},
+    {"depto": "Misiones",       "iso": "PY-8",  "soja_25_26": 45609,  "soja_24_25": 34427,  "arroz_25_26": 51008, "arroz_24_25": 82220, "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null},
+    {"depto": "Paraguarí",      "iso": "PY-9",  "soja_25_26": 5047,   "soja_24_25": 1428,   "arroz_25_26": 16003, "arroz_24_25": 30927, "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null},
+    {"depto": "Alto Paraná",    "iso": "PY-10", "soja_25_26": 946011, "soja_24_25": 968682, "arroz_25_26": null,  "arroz_24_25": null,  "maiz_zaf_25_26": 8165,   "maiz_zaf_24_25": 7839},
+    {"depto": "Central",        "iso": "PY-11", "soja_25_26": null,   "soja_24_25": null,   "arroz_25_26": 10935, "arroz_24_25": 12611, "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null},
+    {"depto": "Ñeembucú",       "iso": "PY-12", "soja_25_26": 3280,   "soja_24_25": null,   "arroz_25_26": 67648, "arroz_24_25": 70778, "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null},
+    {"depto": "Amambay",        "iso": "PY-13", "soja_25_26": 174390, "soja_24_25": 147439, "arroz_25_26": null,  "arroz_24_25": null,  "maiz_zaf_25_26": 245,    "maiz_zaf_24_25": 245},
+    {"depto": "Canindeyú",      "iso": "PY-14", "soja_25_26": 686226, "soja_24_25": 642996, "arroz_25_26": null,  "arroz_24_25": null,  "maiz_zaf_25_26": 8785,   "maiz_zaf_24_25": 12722},
+    {"depto": "Presidente Hayes","iso": "PY-15", "soja_25_26": null,   "soja_24_25": null,   "arroz_25_26": 10934, "arroz_24_25": 13014, "maiz_zaf_25_26": null,   "maiz_zaf_24_25": null}
+  ],
+  "geographic_observations": [
+    "Soja grew +1.4% nationally (+49,303 ha), driven by San Pedro (+23,796 ha), Alto Paraná (+0%), Canindeyú (+43,230 ha), Amambay (+26,951 ha)",
+    "Itapúa soja fell -8% (likely drought in southern PY)",
+    "Arroz fell -22% nationally — Misiones (-38%) and Paraguarí (-48%) hardest hit",
+    "Maíz zafriña fell -29% nationally — Itapúa (-61%), San Pedro (-8%)",
+    "Central dept (Asunción metro) is arroz-only, no soja, no maíz zafriña (urban/peri-urban pattern)"
+  ]
+}

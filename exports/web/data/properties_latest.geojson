@@ -6,50 +6,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -57.6442169,
-          -25.2784518
-        ]
-      },
-      "properties": {
-        "id": "ic_23a7380474b7",
-        "source": "infocasas",
-        "source_id": "193748502",
-        "source_url": "https://www.infocasas.com.py/vendo-departamento-1-dormitorio-en-zuba-centro-2/193748502",
-        "scraped_at_utc": "2026-07-11T01:56:46.079047+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.2705691,
-          -25.3461531
-        ]
-      },
-      "properties": {
-        "id": "ic_387e12994427",
-        "source": "infocasas",
-        "source_id": "193838949",
-        "source_url": "https://www.infocasas.com.py/vendo-exclusiva-casa-en-san-bernardino/193838949",
-        "scraped_at_utc": "2026-07-11T01:56:49.097693+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -57.54668881735362,
           -25.491235948956906
         ]
@@ -59,77 +15,11 @@
         "source": "infocasas",
         "source_id": "193886673",
         "source_url": "https://www.infocasas.com.py/hermosa-granja-avicola-en-villeta-con-2-galpones-para-produccion-de-carne/193886673",
-        "scraped_at_utc": "2026-07-11T01:56:49.107561+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:11.273223+00:00",
         "price_pyg": 3400000000,
         "price_usd": 453333.3333333333,
         "area_ha": 3.0,
         "$/ha": 151111.1111111111,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -54.3077191,
-          -24.0643503
-        ]
-      },
-      "properties": {
-        "id": "ic_f60cf35cfb62",
-        "source": "infocasas",
-        "source_id": "193966748",
-        "source_url": "https://www.infocasas.com.py/vendo-edificio-comercial-saltos-del-guaira-cod-030/193966748",
-        "scraped_at_utc": "2026-07-11T01:56:52.359932+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.57592599999999,
-          -25.2637399
-        ]
-      },
-      "properties": {
-        "id": "ic_ad7c5c69ef7a",
-        "source": "infocasas",
-        "source_id": "193797891",
-        "source_url": "https://www.infocasas.com.py/residencia-de-lujo-en-barrio-mariscal-estigarribia/193797891",
-        "scraped_at_utc": "2026-07-11T01:56:55.956604+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5799633,
-          -25.3001686
-        ]
-      },
-      "properties": {
-        "id": "ic_3c4028f8f445",
-        "source": "infocasas",
-        "source_id": "193633566",
-        "source_url": "https://www.infocasas.com.py/palmanova-pacheco-super-descuento-ultimas-3-unidades-barrio-recoleta-villa-morra-125mil-usd/193633566",
-        "scraped_at_utc": "2026-07-11T01:56:58.970539+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
         "attrs": {}
       }
     },
@@ -147,121 +37,11 @@
         "source": "infocasas",
         "source_id": "193516742",
         "source_url": "https://www.infocasas.com.py/oportunidad-de-inversion-en-limpio/193516742",
-        "scraped_at_utc": "2026-07-11T01:56:58.999351+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:14.299518+00:00",
         "price_pyg": 350000000,
         "price_usd": 46666.666666666664,
         "area_ha": 1.0,
         "$/ha": 46666.666666666664,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5662699,
-          -25.2678523
-        ]
-      },
-      "properties": {
-        "id": "ic_909ee15490ef",
-        "source": "infocasas",
-        "source_id": "193764539",
-        "source_url": "https://www.infocasas.com.py/exclusiva-casa-en-venta-a-estrenar-en-mburucuya-asuncion/193764539",
-        "scraped_at_utc": "2026-07-11T01:57:02.205298+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5759105,
-          -25.2999633
-        ]
-      },
-      "properties": {
-        "id": "ic_e49096bba2ae",
-        "source": "infocasas",
-        "source_id": "193694313",
-        "source_url": "https://www.infocasas.com.py/vendo-departamentos-en-barrio-mcal-estigarribia-a-pasos-de-villa-morrarecoleta-de-asuncion/193694313",
-        "scraped_at_utc": "2026-07-11T01:57:05.036879+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5762727,
-          -25.2996994
-        ]
-      },
-      "properties": {
-        "id": "ic_f5eb18cd0bb2",
-        "source": "infocasas",
-        "source_id": "193668013",
-        "source_url": "https://www.infocasas.com.py/inversion-exclusiva-departamentos-en-pozo-con-ubicacion-premium-a-minutos-del-shopping-mariscal-lopez/193668013",
-        "scraped_at_utc": "2026-07-11T01:57:08.589443+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.56591340220076,
-          -25.286377931157283
-        ]
-      },
-      "properties": {
-        "id": "ic_76936bca308a",
-        "source": "infocasas",
-        "source_id": "193589906",
-        "source_url": "https://www.infocasas.com.py/departamento-a-2-cuadras-del-shopping-del-sol/193589906",
-        "scraped_at_utc": "2026-07-11T01:57:11.756960+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5079912,
-          -25.5628115
-        ]
-      },
-      "properties": {
-        "id": "ic_76b434054f61",
-        "source": "infocasas",
-        "source_id": "193480510",
-        "source_url": "https://www.infocasas.com.py/terreno-venta-recoleta-asuncion-/193480510",
-        "scraped_at_utc": "2026-07-11T01:57:14.891974+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
         "attrs": {}
       }
     },
@@ -279,95 +59,7 @@
         "source": "infocasas",
         "source_id": "193715617",
         "source_url": "https://www.infocasas.com.py/vendo-terreno-para-desarollo-o-estacion-de-servicio-sobre-ruta-mariscal-estigarribia-en-san-lorenzo-zona-una/193715617",
-        "scraped_at_utc": "2026-07-11T01:57:14.904676+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5783016,
-          -25.3058004
-        ]
-      },
-      "properties": {
-        "id": "ic_cacb612c1d6a",
-        "source": "infocasas",
-        "source_id": "193111846",
-        "source_url": "https://www.infocasas.com.py/venta-de-terreno-en-los-laureles-asuncion/193111846",
-        "scraped_at_utc": "2026-07-11T01:57:17.731993+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -54.6111274,
-          -25.5205427
-        ]
-      },
-      "properties": {
-        "id": "ic_f63caabce2be",
-        "source": "infocasas",
-        "source_id": "193396907",
-        "source_url": "https://www.infocasas.com.py/oportunidad-unica-en-zona-centro-ciudad-del-este/193396907",
-        "scraped_at_utc": "2026-07-11T01:57:20.906023+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -54.6461808,
-          -25.3472748
-        ]
-      },
-      "properties": {
-        "id": "ic_51e4f29749f8",
-        "source": "infocasas",
-        "source_id": "193267383",
-        "source_url": "https://www.infocasas.com.py/departamento-en-pozo-terrazas-del-lago/193267383",
-        "scraped_at_utc": "2026-07-11T01:57:23.963981+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 0.4,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -54.63569285096793,
-          -25.512694090107566
-        ]
-      },
-      "properties": {
-        "id": "ic_06516dec5170",
-        "source": "infocasas",
-        "source_id": "193253321",
-        "source_url": "https://www.infocasas.com.py/piso-40-inverti-seguro-en-ciudad-del-este/193253321",
-        "scraped_at_utc": "2026-07-11T01:57:26.850054+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:17.455018+00:00",
         "price_pyg": null,
         "price_usd": null,
         "area_ha": 1.0,
@@ -389,95 +81,7 @@
         "source": "infocasas",
         "source_id": "193261731",
         "source_url": "https://www.infocasas.com.py/vendo-duplex-a-estrenar-en-laurelty-luque/193261731",
-        "scraped_at_utc": "2026-07-11T01:57:26.857980+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5584173,
-          -25.2978156
-        ]
-      },
-      "properties": {
-        "id": "ic_a5eb4eef9d5d",
-        "source": "infocasas",
-        "source_id": "193718365",
-        "source_url": "https://www.infocasas.com.py/oportunidad-de-inversion-vendo-casa-en-barrio-herrera/193718365",
-        "scraped_at_utc": "2026-07-11T01:57:30.184852+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 2.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5655958,
-          -25.2812233
-        ]
-      },
-      "properties": {
-        "id": "ic_29d98059d644",
-        "source": "infocasas",
-        "source_id": "193133044",
-        "source_url": "https://www.infocasas.com.py/extraordinaria-oportunidad-de-inversion-a-50-mts-del-shopping-del-sol/193133044",
-        "scraped_at_utc": "2026-07-11T01:57:33.532042+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.57118382491172,
-          -25.28607517731303
-        ]
-      },
-      "properties": {
-        "id": "ic_b8c93a606f21",
-        "source": "infocasas",
-        "source_id": "193340789",
-        "source_url": "https://www.infocasas.com.py/terreno-en-venta-barrio-manora/193340789",
-        "scraped_at_utc": "2026-07-11T01:57:40.315418+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.562459,
-          -25.278806
-        ]
-      },
-      "properties": {
-        "id": "ic_d24a2cc521bf",
-        "source": "infocasas",
-        "source_id": "193155532",
-        "source_url": "https://www.infocasas.com.py/exclusivo-penthouse-en-altura-aether-lujo-y-vistas-panoramicas-en-un-solo-lugar/193155532",
-        "scraped_at_utc": "2026-07-11T01:57:43.087158+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:20.756732+00:00",
         "price_pyg": null,
         "price_usd": null,
         "area_ha": 1.0,
@@ -499,141 +103,7 @@
         "source": "infocasas",
         "source_id": "192902032",
         "source_url": "https://www.infocasas.com.py/vendo-departamento-en-pozo-con-financiamiento-en-insignia-terra-2/192902032",
-        "scraped_at_utc": "2026-07-11T01:57:43.099542+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5252754,
-          -25.3204119
-        ]
-      },
-      "properties": {
-        "id": "ic_22b9d79db2c3",
-        "source": "infocasas",
-        "source_id": "192935622",
-        "source_url": "https://www.infocasas.com.py/2-terrenos-en-fernando-de-la-mora-barrio-mcal-lopez/192935622",
-        "scraped_at_utc": "2026-07-11T01:57:46.371242+00:00",
-        "price_pyg": 1268100000,
-        "price_usd": 169080.0,
-        "area_ha": 1.0,
-        "$/ha": 169080.0,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -56.44811295460473,
-          -25.482300337799046
-        ]
-      },
-      "properties": {
-        "id": "ic_2e892c5243b1",
-        "source": "infocasas",
-        "source_id": "193261047",
-        "source_url": "https://www.infocasas.com.py/hectareas-en-venta-frente-a-la-rotonda-principal-de-coronel-oviedo/193261047",
-        "scraped_at_utc": "2026-07-11T01:57:50.094250+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.305996417999275,
-          -25.294897094375266
-        ]
-      },
-      "properties": {
-        "id": "ic_7336579ca975",
-        "source": "infocasas",
-        "source_id": "193035312",
-        "source_url": "https://www.infocasas.com.py/departamento-2-dorm-en-sanber-con-financiacion/193035312",
-        "scraped_at_utc": "2026-07-11T01:57:53.380636+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.57196879325421,
-          -25.27965733303653
-        ]
-      },
-      "properties": {
-        "id": "ic_97920afca910",
-        "source": "infocasas",
-        "source_id": "193887952",
-        "source_url": "https://www.infocasas.com.py/posibilidades-infinitas-terreno-premium-en-las-lomas/193887952",
-        "scraped_at_utc": "2026-07-11T01:57:56.295558+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.56105146789496,
-          -25.279948368147032
-        ]
-      },
-      "properties": {
-        "id": "ic_dbe0bca18682",
-        "source": "infocasas",
-        "source_id": "192917853",
-        "source_url": "https://www.infocasas.com.py/departamento-en-venta-c-cochera-en-las-lomas-las-carmelitas/192917853",
-        "scraped_at_utc": "2026-07-11T01:57:59.594815+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {
-          "garage": 16
-        }
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.6031092,
-          -25.2719955
-        ]
-      },
-      "properties": {
-        "id": "ic_41088f5ddb5b",
-        "source": "infocasas",
-        "source_id": "193070035",
-        "source_url": "https://www.infocasas.com.py/en-venta-dpto-zona-barrio-jara/193070035",
-        "scraped_at_utc": "2026-07-11T01:58:02.727850+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:23.534889+00:00",
         "price_pyg": null,
         "price_usd": null,
         "area_ha": 1.0,
@@ -655,99 +125,11 @@
         "source": "infocasas",
         "source_id": "193037083",
         "source_url": "https://www.infocasas.com.py/elegante-duplex-en-jardin-de-oro/193037083",
-        "scraped_at_utc": "2026-07-11T01:58:02.767287+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:26.466384+00:00",
         "price_pyg": 1330000000,
         "price_usd": 177333.33333333334,
         "area_ha": 1.0,
         "$/ha": 177333.33333333334,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.5741465,
-          -25.2681653
-        ]
-      },
-      "properties": {
-        "id": "ic_fc81e7d4d389",
-        "source": "infocasas",
-        "source_id": "192314349",
-        "source_url": "https://www.infocasas.com.py/inversion-en-molas-lopez-ultimo-2-dormitorios-con-cochera-incluida/192314349",
-        "scraped_at_utc": "2026-07-11T01:58:05.863336+00:00",
-        "price_pyg": 752000000,
-        "price_usd": 100266.66666666667,
-        "area_ha": 1.0,
-        "$/ha": 100266.66666666667,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.6283802694122,
-          -25.301255287173127
-        ]
-      },
-      "properties": {
-        "id": "ic_acb0312e4339",
-        "source": "infocasas",
-        "source_id": "192360784",
-        "source_url": "https://www.infocasas.com.py/propiedad-sobre-avda-peru-terreno-c-casa-p-refaccionar-cod-1329-/192360784",
-        "scraped_at_utc": "2026-07-11T01:58:09.270053+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.63256060485922,
-          -25.293491675827454
-        ]
-      },
-      "properties": {
-        "id": "ic_ee986d15e30a",
-        "source": "infocasas",
-        "source_id": "192462288",
-        "source_url": "https://www.infocasas.com.py/en-venta-departamento-en-el-centro-de-asuncion/192462288",
-        "scraped_at_utc": "2026-07-11T01:58:12.112062+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -55.99007521915627,
-          -25.472538791089587
-        ]
-      },
-      "properties": {
-        "id": "ic_6ad05d2d2aae",
-        "source": "infocasas",
-        "source_id": "192711028",
-        "source_url": "https://www.infocasas.com.py/en-venta-terreno-en-toro-blanco/192711028",
-        "scraped_at_utc": "2026-07-11T01:58:15.144852+00:00",
-        "price_pyg": 60000000,
-        "price_usd": 8000.0,
-        "area_ha": 1.0,
-        "$/ha": 8000.0,
         "attrs": {}
       }
     },
@@ -765,51 +147,7 @@
         "source": "infocasas",
         "source_id": "192876663",
         "source_url": "https://www.infocasas.com.py/en-venta-amplio-departarmento-luque-zona-cit-proyecto-desarrollado-por-urban-domus/192876663",
-        "scraped_at_utc": "2026-07-11T01:58:15.157899+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -57.2859467,
-          -25.319285
-        ]
-      },
-      "properties": {
-        "id": "ic_188ab1f5099f",
-        "source": "infocasas",
-        "source_id": "193132635",
-        "source_url": "https://www.infocasas.com.py/terreno-en-venta-de-700-m2-en-barrio-cerrado-en-san-bernardino/193132635",
-        "scraped_at_utc": "2026-07-11T01:58:18.080826+00:00",
-        "price_pyg": null,
-        "price_usd": null,
-        "area_ha": 1.0,
-        "$/ha": null,
-        "attrs": {}
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -54.6452766,
-          -25.4822766
-        ]
-      },
-      "properties": {
-        "id": "ic_1dfb759e7dcc",
-        "source": "infocasas",
-        "source_id": "191211916",
-        "source_url": "https://www.infocasas.com.py/departamentos-exclusivos-en-pozo-en-ciudad-del-este-la-vista-al-lago-de-la-republica/191211916",
-        "scraped_at_utc": "2026-07-11T01:58:21.142773+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:29.633646+00:00",
         "price_pyg": null,
         "price_usd": null,
         "area_ha": 1.0,
@@ -831,11 +169,629 @@
         "source": "infocasas",
         "source_id": "193769939",
         "source_url": "https://www.infocasas.com.py/en-venta-terreno-en-lambare/193769939",
-        "scraped_at_utc": "2026-07-11T01:58:21.152714+00:00",
+        "scraped_at_utc": "2026-07-11T03:02:32.908605+00:00",
         "price_pyg": 350000000,
         "price_usd": 46666.666666666664,
         "area_ha": 1.0,
         "$/ha": 46666.666666666664,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.548132,
+          -25.3268586
+        ]
+      },
+      "properties": {
+        "id": "ic_8f70f5fb1466",
+        "source": "infocasas",
+        "source_id": "193891208",
+        "source_url": "https://www.infocasas.com.py/terreno-en-esquina-en-fernando-zona-norte/193891208",
+        "scraped_at_utc": "2026-07-11T03:02:35.887697+00:00",
+        "price_pyg": 750000000,
+        "price_usd": 100000.0,
+        "area_ha": 1.0,
+        "$/ha": 100000.0,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.51733436628971,
+          -25.317795951982596
+        ]
+      },
+      "properties": {
+        "id": "ic_593949fc794e",
+        "source": "infocasas",
+        "source_id": "193074009",
+        "source_url": "https://www.infocasas.com.py/insignia-7-2-dormitorios-en-pozo-shopping-pinedo/193074009",
+        "scraped_at_utc": "2026-07-11T03:02:38.654803+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.37041259999999,
+          -25.4016379
+        ]
+      },
+      "properties": {
+        "id": "ic_135d8eb5466c",
+        "source": "infocasas",
+        "source_id": "193742274",
+        "source_url": "https://www.infocasas.com.py/vendo-lotes-en-la-ciudad-de-itaugua-/193742274",
+        "scraped_at_utc": "2026-07-11T03:02:41.968211+00:00",
+        "price_pyg": 45000000,
+        "price_usd": 6000.0,
+        "area_ha": 1.0,
+        "$/ha": 6000.0,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5087339,
+          -25.1922233
+        ]
+      },
+      "properties": {
+        "id": "ic_f73961626468",
+        "source": "infocasas",
+        "source_id": "193556135",
+        "source_url": "https://www.infocasas.com.py/departamento-de-2-habitaciones-con-patio-en-altamira-surubii/193556135",
+        "scraped_at_utc": "2026-07-11T03:02:44.893388+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 2.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.6009483,
+          -25.3779111
+        ]
+      },
+      "properties": {
+        "id": "ic_87d921627371",
+        "source": "infocasas",
+        "source_id": "193332894",
+        "source_url": "https://www.infocasas.com.py/chalet-a-estrenar-sobre-santa-teresa-en-el-barrio-villa-bonita-de-villa-elisa/193332894",
+        "scraped_at_utc": "2026-07-11T03:02:48.154190+00:00",
+        "price_pyg": 525000000,
+        "price_usd": 70000.0,
+        "area_ha": 1.0,
+        "$/ha": 70000.0,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.50500103510464,
+          -25.358997122515174
+        ]
+      },
+      "properties": {
+        "id": "ic_53d286a72b66",
+        "source": "infocasas",
+        "source_id": "193270072",
+        "source_url": "https://www.infocasas.com.py/vendo-casa-san-lorenzo-lucerito/193270072",
+        "scraped_at_utc": "2026-07-11T03:02:51.154455+00:00",
+        "price_pyg": 430000000,
+        "price_usd": 57333.333333333336,
+        "area_ha": 3.0,
+        "$/ha": 19111.111111111113,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.51572540000001,
+          -25.3239688
+        ]
+      },
+      "properties": {
+        "id": "ic_8203b75e8319",
+        "source": "infocasas",
+        "source_id": "193005942",
+        "source_url": "https://www.infocasas.com.py/vendo-a-estrenar-duplex-3-dorm-z-pinedo-shopping-cod-1357/193005942",
+        "scraped_at_utc": "2026-07-11T03:02:53.816220+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.6293184,
+          -25.3538363
+        ]
+      },
+      "properties": {
+        "id": "ic_9dc9c98c4291",
+        "source": "infocasas",
+        "source_id": "193863232",
+        "source_url": "https://www.infocasas.com.py/vendo/193863232",
+        "scraped_at_utc": "2026-07-11T03:02:56.725097+00:00",
+        "price_pyg": 400000000,
+        "price_usd": 53333.333333333336,
+        "area_ha": 1.0,
+        "$/ha": 53333.333333333336,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.618143554955104,
+          -25.362992517394176
+        ]
+      },
+      "properties": {
+        "id": "ic_b88f124a6459",
+        "source": "infocasas",
+        "source_id": "193651371",
+        "source_url": "https://www.infocasas.com.py/vendo-casa-z-col-sek/193651371",
+        "scraped_at_utc": "2026-07-11T03:02:59.807392+00:00",
+        "price_pyg": 595000000,
+        "price_usd": 79333.33333333333,
+        "area_ha": 1.0,
+        "$/ha": 79333.33333333333,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.4846351,
+          -25.265465
+        ]
+      },
+      "properties": {
+        "id": "ic_38905475a2c2",
+        "source": "infocasas",
+        "source_id": "193917893",
+        "source_url": "https://www.infocasas.com.py/duplex-en-alquiler-con-piscina-zona-conmebol/193917893",
+        "scraped_at_utc": "2026-07-11T03:03:06.931962+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.4887698,
+          -25.1926999
+        ]
+      },
+      "properties": {
+        "id": "ic_4548f43643aa",
+        "source": "infocasas",
+        "source_id": "193929241",
+        "source_url": "https://www.infocasas.com.py/venta-casa-quinta-limpio/193929241",
+        "scraped_at_utc": "2026-07-11T03:03:10.131257+00:00",
+        "price_pyg": 780000000,
+        "price_usd": 104000.0,
+        "area_ha": 5.0,
+        "$/ha": 20800.0,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5130425,
+          -25.2555617
+        ]
+      },
+      "properties": {
+        "id": "ic_53fdf1ab0fa3",
+        "source": "infocasas",
+        "source_id": "193676796",
+        "source_url": "https://www.infocasas.com.py/vendo-duplex-a-estrenar-de-3-habitaciones-con-escritorio-luque/193676796",
+        "scraped_at_utc": "2026-07-11T03:03:13.323779+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 3.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.61041782418034,
+          -25.375700436303156
+        ]
+      },
+      "properties": {
+        "id": "ic_c96fd14af1c4",
+        "source": "infocasas",
+        "source_id": "193010272",
+        "source_url": "https://www.infocasas.com.py/en-venta-deposito-en-villa-elisa/193010272",
+        "scraped_at_utc": "2026-07-11T03:03:16.457069+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.604217408805845,
+          -25.342401361579697
+        ]
+      },
+      "properties": {
+        "id": "ic_2f3a441e2180",
+        "source": "infocasas",
+        "source_id": "192964959",
+        "source_url": "https://www.infocasas.com.py/en-venta-paseo-comercial-generando-renta/192964959",
+        "scraped_at_utc": "2026-07-11T03:03:19.686991+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5100651,
+          -25.2640311
+        ]
+      },
+      "properties": {
+        "id": "ic_5ed11492ca6d",
+        "source": "infocasas",
+        "source_id": "192300675",
+        "source_url": "https://www.infocasas.com.py/casa-moderna-en-villa-adela-/192300675",
+        "scraped_at_utc": "2026-07-11T03:03:23.231148+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5114869,
+          -25.2633144
+        ]
+      },
+      "properties": {
+        "id": "ic_ff546d533ca7",
+        "source": "infocasas",
+        "source_id": "192942699",
+        "source_url": "https://www.infocasas.com.py/en-venta-detapartamento-un-dormitorio-con-todos-los-amenities/192942699",
+        "scraped_at_utc": "2026-07-11T03:03:26.496903+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.6253921,
+          -25.3424981
+        ]
+      },
+      "properties": {
+        "id": "ic_8ca9dbff14ac",
+        "source": "infocasas",
+        "source_id": "193498841",
+        "source_url": "https://www.infocasas.com.py/vendo-hermosa-propiedad-en-barrio-machio-lambare/193498841",
+        "scraped_at_utc": "2026-07-11T03:03:29.704759+00:00",
+        "price_pyg": 1200000000,
+        "price_usd": 160000.0,
+        "area_ha": 2.0,
+        "$/ha": 80000.0,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.52312360000001,
+          -25.3193472
+        ]
+      },
+      "properties": {
+        "id": "ic_c874892cb94a",
+        "source": "infocasas",
+        "source_id": "193913063",
+        "source_url": "https://www.infocasas.com.py/departamento-a-estrenar-zona-pinedo/193913063",
+        "scraped_at_utc": "2026-07-11T03:03:32.920966+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5036762,
+          -25.2481966
+        ]
+      },
+      "properties": {
+        "id": "ic_f46b4cac995c",
+        "source": "infocasas",
+        "source_id": "193945333",
+        "source_url": "https://www.infocasas.com.py/en-venta-duplex-en-luque-jardin-de-oro-cerca-de-plaza-madero/193945333",
+        "scraped_at_utc": "2026-07-11T03:03:36.112243+00:00",
+        "price_pyg": 1000000000,
+        "price_usd": 133333.33333333334,
+        "area_ha": 1.0,
+        "$/ha": 133333.33333333334,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.552064145493176,
+          -25.312098605601328
+        ]
+      },
+      "properties": {
+        "id": "ic_44ef4bc35f30",
+        "source": "infocasas",
+        "source_id": "193893857",
+        "source_url": "https://www.infocasas.com.py/en-venta-casa-en-fernando-de-la-mora-zona-norte/193893857",
+        "scraped_at_utc": "2026-07-11T03:03:39.197352+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.536292,
+          -25.3224622
+        ]
+      },
+      "properties": {
+        "id": "ic_e89eb51eae91",
+        "source": "infocasas",
+        "source_id": "193851662",
+        "source_url": "https://www.infocasas.com.py/vendo-departamento-a-estrenar-en-fernando-de-la-mora-zona-norte/193851662",
+        "scraped_at_utc": "2026-07-11T03:03:42.275430+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5221021,
+          -25.2937886
+        ]
+      },
+      "properties": {
+        "id": "ic_92d1e262b6de",
+        "source": "infocasas",
+        "source_id": "193846078",
+        "source_url": "https://www.infocasas.com.py/vendo-terreno-10515m2-z-super-stock-britez-borges-luque-cod-1386/193846078",
+        "scraped_at_utc": "2026-07-11T03:03:45.138520+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.450391380939244,
+          -25.275496900224397
+        ]
+      },
+      "properties": {
+        "id": "ic_21165beb99e3",
+        "source": "infocasas",
+        "source_id": "193852411",
+        "source_url": "https://www.infocasas.com.py/quinta-en-marambure-luque/193852411",
+        "scraped_at_utc": "2026-07-11T03:03:48.114817+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.4901545,
+          -25.3114954
+        ]
+      },
+      "properties": {
+        "id": "ic_19210f4f433c",
+        "source": "infocasas",
+        "source_id": "193667545",
+        "source_url": "https://www.infocasas.com.py/venta-duplex-luque-central-paraguay/193667545",
+        "scraped_at_utc": "2026-07-11T03:03:51.090238+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.49958753585816,
+          -25.259552134233125
+        ]
+      },
+      "properties": {
+        "id": "ic_109e51e42a2a",
+        "source": "infocasas",
+        "source_id": "193457075",
+        "source_url": "https://www.infocasas.com.py/en-venta-8947-m2-en-luque/193457075",
+        "scraped_at_utc": "2026-07-11T03:03:54.381255+00:00",
+        "price_pyg": null,
+        "price_usd": null,
+        "area_ha": 1.0,
+        "$/ha": null,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.6253921,
+          -25.3424981
+        ]
+      },
+      "properties": {
+        "id": "ic_cab9ab749402",
+        "source": "infocasas",
+        "source_id": "193398405",
+        "source_url": "https://www.infocasas.com.py/vendo-terreno-en-la-ciudad-de-lambare-barrio-san-antonio-/193398405",
+        "scraped_at_utc": "2026-07-11T03:03:57.589300+00:00",
+        "price_pyg": 320000000,
+        "price_usd": 42666.666666666664,
+        "area_ha": 1.0,
+        "$/ha": 42666.666666666664,
+        "attrs": {}
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.499658449902114,
+          -25.38268064899792
+        ]
+      },
+      "properties": {
+        "id": "ic_5d7ee2cffa53",
+        "source": "infocasas",
+        "source_id": "193167998",
+        "source_url": "https://www.infocasas.com.py/vendo-hermosa-casa-en-san-lorenzo-/193167998",
+        "scraped_at_utc": "2026-07-11T03:04:01.268266+00:00",
+        "price_pyg": 605000000,
+        "price_usd": 80666.66666666667,
+        "area_ha": 3.0,
+        "$/ha": 26888.88888888889,
+        "attrs": {
+          "rooms": 1
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.624939282435165,
+          -25.37022627461675
+        ]
+      },
+      "properties": {
+        "id": "ic_bb0d63bdeb29",
+        "source": "infocasas",
+        "source_id": "193346124",
+        "source_url": "https://www.infocasas.com.py/vendo-casa-en-lambare-oportunidad-/193346124",
+        "scraped_at_utc": "2026-07-11T03:04:04.712898+00:00",
+        "price_pyg": 1250000000,
+        "price_usd": 166666.66666666666,
+        "area_ha": 1.0,
+        "$/ha": 166666.66666666666,
         "attrs": {}
       }
     }
