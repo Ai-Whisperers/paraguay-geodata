@@ -264,7 +264,9 @@ L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map
 const layerState = {
     tile_fabric:        { label: 'National tile fabric',     active: true,  features: '?', source: 'derived' },
     priority_tiles:     { label: 'Priority tiles',           active: true,  features: '?', source: 'derived' },
-    departamentos_py:   { label: 'Departamentos (OSM)',      active: true,  features: '?', source: 'OSM' },
+    departamentos_py:   { label: 'Departamentos (OSM)',      active: true,  features: '?', source: 'OSM/Geofabrik' },
+    distritos_py:        { label: 'Distritos (OSM)',          active: false, features: '?', source: 'OSM/Geofabrik' },
+    barrios_py:          { label: 'Barrios (OSM)',            active: false, features: '?', source: 'OSM/Geofabrik' },
     inbio_soja:         { label: 'Soja area zafra 2025-2026',active: true,  features: '?', source: 'INBIO (PDF)' },
     properties_infocasas:{label: 'Properties (infocasas)',   active: true,  features: '?', source: 'infocasas.com.py' },
     gbif_species:       { label: 'Species (GBIF)',           active: false, features: '?', source: 'GBIF' },
@@ -328,6 +330,8 @@ const LAYER_GROUPS = {
     tile_fabric:        [L.layerGroup()],
     priority_tiles:     [L.layerGroup()],
     departamentos_py:   [L.layerGroup()],
+    distritos_py:        [L.layerGroup()],
+    barrios_py:          [L.layerGroup()],
     inbio_soja:         [L.layerGroup()],
     properties_infocasas:[L.layerGroup()],
     gbif_species:       [L.layerGroup()],
@@ -547,7 +551,7 @@ async function loadINBIOSoja() {
         const group = LAYER_GROUPS.inbio_soja[0];
         features.forEach(f => {
             const p = f.properties;
-            const iso = p.iso_code || '';
+            const iso = p.iso_code || (p.osm_id ? 'OSM ' + p.osm_id : '');
             const data = index[iso] || index[p.name] || {};
             // Color by soja density
             const soja = data.soja || 0;
@@ -570,7 +574,7 @@ async function loadINBIOSoja() {
                     const cent = l.getBounds().getCenter();
                     l.bindPopup(`
                         <h3>${p.name || data.depto}</h3>
-                        <div style="font-size:10px; color:var(--fg-dim);">ISO ${iso}</div>
+                        <div style="font-size:10px; color:var(--fg-dim);">${p.code ? 'Código DGEEC ' + p.code + ' · admin_level ' + (p.admin_level || '?') : ''}</div>
                         <hr style="border-color:var(--line); margin:6px 0;">
                         <div style="font-size:11px; color:var(--accent); margin-bottom:4px;"><strong>INBIO zafra 2025/2026</strong></div>
                         <div class="row"><span class="k">Soja</span><span class="v">${formatHA(data.soja)}</span></div>
@@ -578,7 +582,7 @@ async function loadINBIOSoja() {
                         <div class="row"><span class="k">Arroz</span><span class="v">${formatHA(data.arroz)}</span></div>
                         <div class="row"><span class="k">Maíz zafriña</span><span class="v">${formatHA(data.maiz)}</span></div>
                         <hr style="border-color:var(--line); margin:6px 0;">
-                        <div style="font-size:10px; color:var(--fg-dim);">Source: INBIO satellite estimate Apr 2026</div>
+                        <div style="font-size:10px; color:var(--fg-dim);">Source: INBIO satellite estimate Apr 2026 + OSM boundary via Geofabrik</div>
                     `);
                 }
             });
@@ -588,6 +592,77 @@ async function loadINBIOSoja() {
     } catch (e) {
         console.error('INBIO load failed:', e);
     }
+}
+
+// ========== DISTRITOS (Geofabrik) ==========
+async function loadDistritos() {
+    const urls = [
+        './data/admin/distritos_sub.geojson',
+        './data/admin/distritos.geojson',
+    ];
+    let total = 0;
+    const group = LAYER_GROUPS.distritos_py[0];
+    for (const url of urls) {
+        try {
+            const r = await fetch(url);
+            if (!r.ok) continue;
+            const d = await r.json();
+            const feats = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+            feats.forEach(f => {
+                L.geoJSON(f, {
+                    style: { color: '#10b981', weight: 0.6, fillOpacity: 0.03 },
+                    onEachFeature: (feat, l) => {
+                        const p = feat.properties;
+                        l.bindPopup(`
+                            <h3>${p.name}</h3>
+                            <div class="row"><span class="k">admin_level</span><span class="v">${p.admin_level}</span></div>
+                            <div class="row"><span class="k">OSM id</span><span class="v">${p.osm_id || '—'}</span></div>
+                            <div style="font-size:10px; color:var(--fg-dim); margin-top:4px;">Source: OSM via Geofabrik 2026</div>
+                        `);
+                    }
+                }).addTo(group);
+            });
+            total += feats.length;
+        } catch (e) {}
+    }
+    updateLayerCount('distritos_py', total);
+    if (layerState.distritos_py.active) group.addTo(map);
+}
+
+// ========== BARRIOS / LOCALIDADES (Geofabrik) ==========
+async function loadBarrios() {
+    const urls = [
+        './data/admin/localidades.geojson',
+        './data/admin/barrios_py.geojson',
+        './data/admin/barrios_int.geojson',
+        './data/admin/barrios_sub.geojson',
+    ];
+    let total = 0;
+    const group = LAYER_GROUPS.barrios_py[0];
+    for (const url of urls) {
+        try {
+            const r = await fetch(url);
+            if (!r.ok) continue;
+            const d = await r.json();
+            const feats = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+            // Don't bind popups for all 141+236+852 — too heavy
+            feats.forEach(f => {
+                L.geoJSON(f, {
+                    style: { color: '#64748b', weight: 0.4, fillOpacity: 0.02 },
+                    onEachFeature: (feat, l) => {
+                        const p = feat.properties;
+                        l.on('click', e => { L.popup()
+                            .setLatLng(e.latlng)
+                            .setContent(`<h3>${p.name}</h3><div>admin_level ${p.admin_level}</div>`)
+                            .openOn(map); });
+                    }
+                }).addTo(group);
+            });
+            total += feats.length;
+        } catch (e) {}
+    }
+    updateLayerCount('barrios_py', total);
+    if (layerState.barrios_py.active) group.addTo(map);
 }
 
 // ========== PROPERTIES (infocasas) ==========
@@ -726,6 +801,8 @@ loadClimate();
 loadINBIOWidget();
 loadTileFabric();
 loadDepartamentos();
+loadDistritos();
+loadBarrios();
 loadINBIOSoja();
 loadProperties();
 loadGBIF();
