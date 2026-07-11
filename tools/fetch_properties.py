@@ -377,6 +377,14 @@ def main(argv: list[str]) -> int:
         ]
         print(f"\n[fetch] bbox filter: {before} → {len(all_records)} records in {W},{S},{E},{N}")
 
+    # Per-department snapshot file (so subsequent runs can merge without overwriting)
+    # Use either --dept argument or derive from listings (Central dept cluster etc)
+    dept_slug = args.dept or "latest"
+    raw_path = REPO_ROOT / "data" / "properties" / "snapshots" / f"{dept_slug}_{datetime.now(timezone.utc).strftime('%Y-%m-%d_%H%M')}.geojson"
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    raw_path.write_text(json.dumps({"raw_records": all_records}, indent=2))
+    print(f"\n[fetch] per-dept raw snapshot: {raw_path} ({raw_path.stat().st_size} bytes)")
+
     # Write raw snapshot (gitignored)
     raw_path = REPO_ROOT / "data" / "properties" / "snapshots" / f"all_{datetime.now(timezone.utc).strftime('%Y-%m-%d')}.geojson"
     raw_path.parent.mkdir(parents=True, exist_ok=True)
