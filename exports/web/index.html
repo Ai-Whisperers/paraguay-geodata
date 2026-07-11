@@ -207,7 +207,97 @@
         @media (min-width: 881px) {
             #sidebarToggle { display: none; }
         }
-    </style>
+    
+        /* Geocoder search results */
+        .geo-results {
+            position: absolute;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-top: 2px;
+            max-height: 320px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .geo-result {
+            padding: 8px 10px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+        .geo-result:hover {
+            background: var(--bg-hover);
+        }
+        .geo-result:last-child {
+            border-bottom: none;
+        }
+        .geo-result-name {
+            font-weight: 600;
+            color: var(--fg);
+            font-size: 12px;
+        }
+        .geo-result-addr {
+            color: var(--fg-dim);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+        .geo-result-coord {
+            color: var(--accent);
+            font-size: 9px;
+            margin-top: 2px;
+            font-family: ui-monospace, monospace;
+        }
+
+        /* Lang switcher */
+        #langSwitcher select {
+            font-family: inherit;
+        }
+
+        /* Skip-to-content for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 8px 16px;
+            z-index: 10000;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus indicators (WCAG 2.2 AA) */
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* High contrast support */
+        @media (prefers-contrast: more) {
+            :root {
+                --fg: #ffffff;
+                --fg-dim: #cccccc;
+                --border: #555555;
+                --accent: #00ffff;
+            }
+        }
+
+        /* Reduce motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+</style>
 </head>
 <body>
 <div class="loading-banner" id="loading">Loading Paraguay geodata…</div>
@@ -230,14 +320,14 @@
     <aside>
         <h2>Coverage (live)</h2>
         <div class="stats">
-            <div class="stat"><div class="num" id="statTiles">—</div><div class="label">tile fabric (10×10 km)</div></div>
-            <div class="stat"><div class="num" id="statPriority">—</div><div class="label">priority tiles</div></div>
-            <div class="stat"><div class="num" id="statDepts">—</div><div class="label">departamentos (OSM)</div></div>
-            <div class="stat"><div class="num" id="statListings">—</div><div class="label">properties (live)</div></div>
-            <div class="stat"><div class="num" id="statRoads">—</div><div class="label">OSM roads</div></div>
-            <div class="stat"><div class="num" id="statBuildings">—</div><div class="label">OSM buildings</div></div>
-            <div class="stat"><div class="num" id="statGbif">—</div><div class="label">species (GBIF)</div></div>
-            <div class="stat"><div class="num" id="statLayers">—</div><div class="label">layers on</div></div>
+            <div class="stat"><div class="num" id="statTiles">—</div><div class="label" id="statTiles-label">tile fabric (10×10 km)</div></div>
+            <div class="stat"><div class="num" id="statPriority">—</div><div class="label" id="statPriority-label">priority tiles</div></div>
+            <div class="stat"><div class="num" id="statDepts">—</div><div class="label" id="statDepts-label">departamentos (OSM)</div></div>
+            <div class="stat"><div class="num" id="statListings">—</div><div class="label" id="statListings-label">properties (live)</div></div>
+            <div class="stat"><div class="num" id="statRoads">—</div><div class="label" id="statRoads-label">OSM roads</div></div>
+            <div class="stat"><div class="num" id="statBuildings">—</div><div class="label" id="statBuildings-label">OSM buildings</div></div>
+            <div class="stat"><div class="num" id="statGbif">—</div><div class="label" id="statGbif-label">species (GBIF)</div></div>
+            <div class="stat"><div class="num" id="statLayers">—</div><div class="label" id="statLayers-label">layers on</div></div>
         </div>
 
         <h2>Insights (auto-generated)</h2>
@@ -315,9 +405,19 @@
             <div><a href="docs/research/PROPERTY_HOUSING_DATA_SOURCES.md" target="_blank" rel="noopener" style="color:var(--accent)">Survey catalog</a> <span style="color:var(--fg-dim)">— 30+ sources analyzed</span></div>
         </div>
 
-        <h2>Jump to an anchor city</h2>
+        <h2 data-i18n="search_title">Search address, city, or place</h2>
+        <div class="search" style="position:relative;">
+            <input type="text" id="geoSearch" placeholder="e.g. Calle Palma 123, Asunción, Lambaré, …" autocomplete="off" aria-label="Search address, city, or place">
+            <div id="geoSearchResults" class="geo-results" role="listbox"></div>
+        </div>
+        <div class="search-mode" style="font-size:10px; color:var(--fg-dim); margin-top:4px; display:flex; gap:8px;">
+            <label><input type="radio" name="searchMode" value="photon" checked> Photon geocoder</label>
+            <label><input type="radio" name="searchMode" value="local"> Local only</label>
+        </div>
+
+        <h2 data-i18n="jump_city">Jump to an anchor city</h2>
         <div class="search">
-            <input type="text" id="cityFilter" placeholder="Filter cities…" autocomplete="off">
+            <input type="text" id="cityFilter" placeholder="Filter cities…" autocomplete="off" aria-label="Filter cities">
         </div>
         <div class="city-list" id="cityList"></div>
 
@@ -350,6 +450,8 @@
 <script>
 // ========== MAP ==========
 const map = L.map('map', { zoomControl: true, worldCopyJump: true, preferCanvas: false }).setView([-23.5, -58.5], 6);
+
+map.on('zoomend', () => { if (window.__properties) clusterProperties(window.__properties); });
 
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18, attribution: '© OpenStreetMap contributors',
@@ -398,6 +500,12 @@ const layerState = {
     osm_buildings:       { group: 'urban', label: 'OSM building footprints · Asunción (top 50K)', active: false, features: '?', source: 'Geofabrik PY', info: 'Top 50K OSM building polygons in Asunción metro by footprint area. Urban-density viz.', color: '#a78bfa', url: 'data/buildings_asuncion.geojson' },
     osm_water:           { group: 'urban', label: 'OSM water bodies (40K)', active: false, features: '?', source: 'Geofabrik PY', info: 'Rivers, lakes, reservoirs from OSM.', color: '#3b82f6', url: 'data/water.geojson' },
 
+    // ---- Catastro Nacional ----
+    catastro_dpto:       { group: 'admin',  label: 'Catastro · Departamentos (18)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Official departamento boundaries + codes from Paraguay\'s land registry.', color: '#06b6d4', url: 'data/admin/catastro_dpto.geojson' },
+    catastro_dist:       { group: 'admin',  label: 'Catastro · Distritos (268)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Official distrito (municipality) boundaries from Catastro.', color: '#0891b2', url: 'data/admin/catastro_dist.geojson' },
+    catastro_parcels:    { group: 'admin',  label: 'Catastro · Parcelas sample (7.5K)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Sample of 7,500 land parcels with ownership padron + matrícula. Full dataset has 2.19M parcels.', color: '#0e7490', url: 'data/admin/catastro_parcels_sample.geojson' },
+    catastro_urba:       { group: 'admin',  label: 'Catastro · Urban zoning (470)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Urban zoning polygons (urbanización) from Catastro.', color: '#155e75', url: 'data/admin/catastro_urba.geojson' },
+
     // ---- biodiversity ----
     gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', source: 'GBIF', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
     gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', source: 'GBIF', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson' },
@@ -406,6 +514,7 @@ const layerState = {
 const LAYER_GROUPS_ORDER = [
     'tile_fabric', 'priority_tiles',
     'departamentos_py', 'distritos_py', 'barrios_py',
+    'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba',
     'inbio_soja', 'inbio_arroz', 'inbio_maiz',
     'properties_infocasas', 'properties_heat_pha', 'properties_heat_area',
     'osm_roads', 'osm_buildings', 'osm_water',
@@ -416,6 +525,7 @@ const LAYER_GROUPS_ORDER = [
 const LAYER_GROUP_LABELS = {
     grid:        'National tile grid',
     base:        'Admin boundaries (OSM)',
+    admin:       'Catastro Nacional',
     agri:        'Agriculture (INBIO)',
     realestate:  'Real estate (infocasas)',
     biodiv:      'Biodiversity (GBIF)',
@@ -994,7 +1104,11 @@ async function loadProperties() {
             console.error('priceByDepto render failed:', e);
         }
 
-        const group = LAYER_GROUPS.properties_infocasas[0];
+        
+        // Save for clustering
+        window.__properties = features;
+
+const group = LAYER_GROUPS.properties_infocasas[0];
         features.forEach(f => {
             if (!f.geometry || !f.geometry.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
@@ -1118,6 +1232,278 @@ function updateCityListWithCounts(propertyFeatures) {
             el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
         });
     });
+}
+
+// ========== GEOCODER + UNIFIED SEARCH ==========
+const GEOCODER = {
+    endpoint: 'https://photon.komoot.io/api/',
+    layer: null,
+    resultMarkers: [],
+
+    async search(query) {
+        if (!query || query.length < 3) return [];
+        try {
+            const url = `${this.endpoint}?q=${encodeURIComponent(query)}&limit=8&lang=es`;
+            const r = await fetch(url, { headers: { 'User-Agent': 'Paraguay-Geodata/1.0' } });
+            if (!r.ok) return [];
+            const d = await r.json();
+            return d.features || [];
+        } catch (e) {
+            console.warn('Geocoder error:', e);
+            return [];
+        }
+    },
+
+    flyTo(lon, lat, label) {
+        map.flyTo([lat, lon], 15, { duration: 1.2 });
+        this.clearMarkers();
+        const m = L.marker([lat, lon], { icon: L.divIcon({
+            className: 'geo-search-pin',
+            html: '<div style="background:var(--accent); color:var(--bg); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-weight:bold; box-shadow:0 2px 6px rgba(0,0,0,0.4);">📍</div>',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12],
+        })}).addTo(map);
+        m.bindPopup(`<strong>${label}</strong><br><small>${lat.toFixed(4)}, ${lon.toFixed(4)}</small>`).openPopup();
+        this.resultMarkers.push(m);
+    },
+
+    clearMarkers() {
+        this.resultMarkers.forEach(m => map.removeLayer(m));
+        this.resultMarkers = [];
+    },
+};
+
+let geoSearchDebounce;
+document.getElementById('geoSearch').addEventListener('input', (e) => {
+    const q = e.target.value.trim();
+    const results = document.getElementById('geoSearchResults');
+    clearTimeout(geoSearchDebounce);
+    if (q.length < 3) {
+        results.innerHTML = '';
+        results.style.display = 'none';
+        return;
+    }
+    geoSearchDebounce = setTimeout(async () => {
+        const mode = document.querySelector('input[name="searchMode"]:checked')?.value || 'photon';
+        let features = [];
+        if (mode === 'photon') {
+            features = await GEOCODER.search(q);
+        } else {
+            // Local search: scan anchor cities + properties
+            const localResults = [];
+            const qlow = q.toLowerCase();
+            for (const c of ANCHOR_CITIES) {
+                if (c.name.toLowerCase().includes(qlow)) {
+                    localResults.push({ geometry: { coordinates: [c.lon, c.lat] }, properties: { name: c.name, type: 'city', country: 'Paraguay' } });
+                }
+            }
+            features = localResults;
+        }
+        if (features.length === 0) {
+            results.innerHTML = '<div style="padding:8px; color:var(--fg-dim); font-size:11px;">No results found</div>';
+            results.style.display = 'block';
+            return;
+        }
+        results.innerHTML = features.map((f, i) => {
+            const p = f.properties || {};
+            const [lon, lat] = f.geometry.coordinates;
+            const parts = [p.name, p.street, p.city || p.locality, p.state, p.country].filter(Boolean);
+            const label = parts.join(', ') || `${lat.toFixed(3)}, ${lon.toFixed(3)}`;
+            return `<div class="geo-result" data-idx="${i}" role="option">
+                <div class="geo-result-name">${p.name || 'Unknown'}</div>
+                <div class="geo-result-addr">${(p.street || p.city || p.state || '').substring(0, 60)}</div>
+                <div class="geo-result-coord">${lat.toFixed(3)}, ${lon.toFixed(3)}</div>
+            </div>`;
+        }).join('');
+        results.style.display = 'block';
+        results._features = features;
+    }, 350);
+});
+
+document.getElementById('geoSearchResults').addEventListener('click', (e) => {
+    const item = e.target.closest('.geo-result');
+    if (!item) return;
+    const idx = parseInt(item.dataset.idx);
+    const f = e.currentTarget._features[idx];
+    const [lon, lat] = f.geometry.coordinates;
+    const p = f.properties || {};
+    const label = p.name || `${lat.toFixed(3)}, ${lon.toFixed(3)}`;
+    GEOCODER.flyTo(lon, lat, label);
+    document.getElementById('geoSearchResults').style.display = 'none';
+    document.getElementById('geoSearch').value = label;
+});
+
+// Close geocoder results when clicking the map
+map.on('click', () => {
+    document.getElementById('geoSearchResults').style.display = 'none';
+});
+
+// ========== i18n (es/en/gn) ==========
+const I18N = {
+    es: {
+        coverage: 'Cobertura (en vivo)',
+        tile_fabric: 'tejido de tiles (10×10 km)',
+        priority: 'tiles prioritarios',
+        deptos: 'departamentos (OSM)',
+        properties: 'propiedades (en vivo)',
+        osm_roads: 'calles OSM',
+        osm_buildings: 'edificios OSM',
+        gbif: 'especies (GBIF)',
+        layers_on: 'capas activas',
+        insights: 'Análisis (auto-generado)',
+        bcp: 'BCP macro (snapshot Feb 2026)',
+        nasa: 'NASA POWER 2024 (Asunción)',
+        inbio: 'INBIO zafra 2025-2026 (soja, satélite)',
+        layers: 'Capas',
+        price_by_depto: '$/ha por depto',
+        sources: 'Documentos fuente',
+        search_title: 'Buscar dirección, ciudad o lugar',
+        jump_city: 'Ir a una ciudad',
+        status: 'Estado',
+    },
+    en: {
+        coverage: 'Coverage (live)',
+        tile_fabric: 'tile fabric (10×10 km)',
+        priority: 'priority tiles',
+        deptos: 'departamentos (OSM)',
+        properties: 'properties (live)',
+        osm_roads: 'OSM roads',
+        osm_buildings: 'OSM buildings',
+        gbif: 'species (GBIF)',
+        layers_on: 'layers on',
+        insights: 'Insights (auto-generated)',
+        bcp: 'BCP macro (Feb 2026 snapshot)',
+        nasa: 'NASA POWER 2024 (Asunción)',
+        inbio: 'INBIO zafra 2025-2026 (soybean, satellite)',
+        layers: 'Layers',
+        price_by_depto: '$/ha by depto',
+        sources: 'Source documents',
+        search_title: 'Search address, city, or place',
+        jump_city: 'Jump to an anchor city',
+        status: 'Status',
+    },
+    gn: {  // Guaraní (limited translations)
+        coverage: 'Oñemobyta ha (oiko)',
+        properties: 'oguatáva (oiko)',
+        layers_on: 'oñemobyta oñemohenda',
+        layers: 'Oñemobyta',
+        search_title: 'Eheka dirección, táva, tapicha',
+    },
+};
+
+let currentLang = (typeof localStorage !== 'undefined' && localStorage.getItem('py-geo-lang')) || 'es';
+
+function applyI18n() {
+    const dict = I18N[currentLang] || I18N.es;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (dict[k]) el.textContent = dict[k];
+    });
+    // Update stat labels
+    const labelMap = {
+        'statTiles-label': 'tile_fabric',
+        'statPriority-label': 'priority',
+        'statDepts-label': 'deptos',
+        'statListings-label': 'properties',
+        'statRoads-label': 'osm_roads',
+        'statBuildings-label': 'osm_buildings',
+        'statGbif-label': 'gbif',
+        'statLayers-label': 'layers_on',
+    };
+    Object.entries(labelMap).forEach(([id, key]) => {
+        const el = document.getElementById(id);
+        if (el && dict[key]) el.textContent = dict[key];
+    });
+}
+
+// Lang switcher UI
+function addLangSwitcher() {
+    const header = document.querySelector('header');
+    if (!header || document.getElementById('langSwitcher')) return;
+    const wrap = document.createElement('div');
+    wrap.id = 'langSwitcher';
+    wrap.style.cssText = 'display:inline-flex; gap:4px; margin-left:8px;';
+    wrap.innerHTML = `
+        <select onchange="currentLang=this.value; localStorage.setItem('py-geo-lang', currentLang); applyI18n();" style="font-size:11px; padding:3px 6px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:4px; cursor:pointer;" aria-label="Language">
+            <option value="es" ${currentLang === 'es' ? 'selected' : ''}>🇵🇾 ES</option>
+            <option value="en" ${currentLang === 'en' ? 'selected' : ''}>🇺🇸 EN</option>
+            <option value="gn" ${currentLang === 'gn' ? 'selected' : ''}>🇵🇾 GN</option>
+        </select>
+    `;
+    header.appendChild(wrap);
+}
+
+// ========== MARKER CLUSTERING (low zoom) ==========
+let propertyClusterGroup = null;
+
+function clusterProperties(features) {
+    // Simple grid-based clustering: at zoom < 10, group markers within ~2km
+    // At zoom 10+, show individually
+    if (propertyClusterGroup) map.removeLayer(propertyClusterGroup);
+    if (map.getZoom() >= 11) return;
+
+    const cellSize = 0.05; // ~5km
+    const buckets = {};
+    features.forEach(f => {
+        if (!f.geometry?.coordinates) return;
+        const [lon, lat] = f.geometry.coordinates;
+        const cx = Math.floor(lon / cellSize) * cellSize;
+        const cy = Math.floor(lat / cellSize) * cellSize;
+        const key = `${cx.toFixed(2)},${cy.toFixed(2)}`;
+        if (!buckets[key]) buckets[key] = [];
+        buckets[key].push(f);
+    });
+
+    propertyClusterGroup = L.layerGroup();
+    Object.entries(buckets).forEach(([k, items]) => {
+        if (items.length === 1) {
+            // Single marker — use the original circleMarker
+            const f = items[0];
+            const [lon, lat] = f.geometry.coordinates;
+            const p = f.properties;
+            const m = L.circleMarker([lat, lon], {
+                radius: 5, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
+            });
+            m.bindPopup(buildPropertyPopup(p));
+            propertyClusterGroup.addLayer(m);
+        } else {
+            // Cluster marker
+            const [cx, cy] = k.split(',').map(parseFloat);
+            const cxLon = cx + cellSize / 2;
+            const cyLat = cy + cellSize / 2;
+            const m = L.circleMarker([cyLat, cxLon], {
+                radius: Math.min(20, 6 + Math.log10(items.length) * 4),
+                color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.7, weight: 2,
+            });
+            m.bindPopup(`<strong>${items.length} properties</strong> in this area. <a href="#" onclick="event.preventDefault(); map.setView([${cyLat}, ${cxLon}], 12); propertyClusterGroup && map.removeLayer(propertyClusterGroup);">Zoom in</a>`);
+            propertyClusterGroup.addLayer(m);
+        }
+    });
+    propertyClusterGroup.addTo(map);
+}
+
+function buildPropertyPopup(p) {
+    const hasPyg = !!p.price_pyg;
+    const hasUsd = !!p.price_usd;
+    let price;
+    if (hasPyg && hasUsd) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})`;
+    else if (hasPyg) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()}`;
+    else if (hasUsd) price = `$${Math.round(p.price_usd).toLocaleString()}`;
+    else price = '—';
+    const imgs = Array.isArray(p.images) ? p.images : [];
+    const imgUrl = imgs[0] || '';
+    const imgsHtml = imgUrl ? `<img loading="lazy" src="${imgUrl}" style="width:100%; max-width:280px; max-height:160px; object-fit:cover; border-radius:4px; margin:4px 0;" onerror="this.style.display='none';" />` : '';
+    const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
+    return `
+        <h3 style="max-width:280px;">${(p.title || p.source_id || 'Property').slice(0, 80)}</h3>
+        ${imgsHtml}
+        <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
+        ${p.area_ha ? `<div class="row"><span class="k">Area</span><span class="v">${p.area_ha.toLocaleString()} ha</span></div>` : ''}
+        ${perHa ? `<div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>` : ''}
+        ${p.state_province ? `<div class="row"><span class="k">Depto</span><span class="v">${p.state_province}</span></div>` : ''}
+        ${p.source ? `<div class="row"><span class="k">Source</span><span class="v">${p.source}${p.source_platform && p.source_platform !== p.source ? ' via ' + p.source_platform : ''}</span></div>` : ''}
+        <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
+    `;
 }
 
 // ========== GBIF SPECIES (split Animalia + Plantae into 2 layers) ==========
@@ -1262,37 +1648,71 @@ async function loadOSMWater() {
     }
 }
 
-// ========== BOOTSTRAP ==========
-renderLayerGrid();
-loadBCP();
-loadClimate();
-loadINBIOWidget();
-loadInsights();
-loadTileFabric();
-loadDepartamentos();
-loadDistritos();
-loadBarrios();
-loadINBIO();
-loadProperties();
-loadGBIF();
-loadOSMRoads();
-loadOSMBuildings();
-loadOSMWater();
-
-function hideLoading() {
-    const b = document.getElementById('loading');
-    if (b) { b.classList.add('hidden'); setTimeout(() => b.remove(), 300); }
-}
-setTimeout(hideLoading, 1800);
-
-// Deploy metadata
-fetch('./data/deploy-meta.json').then(r => r.ok ? r.json() : null).then(m => {
-    if (m) {
-        document.getElementById('lastCommit').textContent = m.commit || '?';
-        document.getElementById('fetchStatus').innerHTML =
-            `<span style="color:var(--accent)">✓ Live: ${m.layers_loaded.length} layers · ${m.live_features_total.toLocaleString()} tile fabric points</span>`;
+// ========== CATASTRO NACIONAL LAYERS ==========
+async function loadCatastro(layerId, url, style, labelField, infoFields) {
+    try {
+        const r = await fetch(url);
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+        const group = LAYER_GROUPS[layerId][0];
+        features.forEach(f => {
+            const layer = L.geoJSON(f, {
+                style: style,
+                onEachFeature: (feat, l) => {
+                    const p = feat.properties || {};
+                    let popup = `<h3>${p[labelField] || 'Catastro feature'}</h3>`;
+                    infoFields.forEach(fld => {
+                        if (p[fld] != null && p[fld] !== '') {
+                            popup += `<div class="row"><span class="k">${fld}</span><span class="v">${typeof p[fld] === 'number' ? p[fld].toLocaleString() : p[fld]}</span></div>`;
+                        }
+                    });
+                    l.bindPopup(popup);
+                },
+            });
+            layer.addTo(group);
+        });
+        updateLayerCount(layerId, features.length);
+        if (layerState[layerId].active) group.addTo(map);
+    } catch (e) {
+        console.error(`Catastro ${layerId} failed:`, e);
     }
-}).catch(() => {});
-</script>
-</body>
-</html>
+}
+
+async function loadCatastroDpto() {
+    await loadCatastro('catastro_dpto', './data/admin/catastro_dpto.geojson',
+        { color: '#06b6d4', weight: 1.5, fillColor: '#06b6d4', fillOpacity: 0.08 },
+        'nom_dpto',
+        ['dpto', 'id']);
+}
+
+async function loadCatastroDist() {
+    await loadCatastro('catastro_dist', './data/admin/catastro_dist.geojson',
+        { color: '#0891b2', weight: 1, fillColor: '#0891b2', fillOpacity: 0.05 },
+        'nom_dist',
+        ['cod_dpto', 'cod_dist', 'area_km2']);
+}
+
+async function loadCatastroParcels() {
+    await loadCatastro('catastro_parcels', './data/admin/catastro_parcels_sample.geojson',
+        { color: '#0e7490', weight: 0.5, fillColor: '#0e7490', fillOpacity: 0.3 },
+        'ccatastral',
+        ['dpto', 'dist', 'finca', 'nro_matricula', 'padron', 'mz', 'lote', 'superficie_tierra', 'valor_tierra', 'hectareas']);
+}
+
+async function loadCatastroUrba() {
+    await loadCatastro('catastro_urba', './data/admin/catastro_urba.geojson',
+        { color: '#155e75', weight: 1, fillColor: '#155e75', fillOpacity: 0.2 },
+        'distrito',
+        ['dpto', 'dist', 'estado', 'situacion', 'area']);
+}
+
+// ========== ACCESSIBILITY + i18n INIT ==========
+const skipLink = document.createElement('a');
+skipLink.href = '#map';
+skipLink.className = 'skip-link';
+skipLink.textContent = 'Skip to map';
+document.body.insertBefore(skipLink, document.body.firstChild);
+
+// ========== BOOTSTRAP ==========
+
