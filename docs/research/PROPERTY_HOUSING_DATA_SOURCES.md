@@ -124,39 +124,138 @@ What does exist:
 - **Special insight:** TuLugar is a **meta-aggregator**. Listings come from many sources (infocasas, century21, Clasipar, etc.). The `source_platform` field tells us where it was originally scraped from. They deduplicate via `source_content_hash`.
 - **Verdict:** ✅ **SHIP**. Highest-leverage single source we found. Already de-duplicated across portals, pre-converted to USD, has lat/lon, has neighborhood. 15K+ listings per page × paginate = potentially 30K+ unique properties.
 
-### 3.2 Encuentra24 Paraguay
+### 3.2 Clasipar Paraguay — **TOP TIER**
+- **Actual domain:** `https://clasipar.paraguay.com` (NOT `clasipar.com.py` — that has SSL cert issue)
+- **Status:** ✅ Fully open. Owned by Servicios Digitales S.A. / Grupo A.J. Vierci. Major Paraguayan classifieds.
+- **Sitemap:** `https://clasipar.paraguay.com/sitemap/index.xml` → **1,610 shards** `ads1.xml.gz` to `ads1610.xml.gz` (dated 2026-07-10)
+- **Per-shard structure (verified):** ~1000 URLs each, ~200-350 are `/inmuebles/...` property listings
+- **Total estimated property URLs in sitemap:** **~430,000** (vs footer claim of 64,901 active)
+- **Detail page structure (verified `https://clasipar.paraguay.com/inmuebles/casas/en-venta-casa-en-san-lorenzo-2695744`):**
+  - HTML 80KB, includes JSON-LD with `@type:House`
+  - Has `latitude`/`longitude` in the JSON
+  - Full description, address (calle + barrio), bedrooms/bathrooms/area
+  - Multiple prices (USD + Gs variants — owner filled in alternates)
+- **Also has autocomplete API:** `https://clasipar.paraguay.com/src/async/request_ads?token=...&term=...` — works (returns 4 suggestions) but doesn't expose full listings.
+- **13 property categories in footer:** Casas, Residencias / Mansiones, Departamentos, Duplex, Locales / Oficinas / Salones, Depósitos, Terrenos, Otros inmuebles, Propiedades rurales, Habitaciones / Dormitorios, Temporario / Vacacional.
+- **Verdict:** ✅ **SHIP — second-largest property source**. The 1,610 sitemap shards can be downloaded in bulk to enumerate every listing URL, then each detail page is parseable for lat/lon + price + description. **430K listings potential — 670× our current 676.**
+
+### 3.3 Encuentra24 Paraguay
 - **URL:** https://www.encuentra24.com/paraguay-es/bienes-raices
-- **Status:** ⚠️ SPA (Next.js). Sitemap returns HTML (broken), no JSON-LD, no public API endpoint that responds with JSON.
-- **Scrape path:** Would need to inspect the JS chunks for the internal API, or use a headless browser.
-- **Verdict:** Medium priority. TuLugar already aggregates some of these.
+- **Status:** ⚠️ Next.js SPA behind heavy Cloudflare challenge. Public HTML responds but listings loaded via RSC payload that's also Cloudflare-gated.
+- **No sitemap.xml accessible** (returns HTML placeholder).
+- **Footer count:** Unknown, but the platform serves all 6 LatAm countries.
+- **Verdict:** Skip — Cloudflare blocks automated fetch. Manual entry only.
 
-### 3.3 MercadoLibre Inmuebles Paraguay
-- **URL:** https://inmuebles.mercadolibre.com.py/
-- **Status:** ❌ Blocks non-browser User-Agents (403). Would require Playwright + cookies.
-- **Estimated listings:** Few thousand (their UR-BR/AR sites have 100K+ but PY is small market).
-- **Verdict:** Medium priority — only if TuLugar coverage proves insufficient. TuLugar already imports some.
+### 3.4 RE/MAX Paraguay — **NEW MAJOR FIND**
+- **URL:** https://www.remax.com.py
+- **Status:** ✅ Cloudflare-fronted but sitemaps are OPEN.
+- **Sitemap index:** `https://www.remax.com.py/sitemap.xml` lists 9 sub-sitemaps (listings, offices, agents, teams, shortlinks)
+- **Listings sitemap:** `https://www.remax.com.py/sitemap_listings_1.xml` — **9.5 MB**, contains **16,800 listing URLs** (all dated 2026-07-10)
+- **URL pattern:** `https://www.remax.com.py/es-py/propiedades/<type>/<op>/<city>/<street>/<id>-<unit>`
+  - e.g. `/propiedades/departamento/venta/san-lorenzo/143092038-96`
+  - 12 unique property types: duplex, casa, departamento, terreno, etc.
+  - Operations: `venta` (sale) / `alquiler` (rent)
+- **Coverage by city visible in sitemap:** Asunción metro (San Lorenzo, Villa Elisa, Limpio, Luque, Capiatá, Fernando de la Mora, Lambaré), plus rural (Concepción, Paraguarí, Itapúa, Misiones)
+- **Detail pages:** Each listing has individual page (HTML scraping would yield price, lat/lon, beds, etc.)
+- **Verdict:** ✅ **SHIP — biggest single-source-count we found**. 16,800 verified listings = 25× our current 676. Plus RE/MAX has the most active agent network of any PY realty brand. Sitemap = download and parse, then bulk-fetch detail pages.
 
-### 3.4 Clasipar Paraguay
-- **URL:** https://www.clasipar.com.py/
-- **Status:** ⚠️ SSL cert mismatch on `.com.py`. Actual site is at `clasipar.com` (international). The `.com.py` returns cert error or redirect.
-- **Verdict:** Skip. TuLugar already imports some.
+### 3.5 MercadoLibre Inmuebles Paraguay
+- **URL:** https://inmuebles.mercadolibre.com.py/ (redirects to ML gz-account-verification challenge for non-browser UAs)
+- **Status:** ❌ All non-browser requests return Cloudflare/ML account-verification challenge.
+- **Internal API:** `api.mercadolibre.com/sites/MLP/search?category=MLP1459` returns 400 without OAuth.
+- **Verdict:** Skip. Would require Playwright + browser fingerprinting. Not worth the cost vs RE/MAX + Clasipar coverage.
 
-### 3.5 Inmuebles Paraguay (inmueblespy.com)
+### 3.6 Inmuebles Paraguay (inmueblespy.com)
 - **URL:** https://inmueblespy.com/
 - **Status:** ✅ HTML works, but no sitemap, no public API.
 - **Verdict:** Low priority.
 
-### 3.6 Century 21 Paraguay
-- **URL:** https://century21.com.py/
-- **Status:** ✅ HTML works (each property is a detail page).
-- **Note:** TuLugar already imports century21.com.py listings — source_platform="century21.com.py" seen in TuLugar API.
+### 3.7 Century 21 Paraguay
+- **URL:** https://century21.com.py/ (also https://www.c21.com.py — SSL mismatch on latter)
+- **Status:** ✅ Site loads.
+- **Note:** TuLugar already imports century21.com.py listings — `source_platform="century21.com.py"` confirmed in TuLugar API.
 - **Verdict:** Skip — already covered via TuLugar.
 
-### 3.7 Properstar (international aggregator with PY inventory)
+### 3.8 Properstar (international aggregator with PY inventory)
 - **URL:** https://www.properstar.com/paraguay/buy
 - **Coverage:** 3,524 PY listings, distributed: Asunción 1,287, Central 1,155, Cordillera 547, Itapúa 233...
 - **Status:** ❌ sitemap.xml returns 429, /api/* returns 403, robots.txt returns 403. Heavy anti-scrape.
-- **Verdict:** Skip unless TuLugar coverage is incomplete (unlikely).
+- **Verdict:** Skip unless TuLugar coverage proves insufficient.
+
+### 3.9 Urbania Paraguay (urbania.com.py)
+- **URL:** https://www.urbania.com.py
+- **Status:** ✅ HTML works (19KB).
+- **What it is:** Single real-estate developer marketing site (mentions "Edificio Rembrandt", "Edificio Robelini", "Edificio Zenith" — 3 projects)
+- **No listings index, no API, no inventory beyond their 3 buildings.**
+- **Verdict:** Not a portal — single-property-developer site. Skip.
+
+### 3.10 Other LatAm portals (probed but dead)
+| Domain | Status | Verdict |
+|---|---|---|
+| `wasi.com.py`, `wasi.com` | DNS not resolving | Dead |
+| `lamudi.com.py` | DNS not resolving | Dead |
+| `vivanuncios.com.py` | DNS not resolving | Dead |
+| `trovit.com.py`, `mitula.com.py` | DNS not resolving | Dead |
+| `zonaprop.com.py` | Connection timeout | Dead |
+| `argenprop.com.py` | Connection timeout | Dead |
+| `icasas.com` | 301 redirect (no PY site) | Not PY |
+| `housters.com` | 200 but no PY listing | N/A |
+| `tuhabitar.com` | 200 but LatAm-wide, no PY filter visible | Skip |
+| `goplaceit.com` | 5KB static — LatAm, no PY listing | Skip |
+| `c21.com.py` | SSL cert mismatch | Wrong domain |
+| `bnp.com.py`, `casasydeptos.com.py`, `casas.com.py`, `midprop.com`, etc. | DNS not resolving | Not registered |
+| `urbania.com.py` | 19KB marketing site, 3 projects | Not a portal |
+| `properstar.com` | 3,524 PY listings but anti-scrape | Skip |
+
+### 3.11 Spanish / international brokerages
+| Domain | Status | Note |
+|---|---|---|
+| `engelvoelkers.com/es/es/properties/search?country=PY` | 404 | No country=PY filter |
+| `savills.es/es/parraguay-inmuebles` | 404 | Typo in URL — not real |
+| `cbre.com.ar/es-es/properties/paraguay` | 403 | Cloudflare |
+| `cushmanwakefield.es/es/properties/paraguay` | SSL error | Not PY subdomain |
+| `jll.es/es/paraguay` | 301 | Empty page |
+| `colliers.com/es/paraguay` | 403 | Cloudflare |
+| `brownharrisstevens.com/search/paraguay` | 301 | No PY listings |
+| `compass.com/paraguay` | 404 | No PY |
+| `idealista.com/en/venta-viviendas/paraguay` | 403 | No PY listings at this URL |
+
+**Verdict:** No major international brokerage has public PY inventory. All are gated behind Cloudflare or have no PY coverage.
+
+---
+
+## 9. 📊 UPDATED TOTAL POTENTIAL INVENTORY
+
+After deep survey:
+
+| Source | Records (est) | Status | Effort |
+|---|---|---|---|
+| **Catastro Nacional WFS** | **2,191,342** parcels | ✅ Open WFS | Medium |
+| **Clasipar sitemap 1610 shards** | **~430,000** listings | ✅ Open sitemap | Low |
+| **RE/MAX sitemap** | **16,800** listings | ✅ Open sitemap | Low |
+| **TuLugar API** | **15,000+** listings | ✅ Public API | Low |
+| **MercadoLibre Inmuebles** | 1,000-3,000 | ❌ UA-blocked | High |
+| **Encuentra24** | Unknown (likely 5K-20K) | ❌ Cloudflare-gated | High |
+| **Properstar** | 3,524 | ❌ Anti-scrape | High |
+| **infocasas (already)** | 676 | ✅ Have | Done |
+| **Catastro PDFs (already cached)** | 17 deptos × $/ha | ✅ Have | Done |
+| **INBIO zafra (already)** | 17 deptos × 3 crops | ✅ Have | Done |
+| **OSM building footprints (Asunción)** | **170,449** buildings | ✅ Overpass | Low |
+| **BCP IEF PDF** | 1.3MB quarterly | ✅ Direct | Low |
+| **Geofabrik roads (already downloaded)** | ~50K segments | ✅ Have | Done |
+
+**Total potential property/land records we can add: ~2.6 million** — most of it from Catastro. With 676 current listings, that's **~3,800× growth potential.**
+
+### 📈 Listing-source consolidation order (when we ship):
+
+1. **Catastro WFS** — 2.19M parcels (single biggest dataset)
+2. **RE/MAX** — 16,800 listings (biggest single-portal count we have access to)
+3. **Clasipar** — 430K sitemaps, but detail-page-scraping needed (do selectively — only latest 30-50K)
+4. **TuLugar** — 15K listings with full schema (cheapest per record)
+5. **infocasas** — already have
+6. **OSM buildings Asunción** — 170K building footprints (building outline layer)
+7. **Geofabrik roads** — easy win
+8. **BCP IEF PDF** — quarterly mortgage widget
 
 ---
 
