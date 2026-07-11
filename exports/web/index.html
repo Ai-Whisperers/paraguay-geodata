@@ -62,24 +62,36 @@
         .stat { background: var(--bg-elev-2); padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); }
         .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
         .stat .label { font-size: 10px; color: var(--fg-dim); margin-top: 2px; line-height: 1.3; }
-        .layer-grid { display: grid; grid-template-columns: 1fr; gap: 4px; }
-        .layer {
+        .layer-grid { display: flex; flex-direction: column; gap: 2px; }
+        .layer-group-head {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line);
-            border-radius: var(--radius); font-size: 12px;
-            cursor: pointer; user-select: none; transition: border-color .12s;
+            padding: 6px 8px 4px 8px; margin-top: 8px;
+            border-bottom: 1px solid var(--line);
+            font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+            color: var(--fg-dim);
+        }
+        .layer-group-head:first-child { margin-top: 0; }
+        .layer-group-title { font-weight: 600; }
+        .layer-group-actions { display: flex; gap: 6px; align-items: center; }
+        .layer-group-count { color: var(--accent); font-family: monospace; }
+        .layer-group-toggle { color: var(--info); text-decoration: none; font-size: 9px; cursor: pointer; padding: 2px 4px; border-radius: 3px; }
+        .layer-group-toggle:hover { background: var(--bg-elev); }
+
+        .layer {
+            display: flex; align-items: flex-start; gap: 8px;
+            padding: 6px 8px; background: var(--bg-elev-2); border: 1px solid var(--line);
+            border-radius: var(--radius); font-size: 11px; line-height: 1.35;
+            cursor: pointer; user-select: none; transition: all .12s;
         }
         .layer:hover { border-color: var(--accent); }
-        .layer.active { border-color: var(--accent); background: var(--accent-dim); }
-        .layer .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
-        .layer .name .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .layer .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-        .layer .dot.live { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
-        .layer .dot.loading { background: var(--warn); animation: pulse 1.2s infinite; }
-        .layer .dot.error { background: var(--err); }
-        .layer .dot.queued { background: var(--fg-dim); }
-        .layer .count { font-size: 10px; color: var(--fg-dim); font-family: monospace; flex-shrink: 0; margin-left: 8px; }
-        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .layer.active { border-color: var(--accent); background: var(--bg-elev); }
+        .layer .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-top: 3px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.2); }
+        .layer .layer-body { flex: 1; min-width: 0; }
+        .layer .layer-line { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+        .layer .label { font-weight: 600; }
+        .layer .count { font-family: monospace; color: var(--fg-dim); font-size: 10px; }
+        .layer .layer-info { color: var(--fg-dim); font-size: 10px; margin-top: 2px; opacity: .8; }
+        .legend .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 6px; vertical-align: middle; border: 1px solid rgba(255,255,255,.15); }
         .bcp-widget {
             background: var(--bg-elev-2); border: 1px solid var(--accent);
             padding: 12px; border-radius: var(--radius); font-size: 12px;
@@ -165,7 +177,30 @@
         .leaflet-popup-content a:hover { text-decoration: underline; }
         @media (max-width: 880px) {
             main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-            aside { max-height: 50vh; }
+            aside {
+                max-height: 50vh;
+                overflow-y: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            aside.collapsed { display: none; }
+            #sidebarToggle { display: inline-block; }
+            #map { min-height: 60vh; }
+        }
+        #sidebarToggle {
+            display: none;
+            background: var(--accent);
+            color: var(--bg);
+            border: 0;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        @media (min-width: 881px) {
+            #sidebarToggle { display: none; }
         }
     </style>
 </head>
@@ -180,6 +215,7 @@
         <a href="./mapa.html">Per-Tile Viewer</a>
         <a href="./docs/INDEX.md">Docs</a>
     </nav>
+    <button id="sidebarToggle" onclick="document.querySelector('aside').classList.toggle('collapsed')">☰ Sidebar</button>
     <div class="repo-link">
         <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -193,6 +229,8 @@
             <div class="stat"><div class="num" id="statPriority">—</div><div class="label">priority tiles</div></div>
             <div class="stat"><div class="num" id="statDepts">—</div><div class="label">departamentos (OSM)</div></div>
             <div class="stat"><div class="num" id="statListings">—</div><div class="label">properties (live)</div></div>
+            <div class="stat"><div class="num" id="statRoads">—</div><div class="label">OSM roads</div></div>
+            <div class="stat"><div class="num" id="statBuildings">—</div><div class="label">OSM buildings</div></div>
             <div class="stat"><div class="num" id="statGbif">—</div><div class="label">species (GBIF)</div></div>
             <div class="stat"><div class="num" id="statLayers">—</div><div class="label">layers on</div></div>
         </div>
@@ -257,6 +295,21 @@
         <h2>Layers (toggleable)</h2>
         <div class="layer-grid" id="layerGrid"></div>
 
+        <h2>$/ha by depto</h2>
+        <div id="priceByDepto" style="font-size:11px; line-height:1.6;">
+            <div style="color:var(--fg-dim);">Loading properties…</div>
+        </div>
+
+        <h2>Source documents</h2>
+        <div style="font-size:11px; line-height:1.7;">
+            <div><a href="https://www.bcp.gov.py/documents/20117/1058058/informe_IEF+may+2025_vf.pdf" target="_blank" rel="noopener" style="color:var(--accent)">BCP IEF May 2025 (1.3 MB)</a> <span style="color:var(--fg-dim)">— mortgage stats</span></div>
+            <div><a href="https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetCapabilities" target="_blank" rel="noopener" style="color:var(--accent)">Catastro Nacional WFS</a> <span style="color:var(--fg-dim)">— 2.19M parcels</span></div>
+            <div><a href="https://www.catastro.gov.py/public/" target="_blank" rel="noopener" style="color:var(--accent)">Catastro rural $/ha PDF</a> <span style="color:var(--fg-dim)">— per-district reference prices</span></div>
+            <div><a href="https://download.geofabrik.de/south-america/paraguay-latest-free.shp.zip" target="_blank" rel="noopener" style="color:var(--accent)">Geofabrik PY (315 MB)</a> <span style="color:var(--fg-dim)">— OSM full extract</span></div>
+            <div><a href="https://overpass-api.de/api/interpreter" target="_blank" rel="noopener" style="color:var(--accent)">Overpass API</a> <span style="color:var(--fg-dim)">— ad-hoc OSM queries</span></div>
+            <div><a href="docs/research/PROPERTY_HOUSING_DATA_SOURCES.md" target="_blank" rel="noopener" style="color:var(--accent)">Survey catalog</a> <span style="color:var(--fg-dim)">— 30+ sources analyzed</span></div>
+        </div>
+
         <h2>Jump to an anchor city</h2>
         <div class="search">
             <input type="text" id="cityFilter" placeholder="Filter cities…" autocomplete="off">
@@ -280,11 +333,15 @@
     <div class="row"><span class="swatch" style="background:var(--accent);"></span><span>Priority (urban anchor)</span></div>
     <div class="row"><span class="swatch" style="background:var(--info); opacity:.5;"></span><span>Departamento</span></div>
     <div class="row"><span class="swatch" style="background:var(--property);"></span><span>Property listing</span></div>
+    <div class="row"><span class="swatch" style="background:#dc2626;"></span><span>Motorway / Trunk</span></div>
+    <div class="row"><span class="swatch" style="background:#eab308;"></span><span>Primary road</span></div>
+    <div class="row"><span class="swatch" style="background:#a78bfa; opacity:.5;"></span><span>Building footprint</span></div>
     <div class="row"><span class="swatch" style="background:var(--gbif-animalia);"></span><span>GBIF Animalia</span></div>
     <div class="row"><span class="swatch" style="background:var(--gbif-plantae);"></span><span>GBIF Plantae</span></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
 <script>
 // ========== MAP ==========
 const map = L.map('map', { zoomControl: true, worldCopyJump: true, preferCanvas: false }).setView([-23.5, -58.5], 6);
@@ -298,40 +355,148 @@ const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/W
 L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map);
 
 // ========== LAYERS STATE ==========
+// ========== LAYER REGISTRY ==========
+// Each layer has:
+//   id           unique slug
+//   group        'base' | 'grid' | 'agri' | 'realestate' | 'biodiv' | 'urban'
+//   label        display name
+//   active       default-on?
+//   features     '?' until loaded, then number
+//   source       short attribution
+//   info         one-line tooltip explaining what this layer is
+//   color        swatch color (matches on-map rendering)
+//   url          deep link to source data
+
 const layerState = {
-    tile_fabric:        { label: 'National tile fabric',     active: true,  features: '?', source: 'derived' },
-    priority_tiles:     { label: 'Priority tiles',           active: true,  features: '?', source: 'derived' },
-    departamentos_py:   { label: 'Departamentos (OSM)',      active: true,  features: '?', source: 'OSM/Geofabrik' },
-    distritos_py:        { label: 'Distritos (OSM)',          active: false, features: '?', source: 'OSM/Geofabrik' },
-    barrios_py:          { label: 'Barrios (OSM)',            active: false, features: '?', source: 'OSM/Geofabrik' },
-    inbio_soja:         { label: 'Soja area zafra 2025-2026',active: true,  features: '?', source: 'INBIO (PDF)' },
-    properties_infocasas:{label: 'Properties (infocasas)',   active: true,  features: '?', source: 'infocasas.com.py' },
-    gbif_species:       { label: 'Species (GBIF)',           active: false, features: '?', source: 'GBIF' },
-    bcp_overlay:        { label: 'BCP indicators',           active: true,  features: 'widget-only', source: 'BCP' },
-    nasa_power_overlay: { label: 'NASA POWER climate',       active: false, features: 'query-based', source: 'NASA POWER' },
+    // ---- base admin ----
+    departamentos_py:   { group: 'base',  label: 'Departamentos (18)',         active: true,  features: '?', source: 'OSM/Geofabrik', info: 'Provincia-level admin polygons from OSM. Click for ISO + DGEEC code.',  color: '#60a5fa', url: 'data/admin/deptos.geojson' },
+    distritos_py:        { group: 'base',  label: 'Distritos (23)',             active: false, features: '?', source: 'OSM/Geofabrik', info: 'District-level admin polygons (admin_level 6+7).',                          color: '#10b981', url: 'data/admin/distritos.geojson' },
+    barrios_py:          { group: 'base',  label: 'Barrios / Localidades (1278)',active: false, features: '?', source: 'OSM/Geofabrik', info: 'Neighbourhood + locality polygons (admin_level 8-11). Slow with all on.',color: '#64748b', url: 'data/admin/barrios_py.geojson' },
+
+    // ---- national tile grid ----
+    tile_fabric:        { group: 'grid',  label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', source: 'derived', info: 'National 10×10 km grid (7,912 cells). Each cell can be opened in per-tile viewer.', color: '#1e3a8a', url: 'data/tile_index.json' },
+    priority_tiles:     { group: 'grid',  label: 'Priority tiles (37)',          active: true,  features: '?', source: 'derived', info: 'Urban-anchor tiles with the densest data. Click any to open per-tile viewer.', color: '#0f766e', url: 'data/priority_tiles.json' },
+
+    // ---- agriculture ----
+    inbio_soja:         { group: 'agri',  label: 'INBIO choropleth: soja',       active: true,  features: '?', source: 'INBIO PDF',   info: 'Per-depto soybean area zafra 2025/2026 (satellite-derived). Purple = more soja.', color: '#c084fc', url: 'data/inbio_zafra_2025_2026.json' },
+    inbio_arroz:        { group: 'agri',  label: 'INBIO choropleth: arroz',      active: false, features: '?', source: 'INBIO PDF',   info: 'Per-depto rice area zafra 2025/2026. South-PY drought signal.',                color: '#fb923c', url: 'data/inbio_zafra_2025_2026.json' },
+    inbio_maiz:         { group: 'agri',  label: 'INBIO choropleth: maíz zaf.',  active: false, features: '?', source: 'INBIO PDF',   info: 'Per-depto maize zafriña area. -29% nationally.',                              color: '#facc15', url: 'data/inbio_zafra_2025_2026.json' },
+
+    // ---- real estate ----
+    properties_infocasas:{group: 'realestate', label: 'Properties · dots',    active: true,  features: '?', source: 'infocasas + TuLugar', info: 'One red dot per listing. Click for title, price, area, $/ha, depto, image.',  color: '#ef4444', url: 'data/properties_latest.geojson' },
+    properties_heat_pha: { group: 'realestate', label: 'Properties · $/ha heatmap', active: false, features: '?', source: 'infocasas + TuLugar', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',           color: '#f59e0b', url: 'data/properties_latest.geojson' },
+    properties_heat_area:{group: 'realestate', label: 'Properties · area heatmap',  active: false, features: '?', source: 'infocasas + TuLugar', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                 color: '#3b82f6', url: 'data/properties_latest.geojson' },
+    anchor_circles:      { group: 'urban', label: 'Anchor cities (30 km radius)', active: false, features: '?', source: 'derived', info: '20 anchor cities with 30 km search radius. Color = listing density.',  color: '#a855f7', url: null },
+
+    // ---- OSM infrastructure ----
+    osm_roads:           { group: 'urban', label: 'OSM major roads (motorway/trunk/primary/secondary)', active: false, features: '?', source: 'Geofabrik PY', info: '14,835 major roads from Geofabrik Paraguay OSM extract. Click for name + ref + maxspeed.', color: '#f97316', url: 'data/roads.geojson' },
+    osm_buildings:       { group: 'urban', label: 'OSM building footprints · Asunción (top 50K)', active: false, features: '?', source: 'Geofabrik PY', info: 'Top 50K OSM building polygons in Asunción metro by footprint area. Urban-density viz.', color: '#a78bfa', url: 'data/buildings_asuncion.geojson' },
+    osm_water:           { group: 'urban', label: 'OSM water bodies (40K)', active: false, features: '?', source: 'Geofabrik PY', info: 'Rivers, lakes, reservoirs from OSM.', color: '#3b82f6', url: 'data/water.geojson' },
+
+    // ---- biodiversity ----
+    gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', source: 'GBIF', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
+    gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', source: 'GBIF', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson' },
 };
 
+const LAYER_GROUPS_ORDER = [
+    'tile_fabric', 'priority_tiles',
+    'departamentos_py', 'distritos_py', 'barrios_py',
+    'inbio_soja', 'inbio_arroz', 'inbio_maiz',
+    'properties_infocasas', 'properties_heat_pha', 'properties_heat_area',
+    'osm_roads', 'osm_buildings', 'osm_water',
+    'gbif_animalia', 'gbif_plantae',
+    'anchor_circles',
+];
+
+const LAYER_GROUP_LABELS = {
+    grid:        'National tile grid',
+    base:        'Admin boundaries (OSM)',
+    agri:        'Agriculture (INBIO)',
+    realestate:  'Real estate (infocasas)',
+    biodiv:      'Biodiversity (GBIF)',
+    urban:       'Urban anchors',
+};
+
+const LAYER_GROUPS = {};
+for (const id of LAYER_GROUPS_ORDER) LAYER_GROUPS[id] = [L.layerGroup()];
+
 // ========== RENDER LAYERS SIDEBAR ==========
+// ========== RENDER LAYERS SIDEBAR (grouped) ==========
 function renderLayerGrid() {
-    const grid = document.getElementById('layerGrid');
-    grid.innerHTML = '';
-    Object.entries(layerState).forEach(([id, l]) => {
-        const div = document.createElement('div');
-        div.className = 'layer' + (l.active ? ' active' : '');
-        div.dataset.layerId = id;
-        const status = l.features === '?' ? 'loading' :
-                       l.features === 'widget-only' || l.features === 'query-based' ? 'live' :
-                       'live';
-        div.innerHTML = `
-            <div class="name">
-                <span class="dot ${status}"></span>
-                <span class="label">${l.label}</span>
-            </div>
-            <span class="count">${l.features === '?' ? '…' : (l.features === 'widget-only' ? 'widget' : (l.features === 'query-based' ? 'query' : l.features.toLocaleString()))}</span>
+    const root = document.getElementById('layerGrid');
+    root.innerHTML = '';
+    // group layers by their group key, preserving LAYER_GROUPS_ORDER within group
+    const byGroup = {};
+    for (const id of LAYER_GROUPS_ORDER) {
+        const l = layerState[id];
+        if (!l) continue;
+        if (!byGroup[l.group]) byGroup[l.group] = [];
+        byGroup[l.group].push({ id, ...l });
+    }
+    // iterate groups in a stable order
+    const groupOrder = ['grid', 'base', 'agri', 'realestate', 'urban', 'biodiv'];
+    for (const g of groupOrder) {
+        const items = byGroup[g] || [];
+        if (!items.length) continue;
+        // group header
+        const groupActive = items.filter(x => x.active).length;
+        const groupTotal = items.length;
+        const head = document.createElement('div');
+        head.className = 'layer-group-head';
+        head.innerHTML = `
+            <span class="layer-group-title">${LAYER_GROUP_LABELS[g]}</span>
+            <span class="layer-group-actions">
+                <span class="layer-group-count">${groupActive}/${groupTotal}</span>
+                <a class="layer-group-toggle" data-group="${g}" data-action="all" href="javascript:void(0)">all</a>
+                <a class="layer-group-toggle" data-group="${g}" data-action="none" href="javascript:void(0)">none</a>
+            </span>
         `;
-        div.addEventListener('click', () => toggleLayer(id));
-        grid.appendChild(div);
+        root.appendChild(head);
+        // each layer row
+        for (const l of items) {
+            const div = document.createElement('div');
+            div.className = 'layer' + (l.active ? ' active' : '');
+            div.dataset.layerId = l.id;
+            const ftxt = l.features === '?' ? '…' : (typeof l.features === 'number' ? l.features.toLocaleString() : l.features);
+            const colorSwatch = `<span class="swatch" style="background:${l.color || '#888'}"></span>`;
+            div.innerHTML = `
+                ${colorSwatch}
+                <div class="layer-body">
+                    <div class="layer-line">
+                        <span class="label">${l.label}</span>
+                        <span class="count">${ftxt}</span>
+                    </div>
+                    <div class="layer-info" title="${l.info}">${l.info}</div>
+                </div>
+            `;
+            div.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                toggleLayer(l.id);
+            });
+            root.appendChild(div);
+        }
+    }
+    // wire group all/none toggles
+    root.querySelectorAll('.layer-group-toggle').forEach(a => {
+        a.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            const g = a.dataset.group;
+            const want = a.dataset.action === 'all';
+            for (const id of LAYER_GROUPS_ORDER) {
+                const l = layerState[id];
+                if (l.group === g) {
+                    const next = want;
+                    if (l.active !== next) {
+                        l.active = next;
+                        applyLayerVisibility(id);
+                    }
+                }
+            }
+            renderLayerGrid();
+            updateStats();
+        });
     });
+    updateStats();
 }
 
 function updateLayerCount(id) {
@@ -358,6 +523,8 @@ function updateStats() {
     document.getElementById('statPriority').textContent = layerState.priority_tiles.features === '?' ? '—' : layerState.priority_tiles.features;
     document.getElementById('statDepts').textContent = layerState.departamentos_py.features === '?' ? '—' : layerState.departamentos_py.features;
     document.getElementById('statListings').textContent = layerState.properties_infocasas.features === '?' ? '—' : layerState.properties_infocasas.features;
+    document.getElementById('statRoads').textContent = layerState.osm_roads.features === '?' ? '—' : layerState.osm_roads.features.toLocaleString();
+    document.getElementById('statBuildings').textContent = layerState.osm_buildings.features === '?' ? '—' : layerState.osm_buildings.features.toLocaleString();
     document.getElementById('statGbif').textContent = layerState.gbif_species.features === '?' ? '—' : layerState.gbif_species.features;
     document.getElementById('statLayers').textContent = Object.values(layerState).filter(l => l.active).length;
 }
@@ -629,90 +796,83 @@ async function loadDepartamentos() {
     }
 }
 
-// ========== INBIO SOJA CHOROPLETH (live PDF data) ==========
-async function loadINBIOSoja() {
+// ========== INBIO CHOROPLETHS (soja / arroz / maíz zafriña, 3 separate layers) ==========
+const INBIO_CROPS = {
+    soja:  { layerId: 'inbio_soja',  color: [192, 132, 252], label: 'Soja',       jsonKey: 'soja_25_26', prevKey: 'soja_24_25',  prevLabel: '24/25' },
+    arroz: { layerId: 'inbio_arroz', color: [251, 146,  60], label: 'Arroz',      jsonKey: 'arroz_25_26', prevKey: 'arroz_24_25', prevLabel: '24/25' },
+    maiz:  { layerId: 'inbio_maiz',  color: [250, 204,  21], label: 'Maíz zaf.',  jsonKey: 'maiz_zaf_25_26', prevKey: 'maiz_zaf_24_25', prevLabel: '24/25' },
+};
+
+let _inbioDeptCache = null;
+async function _loadDepartamentosForINBIO() {
+    if (_inbioDeptCache) return _inbioDeptCache;
+    const r = await fetch('./data/admin/departamentos.geojson');
+    if (!r.ok) throw new Error('deptos fetch failed');
+    _inbioDeptCache = await r.json();
+    return _inbioDeptCache;
+}
+
+async function loadINBIO() {
     try {
-        const [deptRes, inbioRes] = await Promise.all([
-            fetch('./data/admin/departamentos.geojson'),
-            fetch('./data/inbio_zafra_2025_2026.json'),
+        const [dept, inbio] = await Promise.all([
+            _loadDepartamentosForINBIO(),
+            fetch('./data/inbio_zafra_2025_2026.json').then(r => r.ok ? r.json() : null),
         ]);
-        if (!deptRes.ok || !inbioRes.ok) throw new Error('INBIO data fetch failed');
-        const [dept, inbio] = await Promise.all([deptRes.json(), inbioRes.json()]);
-        // Build iso -> {soja_25_26, soja_24_25, arroz_25_26, ...}
+        if (!inbio) throw new Error('INBIO data fetch failed');
+
+        // index by depto name (Geofabrik doesn't carry ISO codes consistently)
         const index = {};
-        inbio.rows_by_dept.forEach(r => {
-            // Try multiple iso variants
-            const codes = [r.iso];
-            if (r.iso && r.iso.startsWith('PY-')) {
-                const codeNum = r.iso.replace('PY-', '').padStart(2, '0');
-                codes.push('PY-' + codeNum);  // canonical
-            }
-            codes.forEach(c => {
-                index[c] = {
-                    ...r,
-                    soja: r.soja_25_26,
-                    soja_prev: r.soja_24_25,
-                    arroz: r.arroz_25_26,
-                    maiz: r.maiz_zaf_25_26,
-                };
-            });
-            // Also by name match (for deptos that don't have iso)
-            index[r.depto] = {
-                ...r,
-                soja: r.soja_25_26,
-                soja_prev: r.soja_24_25,
-                arroz: r.arroz_24_25,
-                maiz: r.maiz_zaf_25_26,
-            };
+        (inbio.rows_by_dept || []).forEach(r => {
+            index[r.depto] = r;
+            index[r.iso] = r;  // fallback
         });
+
         const features = dept.features.filter(f => f.geometry && f.geometry.coordinates);
-        updateLayerCount('inbio_soja', features.length);
 
-        // Compute max soja for choropleth scaling
-        const sojaValues = Object.values(index).map(x => x.soja).filter(x => x != null);
-        const maxSoja = Math.max(...sojaValues, 1);
-
-        const group = LAYER_GROUPS.inbio_soja[0];
-        features.forEach(f => {
-            const p = f.properties;
-            const iso = p.iso_code || (p.osm_id ? 'OSM ' + p.osm_id : '');
-            const data = index[iso] || index[p.name] || {};
-            // Color by soja density
-            const soja = data.soja || 0;
-            const ratio = soja / maxSoja;
-            // purple gradient
-            const r = Math.round(160 + 95 * ratio);
-            const g = Math.round(100 + 60 * ratio);
-            const b = Math.round(220 + 30 * ratio);
-            const fill = `rgba(${r},${g},${b},${0.1 + 0.45 * ratio})`;
-            const layer = L.geoJSON(f, {
-                style: { color: '#c084fc', weight: 1.0, fillColor: `rgb(${r},${g},${b})`, fillOpacity: 0.15 + 0.45 * ratio },
-                onEachFeature: (feat, l) => {
-                    const formatHA = (x) => x == null ? '—' : `${x.toLocaleString()} ha`;
-                    const formatDelta = (cur, prev) => {
-                        if (cur == null || prev == null) return '—';
-                        const d = cur - prev;
-                        const pct = (d / prev * 100).toFixed(1);
-                        return `${d > 0 ? '+' : ''}${d.toLocaleString()} ha (${d > 0 ? '+' : ''}${pct}%)`;
-                    };
-                    const cent = l.getBounds().getCenter();
-                    l.bindPopup(`
-                        <h3>${p.name || data.depto}</h3>
-                        <div style="font-size:10px; color:var(--fg-dim);">${p.code ? 'Código DGEEC ' + p.code + ' · admin_level ' + (p.admin_level || '?') : ''}</div>
-                        <hr style="border-color:var(--line); margin:6px 0;">
-                        <div style="font-size:11px; color:var(--accent); margin-bottom:4px;"><strong>INBIO zafra 2025/2026</strong></div>
-                        <div class="row"><span class="k">Soja</span><span class="v">${formatHA(data.soja)}</span></div>
-                        <div class="row"><span class="k">  vs 24/25</span><span class="v">${formatDelta(data.soja, data.soja_prev)}</span></div>
-                        <div class="row"><span class="k">Arroz</span><span class="v">${formatHA(data.arroz)}</span></div>
-                        <div class="row"><span class="k">Maíz zafriña</span><span class="v">${formatHA(data.maiz)}</span></div>
-                        <hr style="border-color:var(--line); margin:6px 0;">
-                        <div style="font-size:10px; color:var(--fg-dim);">Source: INBIO satellite estimate Apr 2026 + OSM boundary via Geofabrik</div>
-                    `);
-                }
+        // For each crop, build a choropleth
+        for (const [cropKey, crop] of Object.entries(INBIO_CROPS)) {
+            const values = Object.values(index).map(x => x[crop.jsonKey]).filter(x => x != null && x > 0);
+            const maxVal = Math.max(...values, 1);
+            const group = LAYER_GROUPS[crop.layerId][0];
+            features.forEach(f => {
+                const p = f.properties;
+                const data = index[p.name] || {};
+                const val = data[crop.jsonKey] || 0;
+                const ratio = val > 0 ? val / maxVal : 0;
+                const [cr, cg, cb] = crop.color;
+                const fillOp = val > 0 ? 0.15 + 0.5 * ratio : 0.04;
+                const layer = L.geoJSON(f, {
+                    style: {
+                        color: `rgb(${cr},${cg},${cb})`,
+                        weight: crop.layerId === 'inbio_soja' && layerState.inbio_soja.active ? 1.5 : 0.8,
+                        fillColor: `rgb(${cr},${cg},${cb})`,
+                        fillOpacity: fillOp,
+                    },
+                    onEachFeature: (feat, l) => {
+                        const formatHA = (x) => x == null ? '—' : `${x.toLocaleString()} ha`;
+                        const formatDelta = (cur, prev) => {
+                            if (cur == null || prev == null) return '—';
+                            const d = cur - prev;
+                            const pct = (d / prev * 100).toFixed(1);
+                            return `${d > 0 ? '+' : ''}${d.toLocaleString()} ha (${d > 0 ? '+' : ''}${pct}%)`;
+                        };
+                        l.bindPopup(`
+                            <h3>${p.name || data.depto}</h3>
+                            <div style="font-size:10px; color:var(--fg-dim);">${p.code ? 'Código DGEEC ' + p.code + ' · admin_level ' + (p.admin_level || '?') : ''}</div>
+                            <hr style="border-color:var(--line); margin:6px 0;">
+                            <div style="font-size:11px; color:rgb(${cr},${cg},${cb}); margin-bottom:4px;"><strong>${crop.label} zafra 2025/2026</strong></div>
+                            <div class="row"><span class="k">${crop.label}</span><span class="v">${formatHA(data[crop.jsonKey])}</span></div>
+                            <div class="row"><span class="k">  vs ${crop.prevLabel}</span><span class="v">${formatDelta(data[crop.jsonKey], data[crop.prevKey])}</span></div>
+                            <hr style="border-color:var(--line); margin:6px 0;">
+                            <div style="font-size:10px; color:var(--fg-dim);">Source: INBIO satellite + OSM boundary via Geofabrik</div>
+                        `);
+                    }
+                });
+                layer.addTo(group);
             });
-            layer.addTo(group);
-        });
-        if (layerState.inbio_soja.active) group.addTo(map);
+            updateLayerCount(crop.layerId, features.length);
+            if (layerState[crop.layerId].active) group.addTo(map);
+        }
     } catch (e) {
         console.error('INBIO load failed:', e);
     }
@@ -798,30 +958,100 @@ async function loadProperties() {
         const features = d.features || [];
         updateLayerCount('properties_infocasas', features.length);
 
+        // Render $/ha-by-depto bar chart in sidebar
+        try {
+            const buckets = {};
+            for (const f of features) {
+                const p = f.properties || {};
+                const ph = p['$/ha'];
+                if (!ph || !isFinite(ph) || ph <= 0) continue;
+                const depto = p.state_province || p.city || '—';
+                if (!buckets[depto]) buckets[depto] = { sum: 0, count: 0 };
+                buckets[depto].sum += ph;
+                buckets[depto].count += 1;
+            }
+            const rows = Object.entries(buckets)
+                .map(([k, v]) => ({ k, avg: v.sum / v.count, n: v.count }))
+                .sort((a, b) => b.avg - a.avg)
+                .slice(0, 12);
+            const maxAvg = Math.max(...rows.map(r => r.avg), 1);
+            const html = rows.length === 0
+                ? '<div style="color:var(--fg-dim);">No $/ha data yet</div>'
+                : rows.map(r => {
+                    const w = Math.max(8, (r.avg / maxAvg) * 100);
+                    return `<div style="display:flex; align-items:center; gap:6px; margin:2px 0;">
+                        <span style="width:90px; text-align:right; font-size:10px; color:var(--fg);">${r.k.slice(0,15)}</span>
+                        <span style="background:linear-gradient(90deg, #34d399, #fbbf24 ${w}%, transparent ${w}%); flex:1; height:8px; border-radius:2px;"></span>
+                        <span style="font-size:10px; color:var(--accent); width:60px; text-align:right;">$${Math.round(r.avg).toLocaleString()}</span>
+                        <span style="font-size:9px; color:var(--fg-dim); width:25px; text-align:right;">${r.n}</span>
+                    </div>`;
+                }).join('');
+            document.getElementById('priceByDepto').innerHTML = html + '<div style="color:var(--fg-dim); margin-top:4px; font-size:9px;">avg $/ha by depto (top 12)</div>';
+        } catch (e) {
+            console.error('priceByDepto render failed:', e);
+        }
+
         const group = LAYER_GROUPS.properties_infocasas[0];
         features.forEach(f => {
             if (!f.geometry || !f.geometry.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
             const p = f.properties;
-            const price = p.price_pyg ? `Gs. ${p.price_pyg.toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})` : (p.price_usd ? `$${Math.round(p.price_usd).toLocaleString()}` : '—');
-            const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '—';
+            // Price display: prefer PYG when both, show USD parenthetical
+            const hasPyg = !!p.price_pyg;
+            const hasUsd = !!p.price_usd;
+            let price;
+            if (hasPyg && hasUsd) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})`;
+            else if (hasPyg) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()}`;
+            else if (hasUsd) price = `$${Math.round(p.price_usd).toLocaleString()}`;
+            else price = '—';
+            // Area: prefer ha for large properties, m² for small
+            let areaStr = '—';
+            if (p.area_ha && p.area_ha >= 0.5) areaStr = `${p.area_ha.toLocaleString()} ha`;
+            else if (p.area_sqm) areaStr = `${p.area_sqm.toLocaleString()} m²`;
+            else if (p.area_ha) areaStr = `${(p.area_ha * 10000).toLocaleString()} m²`;
+            const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
+            const op = p.listing_type === 'rent' ? 'RENT' : p.listing_type === 'short_rent' ? 'SHORT-RENT' : 'SALE';
+            const opColor = p.listing_type === 'rent' ? '#fbbf24' : p.listing_type === 'short_rent' ? '#a78bfa' : '#34d399';
+            const cityNeigh = [p.city, p.neighborhood].filter(Boolean).join(' / ');
+            const propertyType = p.property_type ? p.property_type.replace('_', ' ') : '—';
+
+            // Image: prefer first property photo (hot-linked from source CDN, never downloaded)
+            const imgs = Array.isArray(p.images) ? p.images : [];
+            const imgUrl = imgs[0] || '';
+            const imgsHtml = imgUrl
+                ? `<div class="prop-imgs" style="margin:6px 0;">
+                       <a href="${p.source_url || '#'}" target="_blank" rel="noopener noreferrer">
+                           <img loading="lazy" src="${imgUrl}"
+                                style="width:100%; max-width:280px; max-height:180px; object-fit:cover; border-radius:4px; background:#0f172a;"
+                                onerror="this.style.display='none'; this.parentNode.insertAdjacentHTML('beforeend','<div class=&quot;prop-noimg&quot; style=&quot;font-size:10px; color:var(--fg-dim); padding:18px 0; text-align:center; background:#0f172a; border-radius:4px;&quot;>📷 image unavailable</div>');" />
+                       </a>
+                       ${imgs.length > 1 ? `<div style="font-size:9px; color:var(--fg-dim); margin-top:2px;">+${imgs.length - 1} more photos on listing</div>` : ''}
+                   </div>`
+                : '';
             const m = L.circleMarker([lat, lon], {
                 radius: 6, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
             });
+            const mergedFrom = Array.isArray(p._merged_from) ? `<span style="color:var(--accent); font-size:9px;">[merged: ${p._merged_from.join('+')}]</span><br>` : '';
             m.bindPopup(`
-                <h3 style="max-width:280px;">${(p.title || 'Property').slice(0,80)}</h3>
+                <h3 style="max-width:280px;">${(p.title || p.source_id || 'Property').slice(0,80)}</h3>
+                ${mergedFrom}
+                ${imgsHtml}
                 <div style="font-size:11px; color:var(--fg-dim); margin-bottom:6px; max-width:280px;">
-                    ${(p.source_url || '').replace('https://www.infocasas.com.py/', '')}
+                    <span style="color:${opColor}; font-weight:600;">${op}</span>
+                    · ${propertyType}
+                    ${cityNeigh ? '· ' + cityNeigh : ''}
+                    ${p.state_province ? '· ' + p.state_province : ''}
                 </div>
-                <div class="row"><span class="k">Depto</span><span class="v">${p.depto || '—'}</span></div>
-                <div class="row"><span class="k">Source</span><span class="v">infocasas #${p.source_id || '?'}</span></div>
+                <div class="row"><span class="k">Source</span><span class="v">${p.source}${p.source_platform && p.source_platform !== p.source ? ' <span style="color:var(--fg-dim); font-size:9px;">via ' + p.source_platform + '</span>' : ''} #${p.source_id || '?'}</span></div>
                 <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
-                <div class="row"><span class="k">Area</span><span class="v">${p.area_ha ? p.area_ha.toLocaleString() + ' ha' : '—'}</span></div>
-                <div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>
-                ${p.bedrooms ? `<div class="row"><span class="k">Bedrooms</span><span class="v">${p.bedrooms}</span></div>` : ''}
-                ${p.address ? `<div class="row"><span class="k">Address</span><span class="v" style="font-size:10px;">${(p.address.street || '').slice(0,40)}, ${p.address.city || ''}</span></div>` : ''}
+                <div class="row"><span class="k">Area</span><span class="v">${areaStr}</span></div>
+                ${perHa ? `<div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>` : ''}
+                ${p.bedrooms ? `<div class="row"><span class="k">Bed/Bath</span><span class="v">${p.bedrooms} bed${p.bathrooms ? ' / ' + p.bathrooms + ' bath' : ''}</span></div>` : ''}
+                ${p.parking_spaces ? `<div class="row"><span class="k">Parking</span><span class="v">${p.parking_spaces}</span></div>` : ''}
+                ${p.address ? `<div class="row"><span class="k">Address</span><span class="v" style="font-size:10px;">${typeof p.address === 'string' ? p.address.slice(0,50) : (p.address.street || '').slice(0,40)}</span></div>` : ''}
+                ${p.source_agent ? `<div class="row"><span class="k">Agent</span><span class="v" style="font-size:10px;">${p.source_agent}</span></div>` : ''}
                 <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
-            `);
+            `, { maxWidth: 320 });
             m.addTo(group);
         });
         if (layerState.properties_infocasas.active) group.addTo(map);
@@ -887,37 +1117,145 @@ function updateCityListWithCounts(propertyFeatures) {
     });
 }
 
-// ========== GBIF SPECIES ==========
+// ========== GBIF SPECIES (split Animalia + Plantae into 2 layers) ==========
 async function loadGBIF() {
     try {
         const r = await fetch('./data/gbif_paraguay.geojson');
         if (!r.ok) throw new Error('HTTP ' + r.status);
         const d = await r.json();
         const features = d.features || [];
-        updateLayerCount('gbif_species', features.length);
-
-        const group = LAYER_GROUPS.gbif_species[0];
-        features.forEach(f => {
-            if (!f.geometry || !f.geometry.coordinates) return;
-            const [lon, lat] = f.geometry.coordinates;
-            const p = f.properties;
-            const color = p.kingdom === 'Animalia' ? '#f59e0b' : '#10b981';
-            const m = L.circleMarker([lat, lon], {
-                radius: 4, color, fillColor: color, fillOpacity: 0.85, weight: 1,
+        const animalia = [];
+        const plantae = [];
+        for (const f of features) {
+            const k = (f.properties && f.properties.kingdom) || '';
+            if (k === 'Animalia') animalia.push(f);
+            else if (k === 'Plantae') plantae.push(f);
+        }
+        const colorAnimalia = '#f59e0b';
+        const colorPlantae = '#10b981';
+        const buildGroup = (group, color, kingdomLabel) => {
+            group.forEach(f => {
+                if (!f.geometry || !f.geometry.coordinates) return;
+                const [lon, lat] = f.geometry.coordinates;
+                const p = f.properties;
+                const m = L.circleMarker([lat, lon], {
+                    radius: 4, color, fillColor: color, fillOpacity: 0.85, weight: 1,
+                });
+                m.bindPopup(`
+                    <h3>${p.species || '—'}</h3>
+                    <div class="row"><span class="k">Kingdom</span><span class="v">${kingdomLabel}</span></div>
+                    <div class="row"><span class="k">Family</span><span class="v">${p.family || '—'}</span></div>
+                    <div class="row"><span class="k">Date</span><span class="v">${p.event_date || '—'}</span></div>
+                    <div class="row"><span class="k">Source</span><span class="v">GBIF</span></div>
+                    ${p.license ? `<div class="row"><span class="k">License</span><span class="v" style="font-size:9px">${p.license.split('/').slice(-2, -1)[0] || '—'}</span></div>` : ''}
+                `);
+                m.addTo(group);
             });
-            m.bindPopup(`
-                <h3>${p.species}</h3>
-                <div class="row"><span class="k">Kingdom</span><span class="v">${p.kingdom}</span></div>
-                <div class="row"><span class="k">Family</span><span class="v">${p.family || '—'}</span></div>
-                <div class="row"><span class="k">Date</span><span class="v">${p.event_date || '—'}</span></div>
-                <div class="row"><span class="k">Source</span><span class="v">GBIF</span></div>
-                ${p.license ? `<div class="row"><span class="k">License</span><span class="v" style="font-size:9px">${p.license.split('/').slice(-2, -1)[0] || '—'}</span></div>` : ''}
-            `);
-            m.addTo(group);
-        });
-        if (layerState.gbif_species.active) group.addTo(map);
+        };
+        const ga = LAYER_GROUPS.gbif_animalia[0];
+        const gp = LAYER_GROUPS.gbif_plantae[0];
+        buildGroup(animalia, ga, colorAnimalia, 'Animalia');
+        buildGroup(plantae, gp, colorPlantae, 'Plantae');
+        updateLayerCount('gbif_animalia', animalia.length);
+        updateLayerCount('gbif_plantae', plantae.length);
+        if (layerState.gbif_animalia.active) ga.addTo(map);
+        if (layerState.gbif_plantae.active) gp.addTo(map);
     } catch (e) {
         console.error('GBIF load failed:', e);
+    }
+}
+
+// ========== OSM INFRASTRUCTURE LAYERS ==========
+async function loadOSMRoads() {
+    try {
+        const r = await fetch('./data/roads.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = d.features || [];
+        // Color by highway class
+        const colorByClass = {
+            motorway: '#dc2626', trunk: '#f97316', primary: '#eab308',
+            secondary: '#84cc16', motorway_link: '#dc2626', trunk_link: '#f97316',
+            primary_link: '#eab308', secondary_link: '#84cc16', tertiary: '#65a30d',
+            tertiary_link: '#65a30d', unclassified: '#94a3b8'
+        };
+        const widthByClass = {
+            motorway: 3, trunk: 3, primary: 2.5, secondary: 2,
+            motorway_link: 1.5, trunk_link: 1.5, primary_link: 1.5, secondary_link: 1.5,
+            tertiary: 1.5, tertiary_link: 1, unclassified: 1
+        };
+        const group = LAYER_GROUPS.osm_roads[0];
+        features.forEach(f => {
+            if (!f.geometry || !f.geometry.coordinates) return;
+            const p = f.properties || {};
+            const fc = p.fclass || 'unclassified';
+            const c = colorByClass[fc] || '#64748b';
+            const w = widthByClass[fc] || 1;
+            let layer;
+            if (f.geometry.type === 'LineString') {
+                layer = L.polyline(f.geometry.coordinates.map(c => [c[1], c[0]]), { color: c, weight: w, opacity: 0.9 });
+            } else {
+                layer = L.polyline(f.geometry.coordinates.map(line => line.map(c => [c[1], c[0]])), { color: c, weight: w, opacity: 0.9 });
+            }
+            const name = p.name || p.ref || '—';
+            layer.bindPopup(`
+                <h3>${name}</h3>
+                <div class="row"><span class="k">Class</span><span class="v">${fc}</span></div>
+                ${p.ref ? `<div class="row"><span class="k">Ref</span><span class="v">${p.ref}</span></div>` : ''}
+                ${p.maxspeed ? `<div class="row"><span class="k">Max speed</span><span class="v">${p.maxspeed}</span></div>` : ''}
+                <div class="row"><span class="k">OSM ID</span><span class="v">${p.osm_id || '—'}</span></div>
+            `, { maxWidth: 280 });
+            layer.addTo(group);
+        });
+        updateLayerCount('osm_roads', features.length);
+        if (layerState.osm_roads.active) group.addTo(map);
+    } catch (e) {
+        console.error('OSM roads load failed:', e);
+    }
+}
+
+async function loadOSMBuildings() {
+    try {
+        const r = await fetch('./data/buildings_asuncion.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = d.features || [];
+        const group = LAYER_GROUPS.osm_buildings[0];
+        features.forEach(f => {
+            if (!f.geometry) return;
+            const layer = L.geoJSON(f, {
+                style: { color: '#a78bfa', weight: 0.5, fillColor: '#a78bfa', fillOpacity: 0.4 },
+            });
+            layer.bindPopup(`<div class="row"><span class="k">Building</span><span class="v">${f.properties?.fclass || 'yes'}</span></div>`);
+            layer.addTo(group);
+        });
+        updateLayerCount('osm_buildings', features.length);
+        if (layerState.osm_buildings.active) group.addTo(map);
+    } catch (e) {
+        console.error('OSM buildings load failed:', e);
+    }
+}
+
+async function loadOSMWater() {
+    try {
+        const r = await fetch('./data/water.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = d.features || [];
+        const group = LAYER_GROUPS.osm_water[0];
+        features.forEach(f => {
+            if (!f.geometry) return;
+            const layer = L.geoJSON(f, {
+                style: { color: '#1e40af', weight: 0.5, fillColor: '#3b82f6', fillOpacity: 0.3 },
+            });
+            const name = f.properties?.name || '—';
+            layer.bindPopup(`<h3>${name}</h3><div class="row"><span class="k">Class</span><span class="v">${f.properties?.fclass || '—'}</span></div>`);
+            layer.addTo(group);
+        });
+        updateLayerCount('osm_water', features.length);
+        if (layerState.osm_water.active) group.addTo(map);
+    } catch (e) {
+        console.error('OSM water load failed:', e);
     }
 }
 
@@ -934,6 +1272,9 @@ loadBarrios();
 loadINBIOSoja();
 loadProperties();
 loadGBIF();
+loadOSMRoads();
+loadOSMBuildings();
+loadOSMWater();
 
 function hideLoading() {
     const b = document.getElementById('loading');

@@ -26,3 +26,6 @@ __pycache__/
 *.osm.pbf
 *.shp.zip
 *.gpkg.zip
+
+# TuLugar full snapshots (raw fetch output)
+data/properties/tulugar_snap.json

@@ -164,7 +164,39 @@ def scrape_infocasas_detail(client: httpx.Client, listing: dict) -> dict:
         "district": None,
         "departamento": None,
         "attrs": _extract_attrs_infocasas(html),
+        "images": _extract_images_infocasas(html, max_n=8),
     }
+
+
+_PHOTO_RE_INFOCASAS = re.compile(
+    r'https?://cdn[0-9]?\.infocasas\.com\.uy/repo/img/[a-z0-9_\-\.]+\.(?:jpg|jpeg|png|webp)',
+    re.I,
+)
+_BRAND_PATTERNS_INFOCASAS = [
+    re.compile(r'/isotipo', re.I),
+    re.compile(r'/logo-?infocasas', re.I),
+    re.compile(r'/@2x\.png', re.I),
+    re.compile(r'fincaraiz\.com\.co/web/', re.I),
+    re.compile(r'whatsapp-image-', re.I),  # WhatsApp profile photos, not property
+]
+
+
+def _extract_images_infocasas(html: str, max_n: int = 8) -> list[str]:
+    """Pull unique property image URLs from an infocasas detail page.
+
+    Filters out branding (logo/isotipo), WhatsApp profile photos, and
+    favicons. Returns up to `max_n` ordered by first occurrence in HTML.
+    """
+    from collections import OrderedDict
+    seen = OrderedDict()
+    for u in _PHOTO_RE_INFOCASAS.findall(html):
+        if any(p.search(u) for p in _BRAND_PATTERNS_INFOCASAS):
+            continue
+        if u not in seen:
+            seen[u] = True
+        if len(seen) >= max_n:
+            break
+    return list(seen.keys())
 
 
 def _extract_lat_lon(html: str) -> tuple[float | None, float | None]:
