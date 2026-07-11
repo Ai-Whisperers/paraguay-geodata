@@ -530,21 +530,17 @@ function updateStats() {
     document.getElementById('statListings').textContent = layerState.properties_infocasas.features === '?' ? '—' : layerState.properties_infocasas.features;
     document.getElementById('statRoads').textContent = layerState.osm_roads.features === '?' ? '—' : layerState.osm_roads.features.toLocaleString();
     document.getElementById('statBuildings').textContent = layerState.osm_buildings.features === '?' ? '—' : layerState.osm_buildings.features.toLocaleString();
-    document.getElementById('statGbif').textContent = layerState.gbif_species.features === '?' ? '—' : layerState.gbif_species.features;
+    // GBIF total = animalia + plantae
+    const gbifTotal = (layerState.gbif_animalia.features === '?' || layerState.gbif_plantae.features === '?') ? '?' : (layerState.gbif_animalia.features + layerState.gbif_plantae.features);
+    document.getElementById('statGbif').textContent = gbifTotal === '?' ? '—' : gbifTotal.toLocaleString();
     document.getElementById('statLayers').textContent = Object.values(layerState).filter(l => l.active).length;
 }
 
-// ========== LAYER GROUPS ==========
-const LAYER_GROUPS = {
-    tile_fabric:        [L.layerGroup()],
-    priority_tiles:     [L.layerGroup()],
-    departamentos_py:   [L.layerGroup()],
-    distritos_py:        [L.layerGroup()],
-    barrios_py:          [L.layerGroup()],
-    inbio_soja:         [L.layerGroup()],
-    properties_infocasas:[L.layerGroup()],
-    gbif_species:       [L.layerGroup()],
-};
+// ========== LAYER GROUPS (auto-created from LAYER_GROUPS_ORDER above) ==========
+// LAYER_GROUPS is already initialized at line ~425 by:
+//   const LAYER_GROUPS = {};
+//   for (const id of LAYER_GROUPS_ORDER) LAYER_GROUPS[id] = [L.layerGroup()];
+// Keep that single source of truth — adding new layers = add to LAYER_GROUPS_ORDER.
 
 // ========== BCP WIDGET + OVERLAY ==========
 async function loadBCP() {
@@ -1274,7 +1270,7 @@ loadTileFabric();
 loadDepartamentos();
 loadDistritos();
 loadBarrios();
-loadINBIOSoja();
+loadINBIO();
 loadProperties();
 loadGBIF();
 loadOSMRoads();
