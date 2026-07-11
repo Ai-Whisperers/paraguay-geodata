@@ -12,5 +12,50 @@
         "last_check_utc": "2026-07-11T14:53:11.338164+00:00"
       }
     }
+  },
+  {
+    "timestamp_utc": "2026-07-11T15:44:17.898942+00:00",
+    "feature_count": 10898,
+    "sources": {
+      "infocasas": {
+        "reachable": false,
+        "last_check_utc": "2026-07-11T15:44:16.955826+00:00"
+      },
+      "tulugar": {
+        "reachable": false,
+        "last_check_utc": "2026-07-11T15:44:17.550303+00:00"
+      }
+    }
+  },
+  {
+    "timestamp_utc": "2026-07-11T15:44:21.798053+00:00",
+    "duration_s": 6.4,
+    "steps": [
+      {
+        "name": "refresh_properties",
+        "success": true,
+        "duration_s": 2.6
+      },
+      {
+        "name": "scrub_pii",
+        "success": true,
+        "duration_s": 1.7
+      },
+      {
+        "name": "validate",
+        "success": true,
+        "duration_s": 1.7
+      },
+      {
+        "name": "update_environmental",
+        "success": true,
+        "duration_s": 0.1
+      },
+      {
+        "name": "update_freshness",
+        "success": true,
+        "duration_s": 0.3
+      }
+    ]
   }
 ]

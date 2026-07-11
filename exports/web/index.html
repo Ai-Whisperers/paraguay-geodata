@@ -35,59 +35,59 @@
         showing: 'Mostrando',
         of: 'de',
         hidden: 'ocultos',
-   ,
-        mortgage_calc: 'Calculadora hipotecaria (PY)',,
-        affordability: 'Calculadora de asequibilidad',,
-        inmueble_tax: 'Impuesto inmueble',,
-        measure: 'Medir distancia',,
-        kml_export: 'Descargar KML',,
-        csv_export_btn: 'Descargar CSV',,
-        share_view_btn: 'Compartir vista',,
-        embed_btn: 'Incrustar',,
-        locate_me: 'Mi ubicación',,
-        tax_summary: 'Resumen fiscal',,
-        header_tabs: 'Pestañas',,
-        layer_active: 'capa activa',,
-        layer_inactive: 'capa inactiva',,
-        feature_count: 'características',,
-        visible: 'visible',,
-        hidden: 'oculto',,
-        click_to_zoom: 'Click para zoom',,
-        click_for_details: 'Click para detalles',,
-        click_to_filter: 'Click para filtrar',,
-        drag_to_select: 'Arrastrar para seleccionar',,
-        scroll_to_zoom: 'Scroll para zoom',,
-        reset_view: 'Restablecer vista',,
-        satellite_view: 'Vista satélite',,
-        street_view: 'Vista de calle',,
-        topo_view: 'Vista topográfica',,
-        light_dark: 'Claro/Oscuro',,
-        language: 'Idioma',,
-        share: 'Compartir',,
-        print: 'Imprimir',,
-        feedback: 'Comentarios',,
-        report_bug: 'Reportar error',,
-        about: 'Acerca de',,
-        docs: 'Documentos',,
-        github: 'Código fuente',,
-        help: 'Ayuda',,
-        tutorial: 'Tutorial',,
-        keyboard_shortcuts: 'Atajos de teclado',,
-        fullscreen: 'Pantalla completa',,
-        minimize: 'Minimizar',,
-        settings: 'Configuración',,
-        preferences: 'Preferencias',,
-        account: 'Cuenta',,
-        profile: 'Perfil',,
-        notifications: 'Notificaciones',,
-        alerts: 'Alertas',,
-        updates: 'Actualizaciones',,
-        news: 'Noticias',,
-        blog: 'Blog',,
-        donate: 'Donar',,
-        sponsor: 'Patrocinar',,
-        contact: 'Contacto',,
-        community: 'Comunidad',,
+
+        mortgage_calc: 'Calculadora hipotecaria (PY)',
+        affordability: 'Calculadora de asequibilidad',
+        inmueble_tax: 'Impuesto inmueble',
+        measure: 'Medir distancia',
+        kml_export: 'Descargar KML',
+        csv_export_btn: 'Descargar CSV',
+        share_view_btn: 'Compartir vista',
+        embed_btn: 'Incrustar',
+        locate_me: 'Mi ubicación',
+        tax_summary: 'Resumen fiscal',
+        header_tabs: 'Pestañas',
+        layer_active: 'capa activa',
+        layer_inactive: 'capa inactiva',
+        feature_count: 'características',
+        visible: 'visible',
+        hidden: 'oculto',
+        click_to_zoom: 'Click para zoom',
+        click_for_details: 'Click para detalles',
+        click_to_filter: 'Click para filtrar',
+        drag_to_select: 'Arrastrar para seleccionar',
+        scroll_to_zoom: 'Scroll para zoom',
+        reset_view: 'Restablecer vista',
+        satellite_view: 'Vista satélite',
+        street_view: 'Vista de calle',
+        topo_view: 'Vista topográfica',
+        light_dark: 'Claro/Oscuro',
+        language: 'Idioma',
+        share: 'Compartir',
+        print: 'Imprimir',
+        feedback: 'Comentarios',
+        report_bug: 'Reportar error',
+        about: 'Acerca de',
+        docs: 'Documentos',
+        github: 'Código fuente',
+        help: 'Ayuda',
+        tutorial: 'Tutorial',
+        keyboard_shortcuts: 'Atajos de teclado',
+        fullscreen: 'Pantalla completa',
+        minimize: 'Minimizar',
+        settings: 'Configuración',
+        preferences: 'Preferencias',
+        account: 'Cuenta',
+        profile: 'Perfil',
+        notifications: 'Notificaciones',
+        alerts: 'Alertas',
+        updates: 'Actualizaciones',
+        news: 'Noticias',
+        blog: 'Blog',
+        donate: 'Donar',
+        sponsor: 'Patrocinar',
+        contact: 'Contacto',
+        community: 'Comunidad',
         forum: 'Foro',
     },t.css" crossorigin="">
     <link rel="preconnect" href="https://rsms.me/">
@@ -716,7 +716,7 @@
                 </label>
             </div>
             <div style="display:flex; gap:8px; margin-top:12px;">
-                <button onclick="applyFilters(); toggleFilterSheet()" aria-label="Map action"  style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;"data-i18n="apply">Apply<<button onclick="clearFilters(); toggleFilterSheet()" aria-label="Map action"  style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;"data-i18n="clear">s:6px;"data-i18n="clear">Clear</button>
+                <button onclick="applyFilters(); toggleFilterSheet()"   style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;"data-i18n="apply">Apply<<button onclick="clearFilters(); toggleFilterSheet()"   style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;"data-i18n="clear">s:6px;"data-i18n="clear">Clear</button>
             </div>
             <div id="filterResultCount" style="margin-top:8px; font-size:11px; color:var(--fg-dim);"></div>
         </div>
@@ -1331,7 +1331,6 @@ async function loadDistritos() {
         if (layerState.distritos_py.active) group.addTo(map);
     } catch (e) { console.warn('Distritos load failed:', e.message); }
 }
-}
 
 // ========== BARRIOS / LOCALIDADES (Geofabrik) ==========
 async function loadBarrios() {
@@ -1450,9 +1449,10 @@ async function loadProperties() {
                 <div>This month: ${thisMonthCount} new
                     ${lastMonthCount > 0 ? `<span style="color:${supplyChange >= 0 ? 'var(--accent)' : 'var(--err)'}">(${supplyChange >= 0 ? '+' : ''}${supplyChange.toFixed(0)}% vs last month)</span>` : ''}</div>
             `;
-        } catch
-            // === CHARTS (Chart.js) ===
-            try {
+        } catch (e) { console.error('signals render failed:', e); }
+
+        // === CHARTS (Chart.js) ===
+        try {
                 if (typeof Chart === 'undefined') return;
                 Chart.defaults.color = 'rgba(230, 234, 242, 0.7)';
                 Chart.defaults.borderColor = 'rgba(31, 41, 68, 0.6)';
@@ -1497,7 +1497,7 @@ async function loadProperties() {
                     });
                 }
             } catch (e) { console.warn('Charts failed:', e); }
- (e) {
+        } catch (e) {
             console.error('Market signals failed:', e);
         }
 
@@ -1579,7 +1579,8 @@ async function loadProperties() {
 // Save for clustering
         window.__properties = features;
 
-const group = LAYER_GROUPS.properties_infocasas[0];
+try {
+        const group = LAYER_GROUPS.properties_infocasas[0];
         features.forEach(f => {
             if (!f.geometry || !f.geometry.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
@@ -1894,59 +1895,59 @@ const I18N = {
         showing: 'Showing',
         of: 'of',
         hidden: 'hidden',
-   ,
-        mortgage_calc: 'Mortgage calculator (PY)',,
-        affordability: 'Affordability calculator',,
-        inmueble_tax: 'Property tax',,
-        measure: 'Measure distance',,
-        kml_export: 'Download KML',,
-        csv_export_btn: 'Download CSV',,
-        share_view_btn: 'Share view',,
-        embed_btn: 'Embed',,
-        locate_me: 'My location',,
-        tax_summary: 'Tax summary',,
-        header_tabs: 'Tabs',,
-        layer_active: 'layer active',,
-        layer_inactive: 'layer inactive',,
-        feature_count: 'features',,
-        visible: 'visible',,
-        hidden: 'hidden',,
-        click_to_zoom: 'Click to zoom',,
-        click_for_details: 'Click for details',,
-        click_to_filter: 'Click to filter',,
-        drag_to_select: 'Drag to select',,
-        scroll_to_zoom: 'Scroll to zoom',,
-        reset_view: 'Reset view',,
-        satellite_view: 'Satellite view',,
-        street_view: 'Street view',,
-        topo_view: 'Topographic view',,
-        light_dark: 'Light/Dark',,
-        language: 'Language',,
-        share: 'Share',,
-        print: 'Print',,
-        feedback: 'Feedback',,
-        report_bug: 'Report bug',,
-        about: 'About',,
-        docs: 'Docs',,
-        github: 'Source code',,
-        help: 'Help',,
-        tutorial: 'Tutorial',,
-        keyboard_shortcuts: 'Keyboard shortcuts',,
-        fullscreen: 'Fullscreen',,
-        minimize: 'Minimize',,
-        settings: 'Settings',,
-        preferences: 'Preferences',,
-        account: 'Account',,
-        profile: 'Profile',,
-        notifications: 'Notifications',,
-        alerts: 'Alerts',,
-        updates: 'Updates',,
-        news: 'News',,
-        blog: 'Blog',,
-        donate: 'Donate',,
-        sponsor: 'Sponsor',,
-        contact: 'Contact',,
-        community: 'Community',,
+
+        mortgage_calc: 'Mortgage calculator (PY)',
+        affordability: 'Affordability calculator',
+        inmueble_tax: 'Property tax',
+        measure: 'Measure distance',
+        kml_export: 'Download KML',
+        csv_export_btn: 'Download CSV',
+        share_view_btn: 'Share view',
+        embed_btn: 'Embed',
+        locate_me: 'My location',
+        tax_summary: 'Tax summary',
+        header_tabs: 'Tabs',
+        layer_active: 'layer active',
+        layer_inactive: 'layer inactive',
+        feature_count: 'features',
+        visible: 'visible',
+        hidden: 'hidden',
+        click_to_zoom: 'Click to zoom',
+        click_for_details: 'Click for details',
+        click_to_filter: 'Click to filter',
+        drag_to_select: 'Drag to select',
+        scroll_to_zoom: 'Scroll to zoom',
+        reset_view: 'Reset view',
+        satellite_view: 'Satellite view',
+        street_view: 'Street view',
+        topo_view: 'Topographic view',
+        light_dark: 'Light/Dark',
+        language: 'Language',
+        share: 'Share',
+        print: 'Print',
+        feedback: 'Feedback',
+        report_bug: 'Report bug',
+        about: 'About',
+        docs: 'Docs',
+        github: 'Source code',
+        help: 'Help',
+        tutorial: 'Tutorial',
+        keyboard_shortcuts: 'Keyboard shortcuts',
+        fullscreen: 'Fullscreen',
+        minimize: 'Minimize',
+        settings: 'Settings',
+        preferences: 'Preferences',
+        account: 'Account',
+        profile: 'Profile',
+        notifications: 'Notifications',
+        alerts: 'Alerts',
+        updates: 'Updates',
+        news: 'News',
+        blog: 'Blog',
+        donate: 'Donate',
+        sponsor: 'Sponsor',
+        contact: 'Contact',
+        community: 'Community',
         forum: 'Forum',
     },
     gn: {
@@ -1985,59 +1986,59 @@ const I18N = {
         showing: 'Ojehecháva',
         of: 'peve',
         hidden: 'oñemombavy',
-   ,
-        mortgage_calc: 'Hipoteca haipyre (PY)',,
-        affordability: 'Aikuaa haipyre',,
-        inmueble_tax: 'Inmueble itavy',,
-        measure: 'Heko mombyky',,
-        kml_export: 'Emboguejy KML',,
-        csv_export_btn: 'Emboguejy CSV',,
-        share_view_btn: 'Mbohasa jehecha',,
-        embed_btn: 'Embe embopyta',,
-        locate_me: 'Aikete',,
-        tax_summary: 'Itavy ñehesaꞌỹijo',,
-        header_tabs: 'Táva',,
-        layer_active: 'oñemobyta oñemoheñói',,
-        layer_inactive: 'oñemobyta oñemombyta',,
-        feature_count: 'techaukaha',,
-        visible: 'ojehecha',,
-        hidden: 'oñemombavy',,
-        click_to_zoom: 'Eiklihína zoom',,
-        click_for_details: 'Eiklihína ñehesaꞌỹijo',,
-        click_to_filter: 'Eiklihína oñemohenda',,
-        drag_to_select: 'Ekyty mboguapy',,
-        scroll_to_zoom: 'Ekyty scroll zoom',,
-        reset_view: 'Emoñepyrũ jehecha',,
-        satellite_view: 'Satélite jehecha',,
-        street_view: 'Tape jehecha',,
-        topo_view: 'Oñemobyta jehecha',,
-        light_dark: 'Pyahu/Hũ',,
-        language: 'Ñeꞌẽ',,
-        share: 'Mbohasa',,
-        print: 'Mbopapaha',,
-        feedback: 'Ñeꞌẽmeꞌẽ',,
-        report_bug: 'Eñeꞌẽ jejavy',,
-        about: 'Rehegua',,
-        docs: 'Marandu',,
-        github: 'Código fuente',,
-        help: 'Pytyvõ',,
-        tutorial: 'Ñepytyvõha',,
-        keyboard_shortcuts: 'Teclado atajo',,
-        fullscreen: 'Opakatu pantalla',,
-        minimize: 'Michĩmi',,
-        settings: 'Ñemboheko',,
-        preferences: 'Jehepymeꞌẽ',,
-        account: 'Cuenta',,
-        profile: 'Techauka',,
-        notifications: 'Ñemomarandu',,
-        alerts: 'Ñemomarandu',,
-        updates: 'Ñemoambue pyahu',,
-        news: 'Marandu pyahu',,
-        blog: 'Blog',,
-        donate: 'Emeꞌẽ',,
-        sponsor: 'Patrocinar',,
-        contact: 'Ñeꞌẽngatu',,
-        community: 'Aty guasu',,
+
+        mortgage_calc: 'Hipoteca haipyre (PY)',
+        affordability: 'Aikuaa haipyre',
+        inmueble_tax: 'Inmueble itavy',
+        measure: 'Heko mombyky',
+        kml_export: 'Emboguejy KML',
+        csv_export_btn: 'Emboguejy CSV',
+        share_view_btn: 'Mbohasa jehecha',
+        embed_btn: 'Embe embopyta',
+        locate_me: 'Aikete',
+        tax_summary: 'Itavy ñehesaꞌỹijo',
+        header_tabs: 'Táva',
+        layer_active: 'oñemobyta oñemoheñói',
+        layer_inactive: 'oñemobyta oñemombyta',
+        feature_count: 'techaukaha',
+        visible: 'ojehecha',
+        hidden: 'oñemombavy',
+        click_to_zoom: 'Eiklihína zoom',
+        click_for_details: 'Eiklihína ñehesaꞌỹijo',
+        click_to_filter: 'Eiklihína oñemohenda',
+        drag_to_select: 'Ekyty mboguapy',
+        scroll_to_zoom: 'Ekyty scroll zoom',
+        reset_view: 'Emoñepyrũ jehecha',
+        satellite_view: 'Satélite jehecha',
+        street_view: 'Tape jehecha',
+        topo_view: 'Oñemobyta jehecha',
+        light_dark: 'Pyahu/Hũ',
+        language: 'Ñeꞌẽ',
+        share: 'Mbohasa',
+        print: 'Mbopapaha',
+        feedback: 'Ñeꞌẽmeꞌẽ',
+        report_bug: 'Eñeꞌẽ jejavy',
+        about: 'Rehegua',
+        docs: 'Marandu',
+        github: 'Código fuente',
+        help: 'Pytyvõ',
+        tutorial: 'Ñepytyvõha',
+        keyboard_shortcuts: 'Teclado atajo',
+        fullscreen: 'Opakatu pantalla',
+        minimize: 'Michĩmi',
+        settings: 'Ñemboheko',
+        preferences: 'Jehepymeꞌẽ',
+        account: 'Cuenta',
+        profile: 'Techauka',
+        notifications: 'Ñemomarandu',
+        alerts: 'Ñemomarandu',
+        updates: 'Ñemoambue pyahu',
+        news: 'Marandu pyahu',
+        blog: 'Blog',
+        donate: 'Emeꞌẽ',
+        sponsor: 'Patrocinar',
+        contact: 'Ñeꞌẽngatu',
+        community: 'Aty guasu',
         forum: 'Ñeꞌẽaty',
     },
 };
@@ -2151,7 +2152,7 @@ function buildPropertyPopup(p, lon, lat) {
         const thumbHtml = imgs.slice(0, 8).map((url, i) =>
             `<img loading="lazy" src="${url}" data-idx="${i}" style="width:40px; height:30px; object-fit:cover; border-radius:3px; cursor:pointer; border:1px solid var(--line);" onerror="this.style.display='none';" onclick="document.querySelectorAll('.prop-thumb')[${i}].click(); document.querySelector('.prop-main-img').src='${url}'; document.querySelectorAll('.prop-thumb').forEach(t=>t.style.borderColor='var(--line)'); this.style.borderColor='var(--accent)';" />`
         ).join('');
-        c<button onclick="event.preventDefault(); const img=document.querySelector('.prop-main-img'); const cur=Array.from(document.querySelectorAll('.prop-main-img-src')).findIndex(s=>s===img.src); const next=(cur+1)%${imgs.length}; img.src='${imgs[0]}'; document.querySelectorAll('.prop-main-img-src').forEach(s=>s.style.display='none'); img.style.display='block';" aria-label="Map action"  style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; width:28px; height:28px; border-radius:14px; cursor:pointer;">height:28px; border-radius:14px; cursor:pointer;">›</button>` : '';
+        const arrowsHtml = imgs.length > 1 ? `<button onclick="event.preventDefault(); const img=document.querySelector('.prop-main-img'); const cur=Array.from(document.querySelectorAll('.prop-main-img-src')).findIndex(s=>s===img.src); const next=(cur+1)%${imgs.length}; img.src='${imgs[0]}'; document.querySelectorAll('.prop-main-img-src').forEach(s=>s.style.display='none'); img.style.display='block';"   style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; width:28px; height:28px; border-radius>›</button>` : '';
         galleryHtml = `
             <div style="position:relative; margin:4px 0;">
                 ${imgs.map((url, i) => `<img class="prop-main-img-src" loading="lazy" src="${url}" onerror="this.style.display='none'" style="width:100%; max-width:280px; max-height:180px; object-fit:cover; border-radius:4px; display:${i===0?'block':'none'};" />`).join('').replace('<img class="prop-main-img-src"', '<img class="prop-main-img"')}
@@ -2415,6 +2416,83 @@ async function loadCatastroUrba() {
         { color: '#155e75', weight: 1, fillColor: '#155e75', fillOpacity: 0.2 },
         'distrito',
         ['dpto', 'dist', 'estado', 'situacion', 'area']);
+}
+
+// ========== ENVIRONMENTAL LAYERS ==========
+async function loadEnvironmental(layerId, url, style, labelField, infoFields, popupBuilder) {
+    try {
+        const r = await fetch(url);
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+        const group = LAYER_GROUPS[layerId][0];
+        features.forEach(f => {
+            const layer = L.geoJSON(f, {
+                style: style,
+                onEachFeature: (feat, l) => {
+                    l.bindPopup(popupBuilder(feat.properties || {}));
+                },
+            });
+            layer.addTo(group);
+        });
+        updateLayerCount(layerId, features.length);
+        if (layerState[layerId].active) group.addTo(map);
+    } catch (e) {
+        console.warn(`Environmental ${layerId} load failed:`, e);
+    }
+}
+
+async function loadIndigenous() {
+    await loadEnvironmental('indigenous', './data/indigenous_territories.geojson',
+        { color: '#ec4899', weight: 2, fillColor: '#ec4899', fillOpacity: 0.15, dashArray: '6, 4' },
+        'name',
+        ['people', 'status', 'area_km2'],
+        p => `<h3>${p.name || 'Indigenous territory'}</h3>
+            <div class="row"><span class="k">People</span><span class="v">${p.people || '—'}</span></div>
+            <div class="row"><span class="k">Status</span><span class="v">${p.status || '—'}</span></div>
+            <div class="row"><span class="k">Area</span><span class="v">${p.area_km2?.toLocaleString() || '?'} km²</span></div>
+            <div style="font-size:9px; color:var(--fg-dim); margin-top:6px;">⚠ Approximate bbox — not legal boundary</div>`);
+}
+
+async function loadClimateRisk() {
+    await loadEnvironmental('climate_risk', './data/climate_risk.geojson',
+        (feat) => {
+            const level = feat.properties?.risk_level || 'moderate';
+            const colors = { high: '#ef4444', moderate: '#f59e0b', low: '#10b981' };
+            return { color: colors[level], weight: 1.5, fillColor: colors[level], fillOpacity: 0.18 };
+        },
+        'depto',
+        ['risk_level', 'risk_score', 'forest_loss_pct_2020_2024', 'annual_precip_mm', 'spi_2024', 'driver'],
+        p => {
+            const score = (p.risk_score * 100).toFixed(0);
+            const colors = { high: 'var(--err)', moderate: 'var(--warn)', low: 'var(--accent)' };
+            return `<h3>${p.depto || 'Depto'} — Climate Risk</h3>
+                <div class="row"><span class="k">Risk</span><span class="v" style="color:${colors[p.risk_level]}">${p.risk_level?.toUpperCase() || '?'} (${score}/100)</span></div>
+                <div class="row"><span class="k">Forest loss 2020–24</span><span class="v">${p.forest_loss_pct_2020_2024}%</span></div>
+                <div class="row"><span class="k">Driver</span><span class="v">${p.driver || '—'}</span></div>
+                <div class="row"><span class="k">Annual precip</span><span class="v">${p.annual_precip_mm} mm</span></div>
+                <div class="row"><span class="k">SPI 2024</span><span class="v">${p.spi_2024 > 0 ? '+' : ''}${p.spi_2024}</span></div>
+                <div style="font-size:9px; color:var(--fg-dim); margin-top:6px;">Combined risk: 50% deforestation + 50% drought. 2024 baseline.</div>`;
+        });
+}
+
+async function loadFloodRisk() {
+    await loadEnvironmental('flood_risk', './data/flood_risk.geojson',
+        (feat) => {
+            const risk = feat.properties?.risk;
+            const colors = { very_high: '#ef4444', high: '#f59e0b', moderate: '#60a5fa' };
+            return { color: colors[risk] || '#60a5fa', weight: 2, fillColor: colors[risk] || '#60a5fa', fillOpacity: 0.15 };
+        },
+        'name',
+        ['risk', 'freq', 'seasonal'],
+        p => {
+            const colors = { very_high: 'var(--err)', high: 'var(--warn)', moderate: 'var(--info)' };
+            return `<h3>${p.name || 'Flood zone'}</h3>
+                <div class="row"><span class="k">Risk</span><span class="v" style="color:${colors[p.risk]}">${p.risk?.replace('_', ' ').toUpperCase() || '?'}</span></div>
+                <div class="row"><span class="k">Frequency</span><span class="v">${p.freq || '—'}</span></div>
+                <div class="row"><span class="k">Seasonal</span><span class="v">${p.seasonal ? 'Yes (rainy season Oct–Mar)' : 'No'}</span></div>
+                <div style="font-size:9px; color:var(--fg-dim); margin-top:6px;">⚠ Approximate zone — check SEN for live warnings.</div>`;
+        });
 }
 
 // ========== FAIR-PRICE MODEL (ML) ==========
