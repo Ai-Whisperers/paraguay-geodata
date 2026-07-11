@@ -184,16 +184,114 @@
         .leaflet-popup-content a { color: var(--accent); text-decoration: none; }
         .leaflet-popup-content a:hover { text-decoration: underline; }
         @media (max-width: 880px) {
-            main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+            html, body { height: 100%; overflow: hidden; }
+            body { display: flex; flex-direction: column; }
+            main { flex: 1; display: flex; min-height: 0; }
+            main > aside { width: 0; min-width: 0; padding: 0; border: 0; }
+
+            /* Mobile drawer pattern */
+            header { padding: 8px 12px; gap: 8px; flex-wrap: wrap; }
+            header h1 { font-size: 13px; }
+            header nav { font-size: 11px; gap: 2px; }
+            .pill { display: none; }
+
+            /* Sidebar = fixed drawer sliding from left */
             aside {
-                max-height: 50vh;
+                position: fixed !important;
+                top: 56px; left: 0;
+                width: 92vw; max-width: 380px;
+                height: calc(100vh - 56px);
+                max-height: none;
+                border-right: 1px solid var(--line);
+                border-bottom: none;
                 overflow-y: auto;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
+                z-index: 1000;
+                transform: translateX(-105%);
+                transition: transform 0.25s ease-out;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.6);
             }
-            aside.collapsed { display: none; }
-            #sidebarToggle { display: inline-block; }
-            #map { min-height: 60vh; }
+            aside.open { transform: translateX(0); }
+
+            /* Drawer backdrop overlay */
+            #drawerBackdrop {
+                position: fixed; top: 56px; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5); z-index: 999;
+                opacity: 0; pointer-events: none; transition: opacity 0.2s;
+            }
+            #drawerBackdrop.open { opacity: 1; pointer-events: auto; }
+
+            /* Floating controls: bigger, bottom-right */
+            .leaflet-control-zoom a { width: 38px !important; height: 38px !important; line-height: 38px !important; font-size: 20px !important; }
+            .map-controls { bottom: 12px !important; right: 12px !important; top: auto !important; left: auto !important; display: flex; flex-direction: column; gap: 6px; }
+            .map-controls button { font-size: 13px !important; padding: 10px 14px !important; min-height: 44px !important; min-width: 44px !important; }
+
+            /* Legend = collapsible bottom-left */
+            .legend { max-width: 240px; font-size: 10px; padding: 8px 10px; max-height: 36px; overflow: hidden; transition: max-height 0.25s; cursor: pointer; }
+            .legend::after { content: ' ▼'; color: var(--accent); margin-left: 6px; }
+            .legend.open { max-height: 320px; overflow-y: auto; }
+            .legend.open::after { content: ' ▲'; }
+
+            /* Bottom sheet for filters */
+            #filterSheet {
+                position: fixed; bottom: 0; left: 0; right: 0;
+                background: var(--bg-elev);
+                border-top: 1px solid var(--line);
+                border-radius: 14px 14px 0 0;
+                padding: 14px 16px;
+                z-index: 998;
+                max-height: 60vh;
+                overflow-y: auto;
+                transform: translateY(105%);
+                transition: transform 0.25s ease-out;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+            }
+            #filterSheet.open { transform: translateY(0); }
+            #filterSheetHandle {
+                width: 40px; height: 4px; background: var(--fg-dim);
+                border-radius: 2px; margin: 0 auto 10px; opacity: 0.5;
+            }
+            #filterSheetToggle {
+                position: fixed; bottom: 14px; left: 14px; z-index: 997;
+                background: var(--accent); color: var(--bg);
+                border: none; padding: 12px 16px;
+                border-radius: 24px; font-weight: 600; font-size: 13px;
+                min-height: 48px; min-width: 48px;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+                cursor: pointer;
+            }
+            #sidebarToggle {
+                position: fixed; top: 64px; left: 12px; z-index: 998;
+                background: var(--bg-elev); color: var(--accent);
+                border: 1px solid var(--line); padding: 10px 12px;
+                border-radius: 8px; font-size: 18px;
+                min-width: 44px; min-height: 44px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+                cursor: pointer;
+            }
+
+            /* Stats grid = 2 columns on mobile */
+            .stat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+            .stat .num { font-size: 18px !important; }
+            .stat .label { font-size: 9px !important; }
+
+            /* Inputs: bigger for touch, prevent iOS zoom */
+            input[type="text"], input[type="number"], select, textarea {
+                font-size: 16px !important;
+                padding: 8px 10px !important;
+                min-height: 44px !important;
+            }
+            button, .btn { min-height: 44px; }
+            .filter button, .search button { min-height: 44px; }
+
+            /* Loading banner smaller, dismissible */
+            #loadingBanner { padding: 8px 12px !important; font-size: 11px !important; }
+            #loadingBanner .spinner { width: 16px; height: 16px; }
+
+            /* Geo search results: full-width */
+            .geo-results { max-height: 50vh; }
+
+            /* Hide Insights sidebar text when collapsed */
+            aside.collapsed .stat-grid { display: none; }
         }
         #sidebarToggle {
             display: none;
@@ -208,7 +306,13 @@
             margin-left: 10px;
         }
         @media (min-width: 881px) {
-            #sidebarToggle { display: none; }
+            /* Drawer is always visible on desktop, hamburger hidden */
+            aside { transform: none !important; position: static !important; }
+            #drawerBackdrop { display: none !important; }
+            #filterSheet { display: none !important; }
+            #filterSheetToggle { display: none !important; }
+            .legend { max-height: none !important; }
+            .legend::before { display: none; }
         }
     
         /* Geocoder search results */
@@ -313,7 +417,7 @@
         <a href="./mapa.html">Per-Tile Viewer</a>
         <a href="./docs/INDEX.md">Docs</a>
     </nav>
-    <button id="sidebarToggle" onclick="document.querySelector('aside').classList.toggle('collapsed')">☰ Sidebar</button>
+    <button id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar menu" title="Toggle sidebar menu">☰ Menu</button>
     <div class="repo-link">
         <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -455,6 +559,53 @@
             <div>Branch: <code>main</code></div>
             <div id="fetchStatus">Loading data…</div>
         </div>
+            <!-- Mobile drawer backdrop -->
+        <div id="drawerBackdrop" onclick="toggleSidebar()"></div>
+
+        <!-- Mobile sidebar toggle (hidden on desktop) -->
+        
+
+        <!-- Mobile filter sheet (collapsed by default) -->
+        <div id="filterSheet" aria-label="Filters">
+            <div id="filterSheetHandle"></div>
+            <h2 style="margin-top:0;">Filters</h2>
+            <div class="filter-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <label style="font-size:11px;">Min price (USD)
+                    <input type="number" id="filterMinPrice" placeholder="0" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                </label>
+                <label style="font-size:11px;">Max price (USD)
+                    <input type="number" id="filterMaxPrice" placeholder="∞" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                </label>
+                <label style="font-size:11px;">Property type
+                    <select id="filterType" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                        <option value="">All types</option>
+                        <option value="house">House</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="land">Land</option>
+                        <option value="commercial">Commercial</option>
+                    </select>
+                </label>
+                <label style="font-size:11px;">Listing
+                    <select id="filterListing" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                        <option value="">All listings</option>
+                        <option value="sale">For sale</option>
+                        <option value="rent">For rent</option>
+                    </select>
+                </label>
+                <label style="font-size:11px;">Min beds
+                    <input type="number" id="filterBeds" placeholder="0" min="0" max="10" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                </label>
+                <label style="font-size:11px;">Min area (ha)
+                    <input type="number" id="filterArea" placeholder="0" step="0.1" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                </label>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+                <button onclick="applyFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;">Apply</button>
+                <button onclick="clearFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;">Clear</button>
+            </div>
+            <div id="filterResultCount" style="margin-top:8px; font-size:11px; color:var(--fg-dim);"></div>
+        </div>
+        <button id="filterSheetToggle" onclick="toggleFilterSheet()" aria-label="Filters">🔍 Filters</button>
     </aside>
 
     <div id="map"></div>
@@ -1055,38 +1206,29 @@ async function loadDistritos() {
 
 // ========== BARRIOS / LOCALIDADES (Geofabrik) ==========
 async function loadBarrios() {
-    const urls = [
-        './data/admin/localidades.geojson',
-        './data/admin/barrios_py.geojson',
-        './data/admin/barrios_int.geojson',
-        './data/admin/barrios_sub.geojson',
-    ];
-    let total = 0;
-    const group = LAYER_GROUPS.barrios_py[0];
-    for (const url of urls) {
-        try {
-            const r = await fetch(url);
-            if (!r.ok) continue;
-            const d = await r.json();
-            const feats = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
-            // Don't bind popups for all 141+236+852 — too heavy
-            feats.forEach(f => {
-                L.geoJSON(f, {
-                    style: { color: '#64748b', weight: 0.4, fillOpacity: 0.02 },
-                    onEachFeature: (feat, l) => {
-                        const p = feat.properties;
-                        l.on('click', e => { L.popup()
-                            .setLatLng(e.latlng)
-                            .setContent(`<h3>${p.name}</h3><div>admin_level ${p.admin_level}</div>`)
-                            .openOn(map); });
-                    }
-                }).addTo(group);
-            });
-            total += feats.length;
-        } catch (e) {}
+    try {
+        const r = await fetch('./data/admin/barrios_py.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const feats = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+        const group = LAYER_GROUPS.barrios_py[0];
+        feats.forEach(f => {
+            L.geoJSON(f, {
+                style: { color: '#64748b', weight: 0.4, fillOpacity: 0.02 },
+                onEachFeature: (feat, l) => {
+                    const p = feat.properties || {};
+                    l.on('click', e => { L.popup()
+                        .setLatLng(e.latlng)
+                        .setContent(`<h3>${p.name || 'Barrio'}</h3><div>admin_level ${p.admin_level || '?'}</div>`)
+                        .openOn(map); });
+                }
+            }).addTo(group);
+        });
+        updateLayerCount('barrios_py', feats.length);
+        if (layerState.barrios_py.active) group.addTo(map);
+    } catch (e) {
+        console.warn('Barrios load skipped:', e.message);
     }
-    updateLayerCount('barrios_py', total);
-    if (layerState.barrios_py.active) group.addTo(map);
 }
 
 // ========== PROPERTIES (infocasas) ==========
@@ -1911,6 +2053,32 @@ skipLink.textContent = 'Skip to map';
 document.body.insertBefore(skipLink, document.body.firstChild);
 
 // ========== SHARE / EMBED / LOCATE ==========
+
+window.exportCSV = function() {
+    if (!window.__properties) return alert('Properties still loading...');
+    const cols = ['id', 'title', 'price_pyg', 'price_usd', 'area_ha', 'bedrooms', 'bathrooms',
+                  'property_type', 'listing_type', 'state_province', 'city', 'address',
+                  'source', 'source_url', 'lat', 'lon'];
+    const header = cols.join(',');
+    const rows = window.__properties.map(f => {
+        const p = f.properties || {};
+        const [lon, lat] = f.geometry?.coordinates || [0, 0];
+        return cols.map(c => {
+            let v = c === 'lat' ? lat : c === 'lon' ? lon : (p[c] ?? '');
+            v = String(v).replace(/"/g, '""');
+            return /[,"\n]/.test(v) ? `"${v}"` : v;
+        }).join(',');
+    });
+    const csv = [header, ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `paraguay-properties-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+};
+
 window.shareMapView = function() {
     const center = map.getCenter();
     const zoom = map.getZoom();
@@ -1997,6 +2165,121 @@ function applyUrlParams() {
         document.getElementById('map').style.height = '100vh';
     }
 }
+
+
+// ========== MOBILE SIDEBAR TOGGLE ==========
+function toggleSidebar() {
+    const aside = document.querySelector('aside');
+    const backdrop = document.getElementById('drawerBackdrop');
+    aside.classList.toggle('open');
+    backdrop.classList.toggle('open');
+}
+window.toggleSidebar = toggleSidebar;
+
+// ========== MOBILE FILTER SHEET ==========
+function toggleFilterSheet() {
+    const sheet = document.getElementById('filterSheet');
+    sheet.classList.toggle('open');
+}
+window.toggleFilterSheet = toggleFilterSheet;
+
+// ========== PROPERTY FILTERS ==========
+let activeFilters = {};
+let allPropertiesFeatures = null;
+
+function applyFilters() {
+    const minPrice = parseFloat(document.getElementById('filterMinPrice').value) || 0;
+    const maxPrice = parseFloat(document.getElementById('filterMaxPrice').value) || Infinity;
+    const type = document.getElementById('filterType').value;
+    const listing = document.getElementById('filterListing').value;
+    const beds = parseInt(document.getElementById('filterBeds').value) || 0;
+    const minArea = parseFloat(document.getElementById('filterArea').value) || 0;
+
+    activeFilters = { minPrice, maxPrice, type, listing, beds, minArea };
+
+    // Apply filter to property markers
+    if (!window.__properties) return;
+
+    const filtered = window.__properties.filter(f => {
+        const p = f.properties || {};
+        const price = p.price_usd || 0;
+        if (price < minPrice || price > maxPrice) return false;
+        if (type && p.property_type !== type) return false;
+        if (listing && p.listing_type !== listing) return false;
+        if (beds && (p.bedrooms || 0) < beds) return false;
+        if (minArea && (p.area_ha || 0) < minArea) return false;
+        return true;
+    });
+
+    // Re-cluster with filtered set
+    if (propertyClusterGroup) map.removeLayer(propertyClusterGroup);
+    if (typeof clusterProperties === 'function') clusterProperties(filtered);
+
+    // Update count
+    const cnt = document.getElementById('filterResultCount');
+    if (cnt) cnt.textContent = `Showing ${filtered.length.toLocaleString()} of ${window.__properties.length.toLocaleString()} properties (${window.__properties.length - filtered.length} hidden by filters)`;
+
+    // Update stat too
+    const stat = document.getElementById('statListings');
+    if (stat) stat.textContent = filtered.length.toLocaleString();
+}
+window.applyFilters = applyFilters;
+
+function clearFilters() {
+    document.getElementById('filterMinPrice').value = '';
+    document.getElementById('filterMaxPrice').value = '';
+    document.getElementById('filterType').value = '';
+    document.getElementById('filterListing').value = '';
+    document.getElementById('filterBeds').value = '';
+    document.getElementById('filterArea').value = '';
+    document.getElementById('filterResultCount').textContent = '';
+    activeFilters = {};
+    if (window.__properties && typeof clusterProperties === 'function') {
+        clusterProperties(window.__properties);
+    }
+    const stat = document.getElementById('statListings');
+    if (stat) stat.textContent = (window.__properties || []).length.toLocaleString();
+}
+window.clearFilters = clearFilters;
+
+// ========== COLLAPSIBLE LEGEND (mobile) ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const legend = document.querySelector('.legend');
+    if (legend) {
+        legend.addEventListener('click', () => legend.classList.toggle('open'));
+    }
+});
+
+// ========== DISMISS LOADING BANNER ON BOOTSTRAP DONE ==========
+let bootstrapDone = 0;
+const TOTAL_BOOTSTRAP_LOADERS = 16;  // Generous; some loaders skip silently
+
+// Timeout fallback: hide loading banner after 8s no matter what
+setTimeout(() => {
+    const banner = document.getElementById('loading') || document.getElementById('loadingBanner');
+    if (banner && banner.style.display !== 'none') {
+        banner.style.display = 'none';
+        console.log('[paraguay-geodata] loading banner hidden by timeout');
+    }
+}, 8000);
+function loaderComplete() {
+    bootstrapDone++;
+    if (bootstrapDone >= TOTAL_BOOTSTRAP_LOADERS) {
+        const banner = document.getElementById('loading') || document.getElementById('loadingBanner');
+        if (banner) banner.style.display = 'none';
+    }
+}
+// Wrap each loader to fire loaderComplete() at end
+const _origFunctions = {};
+['loadBCP','loadClimate','loadINBIOWidget','loadInsights','loadFairPriceModel','loadTileFabric','loadDepartamentos','loadDistritos','loadBarrios','loadCatastroDpto','loadCatastroDist','loadCatastroParcels','loadCatastroUrba','loadINBIO','loadProperties','loadGBIF','loadOSMRoads','loadOSMBuildings','loadOSMWater'].forEach(name => {
+    if (typeof window[name] === 'function') {
+        _origFunctions[name] = window[name];
+        window[name] = async function(...args) {
+            try { return await _origFunctions[name].apply(this, args); }
+            finally { loaderComplete(); }
+        };
+    }
+});
 
 // ========== BOOTSTRAP ==========
 renderLayerGrid();

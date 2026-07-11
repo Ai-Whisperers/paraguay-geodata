@@ -1,7 +1,7 @@
 {
-  "commit": "655fdbd",
+  "commit": "02c6069",
   "branch": "main",
-  "deployed_at": "2026-07-11T04:33:27.858958+00:00",
+  "deployed_at": "2026-07-11T06:05:04.686419+00:00",
   "deployer": "Erebus",
   "project": "paraguay-geodata",
   "layers_loaded": [
@@ -144,5 +144,12 @@
       "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
       "auth": "no key required"
     }
+  },
+  "wave1_features": {
+    "properties_merged": 10898,
+    "osm_roads_major": 14835,
+    "osm_buildings_asuncion": 50000,
+    "osm_water_filtered": 247,
+    "clasipar_url_inventory": 445230
   }
 }
