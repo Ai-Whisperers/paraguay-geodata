@@ -36,6 +36,7 @@ Map of every doc in this repo. Read order for a new agent:
 | `infrastructure.md` | ANDE power, ESSAP water, MOPC roads, COPACO fiber, mobile coverage | ✅ |
 | `environment.md` | DINAC weather, MADES air quality, FIRMS fires, CHIRPS rainfall, JRC floods | ✅ |
 | `socioeconomic.md` | INE EPH + IPM + CNPV, BCP macro, Policia Nacional crime, AHK/UIP investment | ✅ |
+| `finance.md` | **BCP rates + macro + remesas + Mercado de Valores; AFD IFI; INCOOP cooperatives; MUVH FONAVIS; BVPASA Bolsa; Seprelad AML** | ✅ |
 
 ## docs/operations/
 

@@ -134,6 +134,27 @@ These will be available in the viewer once `tools/fetch_tile.py` wires them in. 
 | Tigo/Personal/Claro 4G/5G | Mobile operators | TBD | Phase 3 |
 | OpenSignal crowdsourced | OpenSignal | Paid | Phase 3 (TBD) |
 
+### Money markets & finance (Phase 1.5+)
+
+| Layer | Source | Cost | Status |
+|---|---|---|---|
+| **BCP Tasas Bancos (history)** | BCP XLSX monthly since 1991 | Free | Phase 1.5 |
+| **BCP Tasas Financieras (history)** | BCP XLSX monthly since 2012 | Free | Phase 1.5 |
+| **BCP TPM + Interbancaria (daily)** | BCP | Free | Phase 1.5 |
+| **BCP IPC + IPP** | BCP monthly | Free | Phase 1.5 |
+| **BCP IMAEP + PIB** | BCP monthly/quarterly | Free | Phase 1.5 |
+| **BCP RIN + Tipo de cambio** | BCP daily | Free | Phase 1.5 |
+| **BCP Tasas Usurarias + Morosidad** | BCP monthly | Free | Phase 1.5 |
+| **BCP Remesas Familiares** | BCP quarterly since 2008 | Free | Phase 2 |
+| **BCP Inclusión Financiera** | BCP annual | Free | Phase 2 |
+| **AFD IFI Catalog** | AFD quarterly | Free | Phase 2 |
+| **INCOOP Cooperativas** | INCOOP quarterly | Free | Phase 2 |
+| **MUVH FONAVIS** | MUVH annual | Free | Phase 2.5 |
+| **Seprelad AML Registry** | Seprelad quarterly | Free | Phase 2.5 |
+| **BVPASA Bolsa + Mercado de Valores** | BVPASA + BCP Valores | Free | Phase 3 |
+| **Mortgage affordability calc** | derived (rates + amort.) | Free | Phase 2 |
+| **Bloomberg/Refinitiv** | commercial | $$$$ | Phase 3 (TBD) |
+
 ### 3D / advanced (Phase 3)
 
 | Layer | Source | Cost | Status |

@@ -92,7 +92,8 @@ When the user mentions any of these, load the named skill **before** writing cod
 | "DEM", "elevation", "topography", "cerros" | `satellite-to-blender-pipeline` |
 | "3D", "Cesium", "Three.js", "game world" | `satellite-to-blender-pipeline` |
 | "deploy", "Pages", "wrangler", "R2" | `cloudflare-pages-deployment` |
-| "LSV", "LQV", "Escobar", "Paraguarí" | `lqv-bundle` (umbrella), then this repo's `docs/operations/national-tile-fabric.md` |
+| "LQV", "Escobar", "Paraguarí" | `lqv-bundle` (umbrella), then this repo's `docs/operations/national-tile-fabric.md` |
+| "money", "rates", "BCP", "tasa", "interés", "morosidad", "remesa", "BVPASA", "cooperativa", "AFD", "FONAVIS", "hipotecario" | `docs/sources/finance.md` first, then build the per-indicator fetch in `tools/fetch_bcp_rates.py` |
 | "audit", "roast", "what's broken" | `roast-audit-then-implement` |
 
 ## When the user says "do all of this"

@@ -34,6 +34,7 @@ Phase-by-phase task list. Update before each commit.
 - [ ] Implement `tools/fetch_firms.py`
 - [ ] Implement `tools/fetch_gbif.py`
 - [ ] Implement `tools/fetch_ine_admin.py` (10 INE layers — already stubbed)
+- [ ] Implement `tools/fetch_bcp_rates.py` (BCP rates + macro + remesas + MUVH + AFD + INCOOP — already stubbed)
 - [ ] Fill `tools/build_peaks_geojson.py` (algorithm)
 - [ ] Fill `tools/build_slope_aspect.py` (algorithm)
 - [ ] Wire `tools/fetch_tile.py` to chain all layers per priority tile
