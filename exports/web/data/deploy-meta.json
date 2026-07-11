@@ -1,0 +1,15 @@
+{
+  "commit": "c6d44ca",
+  "commit_short": "c6d44ca",
+  "branch": "main",
+  "deployed_at": "2026-07-10T22:30:00Z",
+  "deployer": "Erebus",
+  "project": "paraguay-geodata",
+  "data_sources_loaded": [
+    "tile_index.json (7,912 tiles)",
+    "priority_tiles.json (37 priority tiles)",
+    "20-city anchor list"
+  ],
+  "live_layers": 0,
+  "queued_layers": 42
+}

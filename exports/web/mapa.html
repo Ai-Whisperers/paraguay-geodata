@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paraguay Geodata — Tile Viewer</title>
+    <meta name="description" content="Per-tile viewer for any 10x10 km cell in Paraguay. Single source of truth, parameterised by ?tile=">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        :root {
+            --bg: #0a0e1a;
+            --bg-elev: #111729;
+            --bg-elev-2: #1a2238;
+            --fg: #e6eaf2;
+            --fg-dim: #8b94a8;
+            --accent: #2dd4bf;
+            --accent-dim: #134e48;
+            --line: #1f2944;
+            --radius: 6px;
+        }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+        body { display: flex; flex-direction: column; }
+        header {
+            padding: 12px 18px; background: var(--bg-elev);
+            border-bottom: 1px solid var(--line);
+            display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;
+        }
+        header h1 { font-size: 14px; margin: 0; font-weight: 600; }
+        header h1 span { color: var(--accent); }
+        .tile-picker { display: flex; gap: 8px; align-items: center; }
+        .tile-picker label { font-size: 11px; color: var(--fg-dim); text-transform: uppercase; letter-spacing: .05em; }
+        .tile-picker input {
+            background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius);
+            color: var(--fg); padding: 6px 10px; font-family: monospace; font-size: 12px;
+            min-width: 200px;
+        }
+        .tile-picker input:focus { outline: none; border-color: var(--accent); }
+        .tile-picker button {
+            background: var(--accent-dim); border: 1px solid var(--accent); color: var(--accent);
+            padding: 6px 14px; border-radius: var(--radius); cursor: pointer; font-family: inherit; font-size: 12px;
+            font-weight: 600;
+        }
+        .tile-picker button:hover { background: var(--accent); color: var(--bg); }
+        header nav a {
+            color: var(--fg-dim); text-decoration: none; padding: 4px 10px;
+            border-radius: var(--radius); font-size: 12px; transition: all .15s;
+        }
+        header nav a:hover { color: var(--fg); background: var(--bg-elev-2); }
+        main { flex: 1; display: grid; grid-template-columns: 320px 1fr; min-height: 0; }
+        aside { background: var(--bg-elev); border-right: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+        aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 16px 0 6px 0; font-weight: 600; }
+        aside h2:first-child { margin-top: 0; }
+        .tile-info { background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }
+        .tile-info .row { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; }
+        .tile-info .row .k { color: var(--fg-dim); }
+        .tile-info .row .v { font-family: monospace; }
+        .layer-grid { display: grid; grid-template-columns: 1fr; gap: 4px; }
+        .layer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line);
+            border-radius: var(--radius); font-size: 12px;
+        }
+        .layer .name { display: flex; align-items: center; gap: 6px; }
+        .layer .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+        .layer .dot.live { background: var(--accent); }
+        .layer .dot.queue { background: var(--warn); }
+        .layer .status { font-size: 10px; color: var(--fg-dim); text-transform: uppercase; letter-spacing: .04em; }
+        .phase-pill { display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 9px; background: var(--line); color: var(--fg-dim); margin-left: 4px; }
+        .phase-pill.live { background: var(--accent-dim); color: var(--accent); }
+        #map { flex: 1; height: 100%; background: #0e1322; }
+        .loading-banner {
+            position: fixed; top: 60px; right: 18px; z-index: 1000;
+            background: var(--bg-elev-2); border: 1px solid var(--accent);
+            color: var(--accent); padding: 8px 14px; border-radius: var(--radius);
+            font-size: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.45);
+            transition: opacity .25s;
+        }
+        .loading-banner.hidden { opacity: 0; pointer-events: none; }
+        .bbox-overlay {
+            fill: var(--accent); fill-opacity: 0.15; stroke: var(--accent); stroke-width: 2;
+        }
+        .leaflet-popup-content-wrapper {
+            background: var(--bg-elev) !important;
+            color: var(--fg) !important;
+            border: 1px solid var(--accent);
+            border-radius: var(--radius) !important;
+        }
+        .leaflet-popup-tip { background: var(--bg-elev) !important; border: 1px solid var(--accent); }
+        .leaflet-popup-content { margin: 12px 14px; font-size: 12px; line-height: 1.5; }
+        .leaflet-popup-content h3 { margin: 0 0 6px 0; font-size: 13px; color: var(--accent); }
+        .leaflet-control-layers { background: var(--bg-elev) !important; color: var(--fg) !important; border: 1px solid var(--line) !important; }
+        .leaflet-control-layers label { color: var(--fg) !important; }
+        @media (max-width: 880px) {
+            main { grid-template-columns: 1fr; }
+            aside { max-height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+<div class="loading-banner" id="loading">Resolving tile…</div>
+
+<header>
+    <h1>Tile Viewer <span id="tileLabel">—</span></h1>
+    <div class="tile-picker">
+        <label for="tileId">tile-id</label>
+        <input type="text" id="tileId" placeholder="e.g. -57.069_-25.595" autocomplete="off">
+        <button id="goTile">Go</button>
+        <button id="lqvRef" title="La Quebrada Viva reference tile">LQV</button>
+    </div>
+    <nav>
+        <a href="./">← National</a>
+    </nav>
+</header>
+
+<main>
+    <aside>
+        <h2>Tile info</h2>
+        <div class="tile-info" id="tileInfo">
+            <div class="row"><span class="k">Tile id</span><span class="v" id="infoId">—</span></div>
+            <div class="row"><span class="k">Centroid</span><span class="v" id="infoCentroid">—</span></div>
+            <div class="row"><span class="k">Bbox (W,S,E,N)</span><span class="v" id="infoBbox">—</span></div>
+            <div class="row"><span class="k">Area</span><span class="v" id="infoArea">—</span></div>
+            <div class="row"><span class="k">UTM zone</span><span class="v" id="infoUtm">—</span></div>
+            <div class="row"><span class="k">Priority</span><span class="v" id="infoPrio">—</span></div>
+        </div>
+
+        <h2>Data state (per-layer)</h2>
+        <div class="layer-grid" id="layerGrid"></div>
+
+        <h2>How to use</h2>
+        <ul style="font-size:11px; color:var(--fg-dim); line-height:1.6; padding-left:18px; margin:0;">
+            <li>Type any tile id (<code>-55.868_-27.404</code>) or click <strong>LQV</strong> for the Paraguarí reference</li>
+            <li>Click <strong>Go</strong> to fly the map to that tile</li>
+            <li>Switch between OSM and Esri satellite via the map control</li>
+            <li>Click the highlighted bbox to see Phase 1 readiness</li>
+        </ul>
+    </aside>
+
+    <div id="map"></div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const map = L.map('map', { zoomControl: true, worldCopyJump: true }).setView([-25, -57], 8);
+
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18, attribution: '© OpenStreetMap contributors',
+}).addTo(map);
+const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 18, attribution: 'Tiles © Esri',
+});
+L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map);
+
+let currentBboxLayer = null;
+let currentTile = null;
+
+const ALL_LAYERS = [
+    { name: 'DEM (Copernicus GLO-30)',          status: 'queue', phase: '1' },
+    { name: 'DEM-derived: streams',              status: 'queue', phase: '1' },
+    { name: 'DEM-derived: cerros',               status: 'queue', phase: '1' },
+    { name: 'DEM-derived: contours',             status: 'queue', phase: '1' },
+    { name: 'DEM-derived: slope / aspect',       status: 'queue', phase: '1' },
+    { name: 'DEM-derived: hillshade',            status: 'queue', phase: '1' },
+    { name: 'Esri HD LOD2 (z=17)',               status: 'queue', phase: '1' },
+    { name: 'Esri HD LOD3 (z=18)',               status: 'queue', phase: '1' },
+    { name: 'Sentinel-2 RGB + NDVI',             status: 'queue', phase: '1' },
+    { name: 'OSM 10 km — buildings',             status: 'queue', phase: '1' },
+    { name: 'OSM 10 km — roads',                 status: 'queue', phase: '1' },
+    { name: 'OSM 10 km — water',                 status: 'queue', phase: '1' },
+    { name: 'OSM 10 km — places + POIs',         status: 'queue', phase: '1' },
+    { name: 'MapBiomas Paraguay 2023',           status: 'queue', phase: '1' },
+    { name: 'Hansen GFC loss/gain',              status: 'queue', phase: '1' },
+    { name: 'JRC Global Surface Water',          status: 'queue', phase: '1' },
+    { name: 'HydroSHEDS flow accumulation',      status: 'queue', phase: '1' },
+    { name: 'NASA FIRMS active fires (7d)',      status: 'queue', phase: '1' },
+    { name: 'GBIF species observations',         status: 'queue', phase: '1' },
+    { name: 'INE Departamentos boundary',        status: 'queue', phase: '1' },
+    { name: 'INE Distritos boundary',            status: 'queue', phase: '1' },
+    { name: 'INE Barrios / Localidades',         status: 'queue', phase: '1' },
+    { name: 'INE Hidrografía',                   status: 'queue', phase: '1' },
+    { name: 'INE Vías principales',             status: 'queue', phase: '1' },
+    { name: 'INE Comunidades indígenas',         status: 'queue', phase: '1' },
+    { name: 'INE Locales de Salud',              status: 'queue', phase: '1' },
+    { name: 'INE Locales Policiales',            status: 'queue', phase: '1' },
+    { name: 'INE Locales de Educación',          status: 'queue', phase: '1' },
+    { name: 'DNCP public tenders',               status: 'queue', phase: '1.5' },
+    { name: 'DNCP adjudicaciones',               status: 'queue', phase: '1.5' },
+    { name: 'BCP TPM + Interbancaria',           status: 'queue', phase: '1.5' },
+    { name: 'BCP IPC + IPP',                     status: 'queue', phase: '1.5' },
+    { name: 'BCP Tasas activas / pasivas',       status: 'queue', phase: '1.5' },
+    { name: 'INBIO crop area + yield',           status: 'queue', phase: '1.5' },
+    { name: 'SoilGrids per-point',               status: 'queue', phase: '1.5' },
+    { name: 'Active listings (infocasas, etc.)', status: 'queue', phase: '2' },
+    { name: 'Escritura anchors',                 status: 'queue', phase: '2' },
+    { name: 'Price surface (kriged $/ha)',       status: 'queue', phase: '2' },
+    { name: 'BCP Remesas por distrito',          status: 'queue', phase: '2' },
+    { name: 'AFD IFI catálogo',                  status: 'queue', phase: '2' },
+    { name: 'INCOOP cooperativas',               status: 'queue', phase: '2' },
+    { name: 'BVPASA listed companies',           status: 'queue', phase: '3' },
+];
+
+function renderLayerGrid() {
+    const grid = document.getElementById('layerGrid');
+    grid.innerHTML = '';
+    ALL_LAYERS.forEach(l => {
+        const div = document.createElement('div');
+        div.className = 'layer';
+        const phasePillClass = ['1', '1.5', '2'].includes(l.phase) ? 'phase-pill' : 'phase-pill live';
+        div.innerHTML = `
+            <div class="name"><span class="dot ${l.status}"></span><span>${l.name}</span><span class="${phasePillClass}">P${l.phase}</span></div>
+            <span class="status">${l.status}</span>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+async function resolveTile(tileId) {
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('loading').textContent = 'Resolving tile ' + tileId + '…';
+
+    try {
+        // Check priority first (small file, fast)
+        let priorityTile = null;
+        try {
+            const r = await fetch('./data/priority_tiles.json');
+            if (r.ok) {
+                const d = await r.json();
+                priorityTile = d.tiles.find(t => t.tile_id === tileId);
+            }
+        } catch (e) {}
+
+        let tile = priorityTile;
+        // Always validate against the master index
+        const fullRes = await fetch('./data/tile_index.json');
+        if (fullRes.ok) {
+            const full = await fullRes.json();
+            tile = full.tiles.find(t => t.tile_id === tileId);
+        }
+
+        if (!tile) {
+            document.getElementById('loading').textContent = 'ERROR: tile ' + tileId + ' not in master index';
+            document.getElementById('loading').style.color = '#ef4444';
+            return;
+        }
+
+        currentTile = tile;
+        const [w, s, e, n] = tile.bbox_wsen;
+        const centroid = tile.centroid;
+        const isPriority = !!priorityTile;
+
+        // Update sidebar
+        document.getElementById('tileLabel').textContent = tile.tile_id;
+        document.getElementById('infoId').textContent = tile.tile_id;
+        document.getElementById('infoCentroid').textContent = `${centroid[1].toFixed(4)}, ${centroid[0].toFixed(4)}`;
+        document.getElementById('infoBbox').textContent = `${w.toFixed(2)}, ${s.toFixed(2)}, ${e.toFixed(2)}, ${n.toFixed(2)}`;
+        document.getElementById('infoArea').textContent = tile.area_km2.toFixed(1) + ' km²';
+        document.getElementById('infoUtm').textContent = tile.utm_zone_hint;
+        document.getElementById('infoPrio').textContent = isPriority ? 'YES (urban anchor)' : 'no';
+        document.getElementById('infoPrio').style.color = isPriority ? '#2dd4bf' : '#8b94a8';
+
+        // Update URL
+        history.replaceState({}, '', '?tile=' + tileId);
+
+        // Draw bbox
+        if (currentBboxLayer) map.removeLayer(currentBboxLayer);
+        currentBboxLayer = L.rectangle([[s, w], [n, e]], {
+            color: '#2dd4bf', weight: 2.5, fillColor: '#2dd4bf', fillOpacity: 0.18,
+        }).addTo(map);
+        currentBboxLayer.bindPopup(`<h3>Tile ${tileId}</h3><div>Centroid ${centroid[1].toFixed(4)}, ${centroid[0].toFixed(4)}</div><div>Phase 1 readiness: <span style="color:#f59e0b">queued</span></div>`);
+
+        // Centroid marker
+        L.circleMarker([centroid[1], centroid[0]], {
+            radius: 6, color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 0.9, weight: 2,
+        }).addTo(map).bindPopup(`<h3>Centroid ${tileId}</h3><div>${centroid[1].toFixed(4)}, ${centroid[0].toFixed(4)}</div>`);
+
+        map.flyTo([centroid[1], centroid[0]], 11, { duration: 0.7 });
+        document.getElementById('loading').classList.add('hidden');
+    } catch (err) {
+        document.getElementById('loading').textContent = 'ERROR: ' + err.message;
+        document.getElementById('loading').style.color = '#ef4444';
+    }
+}
+
+document.getElementById('goTile').addEventListener('click', () => {
+    const id = document.getElementById('tileId').value.trim();
+    if (id) resolveTile(id);
+});
+document.getElementById('tileId').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('goTile').click();
+});
+document.getElementById('lqvRef').addEventListener('click', () => {
+    document.getElementById('tileId').value = '-57.069_-25.595';
+    resolveTile('-57.069_-25.595');
+});
+
+// On load: read ?tile= from URL or fall back to first priority tile
+const params = new URLSearchParams(window.location.search);
+const initialTile = params.get('tile') || '-57.578_-25.324'; // Asunción fallback
+document.getElementById('tileId').value = initialTile;
+renderLayerGrid();
+resolveTile(initialTile);
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paraguay Geodata — National Viewer</title>
+    <meta name="description" content="National-scale Paraguay satellite, topographic, administrative, environmental, and economic data — phase 1 of the paraguay-geodata project.">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        :root {
+            --bg: #0a0e1a;
+            --bg-elev: #111729;
+            --bg-elev-2: #1a2238;
+            --fg: #e6eaf2;
+            --fg-dim: #8b94a8;
+            --accent: #2dd4bf;
+            --accent-dim: #134e48;
+            --warn: #f59e0b;
+            --err: #ef4444;
+            --line: #1f2944;
+            --tile-default: #2563eb;
+            --tile-priority: #2dd4bf;
+            --tile-priority-fill: #0f766e;
+            --shadow: 0 4px 20px rgba(0,0,0,.45);
+            --radius: 6px;
+        }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+        body { display: flex; flex-direction: column; }
+        header {
+            padding: 14px 24px; background: var(--bg-elev);
+            border-bottom: 1px solid var(--line);
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; flex-wrap: wrap;
+        }
+        header h1 { font-size: 16px; margin: 0; font-weight: 600; letter-spacing: -.01em; }
+        header h1 span { color: var(--accent); }
+        header nav { display: flex; gap: 4px; font-size: 13px; }
+        header nav a { color: var(--fg-dim); text-decoration: none; padding: 4px 10px; border-radius: var(--radius); transition: all .15s; }
+        header nav a:hover { color: var(--fg); background: var(--bg-elev-2); }
+        header nav a.active { color: var(--accent); background: var(--accent-dim); }
+        header .repo-link { font-size: 11px; color: var(--fg-dim); }
+        header .repo-link a { color: var(--accent); text-decoration: none; }
+        main { flex: 1; display: grid; grid-template-columns: 360px 1fr; min-height: 0; }
+        aside { background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; }
+        aside h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 18px 0 8px 0; font-weight: 600; }
+        aside h2:first-child { margin-top: 0; }
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .stat { background: var(--bg-elev-2); padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); }
+        .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
+        .stat .label { font-size: 11px; color: var(--fg-dim); margin-top: 2px; }
+        .phase-list { display: flex; flex-direction: column; gap: 6px; }
+        .phase { padding: 8px 12px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); font-size: 12px; }
+        .phase .name { font-weight: 600; }
+        .phase .meta { color: var(--fg-dim); margin-top: 2px; font-size: 11px; }
+        .phase .badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-left: 6px; }
+        .badge.live { background: var(--accent-dim); color: var(--accent); }
+        .badge.queue { background: var(--bg); color: var(--fg-dim); border: 1px solid var(--line); }
+        .search { margin-bottom: 12px; }
+        .search input { width: 100%; padding: 8px 12px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 13px; }
+        .search input:focus { outline: none; border-color: var(--accent); }
+        .city-list { display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto; }
+        .city { padding: 6px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; font-size: 12px; display: flex; justify-content: space-between; transition: all .12s; }
+        .city:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
+        .city .coord { color: var(--fg-dim); font-size: 10px; font-family: monospace; }
+        #map { flex: 1; height: 100%; background: #0e1322; }
+        .loading-banner {
+            position: fixed; top: 60px; right: 18px; z-index: 1000;
+            background: var(--bg-elev-2); border: 1px solid var(--accent);
+            color: var(--accent); padding: 8px 14px; border-radius: var(--radius);
+            font-size: 12px; box-shadow: var(--shadow);
+            transition: opacity .25s;
+        }
+        .loading-banner.hidden { opacity: 0; pointer-events: none; }
+        .legend {
+            position: absolute; bottom: 16px; left: 16px; z-index: 1000;
+            background: var(--bg-elev); border: 1px solid var(--line);
+            padding: 10px 14px; border-radius: var(--radius); font-size: 11px; box-shadow: var(--shadow);
+        }
+        .legend .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+        .legend .swatch { width: 16px; height: 10px; border-radius: 2px; }
+        .legend .swatch.full { background: var(--tile-priority-fill); border: 1px solid var(--tile-priority); }
+        .legend .swatch.priority { background: var(--tile-priority); }
+        .leaflet-popup-content-wrapper {
+            background: var(--bg-elev) !important;
+            color: var(--fg) !important;
+            border: 1px solid var(--accent);
+            border-radius: var(--radius) !important;
+            box-shadow: var(--shadow) !important;
+        }
+        .leaflet-popup-tip { background: var(--bg-elev) !important; border: 1px solid var(--accent); }
+        .leaflet-popup-content { margin: 12px 14px; font-size: 12px; line-height: 1.5; min-width: 180px; }
+        .leaflet-popup-content h3 { margin: 0 0 6px 0; font-size: 13px; color: var(--accent); }
+        .leaflet-popup-content .row { display: flex; justify-content: space-between; gap: 12px; }
+        .leaflet-popup-content .row .k { color: var(--fg-dim); }
+        .leaflet-popup-content .row .v { font-family: monospace; }
+        .leaflet-popup-content a { color: var(--accent); text-decoration: none; }
+        .leaflet-popup-content a:hover { text-decoration: underline; }
+        @media (max-width: 880px) {
+            main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+            aside { max-height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+<div class="loading-banner" id="loading">Loading Paraguay geodata…</div>
+
+<header>
+    <h1>Paraguay <span>Geodata</span> — National Viewer</h1>
+    <nav>
+        <a href="./" class="active">National</a>
+        <a href="./mapa.html">Per-Tile Viewer</a>
+        <a href="./docs/INDEX.md">Docs</a>
+    </nav>
+    <div class="repo-link">
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener">GitHub</a>
+    </div>
+</header>
+
+<main>
+    <aside>
+        <h2>Project snapshot</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="num" id="tileCount">—</div>
+                <div class="label">tiles covering PY</div>
+            </div>
+            <div class="stat">
+                <div class="num" id="priorityCount">—</div>
+                <div class="label">priority tiles</div>
+            </div>
+            <div class="stat">
+                <div class="num" id="layerCount">86</div>
+                <div class="label">layers planned</div>
+            </div>
+            <div class="stat">
+                <div class="num" id="dataStateCount">—</div>
+                <div class="label">tiles with data</div>
+            </div>
+        </div>
+
+        <h2>Phase tracker</h2>
+        <div class="phase-list">
+            <div class="phase">
+                <span class="name">Phase 0</span><span class="badge live">SHIPPED</span>
+                <div class="meta">Skeleton + tile fabric + ethics gate</div>
+            </div>
+            <div class="phase">
+                <span class="name">Phase 1</span><span class="badge queue">queued</span>
+                <div class="meta">24 layers — satellite + admin + environment (FIRMS, Hansen, JRC, MapBiomas, INE)</div>
+            </div>
+            <div class="phase">
+                <span class="name">Phase 1.5</span><span class="badge queue">queued</span>
+                <div class="meta">42 layers — + DNCP tenders + BCP rates + macro + income</div>
+            </div>
+            <div class="phase">
+                <span class="name">Phase 2</span><span class="badge queue">queued</span>
+                <div class="meta">58 layers — listings + price + remesas + AFD + INCOOP + listings</div>
+            </div>
+            <div class="phase">
+                <span class="name">Phase 3</span><span class="badge queue">queued</span>
+                <div class="meta">86 layers — + BVPASA + Cesium 3D + climate projections</div>
+            </div>
+        </div>
+
+        <h2>Jump to a city</h2>
+        <div class="search">
+            <input type="text" id="cityFilter" placeholder="Filter cities…" autocomplete="off">
+        </div>
+        <div class="city-list" id="cityList"></div>
+
+        <h2>What's on this map today</h2>
+        <ul style="font-size:12px; color:var(--fg-dim); line-height:1.6; padding-left:18px; margin:0 0 16px 0;">
+            <li>The <strong style="color:var(--accent)">full 10×10 km tile fabric</strong> covering Paraguay (7,912 tiles)</li>
+            <li>The <strong style="color:var(--accent)">37 priority tiles</strong> at the 20 urban anchor cities</li>
+            <li>Click any priority tile to see centroid + bbox + status</li>
+            <li>Phase 1 lands DEM + satellite + admin overlays into these tiles</li>
+        </ul>
+
+        <h2>Status</h2>
+        <div style="font-size:11px; color:var(--fg-dim); line-height:1.7;">
+            <div>Repo: <a href="https://github.com/Ai-Whisperers/paraguay-geodata" style="color:var(--accent)">Ai-Whisperers/paraguay-geodata</a></div>
+            <div>Commit: <code id="lastCommit">—</code></div>
+            <div>Branch: <code>main</code></div>
+            <div>Last deploy: <code id="deployTime">—</code></div>
+            <div id="fetchStatus" style="margin-top:6px;">Loading <code>tile_index.json</code>…</div>
+        </div>
+    </aside>
+
+    <div id="map"></div>
+</main>
+
+<div class="legend">
+    <div class="row"><span class="swatch full"></span><span>10×10 km tile (full Paraguay fabric)</span></div>
+    <div class="row"><span class="swatch priority"></span><span>Priority tile (urban anchor)</span></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+// Map init
+const map = L.map('map', {
+    zoomControl: true,
+    worldCopyJump: true,
+    preferCanvas: true,
+}).setView([-23.5, -58.5], 6);
+
+// OSM base layer (no API key needed, attribution required)
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors',
+}).addTo(map);
+
+// Esri satellite (no key needed for tile pyramid, attribution required)
+const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 18,
+    attribution: 'Tiles © Esri',
+});
+L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map);
+
+// Fetch tile_index.json (3.7 MB national) and priority_tiles.json (17 KB)
+let fullTiles = null;
+let priorityTiles = null;
+let priorityTileIds = new Set();
+
+async function bootstrap() {
+    const [fullRes, prioRes] = await Promise.all([
+        fetch('./data/tile_index.json'),
+        fetch('./data/priority_tiles.json'),
+    ]);
+    if (!fullRes.ok) {
+        document.getElementById('fetchStatus').textContent = 'ERROR: tile_index.json unreachable (HTTP ' + fullRes.status + ')';
+        document.getElementById('fetchStatus').style.color = '#ef4444';
+        hideLoading();
+        return;
+    }
+    if (!prioRes.ok) {
+        document.getElementById('fetchStatus').textContent = 'ERROR: priority_tiles.json unreachable (HTTP ' + prioRes.status + ')';
+        document.getElementById('fetchStatus').style.color = '#ef4444';
+        hideLoading();
+        return;
+    }
+    const [fullData, prioData] = await Promise.all([fullRes.json(), prioRes.json()]);
+    fullTiles = fullData.tiles;
+    priorityTiles = prioData.tiles;
+    priorityTileIds = new Set(priorityTiles.map(t => t.tile_id));
+
+    // Stats
+    document.getElementById('tileCount').textContent = fullTiles.length.toLocaleString();
+    document.getElementById('priorityCount').textContent = priorityTiles.length;
+    document.getElementById('dataStateCount').textContent = '0 / ' + priorityTiles.length;
+    document.getElementById('fetchStatus').innerHTML = '<span style="color:#2dd4bf">✓ ' + fullTiles.length.toLocaleString() + ' tiles + ' + priorityTiles.length + ' priority loaded</span>';
+
+    renderPriorityTiles();
+    renderCityList();
+    hideLoading();
+}
+
+function renderPriorityTiles() {
+    priorityTiles.forEach(t => {
+        const [w, s, e, n] = t.bbox_wsen;
+        const isPriority = priorityTileIds.has(t.tile_id);
+        const rect = L.rectangle([[s, w], [n, e]], {
+            color: '#2dd4bf',
+            weight: 1.5,
+            fillColor: isPriority ? '#0f766e' : '#134e48',
+            fillOpacity: isPriority ? 0.35 : 0.15,
+        }).addTo(map);
+        const popupHtml = `
+            <h3>Tile ${t.tile_id}</h3>
+            <div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>
+            <div class="row"><span class="k">UTM zone</span><span class="v">${t.utm_zone_hint}</span></div>
+            <div class="row"><span class="k">Area</span><span class="v">${t.area_km2.toFixed(1)} km²</span></div>
+            <div class="row"><span class="k">Status</span><span class="v" style="color:#f59e0b">awaiting Phase 1 data</span></div>
+            <div style="margin-top:6px;"><a href="./mapa.html?tile=${t.tile_id}&r=10">Drill into this tile →</a></div>
+        `;
+        rect.bindPopup(popupHtml);
+    });
+}
+
+function renderCityList() {
+    const cities = [
+        { name: 'Asunción',                 lat: -25.2637, lon: -57.5759 },
+        { name: 'Ciudad del Este',          lat: -25.5097, lon: -54.6111 },
+        { name: 'Encarnación',              lat: -27.3367, lon: -55.8667 },
+        { name: 'Pedro Juan Caballero',     lat: -22.5446, lon: -55.7258 },
+        { name: 'Concepción',               lat: -23.4011, lon: -57.4411 },
+        { name: 'Villarrica',               lat: -25.7833, lon: -56.4500 },
+        { name: 'Coronel Oviedo',           lat: -25.4167, lon: -56.4000 },
+        { name: 'San Lorenzo',              lat: -25.3396, lon: -57.5089 },
+        { name: 'Luque',                    lat: -25.2699, lon: -57.4925 },
+        { name: 'Capiatá',                  lat: -25.3556, lon: -57.4178 },
+        { name: 'Fernando de la Mora',      lat: -25.3167, lon: -57.6000 },
+        { name: 'Lambaré',                  lat: -25.3200, lon: -57.6500 },
+        { name: 'Itauguá',                  lat: -25.3833, lon: -57.3500 },
+        { name: 'Mariano Roque Alonso',     lat: -25.1667, lon: -57.5500 },
+        { name: 'Presidente Franco',        lat: -25.5333, lon: -54.6167 },
+        { name: 'Pilar',                    lat: -26.8583, lon: -58.2986 },
+        { name: 'Caaguazú',                 lat: -25.4833, lon: -56.0167 },
+        { name: 'Salto del Guairá',         lat: -24.0667, lon: -54.3500 },
+        { name: 'San Juan Bautista',        lat: -26.6667, lon: -57.1500 },
+        { name: 'Caazapá',                  lat: -26.1500, lon: -56.3833 },
+    ];
+    const list = document.getElementById('cityList');
+    cities.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'city';
+        div.innerHTML = `<span>${c.name}</span><span class="coord">${c.lat.toFixed(2)}, ${c.lon.toFixed(2)}</span>`;
+        div.addEventListener('click', () => {
+            map.flyTo([c.lat, c.lon], 11, { duration: 0.7 });
+            const marker = L.circleMarker([c.lat, c.lon], {
+                radius: 10, color: '#2dd4bf', fillColor: '#2dd4bf', fillOpacity: 0.7,
+            }).addTo(map).bindPopup(`<h3>${c.name}</h3><div>Anchor city — Phase 1 priority</div>`).openPopup();
+            setTimeout(() => map.removeLayer(marker), 4000);
+        });
+        list.appendChild(div);
+    });
+
+    document.getElementById('cityFilter').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        list.querySelectorAll('.city').forEach(el => {
+            el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+    });
+}
+
+function hideLoading() {
+    const banner = document.getElementById('loading');
+    if (banner) {
+        banner.classList.add('hidden');
+        setTimeout(() => banner.remove(), 300);
+    }
+}
+
+bootstrap();
+
+// Deploy metadata
+fetch('./data/deploy-meta.json').then(r => r.ok ? r.json() : null).then(m => {
+    if (m) {
+        document.getElementById('lastCommit').textContent = m.commit_short || '?';
+        document.getElementById('deployTime').textContent = m.deployed_at || '?';
+    }
+}).catch(() => {});
+</script>
+</body>
+</html>
