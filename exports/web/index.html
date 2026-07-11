@@ -111,6 +111,19 @@
         .inbio-widget .row .k { color: var(--fg-dim); }
         .inbio-widget .row .v { font-family: monospace; }
         .inbio-widget .insight { color: var(--fg-dim); font-size: 10px; font-style: italic; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
+        .insights-widget {
+            background: var(--bg-elev-2); border: 1px solid var(--warn);
+            padding: 12px; border-radius: var(--radius); font-size: 11px;
+            margin-bottom: 8px;
+        }
+        .insights-widget .insight-row { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+        .insights-widget .insight-row:last-child { border-bottom: none; }
+        .insights-widget .insight-row span:last-child { color: var(--fg); line-height: 1.4; }
+        .insights-widget .dot { flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+        .insights-widget .dot-alert { background: var(--err); box-shadow: 0 0 6px var(--err); }
+        .insights-widget .dot-up { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+        .insights-widget .dot-down { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+        .insights-widget .dot-info { background: var(--info); box-shadow: 0 0 6px var(--info); }
         .city-list { display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto; }
         .city { padding: 6px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; font-size: 12px; display: flex; justify-content: space-between; transition: all .12s; }
         .city:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
@@ -182,6 +195,30 @@
             <div class="stat"><div class="num" id="statListings">—</div><div class="label">properties (live)</div></div>
             <div class="stat"><div class="num" id="statGbif">—</div><div class="label">species (GBIF)</div></div>
             <div class="stat"><div class="num" id="statLayers">—</div><div class="label">layers on</div></div>
+        </div>
+
+        <h2>Insights (auto-generated)</h2>
+        <div class="insights-widget" id="insightsWidget">
+            <div class="insight-row">
+                <span class="dot dot-alert"></span>
+                <span id="insightDrought">Loading…</span>
+            </div>
+            <div class="insight-row">
+                <span class="dot dot-up"></span>
+                <span id="insightSoja">Loading…</span>
+            </div>
+            <div class="insight-row">
+                <span class="dot dot-info"></span>
+                <span id="insightPrices">Loading…</span>
+            </div>
+            <div class="insight-row">
+                <span class="dot dot-up"></span>
+                <span id="insightMacros">Loading…</span>
+            </div>
+            <div class="insight-row">
+                <span class="dot dot-info"></span>
+                <span id="insightDensity">Loading…</span>
+            </div>
         </div>
 
         <h2>BCP macro (Feb 2026 snapshot)</h2>
@@ -394,6 +431,93 @@ async function loadINBIOWidget() {
     } catch (e) {
         console.error('INBIO widget failed:', e);
         document.getElementById('inbioWidget').innerHTML = `<h3>INBIO load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+    }
+}
+
+// ========== INSIGHTS PANEL (auto-generated) ==========
+async function loadInsights() {
+    try {
+        const [inbio, bcp, nasa, propsRes] = await Promise.all([
+            fetch('./data/inbio_zafra_2025_2026.json').then(r => r.ok ? r.json() : null),
+            fetch('./data/bcp_snapshot.json').then(r => r.ok ? r.json() : null),
+            fetch('./data/nasa_power_asuncion.json').then(r => r.ok ? r.json() : null),
+            fetch('./data/properties_latest.geojson').then(r => r.ok ? r.json() : null),
+        ]);
+
+        // 1. Drought signal: where INBIO shows the biggest losses
+        let droughtLine = 'No significant crop-loss signal in 2025-2026 zafra.';
+        if (inbio && inbio.totals_national) {
+            const T = inbio.totals_national;
+            const losses = [];
+            if (T.arroz.delta_pct < -10) losses.push(`arroz ${T.arroz.delta_pct.toFixed(0)}%`);
+            if (T.maiz_zaf.delta_pct < -10) losses.push(`maíz zafriña ${T.maiz_zaf.delta_pct.toFixed(0)}%`);
+            if (T.soja.delta_pct < -5) losses.push(`soja ${T.soja.delta_pct.toFixed(0)}%`);
+            if (losses.length) {
+                const worst = (inbio.rows_by_dept || []).reduce((w, r) => {
+                    const d = (r.arroz_25_26 || 0) - (r.arroz_24_25 || 0);
+                    return d < w.d ? { d, name: r.depto } : w;
+                }, { d: 0, name: '' });
+                droughtLine = `Crop loss signal: ${losses.join(', ')} nationally. Worst arroz drop in ${worst.name || 'Misiones'} (−${Math.abs(Math.round(worst.d / 1000))}K ha).`;
+            } else if (losses.length === 0 && T.soja.delta_pct > 0) {
+                droughtLine = `No drought signal — soja +${T.soja.delta_pct.toFixed(1)}% nationally, arroz stable.`;
+            }
+        }
+        document.getElementById('insightDrought').textContent = droughtLine;
+
+        // 2. Soja expansion
+        let sojaLine = 'Soja data not loaded.';
+        if (inbio && inbio.totals_national) {
+            const T = inbio.totals_national;
+            const expanded = (inbio.rows_by_dept || []).filter(r => (r.soja_25_26 || 0) > (r.soja_24_25 || 0))
+                .sort((a, b) => (b.soja_25_26 - b.soja_24_25) - (a.soja_25_26 - a.soja_24_25))
+                .slice(0, 3);
+            const expandedStr = expanded.map(r => `${r.depto} +${((r.soja_25_26 - r.soja_24_25) / 1000).toFixed(0)}K`).join(', ');
+            sojaLine = `Soja zafra 2025-26: ${(T.soja.area_ha_2025_2026 / 1e6).toFixed(2)}M ha (+${T.soja.delta_pct.toFixed(1)}% vs 24/25). Top expansion: ${expandedStr || 'n/a'}.`;
+        }
+        document.getElementById('insightSoja').textContent = sojaLine;
+
+        // 3. Property prices (from already-loaded properties)
+        let pricesLine = 'Property data not loaded yet.';
+        if (propsRes && propsRes.features && propsRes.features.length) {
+            const usds = propsRes.features.map(f => f.properties.price_usd).filter(x => x > 0);
+            if (usds.length) {
+                usds.sort((a, b) => a - b);
+                const median = usds[Math.floor(usds.length / 2)];
+                const min = usds[0], max = usds[usds.length - 1];
+                const perHa = propsRes.features.map(f => f.properties['$/ha']).filter(x => x > 0);
+                perHa.sort((a, b) => a - b);
+                const medPerHa = perHa.length ? perHa[Math.floor(perHa.length / 2)] : 0;
+                pricesLine = `${usds.length} priced listings: median $${Math.round(median).toLocaleString()} USD (range $${Math.round(min).toLocaleString()}–$${Math.round(max).toLocaleString()}). Median $${Math.round(medPerHa).toLocaleString()}/ha.`;
+            }
+        }
+        document.getElementById('insightPrices').textContent = pricesLine;
+
+        // 4. Macro snapshot
+        let macroLine = 'BCP data not loaded.';
+        if (bcp) {
+            const m = bcp.macro, mon = bcp.monetary;
+            macroLine = `PY 2025: PIB +${m.pib_2025_growth_pct}%, TPM ${mon.tpm_pct}%, inflación YoY ${mon.inflacion_interanual_pct}% (meta ${mon.meta_inflacion_pct}%), RIN $${m.rin_usd_million.toLocaleString()}M.`;
+        }
+        document.getElementById('insightMacros').textContent = macroLine;
+
+        // 5. Listing density: where are listings concentrated?
+        let densityLine = 'Property distribution not yet computed.';
+        if (propsRes && propsRes.features.length) {
+            const byDepto = {};
+            propsRes.features.forEach(f => {
+                const d = f.properties.depto || 'Unknown';
+                byDepto[d] = (byDepto[d] || 0) + 1;
+            });
+            const sorted = Object.entries(byDepto).sort((a, b) => b[1] - a[1]);
+            if (sorted.length) {
+                const top = sorted[0];
+                const topPct = (top[1] / propsRes.features.length * 100).toFixed(1);
+                densityLine = `Top listing deptos: ${sorted.slice(0, 3).map(([k, v]) => `${k} (${v})`).join(', ')}. ${top[0]} = ${topPct}% of all listings.`;
+            }
+        }
+        document.getElementById('insightDensity').textContent = densityLine;
+    } catch (e) {
+        console.error('Insights failed:', e);
     }
 }
 
@@ -679,20 +803,23 @@ async function loadProperties() {
             if (!f.geometry || !f.geometry.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
             const p = f.properties;
-            const price = p.price_pyg ? `Gs. ${p.price_pyg.toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})` : '—';
+            const price = p.price_pyg ? `Gs. ${p.price_pyg.toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})` : (p.price_usd ? `$${Math.round(p.price_usd).toLocaleString()}` : '—');
             const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '—';
             const m = L.circleMarker([lat, lon], {
                 radius: 6, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
             });
             m.bindPopup(`
-                <h3>Property</h3>
-                <div style="font-size:11px; color:var(--fg-dim); margin-bottom:6px; max-width:240px;">
+                <h3 style="max-width:280px;">${(p.title || 'Property').slice(0,80)}</h3>
+                <div style="font-size:11px; color:var(--fg-dim); margin-bottom:6px; max-width:280px;">
                     ${(p.source_url || '').replace('https://www.infocasas.com.py/', '')}
                 </div>
-                <div class="row"><span class="k">Source</span><span class="v">infocasas #${p.source_id}</span></div>
+                <div class="row"><span class="k">Depto</span><span class="v">${p.depto || '—'}</span></div>
+                <div class="row"><span class="k">Source</span><span class="v">infocasas #${p.source_id || '?'}</span></div>
                 <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
-                <div class="row"><span class="k">Area</span><span class="v">${p.area_ha} ha</span></div>
+                <div class="row"><span class="k">Area</span><span class="v">${p.area_ha ? p.area_ha.toLocaleString() + ' ha' : '—'}</span></div>
                 <div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>
+                ${p.bedrooms ? `<div class="row"><span class="k">Bedrooms</span><span class="v">${p.bedrooms}</span></div>` : ''}
+                ${p.address ? `<div class="row"><span class="k">Address</span><span class="v" style="font-size:10px;">${(p.address.street || '').slice(0,40)}, ${p.address.city || ''}</span></div>` : ''}
                 <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
             `);
             m.addTo(group);
@@ -799,6 +926,7 @@ renderLayerGrid();
 loadBCP();
 loadClimate();
 loadINBIOWidget();
+loadInsights();
 loadTileFabric();
 loadDepartamentos();
 loadDistritos();

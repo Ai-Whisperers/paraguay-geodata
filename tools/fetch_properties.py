@@ -134,6 +134,15 @@ def scrape_infocasas_detail(client: httpx.Client, listing: dict) -> dict:
     lat_lon = _extract_lat_lon(html)
     price = _extract_price(html)
     area_ha = _extract_area_ha(html)
+    title = _extract_title(html)
+    address = _extract_address(html)
+    bedrooms = _extract_bedrooms(html)
+    depto = address.get("state") if address else None
+    depto_from_url = _extract_depto_from_url(url)
+    if not depto:
+        depto = depto_from_url
+    elif depto_from_url:
+        depto = f"{depto} / {depto_from_url}"
 
     return {
         "id": "ic_" + hashlib.sha1(("infocasas:" + listing["source_id"]).encode()).hexdigest()[:12],
@@ -143,10 +152,17 @@ def scrape_infocasas_detail(client: httpx.Client, listing: dict) -> dict:
         "scraped_at_utc": datetime.now(timezone.utc).isoformat(),
         "lat": lat_lon[0],
         "lon": lat_lon[1],
+        "title": title,
+        "address": address,
+        "depto": depto,
+        "bedrooms": bedrooms,
         "price_pyg": price["pyg"] if price else None,
         "price_usd": price["usd"] if price else None,
         "area_ha": area_ha,
         "$/ha": (price["usd"] / area_ha) if (price and area_ha and area_ha > 0) else None,
+        "price_band_vs_anchors": None,
+        "district": None,
+        "departamento": None,
         "attrs": _extract_attrs_infocasas(html),
     }
 
@@ -170,15 +186,36 @@ def _extract_lat_lon(html: str) -> tuple[float | None, float | None]:
 
 
 def _extract_price(html: str) -> dict | None:
-    # infocasas detail embeds: "price":{"amount":3400000000,"currency":"PYG"}
-    m = re.search(r'"price"\s*:\s*\{\s*"amount"\s*:\s*(\d+)\s*,\s*"currency"\s*:\s*"([^"]+)"', html)
+    """infocasas price JSON. Two observed shapes:
+
+    PYG  (most common):
+        "price":{"amount":3400000000,"currency":"PYG"}
+        or
+        "price":{"amount":3400000000,"currency":{"id":2,"name":"Gs.","rate":1}}
+
+    USD  (many Asunción premium listings):
+        "price":{"amount":1600000,"admin_included":1600000,"hidePrice":false,
+                 "currency":{"id":1,"name":"U$S","rate":1}}
+    """
+    # Shape A: amount + currency (string OR nested object)
+    m = re.search(
+        r'"price"\s*:\s*\{\s*"amount"\s*:\s*(\d+)'
+        r'(?:\s*,\s*"admin_included"\s*:\s*\d+)?'
+        r'(?:\s*,\s*"hidePrice"\s*:\s*(?:true|false))?'
+        r'\s*,\s*"currency"\s*:\s*(?:"([^"]+)"|\{[^}]*"name"\s*:\s*"([^"]+)"[^}]*\})',
+        html,
+    )
     if m:
         amount = int(m.group(1))
-        currency = m.group(2).upper()
-        if currency == "USD":
+        currency = (m.group(2) or m.group(3) or "").upper()
+        # "U$S" → USD; "Gs." / "Gs" → PYG
+        if "U$S" in currency or "USD" in currency or "DOLAR" in currency:
             return {"usd": amount, "pyg": int(amount * 7500)}
-        else:
+        if "GS" in currency or "PYG" in currency:
             return {"pyg": amount, "usd": amount / 7500.0}
+        # Default to PYG for unknown
+        return {"pyg": amount, "usd": amount / 7500.0}
+
     # Fallback: extract from <p class="main-price">Gs. 3.400.000.000</p>
     m = re.search(r'main-price[^>]*>Gs\.\s*([\d.]+)', html)
     if m:
@@ -187,7 +224,146 @@ def _extract_price(html: str) -> dict | None:
             return {"pyg": pyg, "usd": pyg / 7500.0}
         except ValueError:
             pass
+    # USD fallback
+    m = re.search(r'main-price[^>]*>U\$S\s*([\d.,]+)', html, re.I)
+    if m:
+        try:
+            usd = int(m.group(1).replace(".", "").replace(",", ""))
+            return {"usd": usd, "pyg": int(usd * 7500)}
+        except ValueError:
+            pass
     return None
+
+
+def _extract_title(html: str) -> str | None:
+    """infocasas title: stored in <title> and embedded in __NEXT_DATA__ JSON."""
+    m = re.search(r'"title"\s*:\s*"((?:[^"\\]|\\.)+?)(?:",|\")', html)
+    if m:
+        return m.group(1)
+    m = re.search(r'<title>([^<|]+?)(?:\s*[|·][^<]*)?</title>', html)
+    if m:
+        return m.group(1).strip()
+    return None
+
+
+def _extract_address(html: str) -> dict | None:
+    """infocasas address JSON: "address":{"street":"...","city":"...","state":"..."}"""
+    m = re.search(
+        r'"address"\s*:\s*\{[^{}]*"street"\s*:\s*"((?:[^"\\]|\\.)*?)"'
+        r'[^{}]*"city"\s*:\s*"((?:[^"\\]|\\.)*?)"'
+        r'[^{}]*"state"\s*:\s*"((?:[^"\\]|\\.)*?)"',
+        html,
+    )
+    if m:
+        return {"street": m.group(1), "city": m.group(2), "state": m.group(3)}
+    return None
+
+
+def _extract_bedrooms(html: str) -> int | None:
+    m = re.search(r'"bedrooms"\s*:\s*\{[^}]*"value"\s*:\s*(\d+)', html)
+    if m:
+        return int(m.group(1))
+    m = re.search(r'(\d+)\s*(?:dormitorios?|bedrooms?|habitaciones?)', html, re.I)
+    if m:
+        return int(m.group(1))
+    return None
+
+
+def _extract_depto_from_url(url: str) -> str | None:
+    """Extract depto from infocasas URL.
+
+    Common URL shapes seen in the data:
+      /vendo-casa-en-pedro-juan-caballero/192262411     → city mention (Amambay)
+      /terreno-venta-ciudad-del-este-alto-parana-paraguay/193732319  → both city + depto
+      /casa-quinta-en-caazapa/191924051                → depto slug
+      /inversion-km-20-monday-ciudad-del-este-...      → city in path
+      /venta/inmuebles/alto-paraguay/pagina2           → explicit depto slug
+    """
+    url_lower = url.lower()
+
+    # First try the structured /<op>/inmuebles/<depto>/ path
+    m = re.search(
+        r'infocasas\.com\.py/(?:venta|alquiler|alquilar|temporal)/[^/]*'
+        r'(?:inmuebles?|terrenos?|casas?|propiedades?)?/?'
+        r'(asuncion|central|alto-parana|concepcion|san-pedro|cordillera|guaira'
+        r'|caaguazu|caazapa|itapua|misiones|paraguari|neembucu|amambay'
+        r'|canindeyu|presidente-hayes|boqueron|alto-paraguay)',
+        url_lower,
+    )
+    if m:
+        return slug_to_depto(m.group(1))
+
+    # Fallback: scan the URL slug for any depto/city keyword
+    candidates = [
+        ("alto-paraguay", "Alto Paraguay"), ("boqueron", "Boquerón"),
+        ("presidente-hayes", "Presidente Hayes"), ("alto-parana", "Alto Paraná"),
+        ("canindeyu", "Canindeyú"), ("amambay", "Amambay"), ("caaguazu", "Caaguazú"),
+        ("san-pedro", "San Pedro"), ("concepcion", "Concepción"),
+        ("caazapa", "Caazapá"), ("neembucu", "Ñeembucú"),
+        ("paraguari", "Paraguarí"), ("cordillera", "Cordillera"),
+        ("itapua", "Itapúa"), ("misiones", "Misiones"),
+        ("central", "Central"), ("asuncion", "Asunción"), ("guaira", "Guairá"),
+    ]
+    for slug, name in candidates:
+        if slug in url_lower:
+            return name
+
+    # Last: try to find a city in the slug → map to nearest depto
+    cities = [
+        ("asuncion", "Asunción"), ("ciudad-del-este", "Alto Paraná"),
+        ("encarnacion", "Itapúa"), ("pedro-juan-caballero", "Amambay"),
+        ("concepcion", "Concepción"), ("villarrica", "Guairá"),
+        ("coronel-oviedo", "Caaguazú"), ("san-lorenzo", "Central"),
+        ("luque", "Central"), ("capiata", "Central"),
+        ("fernando-de-la-mora", "Central"), ("lambare", "Central"),
+        ("itaugua", "Central"), ("mariano-roque-alonso", "Central"),
+        ("presidente-franco", "Alto Paraná"), ("pilar", "Ñeembucú"),
+        ("caaguazu", "Caaguazú"), ("salto-del-guaira", "Canindeyú"),
+        ("san-juan-bautista", "Misiones"), ("caazapa", "Caazapá"),
+        ("villa-hayes", "Presidente Hayes"), ("nueva-esperanza", "Canindeyú"),
+        ("herrera", "Alto Paraná"), ("chacoi", "Presidente Hayes"),
+        ("monday", "Alto Paraná"), ("piedecuesta", "Itapúa"),
+        ("sapucai", "Paraguarí"), ("coronel-bogado", "Caazapá"),
+        ("itacurubi", "Central"), ("ybycui", "Paraguarí"),
+        ("ybaylu", "Caaguazú"), ("la-paloma", "Canindeyú"),
+        ("la-patri", "Boquerón"), ("tt-martinez", "Boquerón"),
+        ("tte-martinez", "Boquerón"), ("fuerte-olimp", "Boquerón"),
+        ("san-bernardino", "Cordillera"),
+        ("capitan-miranda", "Itapúa"), ("capitan", "Itapúa"),
+        ("santani", "San Pedro"), ("mariscal-estigarribia", "Boquerón"),
+        ("mariscal", "Boquerón"),  # default for Mariscal (Chaco reference)
+        ("bahia-negra", "Alto Paraguay"), ("agua-dulce", "Alto Paraguay"),
+        ("chaco", "Boquerón"),
+        ("molas-lopez", "Alto Paraná"),
+        ("colonias-alemana", "Alto Paraná"), ("colonia-alemana", "Alto Paraná"),
+        ("colonias-unidas", "Itapúa"),
+        ("ypacarai", "Central"), ("ybanez", "Alto Paraná"),
+        ("shopping-mariscal", "Asunción"), ("los-laureles", "Asunción"),
+        ("las-lomas", "Central"), ("mariscal", "Asunción"),
+        ("obrero", "Alto Paraná"), ("cde", "Alto Paraná"),
+        ("ita", "Central"),  # short
+        ("mayor-martinez", "Ñeembucú"),
+        ("san-ramon", "Misiones"),
+        ("arroyos-y-esteros", "Cordillera"),
+    ]
+    for slug, depto in cities:
+        if slug in url_lower:
+            return depto
+
+    return None
+
+
+def slug_to_depto(slug: str) -> str:
+    """Map infocasas URL slug → human-friendly depto name."""
+    return {
+        "asuncion": "Asunción", "central": "Central", "alto-parana": "Alto Paraná",
+        "concepcion": "Concepción", "san-pedro": "San Pedro", "cordillera": "Cordillera",
+        "guaira": "Guairá", "caaguazu": "Caaguazú", "caazapa": "Caazapá",
+        "itapua": "Itapúa", "misiones": "Misiones", "paraguari": "Paraguarí",
+        "neembucu": "Ñeembucú", "amambay": "Amambay", "canindeyu": "Canindeyú",
+        "presidente-hayes": "Presidente Hayes", "boqueron": "Boquerón",
+        "alto-paraguay": "Alto Paraguay",
+    }.get(slug.lower(), slug.title())
 
 
 def _extract_area_ha(html: str) -> float | None:
@@ -284,7 +460,8 @@ def public_strip(feat: dict) -> dict:
         p["lon"] = round(p["lon"], 3)
     # drop anything not in our schema
     allowed = {"id", "source", "source_id", "source_url", "scraped_at_utc",
-               "lat", "lon", "price_usd", "price_pyg", "area_ha", "$/ha",
+               "lat", "lon", "title", "address", "depto", "bedrooms",
+               "price_usd", "price_pyg", "area_ha", "$/ha",
                "attrs", "escritura_anchor_id", "escritura_distance_m",
                "price_band_vs_anchors", "district", "departamento"}
     for k in list(p.keys()):
