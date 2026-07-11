@@ -1,20 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paraguay Geodata — National Viewer (Live)</title>
-    <meta name="description" content="Live Paraguay satellite, topographic, administrative, environmental, financial, and property data. National scope, 86 toggleable layers.">
-    <link rel="canonical" href="https://geodata.paragu-ai.com/">
-    <meta property="og:url" content="https://geodata.paragu-ai.com/">
-    <meta property="og:title" content="Paraguay Geodata — National Viewer">
-    <meta property="og:description" content="10,898 properties · 14,835 roads · 50,000 buildings · 18 deptos · 7,912 tiles — all in one map.">
-    <meta property="og:type" content="website">
-    <link rel="manifest" href="manifest.webmanifest">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f766e'/%3E%3Cpath d='M16 6 L24 14 L24 26 L8 26 L8 14 Z' fill='%23fbbf24'/%3E%3C/svg%3E">
-    <meta name="theme-color" content="#0f766e">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin=""></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<htes: {
+        coverage: 'Cobertura (en vivo)',
+        tile_fabric: 'tejido de tiles (10×10 km)',
+        priority: 'tiles prioritarios',
+        deptos: 'departamentos (OSM)',
+        properties: 'propiedades (en vivo)',
+        osm_roads: 'calles OSM',
+        osm_buildings: 'edificios OSM',
+        gbif: 'especies (GBIF)',
+        layers_on: 'capas activas',
+        insights: 'Análisis (auto-generado)',
+        bcp: 'BCP macro (snapshot Feb 2026)',
+        nasa: 'NASA POWER 2024 (Asunción)',
+        inbio: 'INBIO zafra 2025-2026 (soja, satélite)',
+        layers: 'Capas',
+        price_by_depto: '$/ha por depto',
+        sources: 'Documentos fuente',
+        search_title: 'Buscar dirección, ciudad o lugar',
+        jump_city: 'Ir a una ciudad',
+        status: 'Estado',
+        fair_price: 'Precio justo (IA)',
+        yield_calc: 'Calculadora de rendimiento',
+        filters: 'Filtros',
+        comparables: 'Similares',
+        csv_export: 'Exportar CSV',
+        share_view: 'Compartir vista',
+        embed: 'Incrustar',
+        geolocate: 'Mi ubicación',
+        loading: 'Cargando datos de Paraguay…',
+        legend: 'Leyenda',
+        menu: 'Menú',
+        apply: 'Aplicar',
+        clear: 'Limpiar',
+        showing: 'Mostrando',
+        of: 'de',
+        hidden: 'ocultos',
+   ,
+        mortgage_calc: 'Calculadora hipotecaria (PY)',,
+        affordability: 'Calculadora de asequibilidad',,
+        inmueble_tax: 'Impuesto inmueble',,
+        measure: 'Medir distancia',,
+        kml_export: 'Descargar KML',,
+        csv_export_btn: 'Descargar CSV',,
+        share_view_btn: 'Compartir vista',,
+        embed_btn: 'Incrustar',,
+        locate_me: 'Mi ubicación',,
+        tax_summary: 'Resumen fiscal',,
+        header_tabs: 'Pestañas',,
+        layer_active: 'capa activa',,
+        layer_inactive: 'capa inactiva',,
+        feature_count: 'características',,
+        visible: 'visible',,
+        hidden: 'oculto',,
+        click_to_zoom: 'Click para zoom',,
+        click_for_details: 'Click para detalles',,
+        click_to_filter: 'Click para filtrar',,
+        drag_to_select: 'Arrastrar para seleccionar',,
+        scroll_to_zoom: 'Scroll para zoom',,
+        reset_view: 'Restablecer vista',,
+        satellite_view: 'Vista satélite',,
+        street_view: 'Vista de calle',,
+        topo_view: 'Vista topográfica',,
+        light_dark: 'Claro/Oscuro',,
+        language: 'Idioma',,
+        share: 'Compartir',,
+        print: 'Imprimir',,
+        feedback: 'Comentarios',,
+        report_bug: 'Reportar error',,
+        about: 'Acerca de',,
+        docs: 'Documentos',,
+        github: 'Código fuente',,
+        help: 'Ayuda',,
+        tutorial: 'Tutorial',,
+        keyboard_shortcuts: 'Atajos de teclado',,
+        fullscreen: 'Pantalla completa',,
+        minimize: 'Minimizar',,
+        settings: 'Configuración',,
+        preferences: 'Preferencias',,
+        account: 'Cuenta',,
+        profile: 'Perfil',,
+        notifications: 'Notificaciones',,
+        alerts: 'Alertas',,
+        updates: 'Actualizaciones',,
+        news: 'Noticias',,
+        blog: 'Blog',,
+        donate: 'Donar',,
+        sponsor: 'Patrocinar',,
+        contact: 'Contacto',,
+        community: 'Comunidad',,
+        forum: 'Foro',
+    },t.css" crossorigin="">
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
@@ -522,6 +597,44 @@
             </label>
             <div id="yieldResult" style="margin-top:6px; padding:6px; background:var(--bg-elevated); border-radius:4px;"></div>
         </div>
+        <h2 style="margin-top:16px;" data-i18n="mortgage_calc">Mortgage calculator (PY)</h2>
+        <div class="mortgage-calc" style="font-size:11px; line-height:1.6;">
+            <label style="display:block; margin-bottom:4px;">Property value (USD)
+                <input type="number" id="mortValue" value="100000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Down payment (%)
+                <input type="number" id="mortDownPct" value="30" min="0" max="100" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Interest rate (% annual)
+                <input type="number" id="mortRate" value="10" step="0.1" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Term (years)
+                <input type="number" id="mortTerm" value="20" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <div id="mortResult" style="margin-top:8px; padding:8px; background:var(--bg-elevated); border-radius:4px;">
+                <div style="color:var(--fg-dim);">Enter values to compute</div>
+            </div>
+            <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">
+                Note: PY banks typically require 20-30% down payment. Rates vary: Itaú ~9%, BBVA ~10%, Sudameris ~11%, GNB ~12%. Includes insurance estimate.
+            </div>
+        </div>
+
+        <h2 style="margin-top:16px;" data-i18n="affordability">Affordability calculator</h2>
+        <div class="afford-calc" style="font-size:11px; line-height:1.6;">
+            <label style="display:block; margin-bottom:4px;">Monthly income (USD)
+                <input type="number" id="affIncome" value="2000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Other monthly debts (USD)
+                <input type="number" id="affDebts" value="0" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Available for housing (%)
+                <input type="number" id="affPct" value="28" min="0" max="100" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <div id="affResult" style="margin-top:8px; padding:8px; background:var(--bg-elevated); border-radius:4px;">
+                <div style="color:var(--fg-dim);">Enter values to compute</div>
+            </div>
+        </div>
+
 
         <h2>Market signals (auto)</h2><canvas id="chartPropertyTypes" style="width:100%; height:200px; margin:6px 0;"></canvas>
         <canvas id="chartDeptos" style="width:100%; height:220px; margin:6px 0;"></canvas>
@@ -603,8 +716,7 @@
                 </label>
             </div>
             <div style="display:flex; gap:8px; margin-top:12px;">
-                <button onclick="applyFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;"data-i18n="apply">Apply</button>
-                <button onclick="clearFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;"data-i18n="clear">Clear</button>
+                <button onclick="applyFilters(); toggleFilterSheet()" aria-label="Map action"  style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;"data-i18n="apply">Apply<<button onclick="clearFilters(); toggleFilterSheet()" aria-label="Map action"  style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;"data-i18n="clear">s:6px;"data-i18n="clear">Clear</button>
             </div>
             <div id="filterResultCount" style="margin-top:8px; font-size:11px; color:var(--fg-dim);"></div>
         </div>
@@ -612,9 +724,19 @@
     </aside>
 
     <div id="map"></div>
+<div id="coordDisplay" style="position:absolute; bottom:8px; left:8px; background:rgba(0,0,0,0.7); color:var(--accent); padding:4px 10px; border-radius:4px; font-size:11px; font-family:monospace; z-index:1000; pointer-events:none;">—</div>
 </main>
 
 <div class="legend" id="legend">
+        <div id="timeSlider" style="margin:8px 0; padding:8px; background:var(--bg-elev-2); border-radius:4px; font-size:11px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <span style="color:var(--fg-dim);">Data snapshot</span>
+                <span id="timeLabel" style="color:var(--accent); font-weight:600;">Today</span>
+            </div>
+            <input type="range" id="timeInput" min="0" max="0" value="0" style="width:100%; accent-color:var(--accent);" disabled>
+            <div style="font-size:9px; color:var(--fg-dim); margin-top:2px;">Single snapshot — multi-time data coming soon</div>
+        </div>
+    
     <div class="row"><span class="swatch" style="background:var(--tile-priority-fill); border: 1px solid var(--tile-priority);"></span><span>10×10 km tile</span></div>
     <div class="row"><span class="swatch" style="background:var(--accent);"></span><span>Priority (urban anchor)</span></div>
     <div class="row"><span class="swatch" style="background:var(--info); opacity:.5;"></span><span>Departamento</span></div>
@@ -631,6 +753,9 @@
 <script>
 // ========== MAP ==========
 const map = L.map('map', { zoomControl: true, worldCopyJump: true, preferCanvas: false }).setView([-23.5, -58.5], 6);
+
+// Scale bar
+L.control.scale({ imperial: false, position: 'bottomright' }).addTo(map);
 
 map.on('zoomend', () => { if (window.__properties) clusterProperties(window.__properties); });
 
@@ -1769,6 +1894,60 @@ const I18N = {
         showing: 'Showing',
         of: 'of',
         hidden: 'hidden',
+   ,
+        mortgage_calc: 'Mortgage calculator (PY)',,
+        affordability: 'Affordability calculator',,
+        inmueble_tax: 'Property tax',,
+        measure: 'Measure distance',,
+        kml_export: 'Download KML',,
+        csv_export_btn: 'Download CSV',,
+        share_view_btn: 'Share view',,
+        embed_btn: 'Embed',,
+        locate_me: 'My location',,
+        tax_summary: 'Tax summary',,
+        header_tabs: 'Tabs',,
+        layer_active: 'layer active',,
+        layer_inactive: 'layer inactive',,
+        feature_count: 'features',,
+        visible: 'visible',,
+        hidden: 'hidden',,
+        click_to_zoom: 'Click to zoom',,
+        click_for_details: 'Click for details',,
+        click_to_filter: 'Click to filter',,
+        drag_to_select: 'Drag to select',,
+        scroll_to_zoom: 'Scroll to zoom',,
+        reset_view: 'Reset view',,
+        satellite_view: 'Satellite view',,
+        street_view: 'Street view',,
+        topo_view: 'Topographic view',,
+        light_dark: 'Light/Dark',,
+        language: 'Language',,
+        share: 'Share',,
+        print: 'Print',,
+        feedback: 'Feedback',,
+        report_bug: 'Report bug',,
+        about: 'About',,
+        docs: 'Docs',,
+        github: 'Source code',,
+        help: 'Help',,
+        tutorial: 'Tutorial',,
+        keyboard_shortcuts: 'Keyboard shortcuts',,
+        fullscreen: 'Fullscreen',,
+        minimize: 'Minimize',,
+        settings: 'Settings',,
+        preferences: 'Preferences',,
+        account: 'Account',,
+        profile: 'Profile',,
+        notifications: 'Notifications',,
+        alerts: 'Alerts',,
+        updates: 'Updates',,
+        news: 'News',,
+        blog: 'Blog',,
+        donate: 'Donate',,
+        sponsor: 'Sponsor',,
+        contact: 'Contact',,
+        community: 'Community',,
+        forum: 'Forum',
     },
     gn: {
         coverage: 'Oñemobyta ha (oiko)',
@@ -1806,6 +1985,60 @@ const I18N = {
         showing: 'Ojehecháva',
         of: 'peve',
         hidden: 'oñemombavy',
+   ,
+        mortgage_calc: 'Hipoteca haipyre (PY)',,
+        affordability: 'Aikuaa haipyre',,
+        inmueble_tax: 'Inmueble itavy',,
+        measure: 'Heko mombyky',,
+        kml_export: 'Emboguejy KML',,
+        csv_export_btn: 'Emboguejy CSV',,
+        share_view_btn: 'Mbohasa jehecha',,
+        embed_btn: 'Embe embopyta',,
+        locate_me: 'Aikete',,
+        tax_summary: 'Itavy ñehesaꞌỹijo',,
+        header_tabs: 'Táva',,
+        layer_active: 'oñemobyta oñemoheñói',,
+        layer_inactive: 'oñemobyta oñemombyta',,
+        feature_count: 'techaukaha',,
+        visible: 'ojehecha',,
+        hidden: 'oñemombavy',,
+        click_to_zoom: 'Eiklihína zoom',,
+        click_for_details: 'Eiklihína ñehesaꞌỹijo',,
+        click_to_filter: 'Eiklihína oñemohenda',,
+        drag_to_select: 'Ekyty mboguapy',,
+        scroll_to_zoom: 'Ekyty scroll zoom',,
+        reset_view: 'Emoñepyrũ jehecha',,
+        satellite_view: 'Satélite jehecha',,
+        street_view: 'Tape jehecha',,
+        topo_view: 'Oñemobyta jehecha',,
+        light_dark: 'Pyahu/Hũ',,
+        language: 'Ñeꞌẽ',,
+        share: 'Mbohasa',,
+        print: 'Mbopapaha',,
+        feedback: 'Ñeꞌẽmeꞌẽ',,
+        report_bug: 'Eñeꞌẽ jejavy',,
+        about: 'Rehegua',,
+        docs: 'Marandu',,
+        github: 'Código fuente',,
+        help: 'Pytyvõ',,
+        tutorial: 'Ñepytyvõha',,
+        keyboard_shortcuts: 'Teclado atajo',,
+        fullscreen: 'Opakatu pantalla',,
+        minimize: 'Michĩmi',,
+        settings: 'Ñemboheko',,
+        preferences: 'Jehepymeꞌẽ',,
+        account: 'Cuenta',,
+        profile: 'Techauka',,
+        notifications: 'Ñemomarandu',,
+        alerts: 'Ñemomarandu',,
+        updates: 'Ñemoambue pyahu',,
+        news: 'Marandu pyahu',,
+        blog: 'Blog',,
+        donate: 'Emeꞌẽ',,
+        sponsor: 'Patrocinar',,
+        contact: 'Ñeꞌẽngatu',,
+        community: 'Aty guasu',,
+        forum: 'Ñeꞌẽaty',
     },
 };
 
@@ -1918,8 +2151,7 @@ function buildPropertyPopup(p, lon, lat) {
         const thumbHtml = imgs.slice(0, 8).map((url, i) =>
             `<img loading="lazy" src="${url}" data-idx="${i}" style="width:40px; height:30px; object-fit:cover; border-radius:3px; cursor:pointer; border:1px solid var(--line);" onerror="this.style.display='none';" onclick="document.querySelectorAll('.prop-thumb')[${i}].click(); document.querySelector('.prop-main-img').src='${url}'; document.querySelectorAll('.prop-thumb').forEach(t=>t.style.borderColor='var(--line)'); this.style.borderColor='var(--accent)';" />`
         ).join('');
-        const arrowsHtml = imgs.length > 1 ? `
-            <button onclick="event.preventDefault(); const img=document.querySelector('.prop-main-img'); const cur=Array.from(document.querySelectorAll('.prop-main-img-src')).findIndex(s=>s===img.src); const next=(cur+1)%${imgs.length}; img.src='${imgs[0]}'; document.querySelectorAll('.prop-main-img-src').forEach(s=>s.style.display='none'); img.style.display='block';" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; width:28px; height:28px; border-radius:14px; cursor:pointer;">›</button>` : '';
+        c<button onclick="event.preventDefault(); const img=document.querySelector('.prop-main-img'); const cur=Array.from(document.querySelectorAll('.prop-main-img-src')).findIndex(s=>s===img.src); const next=(cur+1)%${imgs.length}; img.src='${imgs[0]}'; document.querySelectorAll('.prop-main-img-src').forEach(s=>s.style.display='none'); img.style.display='block';" aria-label="Map action"  style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; width:28px; height:28px; border-radius:14px; cursor:pointer;">height:28px; border-radius:14px; cursor:pointer;">›</button>` : '';
         galleryHtml = `
             <div style="position:relative; margin:4px 0;">
                 ${imgs.map((url, i) => `<img class="prop-main-img-src" loading="lazy" src="${url}" onerror="this.style.display='none'" style="width:100%; max-width:280px; max-height:180px; object-fit:cover; border-radius:4px; display:${i===0?'block':'none'};" />`).join('').replace('<img class="prop-main-img-src"', '<img class="prop-main-img"')}
@@ -2538,6 +2770,525 @@ function fetchDataFreshness() {
         });
 }
 
+
+// ========== COORD DISPLAY ==========
+window.addCoordDisplay = function() {
+    const display = document.getElementById('coordDisplay');
+    if (!display) return;
+    map.on('mousemove', (e) => {
+        const lat = e.latlng.lat.toFixed(5);
+        const lon = e.latlng.lng.toFixed(5);
+        // Convert to DMS for display
+        const latDMS = coordToDMS(e.latlng.lat, 'lat');
+        const lonDMS = coordToDMS(e.latlng.lng, 'lon');
+        display.textContent = `${lat}, ${lon}  (${latDMS}, ${lonDMS})`;
+    });
+    map.on('mouseout', () => {
+        display.textContent = '—';
+    });
+};
+
+function coordToDMS(coord, type) {
+    const abs = Math.abs(coord);
+    const deg = Math.floor(abs);
+    const min = Math.floor((abs - deg) * 60);
+    const sec = ((abs - deg) * 60 - min) * 60;
+    const dir = type === 'lat' ? (coord >= 0 ? 'N' : 'S') : (coord >= 0 ? 'E' : 'W');
+    return `${deg}°${min.toString().padStart(2, '0')}'${sec.toFixed(2)}"${dir}`;
+}
+
+// ========== MEASURE TOOL ==========
+let measureActive = false;
+let measurePoints = [];
+let measureLine = null;
+let measureMarkers = [];
+
+window.toggleMeasure = function() {
+    measureActive = !measureActive;
+    if (measureActive) {
+        map.getContainer().style.cursor = 'crosshair';
+        map.on('click', onMeasureClick);
+    } else {
+        map.getContainer().style.cursor = '';
+        map.off('click', onMeasureClick);
+        if (measureLine) { map.removeLayer(measureLine); measureLine = null; }
+        measureMarkers.forEach(m => map.removeLayer(m));
+        measureMarkers = [];
+        measurePoints = [];
+    }
+};
+
+function onMeasureClick(e) {
+    measurePoints.push(e.latlng);
+    const marker = L.circleMarker(e.latlng, {
+        radius: 5, color: '#fbbf24', fillOpacity: 0.8, weight: 2
+    }).addTo(map);
+    measureMarkers.push(marker);
+
+    if (measurePoints.length >= 2) {
+        if (measureLine) map.removeLayer(measureLine);
+        measureLine = L.polyline(measurePoints, { color: '#fbbf24', weight: 3, dashArray: '5,5' }).addTo(map);
+
+        // Compute total distance
+        let total = 0;
+        for (let i = 1; i < measurePoints.length; i++) {
+            total += measurePoints[i-1].distanceTo(measurePoints[i]);
+        }
+        // Update marker labels with segment distances
+        let labelText = `Total: ${formatDistance(total)}`;
+        if (measurePoints.length === 2) {
+            labelText += ` | Segment: ${formatDistance(measurePoints[0].distanceTo(measurePoints[1]))}`;
+        }
+        marker.bindPopup(labelText).openPopup();
+    } else {
+        marker.bindPopup('Click to add another point').openPopup();
+    }
+}
+
+function formatDistance(meters) {
+    if (meters < 1000) return `${Math.round(meters)} m`;
+    return `${(meters / 1000).toFixed(2)} km`;
+}
+
+// ========== KML EXPORT ==========
+window.exportKML = function() {
+    if (!window.__properties || window.__properties.length === 0) {
+        return alert('Properties still loading...');
+    }
+    let kml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2"><Document>\n';
+    kml += '<name>Paraguay Geodata - Properties</name>\n';
+    kml += `<description>${window.__properties.length} properties exported</description>\n`;
+
+    for (const f of window.__properties) {
+        const p = f.properties || {};
+        const [lon, lat] = f.geometry?.coordinates || [0, 0];
+        const title = (p.title || p.source_id || 'Property').replace(/[<>&"]/g, '');
+        kml += `<Placemark><name>${title}</name>`;
+        kml += `<ExtendedData>`;
+        for (const [k, v] of Object.entries(p)) {
+            if (k !== 'images' && v !== null && v !== undefined) {
+                const safe = String(v).replace(/[<>&"]/g, '');
+                kml += `<Data name="${k}"><value>${safe}</value></Data>`;
+            }
+        }
+        kml += `</ExtendedData>`;
+        kml += `<Point><coordinates>${lon},${lat},0</coordinates></Point>`;
+        kml += `</Placemark>\n`;
+    }
+    kml += '</Document></kml>';
+
+    const blob = new Blob([kml], { type: 'application/vnd.google-earth.kml+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `paraguay-properties-${new Date().toISOString().slice(0,10)}.kml`;
+    a.click();
+    URL.revokeObjectURL(url);
+};
+
+// ========== OGC COMPLIANCE ==========
+// Print WMS / WFS endpoints for advanced users
+window.getWFSEndpoints = function() {
+    return {
+        catastro_parcels: 'https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=snc:parcelas_activas&outputFormat=json',
+        catastro_dpto: 'https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=consulta:ly_dpto&outputFormat=json',
+        catastro_dist: 'https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=consulta:ly_dist&outputFormat=json',
+        catastro_urba: 'https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=consulta:ly_urba&outputFormat=json',
+    };
+};
+
+// Hook coord display into bootstrap
+const _origSetupMap = window.setupMap || (() => {});
+window.setupMap = function(...args) {
+    const result = _origSetupMap(...args);
+    if (typeof window.addCoordDisplay === 'function') {
+        setTimeout(() => window.addCoordDisplay(), 100);
+    }
+    return result;
+};
+
+
+// ========== MORTGAGE CALCULATOR ==========
+function computeMortgage() {
+    const value = parseFloat(document.getElementById('mortValue').value) || 0;
+    const downPct = parseFloat(document.getElementById('mortDownPct').value) || 0;
+    const rate = parseFloat(document.getElementById('mortRate').value) || 0;
+    const years = parseFloat(document.getElementById('mortTerm').value) || 0;
+
+    if (!value || !rate || !years) {
+        return document.getElementById('mortResult').innerHTML = '<div style="color:var(--fg-dim);">Enter values to compute</div>';
+    }
+
+    const downPayment = value * (downPct / 100);
+    const loanAmount = value - downPayment;
+    const monthlyRate = rate / 100 / 12;
+    const numPayments = years * 12;
+
+    let monthlyPayment;
+    if (monthlyRate === 0) {
+        monthlyPayment = loanAmount / numPayments;
+    } else {
+        const factor = Math.pow(1 + monthlyRate, numPayments);
+        monthlyPayment = loanAmount * (monthlyRate * factor) / (factor - 1);
+    }
+
+    const totalPaid = monthlyPayment * numPayments;
+    const totalInterest = totalPaid - loanAmount;
+    const monthlyInsurance = loanAmount * 0.0003;  // ~0.36%/yr hazard insurance
+    const monthlyTotal = monthlyPayment + monthlyInsurance;
+
+    document.getElementById('mortResult').innerHTML = `
+        <div style="font-weight:bold; color:var(--accent); margin-bottom:6px;">Monthly: $${monthlyTotal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Principal+interest</span><span>$${monthlyPayment.toFixed(0)}</span></div>
+        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Insurance est.</span><span>$${monthlyInsurance.toFixed(0)}</span></div>
+        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Down payment</span><span>$${downPayment.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Loan amount</span><span>$${loanAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Total interest</span><span style="color:var(--warn);">$${totalInterest.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Total paid</span><span>$${(totalPaid + downPayment).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+    `;
+}
+window.computeMortgage = computeMortgage;
+
+// ========== AFFORDABILITY CALCULATOR ==========
+function computeAffordability() {
+    const income = parseFloat(document.getElementById('affIncome').value) || 0;
+    const debts = parseFloat(document.getElementById('affDebts').value) || 0;
+    const pct = parseFloat(document.getElementById('affPct').value) || 0;
+
+    if (!income) {
+        return document.getElementById('affResult').innerHTML = '<div style="color:var(--fg-dim);">Enter values to compute</div>';
+    }
+
+    // Front-end ratio: monthly housing payment / income
+    const maxHousingPayment = (income * (pct / 100)) - debts;
+    // Assume 30y @ 10% interest
+    const monthlyRate = 0.10 / 12;
+    const numPayments = 360;
+    const factor = Math.pow(1 + monthlyRate, numPayments);
+    const maxLoan = maxHousingPayment * (factor - 1) / (monthlyRate * factor);
+    // With 30% down
+    const maxPrice = maxLoan / 0.7;
+
+    // Back-end ratio: total debt / income
+    const backEndRatio = ((maxHousingPayment + debts) / income) * 100;
+
+    document.getElementById('affResult').innerHTML = `
+        <div style="font-weight:bold; color:var(--accent); margin-bottom:6px;">Max property: $${maxPrice.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Max housing payment</span><span>$${maxHousingPayment.toFixed(0)}/mo</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Max loan (30y @ 10%)</span><span>$${maxLoan.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Front-end ratio</span><span>${pct}%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Back-end ratio</span><span>${backEndRatio.toFixed(0)}%</span></div>
+        ${backEndRatio > 36 ? '<div style="margin-top:4px; color:var(--warn);">⚠ Back-end ratio >36% — bank may reject</div>' : ''}
+    `;
+}
+window.computeAffordability = computeAffordability;
+
+// ========== INMUEBLE TAX CALCULATOR ==========
+function computeInmueble(depto, valorFiscal) {
+    // PY rates per depto (approximate, varies)
+    const rates = {
+        'Asunción': 0.005,  // 0.5%
+        'Central': 0.005,
+        'Alto Paraná': 0.005,
+        'Itapúa': 0.004,
+        'default': 0.005,
+    };
+    const rate = rates[depto] || rates.default;
+    const annual = valorFiscal * rate;
+    const quarterly = annual / 4;
+    const monthly = annual / 12;
+    return { rate, annual, quarterly, monthly };
+}
+
+// Wire up the inputs (event listeners)
+document.addEventListener('DOMContentLoaded', () => {
+    ['mortValue', 'mortDownPct', 'mortRate', 'mortTerm'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', computeMortgage);
+    });
+    ['affIncome', 'affDebts', 'affPct'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', computeAffordability);
+    });
+    // Initial calc
+    setTimeout(computeMortgage, 200);
+    setTimeout(computeAffordability, 200);
+});
+
+
+// ========== TIME SLIDER + FRESHNESS ==========
+window.updateTimeSlider = function() {
+    const slider = document.getElementById('timeInput');
+    const label = document.getElementById('timeLabel');
+    if (!slider || !label) return;
+
+    // Try to load historical snapshots (placeholder for now)
+    // In future: this will load multiple snapshots
+    const snapshots = [
+        { date: '2026-07-11', label: 'Today (Jul 11)', count: 10898 },
+    ];
+
+    slider.max = Math.max(0, snapshots.length - 1);
+    slider.disabled = snapshots.length <= 1;
+
+    const idx = parseInt(slider.value) || 0;
+    const snap = snapshots[idx];
+    if (snap) {
+        label.textContent = `${snap.label} — ${snap.count.toLocaleString()} listings`;
+    }
+
+    slider.addEventListener('input', () => {
+        const idx = parseInt(slider.value) || 0;
+        const snap = snapshots[idx];
+        if (snap) label.textContent = `${snap.label} — ${snap.count.toLocaleString()} listings`;
+        // TODO: switch to that snapshot's data when multi-snapshot
+    });
+};
+
+// Auto-init on load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(window.updateTimeSlider, 1000);
+});
+
+// ========== SAVE LISTING + COMPARE ==========
+window.SAVED_LISTINGS_KEY = 'paraguay-geodata-saved';
+
+window.getSavedListings = function() {
+    try {
+        return JSON.parse(localStorage.getItem(window.SAVED_LISTINGS_KEY) || '[]');
+    } catch (e) { return []; }
+};
+
+window.saveListing = function(listingId) {
+    const saved = window.getSavedListings();
+    if (!saved.includes(listingId)) {
+        saved.push(listingId);
+        localStorage.setItem(window.SAVED_LISTINGS_KEY, JSON.stringify(saved));
+        return true;
+    }
+    return false;
+};
+
+window.unsaveListing = function(listingId) {
+    const saved = window.getSavedListings().filter(id => id !== listingId);
+    localStorage.setItem(window.SAVED_LISTINGS_KEY, JSON.stringify(saved));
+};
+
+window.isListingSaved = function(listingId) {
+    return window.getSavedListings().includes(listingId);
+};
+
+// Compare mode — toggle for selecting listings to compare
+let compareMode = false;
+let compareList = [];
+
+window.toggleCompareMode = function() {
+    compareMode = !compareMode;
+    compareList = [];
+    const indicator = document.getElementById('compareIndicator');
+    if (indicator) {
+        indicator.style.display = compareMode ? 'block' : 'none';
+        indicator.textContent = compareMode ? `Compare mode: click ${2 - compareList.length} more listing${2 - compareList.length === 1 ? '' : 's'}` : '';
+    }
+};
+
+window.toggleCompareListing = function(listingId, property) {
+    if (!compareMode) return;
+    const idx = compareList.findIndex(c => c.id === listingId);
+    if (idx >= 0) {
+        compareList.splice(idx, 1);
+    } else if (compareList.length < 3) {
+        compareList.push({ id: listingId, property });
+    }
+    if (compareList.length >= 2) {
+        window.showCompareTable();
+    }
+};
+
+window.showCompareTable = function() {
+    if (compareList.length < 2) return;
+    const cols = ['price_usd', 'area_ha', 'bedrooms', 'property_type', 'state_province'];
+    const labels = ['Price (USD)', 'Area (ha)', 'Beds', 'Type', 'Depto'];
+    let html = '<table style="width:100%; border-collapse:collapse; font-size:11px;">';
+    html += '<tr><th style="text-align:left; padding:4px; border-bottom:1px solid var(--line);"></th>';
+    compareList.forEach((c, i) => {
+        html += `<th style="text-align:left; padding:4px; border-bottom:1px solid var(--line); color:var(--accent);">#${i+1}</th>`;
+    });
+    html += '</tr>';
+    cols.forEach((col, i) => {
+        html += `<tr><td style="padding:4px; color:var(--fg-dim);">${labels[i]}</td>`;
+        compareList.forEach(c => {
+            const v = c.property[col];
+            html += `<td style="padding:4px;">${v !== null && v !== undefined ? (typeof v === 'number' ? v.toLocaleString() : v) : '—'}</td>`;
+        });
+        html += '</tr>';
+    });
+    html += '</table>';
+    const cmp = document.getElementById('compareTable');
+    if (cmp) cmp.innerHTML = html;
+    else {
+        const modal = document.createElement('div');
+        modal.id = 'compareTable';
+        modal.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--bg-elev); padding:16px; border-radius:8px; max-width:90vw; max-height:80vh; overflow:auto; z-index:9999; box-shadow:0 8px 32px rgba(0,0,0,0.6);';
+        modal.innerHTML = `<h3 style="margin-top:0;">Compare (${compareList.length})</h3>` + html + '<button onclick="document.getElementById(\'compareTable\').remove(); window.toggleCompareMode();" style="margin-top:8px; padding:8px 16px; background:var(--accent); color:var(--bg); border:none; border-radius:4px; cursor:pointer;">Close</button>';
+        document.body.appendChild(modal);
+    }
+};
+
+window.showSavedListings = function() {
+    const saved = window.getSavedListings();
+    if (saved.length === 0) return alert('No saved listings yet. Open a listing and click ⭐ Save.');
+    const features = (window.__properties || []).filter(f => saved.includes(f.properties?.source_id || f.id));
+    if (features.length === 0) return alert('Saved listings not found in current data.');
+    
+    let html = '<h3 style="margin-top:0;">Your saved listings (' + saved.length + ')</h3>';
+    html += '<div style="max-height:60vh; overflow-y:auto;">';
+    features.forEach(f => {
+        const p = f.properties || {};
+        html += `<div style="padding:6px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">`;
+        html += `<span>${(p.title || p.source_id).slice(0, 50)}</span>`;
+        html += `<span style="color:var(--accent);">$${(p.price_usd || 0).toLocaleString()}</span>`;
+        html += `<button onclick="map.setView([${f.geometry.coordinates[1]}, ${f.geometry.coordinates[0]}], 16); document.getElementById('savedModal').remove();" style="background:var(--accent); color:var(--bg); border:none; padding:4px 8px; border-radius:3px; cursor:pointer;">View</button>`;
+        html += '</div>';
+    });
+    html += '</div>';
+    html += '<button onclick="document.getElementById(\'savedModal\').remove();" style="margin-top:12px; padding:8px 16px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; cursor:pointer;">Close</button>';
+    
+    const modal = document.createElement('div');
+    modal.id = 'savedModal';
+    modal.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--bg-elev); padding:16px; border-radius:8px; max-width:90vw; max-height:80vh; overflow:auto; z-index:9999; box-shadow:0 8px 32px rgba(0,0,0,0.6); min-width:400px;';
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+};
+
+
+// ========== CATASTRO LOOKUP ==========
+window.lookupCatastro = async function() {
+    const input = document.getElementById('catastroInput');
+    const result = document.getElementById('catastroResult');
+    if (!input || !result) return;
+    const cda_cata = input.value.trim();
+    if (!cda_cata) {
+        result.innerHTML = '<div style="color:var(--warn);">Enter a Catastro ID (cda_cata)</div>';
+        return;
+    }
+    result.innerHTML = '<div>Querying Catastro Nacional WFS...</div>';
+    try {
+        // Query our local Catastro data
+        const r = await fetch('./data/admin/catastro_parcels_sample.geojson');
+        const d = await r.json();
+        const match = (d.features || []).find(f => {
+            const p = f.properties || {};
+            return p.cda_cata === cda_cata ||
+                   p.denominacion?.includes(cda_cata) ||
+                   p.padron === cda_cata;
+        });
+        if (match) {
+            const p = match.properties || {};
+            const [lon, lat] = match.geometry?.coordinates?.[0]?.[0] || [0, 0];
+            result.innerHTML = `
+                <div style="background:var(--accent-dim); padding:6px; border-radius:3px; color:var(--fg);">
+                    <strong>Found:</strong> ${p.denominacion || p.cda_cata || 'Match'}<br>
+                    <small>Depto: ${p.dpto || '?'} · Distrito: ${p.dist || '?'} · Area: ${p.superficie || '?'}</small>
+                </div>
+                <button onclick="map.setView([${lat}, ${lon}], 16);" style="margin-top:4px; padding:4px 8px; background:var(--accent); color:var(--bg); border:none; border-radius:3px; cursor:pointer; width:100%;">Zoom to parcel</button>
+            `;
+        } else {
+            result.innerHTML = `
+                <div style="color:var(--warn);">Not found in 7,500-parcel sample.</div>
+                <div style="margin-top:4px; font-size:9px;">Direct WFS query (loads full 2.19M parcels):</div>
+                <a href="https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=snc:parcelas_activas&outputFormat=json&CQL_FILTER=cda_cata='${encodeURIComponent(cda_cata)}'" target="_blank" style="color:var(--accent);">Open in Catastro WFS ↗</a>
+            `;
+        }
+    } catch (e) {
+        result.innerHTML = `<div style="color:var(--err);">Error: ${e.message}</div>`;
+    }
+};
+
+// ========== INMUEBLE TAX CALCULATOR UI ==========
+window.computeInmuebleTax = function(depto, valorFiscal) {
+    return computeInmueble(depto, valorFiscal);
+};
+
+// ========== DUE DILIGENCE WORKFLOW ==========
+window.runDueDiligence = async function(listing) {
+    const p = listing || {};
+    const checks = [];
+
+    // 1. Check if listing is in our Catastro sample
+    try {
+        const r = await fetch('./data/admin/catastro_parcels_sample.geojson');
+        const d = await r.json();
+        // Within ~50m of any Catastro polygon centroid?
+        if (p.lon && p.lat && d.features) {
+            let nearest = Infinity;
+            for (const f of d.features) {
+                const [lon, lat] = f.geometry?.coordinates?.[0]?.[0] || [0, 0];
+                if (!lon || !lat) continue;
+                const dist = Math.sqrt((p.lat - lat) ** 2 + (p.lon - lon) ** 2);
+                if (dist < nearest) nearest = dist;
+            }
+            checks.push({
+                name: 'Catastro proximity',
+                status: nearest < 0.001 ? '✓' : '?',
+                detail: `Nearest parcela ~${(nearest * 111).toFixed(1)} km`,
+            });
+        }
+    } catch (e) {}
+
+    // 2. Price sanity check
+    const allProps = window.__properties || [];
+    const sameDepto = allProps.filter(f => (f.properties?.state_province || '').toLowerCase() === (p.state_province || '').toLowerCase());
+    if (sameDepto.length > 5 && p.price_usd && p.area_ha) {
+        const median = sameDepto.map(f => (f.properties?.price_usd || 0) / Math.max(0.001, f.properties?.area_ha || 0)).sort((a, b) => a - b)[Math.floor(sameDepto.length / 2)];
+        const ratio = (p.price_usd / Math.max(0.001, p.area_ha)) / median;
+        checks.push({
+            name: 'Price sanity',
+            status: ratio > 3 ? '⚠' : ratio < 0.3 ? '⚠' : '✓',
+            detail: `${(ratio * 100).toFixed(0)}% of depto median $/ha`,
+        });
+    }
+
+    // 3. Has images
+    checks.push({
+        name: 'Has photos',
+        status: (p.images && p.images.length > 0) ? '✓' : '⚠',
+        detail: `${(p.images || []).length} image${(p.images || []).length === 1 ? '' : 's'}`,
+    });
+
+    // 4. Source
+    checks.push({
+        name: 'Source verified',
+        status: p.source ? '✓' : '?',
+        detail: p.source || 'unknown',
+    });
+
+    // 5. Listed within last 60 days
+    const listedDaysAgo = p.scraped_at_utc ? (Date.now() - new Date(p.scraped_at_utc).getTime()) / 86400000 : 999;
+    checks.push({
+        name: 'Recently listed',
+        status: listedDaysAgo < 60 ? '✓' : '⚠',
+        detail: `${Math.round(listedDaysAgo)} days ago`,
+    });
+
+    return checks;
+};
+
+window.showDueDiligence = async function(listing) {
+    const checks = await window.runDueDiligence(listing);
+    let html = '<h3 style="margin-top:0;">Due diligence</h3>';
+    html += '<table style="width:100%; font-size:11px;">';
+    checks.forEach(c => {
+        html += `<tr><td style="padding:4px;">${c.status}</td><td style="padding:4px; color:var(--fg-dim);">${c.name}</td><td style="padding:4px;">${c.detail}</td></tr>`;
+    });
+    html += '</table>';
+    html += '<button onclick="document.getElementById(\'ddModal\').remove();" style="margin-top:12px; padding:8px 16px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; cursor:pointer;">Close</button>';
+    const modal = document.createElement('div');
+    modal.id = 'ddModal';
+    modal.style.cssText = 'position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--bg-elev); padding:16px; border-radius:8px; max-width:90vw; z-index:9999; box-shadow:0 8px 32px rgba(0,0,0,0.6); min-width:380px;';
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+};
 // ========== BOOTSTRAP ==========
 renderLayerGrid();
 loadBCP();
