@@ -1755,18 +1755,78 @@ function buildPropertyPopup(p, lon, lat) {
     else if (hasUsd) price = `$${Math.round(p.price_usd).toLocaleString()}`;
     else price = '—';
     const imgs = Array.isArray(p.images) ? p.images : [];
-    const imgUrl = imgs[0] || '';
-    const imgsHtml = imgUrl ? `<img loading="lazy" src="${imgUrl}" style="width:100%; max-width:280px; max-height:160px; object-fit:cover; border-radius:4px; margin:4px 0;" onerror="this.style.display='none';" />` : '';
     const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
+
+    // Image gallery: thumb strip + main image + arrows
+    let galleryHtml = '';
+    if (imgs.length > 0) {
+        const mainImg = imgs[0];
+        const thumbHtml = imgs.slice(0, 8).map((url, i) =>
+            `<img loading="lazy" src="${url}" data-idx="${i}" style="width:40px; height:30px; object-fit:cover; border-radius:3px; cursor:pointer; border:1px solid var(--line);" onerror="this.style.display='none';" onclick="document.querySelectorAll('.prop-thumb')[${i}].click(); document.querySelector('.prop-main-img').src='${url}'; document.querySelectorAll('.prop-thumb').forEach(t=>t.style.borderColor='var(--line)'); this.style.borderColor='var(--accent)';" />`
+        ).join('');
+        const arrowsHtml = imgs.length > 1 ? `
+            <button onclick="event.preventDefault(); const img=document.querySelector('.prop-main-img'); const cur=Array.from(document.querySelectorAll('.prop-main-img-src')).findIndex(s=>s===img.src); const next=(cur+1)%${imgs.length}; img.src='${imgs[0]}'; document.querySelectorAll('.prop-main-img-src').forEach(s=>s.style.display='none'); img.style.display='block';" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.6); color:white; border:none; width:28px; height:28px; border-radius:14px; cursor:pointer;">›</button>` : '';
+        galleryHtml = `
+            <div style="position:relative; margin:4px 0;">
+                ${imgs.map((url, i) => `<img class="prop-main-img-src" loading="lazy" src="${url}" onerror="this.style.display='none'" style="width:100%; max-width:280px; max-height:180px; object-fit:cover; border-radius:4px; display:${i===0?'block':'none'};" />`).join('').replace('<img class="prop-main-img-src"', '<img class="prop-main-img"')}
+                ${arrowsHtml}
+            </div>
+            <div style="display:flex; gap:3px; flex-wrap:wrap; margin:4px 0;">
+                ${thumbHtml}
+            </div>
+        `;
+    }
+
+    // Fair-price ML score
+    let fairPriceHtml = '';
+    if (typeof fairPriceScore === 'function') {
+        const fp = fairPriceScore(p, lon, lat);
+        if (fp) {
+            fairPriceHtml = `<div class="row"><span class="k">Fair price</span><span class="v" style="color:${fp.color}; font-weight:bold;">${fp.flag}</span></div>
+            <div style="font-size:10px; color:var(--fg-dim); margin:4px 0;">Model: $${Math.round(fp.predicted).toLocaleString()} (${fp.label})</div>`;
+        }
+    }
+
+    // Comparables: find similar listings (same type, +/-50% price, same depto)
+    let comparablesHtml = '';
+    if (window.__properties && p.property_type && p.state_province && p.price_usd) {
+        const similars = window.__properties.filter(other => {
+            const op = other.properties || {};
+            if (op === p) return false;
+            if (op.property_type !== p.property_type) return false;
+            if (op.state_province !== p.state_province) return false;
+            if (!op.price_usd) return false;
+            return Math.abs(op.price_usd - p.price_usd) / Math.max(1, p.price_usd) < 0.5;
+        }).slice(0, 3);
+        if (similars.length > 0) {
+            comparablesHtml = `
+                <div style="margin-top:6px; padding:6px; background:var(--bg-elev-2); border-radius:4px; font-size:10px;">
+                    <div style="font-weight:600; margin-bottom:4px;">${similars.length} similar listing${similars.length===1?'':'s'} in ${p.state_province}:</div>
+                    ${similars.map(s => {
+                        const sp = s.properties || {};
+                        return `<div style="display:flex; justify-content:space-between; gap:4px; padding:2px 0;">
+                            <span>${sp.title?.slice(0, 30) || 'Untitled'}</span>
+                            <span style="color:var(--accent);">$${Math.round(sp.price_usd).toLocaleString()}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
+            `;
+        }
+    }
+
     return `
         <h3 style="max-width:280px;">${(p.title || p.source_id || 'Property').slice(0, 80)}</h3>
-        ${imgsHtml}
+        ${galleryHtml}
         <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
         ${p.area_ha ? `<div class="row"><span class="k">Area</span><span class="v">${p.area_ha.toLocaleString()} ha</span></div>` : ''}
         ${perHa ? `<div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>` : ''}
-        ${p.state_province ? `<div class="row"><span class="k">Depto</span><span class="v">${p.state_province}</span></div>` : ''}
-        ${p.source ? `<div class="row"><span class="k">Source</span><span class="v">${p.source}${p.source_platform && p.source_platform !== p.source ? ' via ' + p.source_platform : ''}</span></div>` : ''}
-        <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
+        ${p.bedrooms ? `<div class="row"><span class="k">Beds</span><span class="v">${p.bedrooms}</span></div>` : ''}
+        ${p.bathrooms ? `<div class="row"><span class="k">Baths</span><span class="v">${p.bathrooms}</span></div>` : ''}
+        ${p.state_province ? `<div class="row"><span class="k">Depto</span><span class="v">${p.state_province}${p.city ? ' / ' + p.city : ''}</span></div>` : ''}
+        ${fairPriceHtml}
+        ${comparablesHtml}
+        <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">Source: ${p.source || '?'}${p.source_platform && p.source_platform !== p.source ? ' via ' + p.source_platform : ''} · scraped ${(p.scraped_at_utc || '').substring(0, 10) || '?'}</div>
+        <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener" style="color:var(--accent); font-weight:600;">Open listing →</a></div>
     `;
 }
 
