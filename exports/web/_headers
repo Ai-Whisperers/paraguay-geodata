@@ -7,20 +7,16 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  # Cache static assets for a year
-  Cache-Control: public, max-age=3600
+  # Short HTML cache — push fresh code on every deploy
+  Cache-Control: public, max-age=300, must-revalidate
 
 /data/*.geojson
   Content-Type: application/geo+json; charset=utf-8
-  Cache-Control: public, max-age=600
+  Cache-Control: public, max-age=600, must-revalidate
 
 /data/*.json
   Content-Type: application/json; charset=utf-8
-  Cache-Control: public, max-age=600
-
-/data/properties_tulugar.geojson
-  # TuLugar is the heavy intermediate file — short TTL
-  Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=600, must-revalidate
 
 # Long-cache hashed assets
 /assets/*

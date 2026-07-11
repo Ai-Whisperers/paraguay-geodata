@@ -505,7 +505,9 @@ function renderLayerGrid() {
 }
 
 function updateLayerCount(id) {
-    layerState[id].features = arguments[1];
+    if (id in layerState) {
+        layerState[id].features = arguments[1];
+    }
     renderLayerGrid();
     updateStats();
 }
@@ -1134,7 +1136,9 @@ async function loadGBIF() {
         }
         const colorAnimalia = '#f59e0b';
         const colorPlantae = '#10b981';
-        const buildGroup = (group, color, kingdomLabel) => {
+        const ga = LAYER_GROUPS.gbif_animalia[0];
+        const gp = LAYER_GROUPS.gbif_plantae[0];
+        const buildGroup = (group, targetLayer, color, kingdomLabel) => {
             group.forEach(f => {
                 if (!f.geometry || !f.geometry.coordinates) return;
                 const [lon, lat] = f.geometry.coordinates;
@@ -1150,11 +1154,9 @@ async function loadGBIF() {
                     <div class="row"><span class="k">Source</span><span class="v">GBIF</span></div>
                     ${p.license ? `<div class="row"><span class="k">License</span><span class="v" style="font-size:9px">${p.license.split('/').slice(-2, -1)[0] || '—'}</span></div>` : ''}
                 `);
-                m.addTo(group);
+                m.addTo(targetLayer);
             });
         };
-        const ga = LAYER_GROUPS.gbif_animalia[0];
-        const gp = LAYER_GROUPS.gbif_plantae[0];
         buildGroup(animalia, ga, colorAnimalia, 'Animalia');
         buildGroup(plantae, gp, colorPlantae, 'Plantae');
         updateLayerCount('gbif_animalia', animalia.length);
