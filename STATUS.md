@@ -2,7 +2,7 @@
 
 Live state of the repo. Updated before every commit.
 
-Last update: 2026-07-10 (Phase 0 shipped — commit `73a96bb`)
+Last update: 2026-07-10 (Phase 0 + 0.5 expansion shipped — commit `73a96bb` + new data-inventory expansion)
 
 ## Phase Tracker
 

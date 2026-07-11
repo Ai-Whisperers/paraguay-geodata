@@ -23,23 +23,28 @@ Map of every doc in this repo. Read order for a new agent:
 
 ## docs/sources/
 
-| File | Purpose |
-|---|---|
-| `satellite.md` | Satellite imagery + DEM data sources (ranked, auth, licences) |
-| `cadastre.md` | Public padrones + operator-supplied escritura anchors |
-| `listings.md` | Real-estate portals (infocasas, propiedades.com.py, baiker) |
-| `prices.md` | Public appraisal + indicador del m² construction costs |
-| `biodiversity.md` | GBIF, MapBiomas Chaco, FIRMS, Hansen GFC, SoilGrids |
-
-(Stubs to be filled in Phase 1.)
+| File | Purpose | Status |
+|---|---|---|
+| `satellite.md` | Satellite imagery + DEM data sources (ranked, auth, licences) | ✅ |
+| `cadastre.md` | Public padrones + operator-supplied escritura anchors | ✅ |
+| `listings.md` | Real-estate portals (infocasas, propiedades.com.py, baiker) | ⏳ (Phase 2 — see `docs/operations/properties-pipeline.md` for now) |
+| `prices.md` | Public appraisal + indicador del m² construction costs | ⏳ (Phase 2 — see `docs/operations/price-model.md` for now) |
+| `biodiversity.md` | GBIF, MapBiomas Chaco, FIRMS, Hansen GFC, SoilGrids | ⏳ (fold into `satellite.md` + `environment.md`) |
+| `administrative.md` | INE — departamentos/distritos/barrios/manzanas + locales (salud/policial/educación) | ✅ |
+| `businesses.md` | DNCP tenders, MIC maquila, SET/RUC, IPS, BCP — commercial activity | ✅ |
+| `agriculture.md` | INBIO, INFONA, SENAVE, SENACSA, SoilGrids, Guyra Paraguay | ✅ |
+| `infrastructure.md` | ANDE power, ESSAP water, MOPC roads, COPACO fiber, mobile coverage | ✅ |
+| `environment.md` | DINAC weather, MADES air quality, FIRMS fires, CHIRPS rainfall, JRC floods | ✅ |
+| `socioeconomic.md` | INE EPH + IPM + CNPV, BCP macro, Policia Nacional crime, AHK/UIP investment | ✅ |
 
 ## docs/operations/
 
 | File | Purpose | Status |
 |---|---|---|
-| `national-tile-fabric.md` | Phased rollout: tile fabric, phase exit criteria, risk register | ✅ Phase 0 |
-| `properties-pipeline.md` | Listings scrape + dedup + cross-ref + deploy | ✅ Phase 0 |
-| `price-model.md` | Hedonic kriging → $/ha raster per departamento | ✅ Phase 0 |
+| `national-tile-fabric.md` | Phased rollout: tile fabric, phase exit criteria, risk register | ✅ |
+| `properties-pipeline.md` | Listings scrape + dedup + cross-ref + deploy | ✅ |
+| `price-model.md` | Hedonic kriging → $/ha raster per departamento | ✅ |
+| `data-inventory.md` | **Master catalog** — every layer the map can show, with phase assignment | ✅ |
 | `api-key-checklist.md` | API key registration table for all upstream data providers (TBD Phase 1) | ⏳ |
 
 ## docs/ethics/

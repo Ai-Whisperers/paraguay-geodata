@@ -33,9 +33,10 @@ Phase-by-phase task list. Update before each commit.
 - [ ] Implement `tools/fetch_hydrosheds.py`
 - [ ] Implement `tools/fetch_firms.py`
 - [ ] Implement `tools/fetch_gbif.py`
+- [ ] Implement `tools/fetch_ine_admin.py` (10 INE layers — already stubbed)
 - [ ] Fill `tools/build_peaks_geojson.py` (algorithm)
 - [ ] Fill `tools/build_slope_aspect.py` (algorithm)
-- [ ] Wire `tools/fetch_tile.py` to chain all 26 layers per priority tile
+- [ ] Wire `tools/fetch_tile.py` to chain all layers per priority tile
 - [ ] Cron: `paraguay-geodata-fetch-priority` (nightly 22:00 PY)
 - [ ] Cron: `paraguay-geodata-pages-redeploy` (every 6h)
 - [ ] Build `exports/web/index.html` (national landing)
@@ -44,12 +45,25 @@ Phase-by-phase task list. Update before each commit.
 - [ ] All 153 priority tiles green for data_state
 - [ ] Phase 1 commit tagged `phase1`
 
+## Phase 1.5 — DNCP + INBIO + admin boundaries (queued)
+
+- [ ] Register for DNCP API V3 key (https://www.contrataciones.gov.py/datos/data)
+- [ ] Fill `tools/fetch_dncp.py` (calls + awards + suppliers + contracts)
+- [ ] Fill `tools/fetch_inbio.py` (8 crops × 2 zafras)
+- [ ] Fill `tools/fetch_ine_admin.py` (10 layers — downloadable via microdatos)
+- [ ] Add `export/web/data/admin/<layer>.geojson` per-tile clips
+- [ ] Add `data/inbio/zafra_<year>/<crop>.geojson`
+- [ ] Add `data/dncp/calls_<date>.geojson` + awards + suppliers
+- [ ] Wire `tools/fetch_tile.py` to include admin + commercial + agriculture layers
+- [ ] Phase 1.5 commit tagged `phase1.5`
+
 ## Phase 2 — Properties + price surfaces (queued)
 
 - [ ] Implement `tools/fetch_properties.py` (3 portals)
 - [ ] Implement `scripts/dedupe_listings.py`
 - [ ] Implement `scripts/match_escrituras.py`
 - [ ] Implement `tools/build_price_surface.py` (pykrige per dept + national blend)
+- [ ] Implement `tools/fetch_openbusinesses.py` (MIC + SET + UIP + AHK)
 - [ ] `docs/specs/listing-schema.json`
 - [ ] `docs/specs/price-surface-schema.json`
 - [ ] `exports/web/properties.html` (listings + price overlay)
