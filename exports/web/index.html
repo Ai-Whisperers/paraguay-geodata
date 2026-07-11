@@ -398,7 +398,26 @@
                     <div style="color:var(--fg-dim);">Loading properties…</div>
                 </div>
 
-                <h2>Market signals (auto)</h2>
+                <h2>Fair-price model (ML)</h2>
+        <div id="fairPriceWidget" class="fair-price" style="font-size:11px; line-height:1.6;">
+            <div style="color:var(--fg-dim);">Loading model…</div>
+        </div>
+
+        <h2>Yield calculator (USD)</h2>
+        <div class="yield-calc" style="font-size:11px; line-height:1.6;">
+            <label style="display:block; margin-bottom:4px;">Property value (USD)
+                <input type="number" id="yieldPrice" value="100000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Monthly rent (USD)
+                <input type="number" id="yieldRent" value="500" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <label style="display:block; margin-bottom:4px;">Annual costs (tax + maint, USD)
+                <input type="number" id="yieldCosts" value="2000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            </label>
+            <div id="yieldResult" style="margin-top:6px; padding:6px; background:var(--bg-elevated); border-radius:4px;"></div>
+        </div>
+
+        <h2>Market signals (auto)</h2>
                 <div id="marketSignals" class="market-signals" style="font-size:11px; line-height:1.6;">
                     <div style="color:var(--fg-dim);">Computing…</div>
                 </div>
@@ -1219,7 +1238,17 @@ const group = LAYER_GROUPS.properties_infocasas[0];
             if (p.area_ha && p.area_ha >= 0.5) areaStr = `${p.area_ha.toLocaleString()} ha`;
             else if (p.area_sqm) areaStr = `${p.area_sqm.toLocaleString()} m²`;
             else if (p.area_ha) areaStr = `${(p.area_ha * 10000).toLocaleString()} m²`;
-            const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
+            // Fair-price ML score
+    let fairPriceHtml = '';
+    if (typeof fairPriceScore === 'function') {
+        const fp = fairPriceScore(p, lon || 0, lat || 0);
+        if (fp) {
+            fairPriceHtml = `<div class="row"><span class="k">Fair price</span><span class="v" style="color:${fp.color}; font-weight:bold;">${fp.flag}</span></div>
+            <div style="font-size:10px; color:var(--fg-dim); margin:4px 0;">Model: $${Math.round(fp.predicted).toLocaleString()} (${fp.label})</div>`;
+        }
+    }
+    return
+const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
             const op = p.listing_type === 'rent' ? 'RENT' : p.listing_type === 'short_rent' ? 'SHORT-RENT' : 'SALE';
             const opColor = p.listing_type === 'rent' ? '#fbbf24' : p.listing_type === 'short_rent' ? '#a78bfa' : '#34d399';
             const cityNeigh = [p.city, p.neighborhood].filter(Boolean).join(' / ');
@@ -1557,7 +1586,7 @@ function clusterProperties(features) {
             const m = L.circleMarker([lat, lon], {
                 radius: 5, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
             });
-            m.bindPopup(buildPropertyPopup(p));
+            m.bindPopup(buildPropertyPopup(p, lon, lat));
             propertyClusterGroup.addLayer(m);
         } else {
             // Cluster marker
@@ -1575,7 +1604,7 @@ function clusterProperties(features) {
     propertyClusterGroup.addTo(map);
 }
 
-function buildPropertyPopup(p) {
+function buildPropertyPopup(p, lon, lat) {
     const hasPyg = !!p.price_pyg;
     const hasUsd = !!p.price_usd;
     let price;
@@ -1800,6 +1829,80 @@ async function loadCatastroUrba() {
         ['dpto', 'dist', 'estado', 'situacion', 'area']);
 }
 
+// ========== FAIR-PRICE MODEL (ML) ==========
+let fairPriceModel = null;
+async function loadFairPriceModel() {
+    try {
+        const r = await fetch('./data/ml/fair_price_model.json');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        fairPriceModel = await r.json();
+        const w = document.getElementById('fairPriceWidget');
+        const stats = fairPriceModel.global_stats;
+        const nDeptoModels = Object.keys(fairPriceModel.depto_models).length;
+        w.innerHTML = `
+            <div>Trained on <strong>${fairPriceModel.training_samples.toLocaleString()}</strong> properties</div>
+            <div>Median $/ha: <strong>$${Math.round(stats.median_per_ha).toLocaleString()}</strong></div>
+            <div>P25–P75: <span style="color:var(--fg-dim)">$${Math.round(stats.p25_per_ha).toLocaleString()} – $${Math.round(stats.p75_per_ha).toLocaleString()}</span></div>
+            <div style="margin-top:4px;">Deptos modeled: <strong>${nDeptoModels}</strong> of 18</div>
+            <div style="color:var(--fg-dim); font-size:10px; margin-top:4px;">Click any property → fair-price score shown in popup. 🔥 = overpriced, 💰 = deal.</div>
+        `;
+    } catch (e) {
+        document.getElementById('fairPriceWidget').innerHTML = '<div style="color:var(--err)">⚠ Model unavailable</div>';
+        console.error('Fair-price model load failed:', e);
+    }
+}
+
+function fairPricePredict(p, lon, lat) {
+    if (!fairPriceModel) return null;
+    const depto = p.state_province || 'Unknown';
+    const model = fairPriceModel.depto_models[depto] || fairPriceModel.global_fallback;
+    if (!model || !p.area_ha) return null;
+    const log_area = Math.log10(Math.max(0.01, p.area_ha));
+    const log_pred = model.intercept +
+        model.coefs.log_area * log_area +
+        model.coefs.lat * lat +
+        model.coefs.lon * lon +
+        model.coefs.beds * (p.bedrooms || 0);
+    return Math.pow(10, log_pred) * p.area_ha;  // predicted total price
+}
+
+function fairPriceScore(p, lon, lat) {
+    if (!fairPriceModel || !p.price_usd) return null;
+    const pred = fairPricePredict(p, lon, lat);
+    if (!pred) return null;
+    const ratio = p.price_usd / pred;
+    let flag, color, label;
+    if (ratio < 0.5) { flag = '💰 DEAL'; color = 'var(--accent)'; label = `${Math.round((1 - ratio) * 100)}% below market`; }
+    else if (ratio < 0.8) { flag = '✓ Cheap'; color = 'var(--accent)'; label = `${Math.round((1 - ratio) * 100)}% below market`; }
+    else if (ratio < 1.2) { flag = '✓ Fair'; color = 'var(--fg)'; label = 'market priced'; }
+    else if (ratio < 2.0) { flag = '⚠ Premium'; color = 'var(--warn)'; label = `${Math.round((ratio - 1) * 100)}% above market`; }
+    else { flag = '🔥 Overpriced'; color = 'var(--err)'; label = `${Math.round((ratio - 1) * 100)}% above market`; }
+    return { ratio, flag, color, label, predicted: pred };
+}
+
+// ========== YIELD CALCULATOR ==========
+function calcYield() {
+    const price = parseFloat(document.getElementById('yieldPrice').value) || 0;
+    const rent = parseFloat(document.getElementById('yieldRent').value) || 0;
+    const costs = parseFloat(document.getElementById('yieldCosts').value) || 0;
+    const annualRent = rent * 12;
+    const netYield = ((annualRent - costs) / price) * 100;
+    const grossYield = (annualRent / price) * 100;
+    const paybackYears = annualRent > 0 ? price / annualRent : Infinity;
+    const color = netYield < 3 ? 'var(--err)' : netYield < 6 ? 'var(--warn)' : 'var(--accent)';
+    document.getElementById('yieldResult').innerHTML = `
+        <div>Gross yield: <strong>${grossYield.toFixed(2)}%</strong></div>
+        <div>Net yield: <strong style="color:${color}">${netYield.toFixed(2)}%</strong></div>
+        <div>Annual rent: <span style="color:var(--fg-dim)">$${annualRent.toLocaleString()}</span></div>
+        <div>Annual costs: <span style="color:var(--fg-dim)">$${costs.toLocaleString()}</span></div>
+        <div style="margin-top:4px; font-size:10px; color:var(--fg-dim)">Payback: ${paybackYears < 100 ? paybackYears.toFixed(1) + ' years' : '—'}</div>
+    `;
+}
+
+['yieldPrice', 'yieldRent', 'yieldCosts'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcYield);
+});
+
 // ========== ACCESSIBILITY + i18n INIT ==========
 const skipLink = document.createElement('a');
 skipLink.href = '#map';
@@ -1896,4 +1999,30 @@ function applyUrlParams() {
 }
 
 // ========== BOOTSTRAP ==========
-
+renderLayerGrid();
+loadBCP();
+loadClimate();
+loadINBIOWidget();
+loadInsights();
+loadFairPriceModel();
+calcYield();
+loadTileFabric();
+loadDepartamentos();
+loadDistritos();
+loadBarrios();
+loadCatastroDpto();
+loadCatastroDist();
+loadCatastroParcels();
+loadCatastroUrba();
+loadINBIO();
+loadProperties();
+loadGBIF();
+loadOSMRoads();
+loadOSMBuildings();
+loadOSMWater();
+applyI18n();
+addLangSwitcher();
+applyUrlParams();
+</script>
+</body>
+</html>
