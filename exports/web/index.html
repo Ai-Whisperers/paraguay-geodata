@@ -687,6 +687,12 @@ const layerState = {
     catastro_parcels:    { group: 'admin',  label: 'Catastro · Parcelas sample (7.5K)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Sample of 7,500 land parcels with ownership padron + matrícula. Full dataset has 2.19M parcels.', color: '#0e7490', url: 'data/admin/catastro_parcels_sample.geojson' },
     catastro_urba:       { group: 'admin',  label: 'Catastro · Urban zoning (470)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Urban zoning polygons (urbanización) from Catastro.', color: '#155e75', url: 'data/admin/catastro_urba.geojson' },
 
+    // ---- Environmental risk layers ----
+    indigenous:         { group: 'env', label: 'Indigenous territories (10)', active: false, features: '?', source: 'IWGIA + AVINA + INDI', info: 'Approximate bboxes for known indigenous territories. ⚠ NOT legal boundaries.', color: '#ec4899', url: 'data/indigenous_territories.geojson' },
+    climate_risk:       { group: 'env', label: 'Climate risk by depto (18)', active: false, features: '?', source: 'NASA POWER + GFW + INBIO', info: 'Combined climate risk score: deforestation (50%) + drought (50%). 2024 baseline. DERIVED, not measured.', color: '#f97316', url: 'data/climate_risk.geojson' },
+    flood_risk:         { group: 'env', label: 'Flood-prone zones (5)', active: false, features: '?', source: 'OSM + floodplain refs', info: 'Approximate flood zones. APPROXIMATE regions — not engineering-level. Check SEN alerts for live warnings.', color: '#06b6d4', url: 'data/flood_risk.geojson' },
+
+
     // ---- biodiversity ----
     gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', source: 'GBIF', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
     gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', source: 'GBIF', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson' },
