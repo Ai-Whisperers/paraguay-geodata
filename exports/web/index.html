@@ -1182,37 +1182,30 @@ async function loadINBIO() {
 
 // ========== DISTRITOS (Geofabrik) ==========
 async function loadDistritos() {
-    const urls = [
-        './data/admin/distritos_sub.geojson',
-        './data/admin/distritos.geojson',
-    ];
-    let total = 0;
-    const group = LAYER_GROUPS.distritos_py[0];
-    for (const url of urls) {
-        try {
-            const r = await fetch(url);
-            if (!r.ok) continue;
-            const d = await r.json();
-            const feats = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
-            feats.forEach(f => {
-                L.geoJSON(f, {
-                    style: { color: '#10b981', weight: 0.6, fillOpacity: 0.03 },
-                    onEachFeature: (feat, l) => {
-                        const p = feat.properties;
-                        l.bindPopup(`
-                            <h3>${p.name}</h3>
-                            <div class="row"><span class="k">admin_level</span><span class="v">${p.admin_level}</span></div>
-                            <div class="row"><span class="k">OSM id</span><span class="v">${p.osm_id || '—'}</span></div>
-                            <div style="font-size:10px; color:var(--fg-dim); margin-top:4px;">Source: OSM via Geofabrik 2026</div>
-                        `);
-                    }
-                }).addTo(group);
-            });
-            total += feats.length;
-        } catch (e) {}
-    }
-    updateLayerCount('distritos_py', total);
-    if (layerState.distritos_py.active) group.addTo(map);
+    try {
+        const r = await fetch('./data/admin/distritos.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const feats = (d.features || []).filter(f => f.geometry && f.geometry.coordinates);
+        const group = LAYER_GROUPS.distritos_py[0];
+        feats.forEach(f => {
+            L.geoJSON(f, {
+                style: { color: '#10b981', weight: 0.6, fillOpacity: 0.03 },
+                onEachFeature: (feat, l) => {
+                    const p = feat.properties || {};
+                    l.bindPopup(`
+                        <h3>${p.name || 'Distrito'}</h3>
+                        <div class="row"><span class="k">admin_level</span><span class="v">${p.admin_level || '—'}</span></div>
+                        <div class="row"><span class="k">OSM id</span><span class="v">${p.osm_id || '—'}</span></div>
+                        <div style="font-size:10px; color:var(--fg-dim); margin-top:4px;">Source: OSM via Geofabrik 2026</div>
+                    `);
+                }
+            }).addTo(group);
+        });
+        updateLayerCount('distritos_py', feats.length);
+        if (layerState.distritos_py.active) group.addTo(map);
+    } catch (e) { console.warn('Distritos load failed:', e.message); }
+}
 }
 
 // ========== BARRIOS / LOCALIDADES (Geofabrik) ==========
