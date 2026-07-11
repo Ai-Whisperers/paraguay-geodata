@@ -1,0 +1,27 @@
+{
+  "name": "Paraguay Geodata — National Viewer",
+  "short_name": "PY Geodata",
+  "description": "Live Paraguay real estate, satellite, agricultural, environmental, financial, and property data on one map.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0f766e",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f766e'/%3E%3Cpath d='M16 6 L24 14 L24 26 L8 26 L8 14 Z' fill='%23fbbf24'/%3E%3C/svg%3E",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%230f766e'/%3E%3Cpath d='M96 36 L144 84 L144 156 L48 156 L48 84 Z' fill='%23fbbf24'/%3E%3Ccircle cx='96' cy='96' r='8' fill='%23ef4444'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["geography", "realestate", "government", "education"]
+}
