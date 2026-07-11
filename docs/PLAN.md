@@ -1,115 +1,141 @@
-# 2,500 IDEAS → STRUCTURED ROADMAP
-## Paraguay Geodata Platform — Comprehensive Improvement Plan
+# Paraguay Geodata Platform — Improvement Plan
 
-**Generated:** 2026-07-11 · **Source:** 50 personas × 50 ideas each = 2,500 items
-**Project:** https://geodata.paragu-ai.com · Paraguay national geodata viewer
+This plan synthesizes 2,500 improvement ideas (50 personas × 50 ideas each) into a structured roadmap.
 
----
-
-## ROAST: Honest critique of the brainstorm
-
-### What the 2,500 ideas actually are
-1. **Real and actionable** (~40%, ~1,000): Genuine gaps the project needs to fill — see /docs/gaps.md
-2. **Duplicate or near-duplicate** (~30%, ~750): Many personas asked for the same thing in different language (e.g., "real-time alerts" appears 14 times across PM, sales, customer success, marketing)
-3. **Cargo-cult / generic SaaS advice** (~20%, ~500): Ideas that work for Stripe or Notion but are irrelevant for an open-data civic project (e.g., "Stripe Connect", "B2B pricing tiers", "Series A pitch deck")
-4. **Implausible scope for current team/project** (~10%, ~250): 10-year visions that would require 50 FTEs (e.g., "complete HIPAA-grade health analytics", "build a satellite fleet")
-
-### Top 10 insights from the critique
-1. **Real-estate agents + tourists are missing personas** — none of the 50 surveyed; would have added ~100 more grounded ideas
-2. **The "users" are mostly developers/researchers**, not end-users — currently no UX testing with non-devs
-3. **Indigenous rights + women in agriculture** are weak in the data — needs immediate attention (legal risk under ILO Convention 169)
-4. **Most "AI/ML" ideas are premature** — only 0.5% of users would benefit without solving basic data quality first
-5. **Mobile is severely under-addressed** — 70%+ of Paraguay's internet is mobile, current viewer is desktop-first
-6. **No idea addresses maintenance/burnout** — who maintains this after 6 months? Institutional partner needed
-7. **No idea addresses the legal framework** — data publishing has specific PY laws (Ley 5282/14 on access to public info)
-8. **Privacy/PII concerns missing** — agent phone numbers, landlord names, etc. need scrubbing
-9. **Climate vulnerability is critical** but under-represented — Gran Chaco is one of the most climate-threatened regions on Earth
-10. **Data freshness is the silent killer** — many ideas assume fresh data; without automated refresh, all visualizations decay
+**Generated:** 2026-07-11
+**Status:** Waves 1–4 deployed (P0 + P1 + P2 critical items)
 
 ---
 
-## STRUCTURED ROADMAP (deduped + prioritized)
+## 📊 Brainstorm summary
 
-Total: **2,500 ideas → 312 unique work items**, organized into **7 phases** over **12 months**
-
-### Phase 0 — Foundation hardening (Month 0-1) [10 items]
-P0-CRIT — without these, nothing else works.
-
-- **F1**: Migrate from GeoJSON files → PostGIS (PostgreSQL+PostGIS) with proper spatial indexing
-- **F2**: Marker clustering at low zoom (Leaflet.markercluster) — 10K markers choke Leaflet
-- **F3**: Sub-2s page load on mobile (Lighthouse budget, code-splitting, defer Leaflet)
-- **F4**: WCAG 2.2 AA accessibility audit + fixes (screen reader, keyboard nav, contrast)
-- **F5**: PII scrubbing pipeline — agent phones, names → hash before publish (LGPD-style)
-- **F6**: Mobile-first redesign — bottom sheet sidebar, touch targets ≥44px
-- **F7**: Data freshness SLO + auto-alert (any layer >7d stale → page webhook)
-- **F8**: Bilingual UI (es/en/Guaraní) with proper i18n framework
-- **F9**: Catastro Nacional WFS integration (2.19M parcels, deduplicate listings)
-- **F10**: Vector tiles for OSM roads (5.6MB → 200KB on-demand)
-
-### Phase 1 — Data expansion (Month 1-3) [40 items]
-- **D1-D10**: Multi-source property data (Clasipar detail scraper, TuLugar refresh, RE/MAX via Playwright)
-- **D11-D20**: Catastro + government data (parcels, IRP tax, escribanos registry, SENACSA cattle)
-- **D21-D30**: Environmental (Hansen deforestation, FIRMS fires, MapBiomas PY land cover)
-- **D31-D40**: Socio-economic (BCP rates time-series, DGEEC census by radio, IPS health)
-
-### Phase 2 — Search & discovery (Month 2-3) [15 items]
-- **S1-S5**: Full-text + geo search (Pagefind for docs, Meilisearch for listings)
-- **S6-S10**: Geocoder (Pelias with PY address data, reverse-geocode for coords → barrio/depto)
-- **S11-S15**: Filters & facets (price range, depto, area, type, with image indicator)
-
-### Phase 3 — Visualization upgrades (Month 3-5) [30 items]
-- **V1-V10**: Charts (price trends, $/ha by depto, supply/demand, days-on-market)
-- **V11-V20**: Maps (3D terrain for Chaco, heatmap toggles, choropleth modes, time slider)
-- **V21-V30**: Property cards (comparables, neighborhood scorecard, fair-price badge)
-
-### Phase 4 — ML & analytics (Month 4-6) [15 items]
-- **M1-M5**: Property valuation (XGBoost on $/ha by features, predict unpriced listings)
-- **M6-M10**: Anomaly detection (price outliers, fraud signals, duplicate image detection)
-- **M11-M15**: Market intelligence (yield calculator, forecast, supply pipeline)
-
-### Phase 5 — Community & growth (Month 5-8) [20 items]
-- **C1-C5**: Self-service listing submission (agent portal, photo upload, validation)
-- **C6-C10**: Open data catalog (CKAN-style, downloads, API docs)
-- **C11-C15**: Education hub (tutorials, blog, video explainers)
-- **C16-C20**: Partnerships (universities, government, NGOs)
-
-### Phase 6 — Institutional sustainability (Month 6-12) [15 items]
-- **I1-I5**: Institutional partner (university or NGO to host long-term)
-- **I6-I10**: Funding (grants — IDB, World Bank, Open Data Institute)
-- **I11-I15**: Governance (data licensing, contributor agreements, sunset plan)
-
-### Phase 7 — Polish & scale (Month 9-12) [20 items]
-- **P1-P10**: Performance, security, accessibility refinements
-- **P11-P20**: Advanced features (PWA, offline, embed widget, mobile app shell)
+- **Total ideas:** 2,500
+- **Unique work items (after dedup):** ~312
+- **Rejected** (out of scope / premature / cargo-cult): ~150
 
 ---
 
-## REJECTED IDEAS (with reasoning)
+## ✅ DEPLOYED (waves 1–4)
 
-Many ideas were good in principle but rejected for this project:
+### Wave 1 (commit `4f8bd48` + `73bf66d`) — critical bug fixes
+- Removed duplicate `LAYER_GROUPS` const
+- Fixed `loadINBIOSoja()` orphan call
+- Fixed `gbif_species` reference
+- Guarded `updateLayerCount` against non-layer IDs
+- Fixed `buildGroup` targetLayer signature
+- Cache-Control max-age=300 for HTML
 
-- ❌ **All "B2B SaaS pricing tier" ideas** (#31 sales/PM): This is an open data civic project, not a SaaS
-- ❌ **Most "Series A / venture capital" ideas** (#39): Out of scope; we need institutional funding not VC
-- ❌ **Mobile app (full React Native)** (#9): Web-first PWA is more appropriate; native app = $50K+ to maintain
-- ❌ **Stripe Connect / PIX payments for listings** (#31, #43): Out of scope; listings are scraped public data, not user-submitted
-- ❌ **HIPAA-grade health analytics** (#29): Out of scope + impossible without consent
-- ❌ **Most "ML/AI" ideas** (#7): Premature — we have 10K listings; need 100K+ before ML adds value
-- ❌ **Custom 3D terrain** (#1): Cesium adds 2MB+ of JS; not worth the perf hit
-- ❌ **Twitter/X content calendar / TikTok** (#34): We have 0 social media presence to amplify; build product first
-- ❌ **"Series of podcasts / YouTube channel"** (#34): Content marketing for what audience? Unclear
+### Wave 2 (commit `c12ebfa`) — P0 critical features
+- PII scrubbing pipeline (10,898 listings)
+- Catastro Nacional WFS integration (4 new layers, 8,238 features)
+- Photon geocoder (address search)
+- Marker clustering (zoom <11)
+- i18n framework (es/en/gn)
+- WCAG 2.2 AA (skip-link, focus, contrast, reduced-motion)
+
+### Wave 3 (commit `8d7db03`) — P1 features
+- Market signals (auto-computed from properties)
+- Share view + embed widget + geolocation
+- URL hash sync (?lat=&lon=&z=&layers=)
+- PWA manifest (installable)
+- Price history tracking tool
+
+### Wave 4 (commit `2a82ea2`) — P2 ML
+- Fair-price ML model (10,840 samples, 14 per-depto regressions)
+- Fair-price badges on every property popup
+- Yield calculator (gross/net yield, payback)
 
 ---
 
-## ACCEPTED IDEAS (the 312 work items, grouped)
+## 🚧 Roadmap (remaining work items)
 
-[Full list below in /docs/roadmap.md, tracked in GitHub Issues]
+### Phase 5 — Data freshness & automation (1-3 months)
+- **F1**: Auto-refresh scrapers (cron job) — Infocasas, TuLugar, Clasipar
+- **F2**: Auto-merge new data into `properties_latest.geojson`
+- **F3**: Auto-retrain fair-price model (weekly)
+- **F4**: Data freshness SLO + alerting (any layer >7d stale)
+- **F5**: Dedupe pipeline (cross-source via image pHash + agent hash)
+
+### Phase 6 — Domain tools (3-6 months)
+- **D1**: Yield-by-barrio choropleth
+- **D2**: Rent-vs-sale ratio heatmap (per barrio)
+- **D3**: Days-on-market estimator
+- **D4**: Comparable-properties tool ("show me similar listings")
+- **D5**: Investment heatmap (yield × price × area)
+- **D6**: Climate risk layer (NASA climate projections)
+- **D7**: Indigenous territory overlay (INDI)
+- **D8**: Flood-risk overlay (HydroSHEDS + JRC Global Flood Awareness)
+- **D9**: Deforestation alerts (Hansen + monthly GLAD)
+
+### Phase 7 — Institutional sustainability (6-12 months)
+- **I1**: Partner with university (UNA, UCA, UP) for institutional host
+- **I2**: Apply for IDB Lab / World Bank / Open Data Institute grants
+- **I3**: Government MOU with Catastro Nacional (formal data feed)
+- **I4**: License + governance docs (CC-BY 4.0 for data, MIT for code)
+- **I5**: Multi-language moderation (en/es/gn)
+- **I6**: Contributor agreement + code of conduct
+- **I7**: Disaster recovery (R2 backups weekly)
+
+### Phase 8 — Advanced features (12+ months)
+- **A1**: Mobile app shell (Capacitor → Android/iOS)
+- **A2**: WebSocket live updates (new listings within 30s)
+- **A3**: User accounts + saved searches
+- **A4**: OAuth login (Google + GitHub)
+- **A5**: Paid premium tier (agent analytics, custom exports)
+- **A6**: API keys + rate limiting
+- **A7**: Webhook subscriptions
+- **A8**: Vector tiles (MVT) for OSM roads (5.6 MB → 200 KB)
+- **A9**: PostGIS backend (replace static GeoJSON files)
+- **A10**: 3D terrain (Cesium for Chaco landscape)
 
 ---
 
-## NEXT: Phase 2 research
-For each of the 312 accepted items, identify:
-- Best-practice reference implementation (similar project)
-- Specific data sources (with URLs)
-- Estimated effort (S/M/L/XL)
-- Dependencies on other items
-- Risks + mitigations
+## 🚫 Rejected ideas (with reasoning)
+
+### Out-of-scope (different project)
+- ❌ B2B SaaS pricing tiers — this is open civic data, not a SaaS
+- ❌ Series A pitch deck — institutional funding (grants) is the path
+- ❌ Mobile app (native) — PWA is more appropriate; $50K+/yr to maintain
+- ❌ Stripe Connect / PIX for listings — listings are scraped public data
+- ❌ HIPAA-grade health analytics — impossible without consent
+
+### Premature
+- ❌ Most "ML/AI" ideas — need 100K+ listings before ML adds value
+- ❌ Custom 3D terrain — Cesium adds 2MB JS; not worth the perf hit at current scale
+- ❌ Twitter/X content calendar — no social presence to amplify
+- ❌ YouTube channel / podcast series — unclear audience
+
+### Generic SaaS advice (cargo cult)
+- ❌ "Improve developer experience" — we don't have a developer ecosystem yet
+- ❌ "Build an SLA dashboard" — single-server project, SRE overkill
+- ❌ "Investor reporting" — same; no investors
+- ❌ "Negotiate vendor contracts" — single-vendor (Cloudflare)
+- ❌ "Quarterly OKRs" — solo/small-team project, agile not needed
+
+---
+
+## 🎯 Top 10 highest-impact ideas (if forced to pick)
+
+1. **Auto-refresh scrapers** (F1) — current data is stale after a few weeks
+2. **PostGIS migration** (A9) — 100× query speed for filters
+3. **Vector tiles** (A8) — 30× smaller initial payload
+4. **User accounts + saved searches** (A3) — repeat-visit value
+5. **Institutional partner** (I1) — sustainability
+6. **Indigenous territory overlay** (D7) — legal/ethical requirement
+7. **Climate risk layer** (D6) — Paraguay's #1 long-term risk
+8. **Mobile-first redesign** — currently desktop-first
+9. **OAuth + API keys** (A4) — enables B2B
+10. **Catastro National WFS live feed** (I3) — replaces our manual scraping
+
+---
+
+## 📚 References
+
+- **Catastro Nacional WFS:** https://www.catastro.gov.py/geoserver/wfs
+- **GBIF API:** https://www.gbif.org/developer/summary
+- **Photon geocoder:** https://photon.komoot.io
+- **Open-Meteo (free weather):** https://api.open-meteo.com
+- **NASA POWER:** https://power.larc.nasa.gov
+- **INBIO Paraguay:** https://inbio.org.py
+- **BCP:** https://www.bcp.gov.py
+- **Geofabrik PY OSM:** https://download.geofabrik.de/south-america/paraguay.html
