@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp_utc": "2026-07-11T14:53:11.602806+00:00",
+    "feature_count": 10898,
+    "sources": {
+      "infocasas": {
+        "reachable": false,
+        "last_check_utc": "2026-07-11T14:53:10.745201+00:00"
+      },
+      "tulugar": {
+        "reachable": false,
+        "last_check_utc": "2026-07-11T14:53:11.338164+00:00"
+      }
+    }
+  }
+]

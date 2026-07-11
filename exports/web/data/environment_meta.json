@@ -1,0 +1,14 @@
+{
+  "as_of_utc": "2026-07-11T14:57:31.303886+00:00",
+  "sources": {
+    "indigenous": "IWGIA Indigenous World + AVINA + INDI",
+    "deforestation": "Hansen Global Forest Change + Global Forest Watch",
+    "drought": "NASA POWER 2024 + SPI calculations",
+    "flood": "OSM water + R\u00edo Paraguay/Paran\u00e1 floodplain references"
+  },
+  "disclaimers": [
+    "Indigenous territories: APPROXIMATE bboxes \u2014 not legal boundaries. For civic visualization only.",
+    "Climate risk: DERIVED scores, not measured. Do not use for site-specific risk assessment.",
+    "Flood zones: APPROXIMATE regions \u2014 not engineering-level. Always check SEN emergency alerts."
+  ]
+}

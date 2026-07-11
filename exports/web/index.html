@@ -13,7 +13,8 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f766e'/%3E%3Cpath d='M16 6 L24 14 L24 26 L8 26 L8 14 Z' fill='%23fbbf24'/%3E%3C/svg%3E">
     <meta name="theme-color" content="#0f766e">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
@@ -397,6 +398,7 @@
         }
 
         /* Reduce motion */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -521,7 +523,8 @@
             <div id="yieldResult" style="margin-top:6px; padding:6px; background:var(--bg-elevated); border-radius:4px;"></div>
         </div>
 
-        <h2>Market signals (auto)</h2>
+        <h2>Market signals (auto)</h2><canvas id="chartPropertyTypes" style="width:100%; height:200px; margin:6px 0;"></canvas>
+        <canvas id="chartDeptos" style="width:100%; height:220px; margin:6px 0;"></canvas>
                 <div id="marketSignals" class="market-signals" style="font-size:11px; line-height:1.6;">
                     <div style="color:var(--fg-dim);">Computing…</div>
                 </div>
@@ -568,7 +571,7 @@
         <!-- Mobile filter sheet (collapsed by default) -->
         <div id="filterSheet" aria-label="Filters">
             <div id="filterSheetHandle"></div>
-            <h2 style="margin-top:0;">Filters</h2>
+            <h2 style="margin-top:0;" data-i18n="filters">Filters</h2>
             <div class="filter-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
                 <label style="font-size:11px;">Min price (USD)
                     <input type="number" id="filterMinPrice" placeholder="0" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
@@ -600,8 +603,8 @@
                 </label>
             </div>
             <div style="display:flex; gap:8px; margin-top:12px;">
-                <button onclick="applyFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;">Apply</button>
-                <button onclick="clearFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;">Clear</button>
+                <button onclick="applyFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;"data-i18n="apply">Apply</button>
+                <button onclick="clearFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;"data-i18n="clear">Clear</button>
             </div>
             <div id="filterResultCount" style="margin-top:8px; font-size:11px; color:var(--fg-dim);"></div>
         </div>
@@ -693,6 +696,7 @@ const LAYER_GROUPS_ORDER = [
     'tile_fabric', 'priority_tiles',
     'departamentos_py', 'distritos_py', 'barrios_py',
     'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba',
+    'indigenous', 'climate_risk', 'flood_risk',
     'inbio_soja', 'inbio_arroz', 'inbio_maiz',
     'properties_infocasas', 'properties_heat_pha', 'properties_heat_area',
     'osm_roads', 'osm_buildings', 'osm_water',
@@ -704,6 +708,7 @@ const LAYER_GROUP_LABELS = {
     grid:        'National tile grid',
     base:        'Admin boundaries (OSM)',
     admin:       'Catastro Nacional',
+    env:         'Environmental risk',
     agri:        'Agriculture (INBIO)',
     realestate:  'Real estate (infocasas)',
     biodiv:      'Biodiversity (GBIF)',
@@ -1321,45 +1326,133 @@ async function loadProperties() {
                 <div>This month: ${thisMonthCount} new
                     ${lastMonthCount > 0 ? `<span style="color:${supplyChange >= 0 ? 'var(--accent)' : 'var(--err)'}">(${supplyChange >= 0 ? '+' : ''}${supplyChange.toFixed(0)}% vs last month)</span>` : ''}</div>
             `;
-        } catch (e) {
+        } catch
+            // === CHARTS (Chart.js) ===
+            try {
+                if (typeof Chart === 'undefined') return;
+                Chart.defaults.color = 'rgba(230, 234, 242, 0.7)';
+                Chart.defaults.borderColor = 'rgba(31, 41, 68, 0.6)';
+                Chart.defaults.font.size = 10;
+
+                // Property types (doughnut)
+                const typeCanvas = document.getElementById('chartPropertyTypes');
+                if (typeCanvas) {
+                    new Chart(typeCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: Object.keys(buckets.byType),
+                            datasets: [{
+                                data: Object.values(buckets.byType),
+                                backgroundColor: ['#2dd4bf', '#60a5fa', '#f59e0b', '#a78bfa', '#ef4444', '#10b981', '#8b94a8'],
+                            }],
+                        },
+                        options: { plugins: { legend: { position: 'right', labels: { boxWidth: 8 } } }, maintainAspectRatio: false }
+                    });
+                }
+
+                // Top 10 deptos (horizontal bar)
+                const deptosArr = Object.entries(buckets.byDepto).sort((a, b) => b[1] - a[1]).slice(0, 10);
+                const deptosCanvas = document.getElementById('chartDeptos');
+                if (deptosCanvas) {
+                    new Chart(deptosCanvas, {
+                        type: 'bar',
+                        data: {
+                            labels: deptosArr.map(d => d[0]),
+                            datasets: [{
+                                label: 'listings',
+                                data: deptosArr.map(d => d[1]),
+                                backgroundColor: '#2dd4bf',
+                            }],
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            plugins: { legend: { display: false } },
+                            maintainAspectRatio: false,
+                            scales: { x: { grid: { color: 'rgba(31, 41, 68, 0.4)' } } },
+                        },
+                    });
+                }
+            } catch (e) { console.warn('Charts failed:', e); }
+ (e) {
             console.error('Market signals failed:', e);
         }
 
-        // Render $/ha-by-depto bar chart in sidebar
+        // Render $/ha-by-depto chart (Chart.js)
         try {
+            if (typeof Chart === 'undefined') return;
             const buckets = {};
             for (const f of features) {
                 const p = f.properties || {};
-                const ph = p['$/ha'];
-                if (!ph || !isFinite(ph) || ph <= 0) continue;
-                const depto = p.state_province || p.city || '—';
-                if (!buckets[depto]) buckets[depto] = { sum: 0, count: 0 };
-                buckets[depto].sum += ph;
-                buckets[depto].count += 1;
+                if (p['$/ha'] && p.state_province && p['$/ha'] > 0 && p['$/ha'] < 100_000_000) {
+                    buckets[p.state_province] = buckets[p.state_province] || { sum: 0, count: 0 };
+                    buckets[p.state_province].sum += p['$/ha'];
+                    buckets[p.state_province].count++;
+                }
             }
-            const rows = Object.entries(buckets)
-                .map(([k, v]) => ({ k, avg: v.sum / v.count, n: v.count }))
-                .sort((a, b) => b.avg - a.avg)
-                .slice(0, 12);
-            const maxAvg = Math.max(...rows.map(r => r.avg), 1);
-            const html = rows.length === 0
-                ? '<div style="color:var(--fg-dim);">No $/ha data yet</div>'
-                : rows.map(r => {
-                    const w = Math.max(8, (r.avg / maxAvg) * 100);
-                    return `<div style="display:flex; align-items:center; gap:6px; margin:2px 0;">
-                        <span style="width:90px; text-align:right; font-size:10px; color:var(--fg);">${r.k.slice(0,15)}</span>
-                        <span style="background:linear-gradient(90deg, #34d399, #fbbf24 ${w}%, transparent ${w}%); flex:1; height:8px; border-radius:2px;"></span>
-                        <span style="font-size:10px; color:var(--accent); width:60px; text-align:right;">$${Math.round(r.avg).toLocaleString()}</span>
-                        <span style="font-size:9px; color:var(--fg-dim); width:25px; text-align:right;">${r.n}</span>
-                    </div>`;
-                }).join('');
-            document.getElementById('priceByDepto').innerHTML = html + '<div style="color:var(--fg-dim); margin-top:4px; font-size:9px;">avg $/ha by depto (top 12)</div>';
-        } catch (e) {
-            console.error('priceByDepto render failed:', e);
-        }
+            const arr = Object.entries(buckets).map(([k, v]) => [k, Math.round(v.sum / v.count), v.count]).sort((a, b) => b[1] - a[1]).slice(0, 12);
+            const canvas = document.getElementById('chartPriceByDepto');
+            if (canvas) {
+                new Chart(canvas, {
+                    type: 'bar',
+                    data: {
+                        labels: arr.map(a => a[0]),
+                        datasets: [{
+                            label: 'avg $/ha',
+                            data: arr.map(a => a[1]),
+                            backgroundColor: '#2dd4bf',
+                            yAxisID: 'y',
+                        }, {
+                            label: 'listings',
+                            data: arr.map(a => a[2]),
+                            backgroundColor: 'rgba(96, 165, 250, 0.5)',
+                            yAxisID: 'y1',
+                            type: 'line',
+                            tension: 0.3,
+                        }],
+                    },
+                    options: {
+                        plugins: { legend: { labels: { boxWidth: 10 } } },
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { beginAtZero: true, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k' } },
+                            y1: { position: 'right', beginAtZero: true, grid: { display: false } },
+                        },
+                    },
+                });
+                const textEl = document.getElementById('priceByDepto');
+                if (textEl) textEl.style.display = 'none';
+            }
+        } catch (e) { console.error('$/ha chart failed:', e); }
 
         
-        // Save for clustering
+        
+        // Reverse-geocode Unknown deptos via Photon (best effort, rate-limited)
+        (async () => {
+            const unknown = features.filter(f => {
+                const p = f.properties || {};
+                return (!p.state_province || p.state_province === 'Unknown') && f.geometry?.coordinates;
+            }).slice(0, 50);  // rate-limit
+            let fixed = 0;
+            for (const f of unknown) {
+                const [lon, lat] = f.geometry.coordinates;
+                try {
+                    const r = await fetch(`https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}&lang=es`);
+                    if (r.ok) {
+                        const d = await r.json();
+                        const props = d.features?.[0]?.properties || {};
+                        const depto = props.state || props.county || props.city;
+                        if (depto) {
+                            f.properties.state_province = depto;
+                            f.properties.city = f.properties.city || props.city;
+                            fixed++;
+                        }
+                    }
+                    await new Promise(r => setTimeout(r, 100));  // 10 req/s
+                } catch {}
+            }
+            if (fixed > 0) console.log(`[geocode] Fixed ${fixed} Unknown deptos`);
+        })();
+// Save for clustering
         window.__properties = features;
 
 const group = LAYER_GROUPS.properties_infocasas[0];
@@ -1624,6 +1717,22 @@ const I18N = {
         search_title: 'Buscar dirección, ciudad o lugar',
         jump_city: 'Ir a una ciudad',
         status: 'Estado',
+        fair_price: 'Precio justo (IA)',
+        yield_calc: 'Calculadora de rendimiento',
+        filters: 'Filtros',
+        comparables: 'Similares',
+        csv_export: 'Exportar CSV',
+        share_view: 'Compartir vista',
+        embed: 'Incrustar',
+        geolocate: 'Mi ubicación',
+        loading: 'Cargando datos de Paraguay…',
+        legend: 'Leyenda',
+        menu: 'Menú',
+        apply: 'Aplicar',
+        clear: 'Limpiar',
+        showing: 'Mostrando',
+        of: 'de',
+        hidden: 'ocultos',
     },
     en: {
         coverage: 'Coverage (live)',
@@ -1645,13 +1754,59 @@ const I18N = {
         search_title: 'Search address, city, or place',
         jump_city: 'Jump to an anchor city',
         status: 'Status',
+        fair_price: 'Fair price (ML)',
+        yield_calc: 'Yield calculator',
+        filters: 'Filters',
+        comparables: 'Comparables',
+        csv_export: 'Export CSV',
+        share_view: 'Share view',
+        embed: 'Embed',
+        geolocate: 'Locate me',
+        loading: 'Loading Paraguay data…',
+        legend: 'Legend',
+        menu: 'Menu',
+        apply: 'Apply',
+        clear: 'Clear',
+        showing: 'Showing',
+        of: 'of',
+        hidden: 'hidden',
     },
-    gn: {  // Guaraní (limited translations)
+    gn: {
         coverage: 'Oñemobyta ha (oiko)',
+        tile_fabric: 'tile rugua 10×10 km',
+        priority: 'tile oñemohendáva',
+        deptos: 'departamento OSM',
         properties: 'oguatáva (oiko)',
+        osm_roads: 'tape OSM',
+        osm_buildings: 'óga OSM',
+        gbif: 'mybaꞌe GBIF',
         layers_on: 'oñemobyta oñemohenda',
+        insights: 'Oñehesaꞌỹijo (oñemboheko)',
+        bcp: 'BCP macro (Febrero 2026)',
+        nasa: 'NASA POWER 2024 (Asunción)',
+        inbio: 'INBIO zafra 2025-2026',
         layers: 'Oñemobyta',
+        price_by_depto: '$/ha departamento rupi',
+        sources: 'Marandu mbaꞌapohagua',
         search_title: 'Eheka dirección, táva, tapicha',
+        jump_city: 'Eho tavapegua',
+        status: 'Peteĩ reko',
+        fair_price: 'Precio justo (IA)',
+        yield_calc: 'Rendimiento haipyre',
+        filters: 'Oñemohenda',
+        comparables: 'Opaichagua',
+        csv_export: 'CSV ojekareta',
+        share_view: 'Mbohasa jehecha',
+        embed: 'Embe embopyta',
+        geolocate: 'Aikete',
+        loading: 'Oñemboyta Paraguay mbaꞌe…',
+        legend: 'Ojehechaukáva',
+        menu: 'Oñemohenda',
+        apply: 'Oñemboheko',
+        clear: 'Oñemboete',
+        showing: 'Ojehecháva',
+        of: 'peve',
+        hidden: 'oñemombavy',
     },
 };
 
@@ -2341,6 +2496,49 @@ const _origFunctions = {};
     }
 });
 
+
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('[SW] registered, scope:', reg.scope))
+            .catch(err => console.warn('[SW] registration failed:', err));
+    });
+}
+
+
+function fetchDataFreshness() {
+    fetch('./data/data_freshness.json')
+        .then(r => r.ok ? r.json() : null)
+        .then(fresh => {
+            if (!fresh || !fresh.as_of_utc) return;
+            const dt = new Date(fresh.as_of_utc);
+            const age_hours = (Date.now() - dt.getTime()) / 3.6e6;
+            const ageText = age_hours < 24 ? Math.round(age_hours) + 'h ago' :
+                            age_hours < 168 ? Math.round(age_hours/24) + 'd ago' :
+                            Math.round(age_hours/168) + 'w ago';
+            const dateEl = document.getElementById('freshnessDate');
+            if (dateEl) dateEl.textContent = ageText + ' (' + fresh.as_of_utc.substring(0,10) + ')';
+            const badge = document.getElementById('freshnessBadge');
+            if (badge && age_hours > 168) {
+                badge.style.background = 'rgba(239, 68, 68, 0.15)';
+                const dot = badge.querySelector('span');
+                if (dot) dot.style.background = 'var(--err)';
+            }
+            // Also update stat meta text
+            const lastCommitEl = document.getElementById('lastCommit');
+            if (lastCommitEl && fresh.sources) {
+                const reachable = Object.values(fresh.sources).filter(s => s.reachable).length;
+                const total = Object.keys(fresh.sources).length;
+                lastCommitEl.textContent = `${reachable}/${total} sources`;
+            }
+        })
+        .catch(() => {
+            const dateEl = document.getElementById('freshnessDate');
+            if (dateEl) dateEl.textContent = 'unknown';
+        });
+}
+
 // ========== BOOTSTRAP ==========
 renderLayerGrid();
 loadBCP();
@@ -2357,6 +2555,9 @@ loadCatastroDpto();
 loadCatastroDist();
 loadCatastroParcels();
 loadCatastroUrba();
+loadIndigenous();
+loadClimateRisk();
+loadFloodRisk();
 loadINBIO();
 loadProperties();
 loadGBIF();

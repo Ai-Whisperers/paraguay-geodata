@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Paraguay Geodata — Public API
+  description: |
+    Open data API for Paraguay real-estate, cadastral, environmental,
+    and infrastructure data. All endpoints return JSON or GeoJSON.
+    No authentication required for read access.
+  version: "1.0"
+  contact:
+    name: Ai-Whisperers Paraguay Geodata
+    url: https://github.com/Ai-Whisperers/paraguay-geodata
+  license:
+    name: ODbL + MIT (data + code respectively)
+servers:
+  - url: https://geodata.paragu-ai.com
+    description: Production
+paths:
+  /data/properties_latest.geojson:
+    get:
+      summary: Latest properties (GeoJSON)
+      description: |
+        Returns all 10,898 priced real-estate listings across Paraguay.
+        PII scrubbed: agent phones, emails, names removed.
+        Coordinates are WGS84.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of properties
+          content:
+            application/geo+json:
+              schema:
+                type: object
+        '404':
+          description: Not found
+
+  /data/admin/catastro_dpto.geojson:
+    get:
+      summary: Catastro Nacional — 18 departamentos
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of 18 departamento polygons
+
+  /data/admin/catastro_dist.geojson:
+    get:
+      summary: Catastro Nacional — 268 distritos
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of 268 distrito polygons
+
+  /data/admin/catastro_parcels_sample.geojson:
+    get:
+      summary: Catastro Nacional — 7,500 parcela sample
+      description: |
+        Sample of 500 parcelas per depto. Full dataset has 2.19M parcels
+        accessible directly via Catastro Nacional WFS.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of parcelas
+
+  /data/roads.geojson:
+    get:
+      summary: OSM major roads (motorway/trunk/primary/secondary)
+      responses:
+        '200':
+          description: 14,835 roads as LineStrings
+
+  /data/water.geojson:
+    get:
+      summary: OSM water bodies (rivers, lakes, reservoirs)
+      responses:
+        '200':
+          description: 247 water polygons
+
+  /data/buildings_asuncion.geojson:
+    get:
+      summary: OSM building footprints (Asunción metro, top 50K)
+      responses:
+        '200':
+          description: 50K building polygons
+
+  /data/gbif_paraguay.geojson:
+    get:
+      summary: GBIF biodiversity observations (200 species)
+      responses:
+        '200':
+          description: 200 species observations
+
+  /data/tile_index.json:
+    get:
+      summary: 7,912 tile metadata (10×10 km national grid)
+      responses:
+        '200':
+          description: Tile catalog
+
+  /data/bcp_snapshot.json:
+    get:
+      summary: BCP macro snapshot (Feb 2026)
+      responses:
+        '200':
+          description: TPM, PIB, inflation, RIN
+
+  /data/inbio_zafra_2025_2026.json:
+    get:
+      summary: INBIO crop area (satellite-based)
+      responses:
+        '200':
+          description: Soja, arroz, maíz zafriña
+
+  /data/indigenous_territories.geojson:
+    get:
+      summary: Indigenous territories (10 polygons)
+      description: Approximate bboxes. NOT legal boundaries.
+      responses:
+        '200':
+          description: 10 indigenous territory polygons
+
+  /data/climate_risk.geojson:
+    get:
+      summary: Climate risk by depto (18 deptos)
+      description: Combined risk = deforestation (50%) + drought (50%). 2024 baseline.
+      responses:
+        '200':
+          description: 18 departamento polygons with risk scores
+
+  /data/flood_risk.geojson:
+    get:
+      summary: Flood-prone zones (5 regions)
+      description: Approximate. Check SEN emergency alerts for live warnings.
+      responses:
+        '200':
+          description: 5 flood zone polygons
+
+  /data/data_freshness.json:
+    get:
+      summary: Data freshness manifest
+      responses:
+        '200':
+          description: |
+            {
+              "as_of_utc": "2026-07-11T14:53:09+00:00",
+              "sources": {
+                "infocasas": { "reachable": true, "listings_in_db": 444 },
+                "tulugar": { "reachable": true, "listings_in_db": 10454 }
+              }
+            }
+
+  /data/ml/fair_price_model.json:
+    get:
+      summary: Fair-price ML model (per-depto)
+      description: Linear regression per depto. UI-decoration; R²≈0.017.
+      responses:
+        '200':
+          description: Model coefficients + stats
+
+  /manifest.webmanifest:
+    get:
+      summary: PWA manifest
+      responses:
+        '200':
+          description: PWA install manifest
+
+  /sw.js:
+    get:
+      summary: Service worker
+      description: Caches static + data for offline use
+      responses:
+        '200':
+          description: JavaScript service worker

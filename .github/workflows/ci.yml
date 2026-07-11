@@ -1,0 +1,89 @@
+name: CI — Paraguay Geodata
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  endpoints:
+    name: Endpoint validator
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run endpoint tests
+        run: python3 tools/test_endpoints.py
+
+  schema:
+    name: Schema validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check JSON files parse
+        run: |
+          python3 -c "
+          import json, sys
+          from pathlib import Path
+          ok = True
+          for f in Path('exports/web/data').rglob('*.json'):
+              try:
+                  json.load(open(f))
+              except Exception as e:
+                  print(f'BAD {f}: {e}')
+                  ok = False
+          sys.exit(0 if ok else 1)
+          "
+      - name: Check GeoJSON files parse + type
+        run: |
+          python3 -c "
+          import json, sys
+          from pathlib import Path
+          ok = True
+          for f in Path('exports/web/data').rglob('*.geojson'):
+              try:
+                  d = json.load(open(f))
+                  if d.get('type') != 'FeatureCollection':
+                      print(f'BAD {f}: not a FeatureCollection')
+                      ok = False
+              except Exception as e:
+                  print(f'BAD {f}: {e}')
+                  ok = False
+          sys.exit(0 if ok else 1)
+          "
+
+  pii:
+    name: PII scrub audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit PII scrub
+        run: |
+          python3 -c "
+          import json, re, sys
+          from pathlib import Path
+          f = Path('exports/web/data/properties_latest.geojson')
+          d = json.load(open(f))
+          bad = 0
+          for feat in d['features'][:500]:
+              p = feat.get('properties') or {}
+              for k, v in p.items():
+                  if v and isinstance(v, str):
+                      if re.search(r'\+?595\s*9?\d{2}', v) and not k.startswith('pii_'):
+                          print(f'PII: {feat.get(\"id\", \"?\")} → {k}={v[:50]}')
+                          bad += 1
+          print(f'PII violations in sample: {bad}')
+          sys.exit(0 if bad == 0 else 1)
+          "
