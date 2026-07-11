@@ -1,40 +1,28 @@
 // Service Worker — Paraguay Geodata PWA
-// Cache-first for static assets, network-first for data
-const CACHE_NAME = 'paraguay-geodata-v3';
+// Cache-first for static assets, stale-while-revalidate for data
+// Robust against CSP-blocked fetches, offline mode
+const CACHE_NAME = 'paraguay-geodata-v4';
+
+// On-install: precache critical same-origin assets only
+// CDN assets (Leaflet, Inter font) are cached on first fetch, not on install
+// (avoids CSP-blocked install + faster startup)
 const STATIC_CACHE = [
     './',
     './manifest.webmanifest',
-    './data/properties_latest.geojson',
-    './data/roads.geojson',
-    './data/buildings_asuncion.geojson',
-    './data/water.geojson',
-    './data/gbif_paraguay.geojson',
-    './data/tile_index.json',
-    './data/priority_tiles.json',
-    './data/bcp_snapshot.json',
-    './data/nasa_power_asuncion.json',
-    './data/inbio_zafra_2025_2026.json',
-    './data/admin/catastro_dpto.geojson',
-    './data/admin/catastro_dist.geojson',
-    './data/admin/catastro_parcels_sample.geojson',
-    './data/admin/catastro_urba.geojson',
-    './data/admin/barrios_py.geojson',
-    './data/ml/fair_price_model.json',
+    './sw.js',
+    './data/data_freshness.json',
     './data/deploy-meta.json',
-    'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-    'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-    'https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js',
-    'https://rsms.me/inter/inter.css',
+    './data/tile_index.json',
 ];
 
 self.addEventListener('install', (e) => {
     e.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            // Best-effort cache; CDN failures don't break install
-            return Promise.allSettled(STATIC_CACHE.map((url) =>
-                fetch(url).then((r) => r.ok ? cache.put(url, r.clone()) : null).catch(() => null)
-            ));
-        }).then(() => self.skipWaiting())
+        caches.open(CACHE_NAME).then((cache) =>
+            // Best-effort — install succeeds even if some fail
+            Promise.allSettled(STATIC_CACHE.map((url) =>
+                cache.add(url).catch(() => null)
+            ))
+        ).then(() => self.skipWaiting())
     );
 });
 
@@ -46,48 +34,72 @@ self.addEventListener('activate', (e) => {
     );
 });
 
+// Helper: build a safe Response (avoid "Failed to convert" errors)
+const safeResponse = (body, init = {}) => {
+    try {
+        return new Response(body, init);
+    } catch (e) {
+        return new Response('', { status: 504, statusText: 'Offline' });
+    }
+};
+
 self.addEventListener('fetch', (e) => {
     const url = new URL(e.request.url);
-    // Skip non-GET, geocoder (POST), chrome-extension
+
+    // Skip non-GET, browser-extension, geocoder
     if (e.request.method !== 'GET') return;
     if (url.protocol === 'chrome-extension:') return;
-    if (url.host === 'photon.komoot.io') return; // network only
+    if (url.protocol === 'moz-extension:') return;
+    if (url.host === 'photon.komoot.io') return; // network-only (POST)
 
-    // Cache-first for same-origin static, network-first for data
-    const isStatic = /\.(css|js|woff2?|png|svg|ico|webmanifest)$/.test(url.pathname);
+    // Determine resource type
+    const isSameOrigin = url.origin === self.location.origin;
+    const isStatic = /\.(css|js|woff2?|png|svg|ico|webmanifest|json)$/.test(url.pathname);
     const isData = url.pathname.startsWith('/data/');
 
-    if (isStatic) {
-        e.respondWith(
-            caches.match(e.request).then((cached) => cached || fetch(e.request).then((r) => {
-                if (r.ok) {
-                    const clone = r.clone();
-                    caches.open(CACHE_NAME).then((c) => c.put(e.request, clone));
-                }
-                return r;
-            }).catch(() => cached))
-        );
-        return;
-    }
-
-    if (isData) {
-        // Stale-while-revalidate: return cache instantly, refresh in background
+    // Same-origin static + data: cache-first / SWR
+    if (isSameOrigin && (isStatic || isData)) {
         e.respondWith(
             caches.open(CACHE_NAME).then((cache) =>
                 cache.match(e.request).then((cached) => {
-                    const fetchPromise = fetch(e.request).then((r) => {
-                        if (r.ok) cache.put(e.request, r.clone());
+                    const fetchAndCache = fetch(e.request).then((r) => {
+                        if (r.ok) cache.put(e.request, r.clone()).catch(() => {});
                         return r;
-                    }).catch(() => cached);
-                    return cached || fetchPromise;
+                    }).catch(() => {
+                        // Network failed → return cache or fallback
+                        if (cached) return cached;
+                        return safeResponse('', { status: 504 });
+                    });
+                    // Stale-while-revalidate for data, cache-first for static
+                    return cached || fetchAndCache;
                 })
             )
         );
         return;
     }
 
-    // Default: network with cache fallback
-    e.respondWith(
-        fetch(e.request).catch(() => caches.match(e.request))
-    );
+    // Cross-origin (CDN: Leaflet, Inter font, etc.): network with cache fallback
+    if (!isSameOrigin) {
+        e.respondWith(
+            caches.match(e.request).then((cached) => {
+                if (cached) return cached;
+                return fetch(e.request).then((r) => {
+                    if (r.ok) {
+                        const clone = r.clone();
+                        caches.open(CACHE_NAME).then((c) => c.put(e.request, clone).catch(() => {}));
+                    }
+                    return r;
+                }).catch(() => safeResponse('', { status: 504 }));
+            })
+        );
+        return;
+    }
+
+    // Default: pass through
+    e.respondWith(fetch(e.request).catch(() => safeResponse('', { status: 504 })));
+});
+
+// Allow page to skip waiting on update
+self.addEventListener('message', (e) => {
+    if (e.data === 'skipWaiting') self.skipWaiting();
 });
