@@ -1,15 +1,86 @@
 {
-  "commit": "c6d44ca",
-  "commit_short": "c6d44ca",
+  "commit": "2b7ee12",
   "branch": "main",
-  "deployed_at": "2026-07-10T22:30:00Z",
+  "deployed_at": "2026-07-11T00:00:00Z",
   "deployer": "Erebus",
   "project": "paraguay-geodata",
-  "data_sources_loaded": [
-    "tile_index.json (7,912 tiles)",
-    "priority_tiles.json (37 priority tiles)",
-    "20-city anchor list"
+  "layers_loaded": [
+    {
+      "id": "tile_fabric",
+      "label": "National tile fabric (10x10 km)",
+      "features": 7912,
+      "phase": 0,
+      "source": "derived"
+    },
+    {
+      "id": "priority_tiles",
+      "label": "Priority tiles (urban anchors)",
+      "features": 37,
+      "phase": 0,
+      "source": "derived"
+    },
+    {
+      "id": "departamentos_py",
+      "label": "Departamentos boundaries (OSM)",
+      "features": 18,
+      "phase": 1,
+      "source": "OpenStreetMap (ODbL)"
+    },
+    {
+      "id": "properties_infocasas",
+      "label": "Real-estate listings (infocasas)",
+      "features": 38,
+      "phase": 2,
+      "source": "infocasas.com.py"
+    },
+    {
+      "id": "gbif_species",
+      "label": "Species observations (GBIF)",
+      "features": 200,
+      "phase": 1,
+      "source": "GBIF",
+      "unique_species": 138
+    },
+    {
+      "id": "bcp_snapshot",
+      "label": "BCP macro/monetary/rates snapshot",
+      "phase": 1.5,
+      "source": "BCP",
+      "file": "data/bcp_snapshot.json"
+    },
+    {
+      "id": "nasa_power",
+      "label": "NASA POWER climate 2024 (Asunci\u00f3n)",
+      "phase": 1,
+      "source": "NASA POWER",
+      "file": "data/nasa_power_asuncion.json"
+    }
   ],
-  "live_layers": 0,
-  "queued_layers": 42
+  "live_features_total": 7912,
+  "deferred_sources": [
+    {
+      "id": "distritos_osm",
+      "reason": "Overpass timeout on 262-district query"
+    },
+    {
+      "id": "bcp_rates_xlsx",
+      "reason": "CDN 403 on direct XLSX download"
+    },
+    {
+      "id": "firms_active",
+      "reason": "Requires NASA FIRMS MAP_KEY"
+    },
+    {
+      "id": "datos_gov_py",
+      "reason": "Cloudflare challenge"
+    },
+    {
+      "id": "inbio_pdfs",
+      "reason": "PDF parsing of 30+ zafra reports"
+    },
+    {
+      "id": "hansen_jrc",
+      "reason": "Microsoft Planetary Computer STAC"
+    }
+  ]
 }

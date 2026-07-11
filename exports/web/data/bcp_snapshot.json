@@ -1,0 +1,43 @@
+{
+  "as_of": "2026-07-10",
+  "as_of_date_label": "Feb 2026 latest official snapshot",
+  "source": "Banco Central del Paraguay (bcp.gov.py)",
+  "capture_method": "manual snapshot from BCP homepage HTML — direct API blocked by CDN",
+  "monetary": {
+    "tpm_pct": 5.50,
+    "tasa_interbancaria_pct": 5.36,
+    "meta_inflacion_pct": 3.5,
+    "inflacion_interanual_pct": 2.3,
+    "inflacion_proyeccion_2026_pct": 3.5
+  },
+  "macro": {
+    "pib_2025_growth_pct": 6.0,
+    "pib_2026_proyeccion_pct": 4.2,
+    "rin_usd_million": 11611.4,
+    "rin_as_of_date": "2026-03-06"
+  },
+  "banking_health": {
+    "adecuacion_patrimonial_bancos_pct": 16.43,
+    "adecuacion_patrimonial_financieras_pct": 15.34,
+    "morosidad_bancos_pct": 2.29,
+    "morosidad_financieras_pct": 7.46
+  },
+  "usury_rates": {
+    "usuraria_mn_pct": 27.03,
+    "usuraria_me_pct": 11.14
+  },
+  "rate_types": {
+    "activa_me_bancos_pct": 8.07,
+    "pasiva_me_bancos_pct": 3.89,
+    "activa_me_bancos_as_of": "2026-01-31"
+  },
+  "remesas": {
+    "total_2008_2026_million_usd": 11907.1,
+    "breakdown_note": "2008-2025: $11,588.1M; YTD 2026: $318.9M. Top countries: Spain, Argentina, USA, Brazil. Top depts: Central, Alto Paraná, Asunción, Itapúa, Caaguazú.",
+    "source_note": "BCP Remesas Familiares dataset, quarterly since 2008"
+  },
+  "viewer_display": {
+    "headline": "PY economy: +6% PIB 2025, TPM 5.5%, RIN $11.6B, morosidad 2.3% (banks) / 7.5% (financieras)",
+    "risk_flag": "financieras delinquency 3.3× higher than banks — when overlaying credit access by district, weight financiera presence differently"
+  }
+}

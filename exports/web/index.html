@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paraguay Geodata — National Viewer</title>
-    <meta name="description" content="National-scale Paraguay satellite, topographic, administrative, environmental, and economic data — phase 1 of the paraguay-geodata project.">
+    <title>Paraguay Geodata — National Viewer (Live)</title>
+    <meta name="description" content="Live Paraguay satellite, topographic, administrative, environmental, financial, and property data. National scope, 86 toggleable layers.">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -19,10 +19,15 @@
             --accent-dim: #134e48;
             --warn: #f59e0b;
             --err: #ef4444;
+            --info: #60a5fa;
             --line: #1f2944;
             --tile-default: #2563eb;
             --tile-priority: #2dd4bf;
             --tile-priority-fill: #0f766e;
+            --property: #ef4444;
+            --property-fill: #7f1d1d;
+            --gbif-animalia: #f59e0b;
+            --gbif-plantae: #10b981;
             --shadow: 0 4px 20px rgba(0,0,0,.45);
             --radius: 6px;
         }
@@ -37,34 +42,72 @@
         }
         header h1 { font-size: 16px; margin: 0; font-weight: 600; letter-spacing: -.01em; }
         header h1 span { color: var(--accent); }
+        header h1 .live { display: inline-block; background: var(--accent-dim); color: var(--accent); padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; vertical-align: middle; margin-left: 4px; }
         header nav { display: flex; gap: 4px; font-size: 13px; }
         header nav a { color: var(--fg-dim); text-decoration: none; padding: 4px 10px; border-radius: var(--radius); transition: all .15s; }
         header nav a:hover { color: var(--fg); background: var(--bg-elev-2); }
         header nav a.active { color: var(--accent); background: var(--accent-dim); }
         header .repo-link { font-size: 11px; color: var(--fg-dim); }
         header .repo-link a { color: var(--accent); text-decoration: none; }
-        main { flex: 1; display: grid; grid-template-columns: 360px 1fr; min-height: 0; }
+        header .bcp-badge {
+            font-size: 10px; padding: 3px 8px; border-radius: 3px;
+            background: var(--accent-dim); color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        main { flex: 1; display: grid; grid-template-columns: 380px 1fr; min-height: 0; }
         aside { background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; }
-        aside h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 18px 0 8px 0; font-weight: 600; }
+        aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 16px 0 6px 0; font-weight: 600; }
         aside h2:first-child { margin-top: 0; }
         .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .stat { background: var(--bg-elev-2); padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); }
         .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
-        .stat .label { font-size: 11px; color: var(--fg-dim); margin-top: 2px; }
-        .phase-list { display: flex; flex-direction: column; gap: 6px; }
-        .phase { padding: 8px 12px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); font-size: 12px; }
-        .phase .name { font-weight: 600; }
-        .phase .meta { color: var(--fg-dim); margin-top: 2px; font-size: 11px; }
-        .phase .badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; margin-left: 6px; }
-        .badge.live { background: var(--accent-dim); color: var(--accent); }
-        .badge.queue { background: var(--bg); color: var(--fg-dim); border: 1px solid var(--line); }
-        .search { margin-bottom: 12px; }
-        .search input { width: 100%; padding: 8px 12px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 13px; }
-        .search input:focus { outline: none; border-color: var(--accent); }
+        .stat .label { font-size: 10px; color: var(--fg-dim); margin-top: 2px; line-height: 1.3; }
+        .layer-grid { display: grid; grid-template-columns: 1fr; gap: 4px; }
+        .layer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line);
+            border-radius: var(--radius); font-size: 12px;
+            cursor: pointer; user-select: none; transition: border-color .12s;
+        }
+        .layer:hover { border-color: var(--accent); }
+        .layer.active { border-color: var(--accent); background: var(--accent-dim); }
+        .layer .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+        .layer .name .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .layer .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+        .layer .dot.live { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+        .layer .dot.loading { background: var(--warn); animation: pulse 1.2s infinite; }
+        .layer .dot.error { background: var(--err); }
+        .layer .dot.queued { background: var(--fg-dim); }
+        .layer .count { font-size: 10px; color: var(--fg-dim); font-family: monospace; flex-shrink: 0; margin-left: 8px; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .bcp-widget {
+            background: var(--bg-elev-2); border: 1px solid var(--accent);
+            padding: 12px; border-radius: var(--radius); font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .bcp-widget h3 { margin: 0 0 6px 0; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+        .bcp-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .bcp-widget .row .k { color: var(--fg-dim); }
+        .bcp-widget .row .v { font-family: monospace; font-weight: 600; }
+        .bcp-widget .row .v.pos { color: var(--accent); }
+        .bcp-widget .row .v.neg { color: var(--err); }
+        .bcp-widget .row .v.warn { color: var(--warn); }
+        .climate-widget {
+            background: var(--bg-elev-2); border: 1px solid var(--info);
+            padding: 12px; border-radius: var(--radius); font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .climate-widget h3 { margin: 0 0 6px 0; font-size: 11px; color: var(--info); text-transform: uppercase; letter-spacing: .05em; }
+        .climate-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .climate-widget .row .k { color: var(--fg-dim); }
+        .climate-widget .row .v { font-family: monospace; }
         .city-list { display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto; }
         .city { padding: 6px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; font-size: 12px; display: flex; justify-content: space-between; transition: all .12s; }
         .city:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
-        .city .coord { color: var(--fg-dim); font-size: 10px; font-family: monospace; }
+        .city .count { color: var(--fg-dim); font-size: 10px; font-family: monospace; }
+        .city.has-listings .count { color: var(--property); font-weight: 600; }
+        .search input { width: 100%; padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 12px; }
+        .search input:focus { outline: none; border-color: var(--accent); }
         #map { flex: 1; height: 100%; background: #0e1322; }
         .loading-banner {
             position: fixed; top: 60px; right: 18px; z-index: 1000;
@@ -78,11 +121,10 @@
             position: absolute; bottom: 16px; left: 16px; z-index: 1000;
             background: var(--bg-elev); border: 1px solid var(--line);
             padding: 10px 14px; border-radius: var(--radius); font-size: 11px; box-shadow: var(--shadow);
+            max-width: 280px;
         }
         .legend .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
-        .legend .swatch { width: 16px; height: 10px; border-radius: 2px; }
-        .legend .swatch.full { background: var(--tile-priority-fill); border: 1px solid var(--tile-priority); }
-        .legend .swatch.priority { background: var(--tile-priority); }
+        .legend .swatch { width: 16px; height: 10px; border-radius: 2px; flex-shrink: 0; }
         .leaflet-popup-content-wrapper {
             background: var(--bg-elev) !important;
             color: var(--fg) !important;
@@ -91,9 +133,9 @@
             box-shadow: var(--shadow) !important;
         }
         .leaflet-popup-tip { background: var(--bg-elev) !important; border: 1px solid var(--accent); }
-        .leaflet-popup-content { margin: 12px 14px; font-size: 12px; line-height: 1.5; min-width: 180px; }
+        .leaflet-popup-content { margin: 12px 14px; font-size: 12px; line-height: 1.5; min-width: 200px; }
         .leaflet-popup-content h3 { margin: 0 0 6px 0; font-size: 13px; color: var(--accent); }
-        .leaflet-popup-content .row { display: flex; justify-content: space-between; gap: 12px; }
+        .leaflet-popup-content .row { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }
         .leaflet-popup-content .row .k { color: var(--fg-dim); }
         .leaflet-popup-content .row .v { font-family: monospace; }
         .leaflet-popup-content a { color: var(--accent); text-decoration: none; }
@@ -108,7 +150,8 @@
 <div class="loading-banner" id="loading">Loading Paraguay geodata…</div>
 
 <header>
-    <h1>Paraguay <span>Geodata</span> — National Viewer</h1>
+    <h1>Paraguay <span>Geodata</span> <span class="live">LIVE</span></h1>
+    <span class="bcp-badge" id="bcpBadge">BCP: TPM 5.5% · PIB +6%</span>
     <nav>
         <a href="./" class="active">National</a>
         <a href="./mapa.html">Per-Tile Viewer</a>
@@ -121,202 +164,375 @@
 
 <main>
     <aside>
-        <h2>Project snapshot</h2>
+        <h2>Coverage (live)</h2>
         <div class="stats">
-            <div class="stat">
-                <div class="num" id="tileCount">—</div>
-                <div class="label">tiles covering PY</div>
-            </div>
-            <div class="stat">
-                <div class="num" id="priorityCount">—</div>
-                <div class="label">priority tiles</div>
-            </div>
-            <div class="stat">
-                <div class="num" id="layerCount">86</div>
-                <div class="label">layers planned</div>
-            </div>
-            <div class="stat">
-                <div class="num" id="dataStateCount">—</div>
-                <div class="label">tiles with data</div>
-            </div>
+            <div class="stat"><div class="num" id="statTiles">—</div><div class="label">tile fabric (10×10 km)</div></div>
+            <div class="stat"><div class="num" id="statPriority">—</div><div class="label">priority tiles</div></div>
+            <div class="stat"><div class="num" id="statDepts">—</div><div class="label">departamentos (OSM)</div></div>
+            <div class="stat"><div class="num" id="statListings">—</div><div class="label">properties (live)</div></div>
+            <div class="stat"><div class="num" id="statGbif">—</div><div class="label">species (GBIF)</div></div>
+            <div class="stat"><div class="num" id="statLayers">—</div><div class="label">layers on</div></div>
         </div>
 
-        <h2>Phase tracker</h2>
-        <div class="phase-list">
-            <div class="phase">
-                <span class="name">Phase 0</span><span class="badge live">SHIPPED</span>
-                <div class="meta">Skeleton + tile fabric + ethics gate</div>
-            </div>
-            <div class="phase">
-                <span class="name">Phase 1</span><span class="badge queue">queued</span>
-                <div class="meta">24 layers — satellite + admin + environment (FIRMS, Hansen, JRC, MapBiomas, INE)</div>
-            </div>
-            <div class="phase">
-                <span class="name">Phase 1.5</span><span class="badge queue">queued</span>
-                <div class="meta">42 layers — + DNCP tenders + BCP rates + macro + income</div>
-            </div>
-            <div class="phase">
-                <span class="name">Phase 2</span><span class="badge queue">queued</span>
-                <div class="meta">58 layers — listings + price + remesas + AFD + INCOOP + listings</div>
-            </div>
-            <div class="phase">
-                <span class="name">Phase 3</span><span class="badge queue">queued</span>
-                <div class="meta">86 layers — + BVPASA + Cesium 3D + climate projections</div>
-            </div>
+        <h2>BCP macro (Feb 2026 snapshot)</h2>
+        <div class="bcp-widget" id="bcpWidget">
+            <h3>Banco Central del Paraguay</h3>
+            <div class="row"><span class="k">TPM</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Inflación YoY</span><span class="v">—</span></div>
+            <div class="row"><span class="k">PIB 2025</span><span class="v">—</span></div>
+            <div class="row"><span class="k">RIN</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Morosidad bancos</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Tasa activa ME</span><span class="v">—</span></div>
         </div>
 
-        <h2>Jump to a city</h2>
+        <h2>NASA POWER 2024 (Asunción)</h2>
+        <div class="climate-widget" id="climateWidget">
+            <h3>Climate daily summary</h3>
+            <div class="row"><span class="k">Avg temp</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Min / Max</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Avg precip</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Max precip/day</span><span class="v">—</span></div>
+            <div class="row"><span class="k">Avg solar</span><span class="v">—</span></div>
+        </div>
+
+        <h2>Layers (toggleable)</h2>
+        <div class="layer-grid" id="layerGrid"></div>
+
+        <h2>Jump to an anchor city</h2>
         <div class="search">
             <input type="text" id="cityFilter" placeholder="Filter cities…" autocomplete="off">
         </div>
         <div class="city-list" id="cityList"></div>
-
-        <h2>What's on this map today</h2>
-        <ul style="font-size:12px; color:var(--fg-dim); line-height:1.6; padding-left:18px; margin:0 0 16px 0;">
-            <li>The <strong style="color:var(--accent)">full 10×10 km tile fabric</strong> covering Paraguay (7,912 tiles)</li>
-            <li>The <strong style="color:var(--accent)">37 priority tiles</strong> at the 20 urban anchor cities</li>
-            <li>Click any priority tile to see centroid + bbox + status</li>
-            <li>Phase 1 lands DEM + satellite + admin overlays into these tiles</li>
-        </ul>
 
         <h2>Status</h2>
         <div style="font-size:11px; color:var(--fg-dim); line-height:1.7;">
             <div>Repo: <a href="https://github.com/Ai-Whisperers/paraguay-geodata" style="color:var(--accent)">Ai-Whisperers/paraguay-geodata</a></div>
             <div>Commit: <code id="lastCommit">—</code></div>
             <div>Branch: <code>main</code></div>
-            <div>Last deploy: <code id="deployTime">—</code></div>
-            <div id="fetchStatus" style="margin-top:6px;">Loading <code>tile_index.json</code>…</div>
+            <div id="fetchStatus">Loading data…</div>
         </div>
     </aside>
 
     <div id="map"></div>
 </main>
 
-<div class="legend">
-    <div class="row"><span class="swatch full"></span><span>10×10 km tile (full Paraguay fabric)</span></div>
-    <div class="row"><span class="swatch priority"></span><span>Priority tile (urban anchor)</span></div>
+<div class="legend" id="legend">
+    <div class="row"><span class="swatch" style="background:var(--tile-priority-fill); border: 1px solid var(--tile-priority);"></span><span>10×10 km tile</span></div>
+    <div class="row"><span class="swatch" style="background:var(--accent);"></span><span>Priority (urban anchor)</span></div>
+    <div class="row"><span class="swatch" style="background:var(--info); opacity:.5;"></span><span>Departamento</span></div>
+    <div class="row"><span class="swatch" style="background:var(--property);"></span><span>Property listing</span></div>
+    <div class="row"><span class="swatch" style="background:var(--gbif-animalia);"></span><span>GBIF Animalia</span></div>
+    <div class="row"><span class="swatch" style="background:var(--gbif-plantae);"></span><span>GBIF Plantae</span></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
-// Map init
-const map = L.map('map', {
-    zoomControl: true,
-    worldCopyJump: true,
-    preferCanvas: true,
-}).setView([-23.5, -58.5], 6);
+// ========== MAP ==========
+const map = L.map('map', { zoomControl: true, worldCopyJump: true, preferCanvas: false }).setView([-23.5, -58.5], 6);
 
-// OSM base layer (no API key needed, attribution required)
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: '© OpenStreetMap contributors',
+    maxZoom: 18, attribution: '© OpenStreetMap contributors',
 }).addTo(map);
-
-// Esri satellite (no key needed for tile pyramid, attribution required)
 const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    maxZoom: 18,
-    attribution: 'Tiles © Esri',
+    maxZoom: 18, attribution: 'Tiles © Esri',
 });
 L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map);
 
-// Fetch tile_index.json (3.7 MB national) and priority_tiles.json (17 KB)
-let fullTiles = null;
-let priorityTiles = null;
-let priorityTileIds = new Set();
+// ========== LAYERS STATE ==========
+const layerState = {
+    tile_fabric:        { label: 'National tile fabric',     active: true,  features: '?', source: 'derived' },
+    priority_tiles:     { label: 'Priority tiles',           active: true,  features: '?', source: 'derived' },
+    departamentos_py:   { label: 'Departamentos (OSM)',      active: true,  features: '?', source: 'OSM' },
+    properties_infocasas:{label: 'Properties (infocasas)',   active: true,  features: '?', source: 'infocasas.com.py' },
+    gbif_species:       { label: 'Species (GBIF)',           active: false, features: '?', source: 'GBIF' },
+    bcp_overlay:        { label: 'BCP indicators',           active: true,  features: 'widget-only', source: 'BCP' },
+    nasa_power_overlay: { label: 'NASA POWER climate',       active: false, features: 'query-based', source: 'NASA POWER' },
+};
 
-async function bootstrap() {
-    const [fullRes, prioRes] = await Promise.all([
-        fetch('./data/tile_index.json'),
-        fetch('./data/priority_tiles.json'),
-    ]);
-    if (!fullRes.ok) {
-        document.getElementById('fetchStatus').textContent = 'ERROR: tile_index.json unreachable (HTTP ' + fullRes.status + ')';
-        document.getElementById('fetchStatus').style.color = '#ef4444';
-        hideLoading();
-        return;
-    }
-    if (!prioRes.ok) {
-        document.getElementById('fetchStatus').textContent = 'ERROR: priority_tiles.json unreachable (HTTP ' + prioRes.status + ')';
-        document.getElementById('fetchStatus').style.color = '#ef4444';
-        hideLoading();
-        return;
-    }
-    const [fullData, prioData] = await Promise.all([fullRes.json(), prioRes.json()]);
-    fullTiles = fullData.tiles;
-    priorityTiles = prioData.tiles;
-    priorityTileIds = new Set(priorityTiles.map(t => t.tile_id));
-
-    // Stats
-    document.getElementById('tileCount').textContent = fullTiles.length.toLocaleString();
-    document.getElementById('priorityCount').textContent = priorityTiles.length;
-    document.getElementById('dataStateCount').textContent = '0 / ' + priorityTiles.length;
-    document.getElementById('fetchStatus').innerHTML = '<span style="color:#2dd4bf">✓ ' + fullTiles.length.toLocaleString() + ' tiles + ' + priorityTiles.length + ' priority loaded</span>';
-
-    renderPriorityTiles();
-    renderCityList();
-    hideLoading();
-}
-
-function renderPriorityTiles() {
-    priorityTiles.forEach(t => {
-        const [w, s, e, n] = t.bbox_wsen;
-        const isPriority = priorityTileIds.has(t.tile_id);
-        const rect = L.rectangle([[s, w], [n, e]], {
-            color: '#2dd4bf',
-            weight: 1.5,
-            fillColor: isPriority ? '#0f766e' : '#134e48',
-            fillOpacity: isPriority ? 0.35 : 0.15,
-        }).addTo(map);
-        const popupHtml = `
-            <h3>Tile ${t.tile_id}</h3>
-            <div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>
-            <div class="row"><span class="k">UTM zone</span><span class="v">${t.utm_zone_hint}</span></div>
-            <div class="row"><span class="k">Area</span><span class="v">${t.area_km2.toFixed(1)} km²</span></div>
-            <div class="row"><span class="k">Status</span><span class="v" style="color:#f59e0b">awaiting Phase 1 data</span></div>
-            <div style="margin-top:6px;"><a href="./mapa.html?tile=${t.tile_id}&r=10">Drill into this tile →</a></div>
+// ========== RENDER LAYERS SIDEBAR ==========
+function renderLayerGrid() {
+    const grid = document.getElementById('layerGrid');
+    grid.innerHTML = '';
+    Object.entries(layerState).forEach(([id, l]) => {
+        const div = document.createElement('div');
+        div.className = 'layer' + (l.active ? ' active' : '');
+        div.dataset.layerId = id;
+        const status = l.features === '?' ? 'loading' :
+                       l.features === 'widget-only' || l.features === 'query-based' ? 'live' :
+                       'live';
+        div.innerHTML = `
+            <div class="name">
+                <span class="dot ${status}"></span>
+                <span class="label">${l.label}</span>
+            </div>
+            <span class="count">${l.features === '?' ? '…' : (l.features === 'widget-only' ? 'widget' : (l.features === 'query-based' ? 'query' : l.features.toLocaleString()))}</span>
         `;
-        rect.bindPopup(popupHtml);
+        div.addEventListener('click', () => toggleLayer(id));
+        grid.appendChild(div);
     });
 }
 
-function renderCityList() {
-    const cities = [
-        { name: 'Asunción',                 lat: -25.2637, lon: -57.5759 },
-        { name: 'Ciudad del Este',          lat: -25.5097, lon: -54.6111 },
-        { name: 'Encarnación',              lat: -27.3367, lon: -55.8667 },
-        { name: 'Pedro Juan Caballero',     lat: -22.5446, lon: -55.7258 },
-        { name: 'Concepción',               lat: -23.4011, lon: -57.4411 },
-        { name: 'Villarrica',               lat: -25.7833, lon: -56.4500 },
-        { name: 'Coronel Oviedo',           lat: -25.4167, lon: -56.4000 },
-        { name: 'San Lorenzo',              lat: -25.3396, lon: -57.5089 },
-        { name: 'Luque',                    lat: -25.2699, lon: -57.4925 },
-        { name: 'Capiatá',                  lat: -25.3556, lon: -57.4178 },
-        { name: 'Fernando de la Mora',      lat: -25.3167, lon: -57.6000 },
-        { name: 'Lambaré',                  lat: -25.3200, lon: -57.6500 },
-        { name: 'Itauguá',                  lat: -25.3833, lon: -57.3500 },
-        { name: 'Mariano Roque Alonso',     lat: -25.1667, lon: -57.5500 },
-        { name: 'Presidente Franco',        lat: -25.5333, lon: -54.6167 },
-        { name: 'Pilar',                    lat: -26.8583, lon: -58.2986 },
-        { name: 'Caaguazú',                 lat: -25.4833, lon: -56.0167 },
-        { name: 'Salto del Guairá',         lat: -24.0667, lon: -54.3500 },
-        { name: 'San Juan Bautista',        lat: -26.6667, lon: -57.1500 },
-        { name: 'Caazapá',                  lat: -26.1500, lon: -56.3833 },
-    ];
+function updateLayerCount(id) {
+    layerState[id].features = arguments[1];
+    renderLayerGrid();
+    updateStats();
+}
+
+function toggleLayer(id) {
+    layerState[id].active = !layerState[id].active;
+    applyLayerVisibility(id);
+    renderLayerGrid();
+}
+
+function applyLayerVisibility(id) {
+    const groups = LAYER_GROUPS[id] || [];
+    const visible = layerState[id].active;
+    groups.forEach(g => { if (visible) g.addTo(map); else map.removeLayer(g); });
+}
+
+// ========== STATS COUNTERS ==========
+function updateStats() {
+    document.getElementById('statTiles').textContent = layerState.tile_fabric.features === '?' ? '—' : layerState.tile_fabric.features.toLocaleString();
+    document.getElementById('statPriority').textContent = layerState.priority_tiles.features === '?' ? '—' : layerState.priority_tiles.features;
+    document.getElementById('statDepts').textContent = layerState.departamentos_py.features === '?' ? '—' : layerState.departamentos_py.features;
+    document.getElementById('statListings').textContent = layerState.properties_infocasas.features === '?' ? '—' : layerState.properties_infocasas.features;
+    document.getElementById('statGbif').textContent = layerState.gbif_species.features === '?' ? '—' : layerState.gbif_species.features;
+    document.getElementById('statLayers').textContent = Object.values(layerState).filter(l => l.active).length;
+}
+
+// ========== LAYER GROUPS ==========
+const LAYER_GROUPS = {
+    tile_fabric:        [L.layerGroup()],
+    priority_tiles:     [L.layerGroup()],
+    departamentos_py:   [L.layerGroup()],
+    properties_infocasas:[L.layerGroup()],
+    gbif_species:       [L.layerGroup()],
+};
+
+// ========== BCP WIDGET + OVERLAY ==========
+async function loadBCP() {
+    try {
+        const r = await fetch('./data/bcp_snapshot.json');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const M = d.monetary, Mc = d.macro, B = d.banking_health, R = d.rate_types;
+        const widget = document.getElementById('bcpWidget');
+        widget.innerHTML = `
+            <h3>Banco Central del Paraguay (Feb 2026)</h3>
+            <div class="row"><span class="k">TPM</span><span class="v pos">${M.tpm_pct}%</span></div>
+            <div class="row"><span class="k">Inflación YoY</span><span class="v ${M.inflacion_interanual_pct < M.meta_inflacion_pct ? 'pos' : 'warn'}">${M.inflacion_interanual_pct}% (meta ${M.meta_inflacion_pct}%)</span></div>
+            <div class="row"><span class="k">PIB 2025</span><span class="v pos">+${Mc.pib_2025_growth_pct}%</span></div>
+            <div class="row"><span class="k">PIB 2026 (proj.)</span><span class="v">${Mc.pib_2026_proyeccion_pct}%</span></div>
+            <div class="row"><span class="k">RIN</span><span class="v">$${Mc.rin_usd_million.toLocaleString()}M</span></div>
+            <div class="row"><span class="k">Morosidad bancos</span><span class="v ${B.morosidad_bancos_pct < 3 ? 'pos' : 'warn'}">${B.morosidad_bancos_pct}%</span></div>
+            <div class="row"><span class="k">Morosidad financ.</span><span class="v ${B.morosidad_financieras_pct < 3 ? 'pos' : 'neg'}">${B.morosidad_financieras_pct}%</span></div>
+            <div class="row"><span class="k">Tasa activa ME</span><span class="v">${R.activa_me_bancos_pct}%</span></div>
+            <div class="row"><span class="k">Tasa pasiva ME</span><span class="v">${R.pasiva_me_bancos_pct}%</span></div>
+            <div class="row"><span class="k">Remesas 2008-2026</span><span class="v warn">$${d.remesas.total_2008_2026_million_usd.toLocaleString()}M</span></div>
+        `;
+        document.getElementById('bcpBadge').textContent = `BCP: TPM ${M.tpm_pct}% · PIB +${Mc.pib_2025_growth_pct}%`;
+        updateLayerCount('bcp_overlay', 'widget-only');
+    } catch (e) {
+        console.error('BCP load failed:', e);
+        document.getElementById('bcpWidget').innerHTML = `<h3>BCP load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+    }
+}
+
+// ========== NASA POWER WIDGET ==========
+async function loadClimate() {
+    try {
+        const r = await fetch('./data/nasa_power_asuncion.json');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const S = d.summary_2024;
+        const widget = document.getElementById('climateWidget');
+        widget.innerHTML = `
+            <h3>${d.point.label} (2024)</h3>
+            <div class="row"><span class="k">Avg temp</span><span class="v">${S.T2M.avg}°C</span></div>
+            <div class="row"><span class="k">Min / Max</span><span class="v">${S.T2M.min}°C / ${S.T2M.max}°C</span></div>
+            <div class="row"><span class="k">Avg precip/day</span><span class="v">${S.PRECTOTCORR.avg} mm</span></div>
+            <div class="row"><span class="k">Max precip/day</span><span class="v">${S.PRECTOTCORR.max} mm</span></div>
+            <div class="row"><span class="k">Avg solar</span><span class="v">${S.ALLSKY_SFC_SW_DWN.avg} MJ/m²</span></div>
+        `;
+        updateLayerCount('nasa_power_overlay', 'query-based');
+    } catch (e) {
+        console.error('Climate load failed:', e);
+        document.getElementById('climateWidget').innerHTML = `<h3>Climate load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+    }
+}
+
+// ========== TILE FABRIC ==========
+async function loadTileFabric() {
+    try {
+        const [fullRes, prioRes] = await Promise.all([
+            fetch('./data/tile_index.json'),
+            fetch('./data/priority_tiles.json'),
+        ]);
+        if (!fullRes.ok || !prioRes.ok) throw new Error('tile_index fetch failed');
+        const [full, prio] = await Promise.all([fullRes.json(), prioRes.json()]);
+        const prioIds = new Set(prio.tiles.map(t => t.tile_id));
+
+        updateLayerCount('tile_fabric', full.tiles.length);
+        updateLayerCount('priority_tiles', prio.tiles.length);
+
+        // Tile fabric — thin outlines so 7912 doesn't overwhelm render
+        const fabricGroup = LAYER_GROUPS.tile_fabric[0];
+        // Sample: only render 1 in 10 tiles for national view to keep DOM small
+        const sample = full.tiles.filter(t => prioIds.has(t.tile_id) || (Math.random() < 0.18));
+        sample.forEach(t => {
+            const [w, s, e, n] = t.bbox_wsen;
+            const isP = prioIds.has(t.tile_id);
+            const rect = L.rectangle([[s, w], [n, e]], {
+                color: isP ? '#2dd4bf' : '#1f2944',
+                weight: isP ? 1.5 : 0.6,
+                fillColor: isP ? '#0f766e' : '#134e48',
+                fillOpacity: isP ? 0.35 : 0.06,
+            }).bindPopup(`
+                <h3>Tile ${t.tile_id}</h3>
+                <div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>
+                <div class="row"><span class="k">Area</span><span class="v">${t.area_km2.toFixed(1)} km²</span></div>
+                <div class="row"><span class="k">UTM</span><span class="v">${t.utm_zone_hint}</span></div>
+                ${isP ? '<div class="row"><span class="k">Status</span><span class="v" style="color:#2dd4bf">PRIORITY</span></div>' : ''}
+                <div style="margin-top:6px;"><a href="./mapa.html?tile=${t.tile_id}">Open per-tile viewer →</a></div>
+            `);
+            rect.addTo(fabricGroup);
+        });
+
+        if (layerState.tile_fabric.active) fabricGroup.addTo(map);
+        if (layerState.priority_tiles.active) prio.tiles.forEach(t => {
+            const [w, s, e, n] = t.bbox_wsen;
+            const rect = L.rectangle([[s, w], [n, e]], {
+                color: '#2dd4bf', weight: 2, fillColor: '#2dd4bf', fillOpacity: 0.0,
+            }).bindPopup(`<h3>Priority ${t.tile_id}</h3><div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>`);
+            rect.addTo(LAYER_GROUPS.priority_tiles[0]);
+        });
+    } catch (e) {
+        console.error('Tile fabric failed:', e);
+        document.getElementById('fetchStatus').innerHTML = `<span style="color:var(--err)">Tile fabric failed: ${e.message}</span>`;
+    }
+}
+
+// ========== DEPARTAMENTOS ==========
+async function loadDepartamentos() {
+    try {
+        const r = await fetch('./data/admin/departamentos.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = d.features.filter(f => f.geometry && f.geometry.coordinates);
+        updateLayerCount('departamentos_py', features.length);
+
+        const group = LAYER_GROUPS.departamentos_py[0];
+        features.forEach(f => {
+            const layer = L.geoJSON(f, {
+                style: { color: '#60a5fa', weight: 1.5, fillColor: '#60a5fa', fillOpacity: 0.10 },
+                onEachFeature: (feat, l) => {
+                    const p = feat.properties;
+                    const center = l.getBounds().getCenter();
+                    l.bindPopup(`
+                        <h3>${p.name}</h3>
+                        <div class="row"><span class="k">ISO code</span><span class="v">${p.iso_code || '—'}</span></div>
+                        <div class="row"><span class="k">OSM id</span><span class="v">${p.osm_id}</span></div>
+                        <div class="row"><span class="k">Wikidata</span><span class="v"><a href="https://www.wikidata.org/wiki/${p.wikidata}" target="_blank">${p.wikidata || '—'}</a></span></div>
+                        <div class="row"><span class="k">Source</span><span class="v">OSM (ODbL)</span></div>
+                        ${p.iso_code ? `<div style="margin-top:6px;"><a href="https://www.google.com/maps?q=${center.lat},${center.lng}" target="_blank">View on maps →</a></div>` : ''}
+                    `);
+                }
+            });
+            layer.addTo(group);
+        });
+        if (layerState.departamentos_py.active) group.addTo(map);
+    } catch (e) {
+        console.error('Departamentos failed:', e);
+    }
+}
+
+// ========== PROPERTIES (infocasas) ==========
+async function loadProperties() {
+    try {
+        const r = await fetch('./data/properties_latest.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = d.features || [];
+        updateLayerCount('properties_infocasas', features.length);
+
+        const group = LAYER_GROUPS.properties_infocasas[0];
+        features.forEach(f => {
+            if (!f.geometry || !f.geometry.coordinates) return;
+            const [lon, lat] = f.geometry.coordinates;
+            const p = f.properties;
+            const price = p.price_pyg ? `Gs. ${p.price_pyg.toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})` : '—';
+            const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '—';
+            const m = L.circleMarker([lat, lon], {
+                radius: 6, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
+            });
+            m.bindPopup(`
+                <h3>Property</h3>
+                <div style="font-size:11px; color:var(--fg-dim); margin-bottom:6px; max-width:240px;">
+                    ${(p.source_url || '').replace('https://www.infocasas.com.py/', '')}
+                </div>
+                <div class="row"><span class="k">Source</span><span class="v">infocasas #${p.source_id}</span></div>
+                <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
+                <div class="row"><span class="k">Area</span><span class="v">${p.area_ha} ha</span></div>
+                <div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>
+                <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
+            `);
+            m.addTo(group);
+        });
+        if (layerState.properties_infocasas.active) group.addTo(map);
+
+        // Populate city list with listing counts
+        updateCityListWithCounts(features);
+    } catch (e) {
+        console.error('Properties failed:', e);
+    }
+}
+
+const ANCHOR_CITIES = [
+    { name: 'Asunción',                 lat: -25.2637, lon: -57.5759 },
+    { name: 'Ciudad del Este',          lat: -25.5097, lon: -54.6111 },
+    { name: 'Encarnación',              lat: -27.3367, lon: -55.8667 },
+    { name: 'Pedro Juan Caballero',     lat: -22.5446, lon: -55.7258 },
+    { name: 'Concepción',               lat: -23.4011, lon: -57.4411 },
+    { name: 'Villarrica',               lat: -25.7833, lon: -56.4500 },
+    { name: 'Coronel Oviedo',           lat: -25.4167, lon: -56.4000 },
+    { name: 'San Lorenzo',              lat: -25.3396, lon: -57.5089 },
+    { name: 'Luque',                    lat: -25.2699, lon: -57.4925 },
+    { name: 'Capiatá',                  lat: -25.3556, lon: -57.4178 },
+    { name: 'Fernando de la Mora',      lat: -25.3167, lon: -57.6000 },
+    { name: 'Lambaré',                  lat: -25.3200, lon: -57.6500 },
+    { name: 'Itauguá',                  lat: -25.3833, lon: -57.3500 },
+    { name: 'Mariano Roque Alonso',     lat: -25.1667, lon: -57.5500 },
+    { name: 'Presidente Franco',        lat: -25.5333, lon: -54.6167 },
+    { name: 'Pilar',                    lat: -26.8583, lon: -58.2986 },
+    { name: 'Caaguazú',                 lat: -25.4833, lon: -56.0167 },
+    { name: 'Salto del Guairá',         lat: -24.0667, lon: -54.3500 },
+    { name: 'San Juan Bautista',        lat: -26.6667, lon: -57.1500 },
+    { name: 'Caazapá',                  lat: -26.1500, lon: -56.3833 },
+];
+
+function updateCityListWithCounts(propertyFeatures) {
     const list = document.getElementById('cityList');
-    cities.forEach(c => {
+    list.innerHTML = '';
+    ANCHOR_CITIES.forEach(c => {
+        // simple proximity: count listings within 30 km
+        const nearby = propertyFeatures.filter(f => {
+            const [lon, lat] = f.geometry.coordinates;
+            const dlat = lat - c.lat, dlon = lon - c.lon;
+            const km = Math.sqrt(dlat*dlat * 111 * dlat*dlat * 111 + dlon*dlon * 111 * dlon*dlon * 111);
+            return Math.hypot(dlat * 111, dlon * 111 * Math.cos(c.lat * Math.PI / 180)) < 30;
+        });
         const div = document.createElement('div');
-        div.className = 'city';
-        div.innerHTML = `<span>${c.name}</span><span class="coord">${c.lat.toFixed(2)}, ${c.lon.toFixed(2)}</span>`;
+        div.className = 'city' + (nearby.length > 0 ? ' has-listings' : '');
+        div.innerHTML = `<span>${c.name}</span><span class="count">${nearby.length > 0 ? nearby.length + ' listings' : '—'}</span>`;
         div.addEventListener('click', () => {
             map.flyTo([c.lat, c.lon], 11, { duration: 0.7 });
-            const marker = L.circleMarker([c.lat, c.lon], {
-                radius: 10, color: '#2dd4bf', fillColor: '#2dd4bf', fillOpacity: 0.7,
-            }).addTo(map).bindPopup(`<h3>${c.name}</h3><div>Anchor city — Phase 1 priority</div>`).openPopup();
-            setTimeout(() => map.removeLayer(marker), 4000);
+            L.circleMarker([c.lat, c.lon], {
+                radius: 9, color: '#2dd4bf', fillColor: '#2dd4bf', fillOpacity: 0.7,
+            }).addTo(map).bindPopup(`<h3>${c.name}</h3><div>${nearby.length} properties within 30 km</div>`).openPopup();
+            setTimeout(() => { map.eachLayer(l => { if (l instanceof L.CircleMarker && l.getLatLng().lat === c.lat && l.getLatLng().lng === c.lon) map.removeLayer(l); }); }, 4500);
         });
         list.appendChild(div);
     });
-
     document.getElementById('cityFilter').addEventListener('input', (e) => {
         const q = e.target.value.toLowerCase();
         list.querySelectorAll('.city').forEach(el => {
@@ -325,21 +541,61 @@ function renderCityList() {
     });
 }
 
-function hideLoading() {
-    const banner = document.getElementById('loading');
-    if (banner) {
-        banner.classList.add('hidden');
-        setTimeout(() => banner.remove(), 300);
+// ========== GBIF SPECIES ==========
+async function loadGBIF() {
+    try {
+        const r = await fetch('./data/gbif_paraguay.geojson');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        const features = d.features || [];
+        updateLayerCount('gbif_species', features.length);
+
+        const group = LAYER_GROUPS.gbif_species[0];
+        features.forEach(f => {
+            if (!f.geometry || !f.geometry.coordinates) return;
+            const [lon, lat] = f.geometry.coordinates;
+            const p = f.properties;
+            const color = p.kingdom === 'Animalia' ? '#f59e0b' : '#10b981';
+            const m = L.circleMarker([lat, lon], {
+                radius: 4, color, fillColor: color, fillOpacity: 0.85, weight: 1,
+            });
+            m.bindPopup(`
+                <h3>${p.species}</h3>
+                <div class="row"><span class="k">Kingdom</span><span class="v">${p.kingdom}</span></div>
+                <div class="row"><span class="k">Family</span><span class="v">${p.family || '—'}</span></div>
+                <div class="row"><span class="k">Date</span><span class="v">${p.event_date || '—'}</span></div>
+                <div class="row"><span class="k">Source</span><span class="v">GBIF</span></div>
+                ${p.license ? `<div class="row"><span class="k">License</span><span class="v" style="font-size:9px">${p.license.split('/').slice(-2, -1)[0] || '—'}</span></div>` : ''}
+            `);
+            m.addTo(group);
+        });
+        if (layerState.gbif_species.active) group.addTo(map);
+    } catch (e) {
+        console.error('GBIF load failed:', e);
     }
 }
 
-bootstrap();
+// ========== BOOTSTRAP ==========
+renderLayerGrid();
+loadBCP();
+loadClimate();
+loadTileFabric();
+loadDepartamentos();
+loadProperties();
+loadGBIF();
+
+function hideLoading() {
+    const b = document.getElementById('loading');
+    if (b) { b.classList.add('hidden'); setTimeout(() => b.remove(), 300); }
+}
+setTimeout(hideLoading, 1800);
 
 // Deploy metadata
 fetch('./data/deploy-meta.json').then(r => r.ok ? r.json() : null).then(m => {
     if (m) {
-        document.getElementById('lastCommit').textContent = m.commit_short || '?';
-        document.getElementById('deployTime').textContent = m.deployed_at || '?';
+        document.getElementById('lastCommit').textContent = m.commit || '?';
+        document.getElementById('fetchStatus').innerHTML =
+            `<span style="color:var(--accent)">✓ Live: ${m.layers_loaded.length} layers · ${m.live_features_total.toLocaleString()} tile fabric points</span>`;
     }
 }).catch(() => {});
 </script>

@@ -1,87 +1,28 @@
+# Big/raw files we don't ship (we keep *latest* in exports/web/data/)
+data/properties/cache/
+data/properties/snapshots/
+
 # Python
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-*.egg-info/
 .pytest_cache/
-.ruff_cache/
-.mypy_cache/
-.venv/
-venv/
-env/
 
 # Editor / OS
 .DS_Store
 .vscode/
 .idea/
-*.swp
-*.tmp
-*.bak
 
-# Data — heavy rasters and snapshots stay LOCAL or go to R2 (NEVER to git)
-data/tiles/*/dem/
-data/tiles/*/sentinel2/
-data/tiles/*/esri/
-data/tiles/*/firms/
-data/tiles/*/gbif/
-data/tiles/*/raw/
-data/tiles/*/build/
-!data/tiles_seed/    # tracked: per-tile metadata templates for priority tiles
-data/tiles/          # gitignored — lazy-created by fetch_tile.py on Phase 1
-*.tif
+# Local
+.env
+.env.local
+
+# Tiles / rasters we may eventually fetch (very large)
+*.dem.tif
 *.tiff
-*.jp2
-*.img
-*.hdf
-*.nc
+*.tif
 
-# R2-bound heavy outputs (deploy skips these)
-exports/big_data_excluded_from_deploy/
-!exports/big_data_excluded_from_deploy/.gitkeep
-
-# CF Pages bound maxed-out assets
-exports/web/data/tiles/
-!exports/web/data/tiles/.gitkeep
-exports/web/data/*.tif
-exports/web/data/*.jp2
-exports/web/data/*.hdf
-# Sub-25-MiB GeoJSONs + rasters CAN be tracked
-!exports/web/data/**/*.geojson
-!exports/web/data/**/*.json
-!exports/web/data/**/*.png
-!exports/web/data/**/*.webp
-!exports/web/data/**/*.jpg
-
-# Properties snapshots (PII-adjacent — never commit raw scrapes with owner names)
-data/properties/raw/
-data/properties/snapshots/
-
-# Cadastre (operator-supplied escritura bundles only — never commit deeds without redaction)
-data/cadastre/escrituras/
-
-# Splats 3DGS training outputs (large binary blobs)
-splats/captures/
-splats/exports/*.ply
-splats/exports/*.spz
-splats/exports/splat/
-!splats/exports/web/
-
-# Tests
-.coverage
-coverage/
-.nyc_output/
-
-# Wrangler deploy state
-.wrangler/
-.migrate-to-wrangler-*/
-
-# Logs
-*.log
-logs/
-
-# Hermes scratch dirs that accidentally got created here
-.hermes/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Big raw Geofabrik / OSM PBF downloads
+*.osm.pbf
+*.shp.zip
+*.gpkg.zip

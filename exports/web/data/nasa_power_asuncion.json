@@ -1,0 +1,32 @@
+{
+  "source": "NASA POWER (no key, daily 2024)",
+  "point": {
+    "lat": -25.26,
+    "lon": -57.58,
+    "label": "Asunci\u00f3n CENTROID"
+  },
+  "summary_2024": {
+    "T2M": {
+      "unit": "see NASA POWER docs",
+      "n": 366,
+      "avg": 23.73,
+      "min": 5.55,
+      "max": 34.59
+    },
+    "PRECTOTCORR": {
+      "unit": "see NASA POWER docs",
+      "n": 366,
+      "avg": 3.78,
+      "min": 0.0,
+      "max": 65.18
+    },
+    "ALLSKY_SFC_SW_DWN": {
+      "unit": "see NASA POWER docs",
+      "n": 366,
+      "avg": 17.04,
+      "min": 1.52,
+      "max": 32.05
+    }
+  },
+  "data_url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+}

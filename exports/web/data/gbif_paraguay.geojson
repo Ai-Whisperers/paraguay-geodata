@@ -1,0 +1,3805 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.4809,
+          -25.1718
+        ]
+      },
+      "properties": {
+        "species": "Turdus amaurochalinus",
+        "kingdom": "Animalia",
+        "family": "Turdidae",
+        "event_date": "2026-01-01T12:09:47",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.492027,
+          -24.937526
+        ]
+      },
+      "properties": {
+        "species": "Caracara plancus",
+        "kingdom": "Animalia",
+        "family": "Falconidae",
+        "event_date": "2026-01-02T09:55:03",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5446,
+          -25.3286
+        ]
+      },
+      "properties": {
+        "species": "Sicalis flaveola",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-01T18:34:34",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.527825,
+          -25.304973
+        ]
+      },
+      "properties": {
+        "species": "Polioptila dumicola",
+        "kingdom": "Animalia",
+        "family": "Polioptilidae",
+        "event_date": "2026-01-02T14:29:19",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.596045,
+          -25.299937
+        ]
+      },
+      "properties": {
+        "species": "Sapindus saponaria",
+        "kingdom": "Plantae",
+        "family": "Sapindaceae",
+        "event_date": "2026-01-01T13:35:22",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.883432,
+          -25.611671
+        ]
+      },
+      "properties": {
+        "species": "Ictinia mississippiensis",
+        "kingdom": "Animalia",
+        "family": "Accipitridae",
+        "event_date": "2026-01-05T10:21",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.544,
+          -25.328
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-01T18:38:25",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.566106,
+          -27.051026
+        ]
+      },
+      "properties": {
+        "species": "Nesticodes rufipes",
+        "kingdom": "Animalia",
+        "family": "Theridiidae",
+        "event_date": "2026-01-02T17:06",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.502042,
+          -24.903118
+        ]
+      },
+      "properties": {
+        "species": "Guira guira",
+        "kingdom": "Animalia",
+        "family": "Cuculidae",
+        "event_date": "2026-01-02T07:36:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.870762,
+          -25.60758
+        ]
+      },
+      "properties": {
+        "species": "Brotogeris chiriri",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-03T08:25:14",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.528,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Myiopsitta monachus",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-03T17:57:05",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.879222,
+          -25.461742
+        ]
+      },
+      "properties": {
+        "species": "Phoneutria nigriventer",
+        "kingdom": "Animalia",
+        "family": "Ctenidae",
+        "event_date": "2026-01-02T14:10:34",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5441,
+          -25.3279
+        ]
+      },
+      "properties": {
+        "species": "Myiopsitta monachus",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-01T18:36:42",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5287,
+          -25.3323
+        ]
+      },
+      "properties": {
+        "species": "Leptotila verreauxi",
+        "kingdom": "Animalia",
+        "family": "Columbidae",
+        "event_date": "2026-01-03T12:03:02",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.576457,
+          -25.260084
+        ]
+      },
+      "properties": {
+        "species": "Commelina platyphylla",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-04T09:16:22",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.546588,
+          -25.384512
+        ]
+      },
+      "properties": {
+        "species": "Ascalapha odorata",
+        "kingdom": "Animalia",
+        "family": "Erebidae",
+        "event_date": "2026-01-05T06:59:17",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5275,
+          -25.3328
+        ]
+      },
+      "properties": {
+        "species": "Sicalis flaveola",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-03T17:59:55",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5282,
+          -25.3325
+        ]
+      },
+      "properties": {
+        "species": "Oecobius navus",
+        "kingdom": "Animalia",
+        "family": "Oecobiidae",
+        "event_date": "2026-01-02T21:22:55",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.484915,
+          -24.898372
+        ]
+      },
+      "properties": {
+        "species": "Theristicus caerulescens",
+        "kingdom": "Animalia",
+        "family": "Threskiornithidae",
+        "event_date": "2026-01-02T07:44:08",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5603,
+          -25.392
+        ]
+      },
+      "properties": {
+        "species": "Hylocharis chrysura",
+        "kingdom": "Animalia",
+        "family": "Trochilidae",
+        "event_date": "2026-01-04T19:37:48",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.527233,
+          -24.915818
+        ]
+      },
+      "properties": {
+        "species": "Vanellus chilensis",
+        "kingdom": "Animalia",
+        "family": "Charadriidae",
+        "event_date": "2026-01-02T10:41:39",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5282,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Supella longipalpa",
+        "kingdom": "Animalia",
+        "family": "Ectobiidae",
+        "event_date": "2026-01-01T23:33:44",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.611763,
+          -25.523886
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-03T15:03:06",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5275,
+          -25.333
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-03T17:59:22",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5282,
+          -25.3325
+        ]
+      },
+      "properties": {
+        "species": "Tyrannus melancholicus",
+        "kingdom": "Animalia",
+        "family": "Tyrannidae",
+        "event_date": "2026-01-02T13:19:04",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.018226,
+          -25.461547
+        ]
+      },
+      "properties": {
+        "species": "Kukulcania hibernalis",
+        "kingdom": "Animalia",
+        "family": "Filistatidae",
+        "event_date": "2026-01-04T01:04:41",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.544,
+          -25.328
+        ]
+      },
+      "properties": {
+        "species": "Myiopsitta monachus",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-01T18:38:18",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5446,
+          -25.3286
+        ]
+      },
+      "properties": {
+        "species": "Sicalis flaveola",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-01T18:34:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.534572,
+          -25.349253
+        ]
+      },
+      "properties": {
+        "species": "Amphilophium paniculatum",
+        "kingdom": "Plantae",
+        "family": "Bignoniaceae",
+        "event_date": "2026-01-04T19:32",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5157,
+          -25.3395
+        ]
+      },
+      "properties": {
+        "species": "Cydianerus latruncularius",
+        "kingdom": "Animalia",
+        "family": "Curculionidae",
+        "event_date": "2026-01-03T20:48:43",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5261,
+          -25.335
+        ]
+      },
+      "properties": {
+        "species": "Myiopsitta monachus",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-03T18:12:02",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.576457,
+          -25.260084
+        ]
+      },
+      "properties": {
+        "species": "Commelina erecta",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-04T09:16:47",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.4808,
+          -25.1718
+        ]
+      },
+      "properties": {
+        "species": "Molothrus bonariensis",
+        "kingdom": "Animalia",
+        "family": "Icteridae",
+        "event_date": "2026-01-01T12:10:58",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.85513,
+          -27.325332
+        ]
+      },
+      "properties": {
+        "species": "Diabrotica speciosa",
+        "kingdom": "Animalia",
+        "family": "Chrysomelidae",
+        "event_date": "2026-01-17T12:26:44",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5261,
+          -25.3354
+        ]
+      },
+      "properties": {
+        "species": "Paratrechina longicornis",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-07T19:19:52",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.601792,
+          -25.310962
+        ]
+      },
+      "properties": {
+        "species": "Chromacris speciosa",
+        "kingdom": "Animalia",
+        "family": "Romaleidae",
+        "event_date": "2026-01-17T13:42:24",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.384065,
+          -25.304179
+        ]
+      },
+      "properties": {
+        "species": "Thaumatophyllum tweedieanum",
+        "kingdom": "Plantae",
+        "family": "Araceae",
+        "event_date": "2026-01-24T13:55",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.517,
+          -25.3401
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-07T11:30:27",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.149923,
+          -27.22163
+        ]
+      },
+      "properties": {
+        "species": "Anartia jatrophae",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-05T10:41",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.05107,
+          -22.29031
+        ]
+      },
+      "properties": {
+        "species": "Araneus uniformis",
+        "kingdom": "Animalia",
+        "family": "Araneidae",
+        "event_date": "2026-01-11T21:26",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5283,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Conocephalus longipes",
+        "kingdom": "Animalia",
+        "family": "Tettigoniidae",
+        "event_date": "2026-01-11T22:44:16",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5258,
+          -25.3383
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-21T15:28:30",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5252,
+          -25.3337
+        ]
+      },
+      "properties": {
+        "species": "Anartia jatrophae",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-15T07:43:44",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.011917,
+          -26.219589
+        ]
+      },
+      "properties": {
+        "species": "Justicia brasiliana",
+        "kingdom": "Plantae",
+        "family": "Acanthaceae",
+        "event_date": "2026-01-14T16:36",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.501143,
+          -25.241091
+        ]
+      },
+      "properties": {
+        "species": "Solanum sisymbriifolium",
+        "kingdom": "Plantae",
+        "family": "Solanaceae",
+        "event_date": "2026-01-21T12:20:28",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.377121,
+          -25.304752
+        ]
+      },
+      "properties": {
+        "species": "Epiphyllum phyllanthus",
+        "kingdom": "Plantae",
+        "family": "Cactaceae",
+        "event_date": "2026-01-24T15:31:03",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5266,
+          -25.3368
+        ]
+      },
+      "properties": {
+        "species": "Anartia jatrophae",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-23T09:22:50",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.536525,
+          -25.339952
+        ]
+      },
+      "properties": {
+        "species": "Oxidus gracilis",
+        "kingdom": "Animalia",
+        "family": "Paradoxosomatidae",
+        "event_date": "2026-01-07T23:36:27",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.015033,
+          -25.243111
+        ]
+      },
+      "properties": {
+        "species": "Papilio astyalus",
+        "kingdom": "Animalia",
+        "family": "Papilionidae",
+        "event_date": "2026-01-24T12:19:04",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.7529,
+          -27.054798
+        ]
+      },
+      "properties": {
+        "species": "Anartia jatrophae",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-05T20:10:03",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5274,
+          -25.3311
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-18T16:58:39",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.584538,
+          -25.404863
+        ]
+      },
+      "properties": {
+        "species": "Guyalna bonaerensis",
+        "kingdom": "Animalia",
+        "family": "Cicadidae",
+        "event_date": "2026-01-02T23:03:39",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.824592,
+          -26.971138
+        ]
+      },
+      "properties": {
+        "species": "Diloboderus abderus",
+        "kingdom": "Animalia",
+        "family": "Scarabaeidae",
+        "event_date": "2026-01-06T14:09:04",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.523,
+          -25.3383
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-17T13:03:55",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.696842,
+          -25.54196
+        ]
+      },
+      "properties": {
+        "species": "Amphisbaena mertensii",
+        "kingdom": "Animalia",
+        "family": "Amphisbaenidae",
+        "event_date": "2026-01-17T15:01:56",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.036028,
+          -26.211442
+        ]
+      },
+      "properties": {
+        "species": "Begonia cucullata",
+        "kingdom": "Plantae",
+        "family": "Begoniaceae",
+        "event_date": "2026-01-14T11:36",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.384155,
+          -25.315258
+        ]
+      },
+      "properties": {
+        "species": "Battus polydamas",
+        "kingdom": "Animalia",
+        "family": "Papilionidae",
+        "event_date": "2026-01-21T16:18:41",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.870709,
+          -25.607788
+        ]
+      },
+      "properties": {
+        "species": "Zoniopoda omnicolor",
+        "kingdom": "Animalia",
+        "family": "Romaleidae",
+        "event_date": "2026-01-12T15:13:28",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.553828,
+          -25.27137
+        ]
+      },
+      "properties": {
+        "species": "Alternanthera hirtula",
+        "kingdom": "Plantae",
+        "family": "Amaranthaceae",
+        "event_date": "2026-01-15T13:09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -59.943275,
+          -22.315344
+        ]
+      },
+      "properties": {
+        "species": "Mycteria americana",
+        "kingdom": "Animalia",
+        "family": "Ciconiidae",
+        "event_date": "2026-01-11T18:20",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.11915,
+          -22.345171
+        ]
+      },
+      "properties": {
+        "species": "Homonota horrida",
+        "kingdom": "Animalia",
+        "family": "Phyllodactylidae",
+        "event_date": "2026-01-20T20:40",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.139872,
+          -25.613111
+        ]
+      },
+      "properties": {
+        "species": "Canna indica",
+        "kingdom": "Plantae",
+        "family": "Cannaceae",
+        "event_date": "2026-01-10T15:25:32",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.973,
+          -25.54468
+        ]
+      },
+      "properties": {
+        "species": "Sidastrum paniculatum",
+        "kingdom": "Plantae",
+        "family": "Malvaceae",
+        "event_date": "2026-01-09T11:11",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.425439,
+          -25.245361
+        ]
+      },
+      "properties": {
+        "species": "Rupornis magnirostris",
+        "kingdom": "Animalia",
+        "family": "Accipitridae",
+        "event_date": "2026-01-15T13:14",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.585197,
+          -25.405368
+        ]
+      },
+      "properties": {
+        "species": "Commelina platyphylla",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-03T06:59:57",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.063763,
+          -25.463016
+        ]
+      },
+      "properties": {
+        "species": "Guira guira",
+        "kingdom": "Animalia",
+        "family": "Cuculidae",
+        "event_date": "2026-01-04T08:46:46",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5275,
+          -25.3327
+        ]
+      },
+      "properties": {
+        "species": "Sicalis flaveola",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-06T16:59:43",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.532943,
+          -27.068289
+        ]
+      },
+      "properties": {
+        "species": "Melanerpes candidus",
+        "kingdom": "Animalia",
+        "family": "Picidae",
+        "event_date": "2026-01-04T17:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5216,
+          -25.3398
+        ]
+      },
+      "properties": {
+        "species": "Rhinella diptycha",
+        "kingdom": "Animalia",
+        "family": "Bufonidae",
+        "event_date": "2026-01-24T23:45:09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5099,
+          -25.3546
+        ]
+      },
+      "properties": {
+        "species": "Polybia sericea",
+        "kingdom": "Animalia",
+        "family": "Eumenidae",
+        "event_date": "2026-01-13T18:20:48",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5273,
+          -25.3323
+        ]
+      },
+      "properties": {
+        "species": "Sicalis flaveola",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-06T17:00:35",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5282,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Saltator coerulescens",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-12T15:12:47",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.630858,
+          -25.559797
+        ]
+      },
+      "properties": {
+        "species": "Salvator merianae",
+        "kingdom": "Animalia",
+        "family": "Teiidae",
+        "event_date": "2026-01-03T15:11:23",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5206,
+          -25.3346
+        ]
+      },
+      "properties": {
+        "species": "Sicalis flaveola",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-06T13:32:54",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.368192,
+          -25.362997
+        ]
+      },
+      "properties": {
+        "species": "Latrodectus corallinus",
+        "kingdom": "Animalia",
+        "family": "Theridiidae",
+        "event_date": "2026-01-22T11:35:31",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.543153,
+          -25.384883
+        ]
+      },
+      "properties": {
+        "species": "Prepona demophon",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-11T16:58:15",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.418318,
+          -27.049273
+        ]
+      },
+      "properties": {
+        "species": "Mycteria americana",
+        "kingdom": "Animalia",
+        "family": "Ciconiidae",
+        "event_date": "2026-01-11T12:45:17",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.797987,
+          -27.190414
+        ]
+      },
+      "properties": {
+        "species": "Diaethria clymena",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-25T08:29:04",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.566106,
+          -27.051026
+        ]
+      },
+      "properties": {
+        "species": "Sosxetra grata",
+        "kingdom": "Animalia",
+        "family": "Erebidae",
+        "event_date": "2026-01-20T12:00",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5279,
+          -25.338
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-26T10:22:22",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.842994,
+          -27.383065
+        ]
+      },
+      "properties": {
+        "species": "Erinnyis crameri",
+        "kingdom": "Animalia",
+        "family": "Sphingidae",
+        "event_date": "2026-01-09T21:05:16",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.063763,
+          -25.463016
+        ]
+      },
+      "properties": {
+        "species": "Myiodynastes maculatus",
+        "kingdom": "Animalia",
+        "family": "Tyrannidae",
+        "event_date": "2026-01-04T09:23:55",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.517,
+          -25.3398
+        ]
+      },
+      "properties": {
+        "species": "Leptotila verreauxi",
+        "kingdom": "Animalia",
+        "family": "Columbidae",
+        "event_date": "2026-01-08T15:02:46",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.289609,
+          -26.851175
+        ]
+      },
+      "properties": {
+        "species": "Commelina erecta",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-14T11:53:13",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.054178,
+          -26.204725
+        ]
+      },
+      "properties": {
+        "species": "Lippia angustifolia",
+        "kingdom": "Plantae",
+        "family": "Verbenaceae",
+        "event_date": "2026-01-14T08:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.063763,
+          -25.463016
+        ]
+      },
+      "properties": {
+        "species": "Vanellus chilensis",
+        "kingdom": "Animalia",
+        "family": "Charadriidae",
+        "event_date": "2026-01-04T08:39:24",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.958084,
+          -27.389581
+        ]
+      },
+      "properties": {
+        "species": "Gloora mundula",
+        "kingdom": "Animalia",
+        "family": "Erebidae",
+        "event_date": "2026-01-11T00:53:21",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.954664,
+          -25.546311
+        ]
+      },
+      "properties": {
+        "species": "Pteroglossus castanotis",
+        "kingdom": "Animalia",
+        "family": "Ramphastidae",
+        "event_date": "2026-01-08T19:35:23",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.070491,
+          -22.238776
+        ]
+      },
+      "properties": {
+        "species": "Homonota horrida",
+        "kingdom": "Animalia",
+        "family": "Phyllodactylidae",
+        "event_date": "2026-01-17T20:47",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.383339,
+          -25.304778
+        ]
+      },
+      "properties": {
+        "species": "Erythrina crista-galli",
+        "kingdom": "Plantae",
+        "family": "Fabaceae",
+        "event_date": "2026-01-24T13:59:15",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.985656,
+          -26.261731
+        ]
+      },
+      "properties": {
+        "species": "Turdus rufiventris",
+        "kingdom": "Animalia",
+        "family": "Turdidae",
+        "event_date": "2026-01-14T18:27",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.418318,
+          -27.049273
+        ]
+      },
+      "properties": {
+        "species": "Aramus guarauna",
+        "kingdom": "Animalia",
+        "family": "Aramidae",
+        "event_date": "2026-01-11T12:45:17",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.643657,
+          -25.869968
+        ]
+      },
+      "properties": {
+        "species": "Notomabuya frenata",
+        "kingdom": "Animalia",
+        "family": "Scincidae",
+        "event_date": "2026-01-18T10:42",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.517,
+          -25.3401
+        ]
+      },
+      "properties": {
+        "species": "Brotogeris chiriri",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-07T11:29:43",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.063763,
+          -25.463016
+        ]
+      },
+      "properties": {
+        "species": "Molothrus rufoaxillaris",
+        "kingdom": "Animalia",
+        "family": "Icteridae",
+        "event_date": "2026-01-04T10:51:01",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.912914,
+          -25.913374
+        ]
+      },
+      "properties": {
+        "species": "Trichilia pallida",
+        "kingdom": "Plantae",
+        "family": "Meliaceae",
+        "event_date": "2026-01-06T19:02:16",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5242,
+          -25.3388
+        ]
+      },
+      "properties": {
+        "species": "Tetragonisca fiebrigi",
+        "kingdom": "Animalia",
+        "family": "Apidae",
+        "event_date": "2026-01-06T12:55:42",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.321575,
+          -25.29323
+        ]
+      },
+      "properties": {
+        "species": "Eriopis connexa",
+        "kingdom": "Animalia",
+        "family": "Coccinellidae",
+        "event_date": "2026-01-03T12:48:24",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.425486,
+          -25.245447
+        ]
+      },
+      "properties": {
+        "species": "Hydropsalis torquata",
+        "kingdom": "Animalia",
+        "family": "Caprimulgidae",
+        "event_date": "2026-01-15T20:53",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.94833,
+          -27.085097
+        ]
+      },
+      "properties": {
+        "species": "Cirsium vulgare",
+        "kingdom": "Plantae",
+        "family": "Asteraceae",
+        "event_date": "2026-01-11T10:42:05",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.87071,
+          -25.60768
+        ]
+      },
+      "properties": {
+        "species": "Eupyrrhoglossum sagra",
+        "kingdom": "Animalia",
+        "family": "Sphingidae",
+        "event_date": "2026-01-12T00:17:31",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.870766,
+          -25.607809
+        ]
+      },
+      "properties": {
+        "species": "Alpaida carminea",
+        "kingdom": "Animalia",
+        "family": "Araneidae",
+        "event_date": "2026-01-13T20:09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.425092,
+          -25.243869
+        ]
+      },
+      "properties": {
+        "species": "Nyctidromus albicollis",
+        "kingdom": "Animalia",
+        "family": "Caprimulgidae",
+        "event_date": "2026-01-15T20:29",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.526,
+          -25.3339
+        ]
+      },
+      "properties": {
+        "species": "Hermetia illucens",
+        "kingdom": "Animalia",
+        "family": "Stratiomyidae",
+        "event_date": "2026-01-08T15:39:49",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.035766,
+          -26.211067
+        ]
+      },
+      "properties": {
+        "species": "Thaumatophyllum bipinnatifidum",
+        "kingdom": "Plantae",
+        "family": "Araceae",
+        "event_date": "2026-01-14T11:39",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.47471,
+          -24.851555
+        ]
+      },
+      "properties": {
+        "species": "Aramides ypecaha",
+        "kingdom": "Animalia",
+        "family": "Rallidae",
+        "event_date": "2026-01-02T07:58:13",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5197,
+          -25.313597
+        ]
+      },
+      "properties": {
+        "species": "Mallodon dasystomum",
+        "kingdom": "Animalia",
+        "family": "Cerambycidae",
+        "event_date": "2026-01-06T19:10",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.293905,
+          -24.966607
+        ]
+      },
+      "properties": {
+        "species": "Rhinella diptycha",
+        "kingdom": "Animalia",
+        "family": "Bufonidae",
+        "event_date": "2026-01-11T22:14:50",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5247,
+          -25.3387
+        ]
+      },
+      "properties": {
+        "species": "Cephalotes pusillus",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-14T16:04:21",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.540318,
+          -25.247
+        ]
+      },
+      "properties": {
+        "species": "Megalobulimus oblongus",
+        "kingdom": "Animalia",
+        "family": "Strophocheilidae",
+        "event_date": "2026-01-03T06:16:48",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.376234,
+          -25.30416
+        ]
+      },
+      "properties": {
+        "species": "Columba livia",
+        "kingdom": "Animalia",
+        "family": "Columbidae",
+        "event_date": "2026-01-24T15:29:08",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.78523,
+          -26.511004
+        ]
+      },
+      "properties": {
+        "species": "Strix virgata",
+        "kingdom": "Animalia",
+        "family": "Strigidae",
+        "event_date": "2026-01-24T23:31:12",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.524,
+          -25.3397
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-23T16:47:53",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5261,
+          -25.3354
+        ]
+      },
+      "properties": {
+        "species": "Paratrechina longicornis",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-07T19:19:50",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.025661,
+          -22.353951
+        ]
+      },
+      "properties": {
+        "species": "Dryadula phaetusa",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-18T09:13",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.432425,
+          -25.253872
+        ]
+      },
+      "properties": {
+        "species": "Handroanthus heptaphyllus",
+        "kingdom": "Plantae",
+        "family": "Bignoniaceae",
+        "event_date": "2026-01-15T16:00",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.631455,
+          -25.561289
+        ]
+      },
+      "properties": {
+        "species": "Ardea alba",
+        "kingdom": "Animalia",
+        "family": "Ardeidae",
+        "event_date": "2026-01-03T13:24:13",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.529,
+          -25.3312
+        ]
+      },
+      "properties": {
+        "species": "Paratrechina longicornis",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-10T21:48:23",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.054631,
+          -26.204428
+        ]
+      },
+      "properties": {
+        "species": "Justicia brasiliana",
+        "kingdom": "Plantae",
+        "family": "Acanthaceae",
+        "event_date": "2026-01-14T09:09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.383915,
+          -25.304023
+        ]
+      },
+      "properties": {
+        "species": "Erythrina crista-galli",
+        "kingdom": "Plantae",
+        "family": "Fabaceae",
+        "event_date": "2026-01-24T13:55:43",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5303,
+          -25.3283
+        ]
+      },
+      "properties": {
+        "species": "Smeringopus pallidus",
+        "kingdom": "Animalia",
+        "family": "Pholcidae",
+        "event_date": "2026-01-11T22:20:09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.088735,
+          -25.282478
+        ]
+      },
+      "properties": {
+        "species": "Sinningia aggregata",
+        "kingdom": "Plantae",
+        "family": "Gesneriaceae",
+        "event_date": "2026-01-26T12:27:33",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.29317,
+          -24.967061
+        ]
+      },
+      "properties": {
+        "species": "Pseudis platensis",
+        "kingdom": "Animalia",
+        "family": "Hylidae",
+        "event_date": "2026-01-08",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.077513,
+          -22.235762
+        ]
+      },
+      "properties": {
+        "species": "Xenoctenus unguiculatus",
+        "kingdom": "Animalia",
+        "family": "Xenoctenidae",
+        "event_date": "2026-01-16T20:24",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.082572,
+          -22.302515
+        ]
+      },
+      "properties": {
+        "species": "Oxyrhopus rhombifer",
+        "kingdom": "Animalia",
+        "family": "Colubridae",
+        "event_date": "2026-01-21T20:48",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.035763,
+          -26.199963
+        ]
+      },
+      "properties": {
+        "species": "Syrigma sibilatrix",
+        "kingdom": "Animalia",
+        "family": "Ardeidae",
+        "event_date": "2026-01-14T11:50",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5154,
+          -25.353
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-13T18:39:19",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.054436,
+          -26.204392
+        ]
+      },
+      "properties": {
+        "species": "Adiantopsis radiata",
+        "kingdom": "Plantae",
+        "family": "Pteridaceae",
+        "event_date": "2026-01-14T08:49",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.523,
+          -25.3383
+        ]
+      },
+      "properties": {
+        "species": "Agelaioides badius",
+        "kingdom": "Animalia",
+        "family": "Icteridae",
+        "event_date": "2026-01-17T13:04:06",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.29317,
+          -24.967061
+        ]
+      },
+      "properties": {
+        "species": "Scinax acuminatus",
+        "kingdom": "Animalia",
+        "family": "Hylidae",
+        "event_date": "2026-01-09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.85747,
+          -27.389406
+        ]
+      },
+      "properties": {
+        "species": "Adimantus ornatissimus",
+        "kingdom": "Animalia",
+        "family": "Acrididae",
+        "event_date": "2026-01-03T23:39:33",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.784182,
+          -26.511512
+        ]
+      },
+      "properties": {
+        "species": "Strix virgata",
+        "kingdom": "Animalia",
+        "family": "Strigidae",
+        "event_date": "2026-01-24T23:31:33",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5265,
+          -25.3379
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-09T08:59:16",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.973,
+          -25.54468
+        ]
+      },
+      "properties": {
+        "species": "Phthiacnemia picta",
+        "kingdom": "Animalia",
+        "family": "Coreidae",
+        "event_date": "2026-01-09T11:31",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5304,
+          -25.3306
+        ]
+      },
+      "properties": {
+        "species": "Quesada gigas",
+        "kingdom": "Animalia",
+        "family": "Cicadidae",
+        "event_date": "2026-01-11T21:44:15",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5327,
+          -25.341
+        ]
+      },
+      "properties": {
+        "species": "Latrodectus geometricus",
+        "kingdom": "Animalia",
+        "family": "Theridiidae",
+        "event_date": "2026-01-22T22:35:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.503528,
+          -25.278122
+        ]
+      },
+      "properties": {
+        "species": "Nicotiana glauca",
+        "kingdom": "Plantae",
+        "family": "Solanaceae",
+        "event_date": "2026-01-22T09:10:57",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.601605,
+          -25.309128
+        ]
+      },
+      "properties": {
+        "species": "Amphisbaena camura",
+        "kingdom": "Animalia",
+        "family": "Amphisbaenidae",
+        "event_date": "2026-01-25T00:10",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.063763,
+          -25.463016
+        ]
+      },
+      "properties": {
+        "species": "Hypanartia lethe",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-04T09:08:27",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.564564,
+          -27.046094
+        ]
+      },
+      "properties": {
+        "species": "Leptopogon amaurocephalus",
+        "kingdom": "Animalia",
+        "family": "Tyrannidae",
+        "event_date": "2026-01-15T07:33",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.601163,
+          -25.30823
+        ]
+      },
+      "properties": {
+        "species": "Talinum fruticosum",
+        "kingdom": "Plantae",
+        "family": "Talinaceae",
+        "event_date": "2026-01-18T07:44:43",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.859107,
+          -25.483204
+        ]
+      },
+      "properties": {
+        "species": "Philodryas aestiva",
+        "kingdom": "Animalia",
+        "family": "Colubridae",
+        "event_date": "2026-01-17T20:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5234,
+          -25.3401
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-21T12:03:32",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.566106,
+          -27.051026
+        ]
+      },
+      "properties": {
+        "species": "Veniliornis spilogaster",
+        "kingdom": "Animalia",
+        "family": "Picidae",
+        "event_date": "2026-01-16T06:54",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5258,
+          -25.3383
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-21T15:28:30",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.063763,
+          -25.463016
+        ]
+      },
+      "properties": {
+        "species": "Dorcacerus barbatus",
+        "kingdom": "Animalia",
+        "family": "Cerambycidae",
+        "event_date": "2026-01-04T09:46:42",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5266,
+          -25.3337
+        ]
+      },
+      "properties": {
+        "species": "Dryas iulia",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-17T11:13:12",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.807814,
+          -27.347015
+        ]
+      },
+      "properties": {
+        "species": "Aceria aloinis",
+        "kingdom": "Animalia",
+        "family": "Eriophyidae",
+        "event_date": "2026-01-09T18:38:14",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.521,
+          -25.3396
+        ]
+      },
+      "properties": {
+        "species": "Dolichoderus bispinosus",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-18T17:33:52",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.840418,
+          -25.890009
+        ]
+      },
+      "properties": {
+        "species": "Rhinella diptycha",
+        "kingdom": "Animalia",
+        "family": "Bufonidae",
+        "event_date": "2026-01-06T22:37:52",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.517716,
+          -25.333841
+        ]
+      },
+      "properties": {
+        "species": "Myiopsitta monachus",
+        "kingdom": "Animalia",
+        "family": "Psittacidae",
+        "event_date": "2026-01-09T13:37:08",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.57405,
+          -25.249989
+        ]
+      },
+      "properties": {
+        "species": "Pitangus sulphuratus",
+        "kingdom": "Animalia",
+        "family": "Tyrannidae",
+        "event_date": "2026-01-22T17:18:43",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.432494,
+          -25.253953
+        ]
+      },
+      "properties": {
+        "species": "Handroanthus heptaphyllus",
+        "kingdom": "Plantae",
+        "family": "Bignoniaceae",
+        "event_date": "2026-01-15T15:56",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.149923,
+          -27.22163
+        ]
+      },
+      "properties": {
+        "species": "Commelina platyphylla",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-05T09:51",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.127196,
+          -25.269802
+        ]
+      },
+      "properties": {
+        "species": "unknown",
+        "kingdom": "Animalia",
+        "family": "Falconidae",
+        "event_date": "2026-01-07T11:48:56",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.584908,
+          -25.405261
+        ]
+      },
+      "properties": {
+        "species": "Trichilia pallida",
+        "kingdom": "Plantae",
+        "family": "Meliaceae",
+        "event_date": "2026-01-03T07:05:08",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.37379,
+          -25.300929
+        ]
+      },
+      "properties": {
+        "species": "Erythrina crista-galli",
+        "kingdom": "Plantae",
+        "family": "Fabaceae",
+        "event_date": "2026-01-24T15:19:55",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.774856,
+          -26.494328
+        ]
+      },
+      "properties": {
+        "species": "Cistothorus platensis",
+        "kingdom": "Animalia",
+        "family": "Troglodytidae",
+        "event_date": "2026-01-25T07:09",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.051907,
+          -26.203973
+        ]
+      },
+      "properties": {
+        "species": "Lippia angustifolia",
+        "kingdom": "Plantae",
+        "family": "Verbenaceae",
+        "event_date": "2026-01-14T11:03",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.149923,
+          -27.22163
+        ]
+      },
+      "properties": {
+        "species": "Pontederia azurea",
+        "kingdom": "Plantae",
+        "family": "Pontederiaceae",
+        "event_date": "2026-01-05T10:12",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5261,
+          -25.3344
+        ]
+      },
+      "properties": {
+        "species": "Corythalia conferta",
+        "kingdom": "Animalia",
+        "family": "Salticidae",
+        "event_date": "2026-01-14T16:17:18",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.793631,
+          -25.742434
+        ]
+      },
+      "properties": {
+        "species": "Bothrops diporus",
+        "kingdom": "Animalia",
+        "family": "Viperidae",
+        "event_date": "2026-01-16T21:37",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.12688,
+          -25.270479
+        ]
+      },
+      "properties": {
+        "species": "Biblis hyperia",
+        "kingdom": "Animalia",
+        "family": "Sesiidae",
+        "event_date": "2026-01-21T11:21:22",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5263,
+          -25.3369
+        ]
+      },
+      "properties": {
+        "species": "Saltator coerulescens",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-14T08:21:31",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.38207,
+          -25.30674
+        ]
+      },
+      "properties": {
+        "species": "Erythrina crista-galli",
+        "kingdom": "Plantae",
+        "family": "Fabaceae",
+        "event_date": "2026-01-24T14:05:15",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.49369,
+          -27.091579
+        ]
+      },
+      "properties": {
+        "species": "Gnorimopsar chopi",
+        "kingdom": "Animalia",
+        "family": "Icteridae",
+        "event_date": "2026-01-04T17:56",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5167,
+          -25.3397
+        ]
+      },
+      "properties": {
+        "species": "Dolichoderus bispinosus",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-08T14:58:41",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.975384,
+          -26.249409
+        ]
+      },
+      "properties": {
+        "species": "Guira guira",
+        "kingdom": "Animalia",
+        "family": "Cuculidae",
+        "event_date": "2026-01-14T07:23",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.025665,
+          -22.353948
+        ]
+      },
+      "properties": {
+        "species": "Dione vanillae",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-21T07:36",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.543554,
+          -25.33498
+        ]
+      },
+      "properties": {
+        "species": "Menemerus bivittatus",
+        "kingdom": "Animalia",
+        "family": "Salticidae",
+        "event_date": "2026-01-19T16:56:29",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.12688,
+          -25.270479
+        ]
+      },
+      "properties": {
+        "species": "Justicia brasiliana",
+        "kingdom": "Plantae",
+        "family": "Acanthaceae",
+        "event_date": "2026-01-04T07:31:21",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5282,
+          -25.3325
+        ]
+      },
+      "properties": {
+        "species": "Hasarius adansoni",
+        "kingdom": "Animalia",
+        "family": "Salticidae",
+        "event_date": "2026-01-06T18:05:45",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.589437,
+          -25.298928
+        ]
+      },
+      "properties": {
+        "species": "Portulaca umbraticola",
+        "kingdom": "Plantae",
+        "family": "Portulacaceae",
+        "event_date": "2026-01-17T11:19:18",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5281,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Latrodectus geometricus",
+        "kingdom": "Animalia",
+        "family": "Theridiidae",
+        "event_date": "2026-01-16T22:11:21",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5274,
+          -25.3311
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-18T16:58:38",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5302,
+          -25.3283
+        ]
+      },
+      "properties": {
+        "species": "Hasarius adansoni",
+        "kingdom": "Animalia",
+        "family": "Salticidae",
+        "event_date": "2026-01-10T21:33:11",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.054442,
+          -26.204492
+        ]
+      },
+      "properties": {
+        "species": "Justicia brasiliana",
+        "kingdom": "Plantae",
+        "family": "Acanthaceae",
+        "event_date": "2026-01-14T08:53",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.054039,
+          -26.204519
+        ]
+      },
+      "properties": {
+        "species": "Commelina platyphylla",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-14T09:16",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5284,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Cephalotes pusillus",
+        "kingdom": "Animalia",
+        "family": "Formicidae",
+        "event_date": "2026-01-18T16:56:06",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.788625,
+          -26.511635
+        ]
+      },
+      "properties": {
+        "species": "Carales maculicollis",
+        "kingdom": "Animalia",
+        "family": "Erebidae",
+        "event_date": "2026-01-24T16:01:46",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.523,
+          -25.3383
+        ]
+      },
+      "properties": {
+        "species": "Paroaria coronata",
+        "kingdom": "Animalia",
+        "family": "Thraupidae",
+        "event_date": "2026-01-17T13:03:53",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5276,
+          -25.3324
+        ]
+      },
+      "properties": {
+        "species": "Columbina picui",
+        "kingdom": "Animalia",
+        "family": "Columbidae",
+        "event_date": "2026-01-16T16:35:50",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.289613,
+          -26.851238
+        ]
+      },
+      "properties": {
+        "species": "Scinax nasicus",
+        "kingdom": "Animalia",
+        "family": "Hylidae",
+        "event_date": "2026-01-08T20:59:23",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5114,
+          -25.3538
+        ]
+      },
+      "properties": {
+        "species": "Troglodytes musculus",
+        "kingdom": "Animalia",
+        "family": "Troglodytidae",
+        "event_date": "2026-01-13T18:26:19",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.383853,
+          -25.304622
+        ]
+      },
+      "properties": {
+        "species": "Pseudogynoxys cumingii",
+        "kingdom": "Plantae",
+        "family": "Asteraceae",
+        "event_date": "2026-01-24T13:57:10",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.052903,
+          -26.205247
+        ]
+      },
+      "properties": {
+        "species": "Commelina platyphylla",
+        "kingdom": "Plantae",
+        "family": "Commelinaceae",
+        "event_date": "2026-01-14T10:13",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.566106,
+          -27.051026
+        ]
+      },
+      "properties": {
+        "species": "Euphonia violacea",
+        "kingdom": "Animalia",
+        "family": "Fringillidae",
+        "event_date": "2026-01-12T15:41",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5227,
+          -25.3379
+        ]
+      },
+      "properties": {
+        "species": "Anartia jatrophae",
+        "kingdom": "Animalia",
+        "family": "Nymphalidae",
+        "event_date": "2026-01-14T13:43:33",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -58.360043,
+          -27.003947
+        ]
+      },
+      "properties": {
+        "species": "Buteogallus meridionalis",
+        "kingdom": "Animalia",
+        "family": "Accipitridae",
+        "event_date": "2026-01-11T13:03:56",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.593762,
+          -25.30554
+        ]
+      },
+      "properties": {
+        "species": "Combretum indicum",
+        "kingdom": "Plantae",
+        "family": "Combretaceae",
+        "event_date": "2026-01-01T13:00:41",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5234,
+          -25.3401
+        ]
+      },
+      "properties": {
+        "species": "Furnarius rufus",
+        "kingdom": "Animalia",
+        "family": "Furnariidae",
+        "event_date": "2026-01-21T12:03:39",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.655925,
+          -26.630168
+        ]
+      },
+      "properties": {
+        "species": "Megascops choliba",
+        "kingdom": "Animalia",
+        "family": "Strigidae",
+        "event_date": "2026-01-22T23:00:05",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.936174,
+          -27.240098
+        ]
+      },
+      "properties": {
+        "species": "Eucereon sylvius",
+        "kingdom": "Animalia",
+        "family": "Erebidae",
+        "event_date": "2026-01-11T21:40",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5267,
+          -25.3374
+        ]
+      },
+      "properties": {
+        "species": "Agelaioides badius",
+        "kingdom": "Animalia",
+        "family": "Icteridae",
+        "event_date": "2026-01-16T18:33:57",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.549498,
+          -25.254325
+        ]
+      },
+      "properties": {
+        "species": "Alternanthera hirtula",
+        "kingdom": "Plantae",
+        "family": "Amaranthaceae",
+        "event_date": "2026-01-15T10:00",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5258,
+          -25.3383
+        ]
+      },
+      "properties": {
+        "species": "Fidicina toulgoeti",
+        "kingdom": "Animalia",
+        "family": "Cicadidae",
+        "event_date": "2026-01-21T15:27:56",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.731001,
+          -24.556181
+        ]
+      },
+      "properties": {
+        "species": "Rhinella diptycha",
+        "kingdom": "Animalia",
+        "family": "Bufonidae",
+        "event_date": "2026-01-20T13:26:27",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.946862,
+          -27.085786
+        ]
+      },
+      "properties": {
+        "species": "Copernicia alba",
+        "kingdom": "Plantae",
+        "family": "Arecaceae",
+        "event_date": "2026-01-11T10:49:52",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.866882,
+          -25.726886
+        ]
+      },
+      "properties": {
+        "species": "Apostolepis dimidiata",
+        "kingdom": "Animalia",
+        "family": "Colubridae",
+        "event_date": "2026-01-19T13:19:23",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.524823,
+          -25.378059
+        ]
+      },
+      "properties": {
+        "species": "Rupornis magnirostris",
+        "kingdom": "Animalia",
+        "family": "Accipitridae",
+        "event_date": "2026-01-11T13:22:22",
+        "layer": "gbif_paraguay",
+        "source": "GBIF",
+        "license": "http://creativecommons.org/licenses/by-nc/4.0/legalcode"
+      }
+    }
+  ]
+}
