@@ -1,0 +1,141 @@
+{
+  "passed": 27,
+  "total": 27,
+  "results": [
+    {
+      "name": "No console errors after bootstrap",
+      "status": "PASS",
+      "detail": "clean"
+    },
+    {
+      "name": "Leaflet container initialized",
+      "status": "PASS",
+      "detail": "1 elements"
+    },
+    {
+      "name": "OSM tiles loaded",
+      "status": "PASS",
+      "detail": "65 tiles"
+    },
+    {
+      "name": "Scale bar visible",
+      "status": "PASS",
+      "detail": "1 found"
+    },
+    {
+      "name": "Attribution visible",
+      "status": "PASS",
+      "detail": "1 found"
+    },
+    {
+      "name": "Data polygons rendered",
+      "status": "PASS",
+      "detail": "1487 paths"
+    },
+    {
+      "name": "Stat statTiles populated",
+      "status": "PASS",
+      "detail": "7,912"
+    },
+    {
+      "name": "Stat statListings populated",
+      "status": "PASS",
+      "detail": "10898"
+    },
+    {
+      "name": "Stat statRoads populated",
+      "status": "PASS",
+      "detail": "14,835"
+    },
+    {
+      "name": "Stat statBuildings populated",
+      "status": "PASS",
+      "detail": "50,000"
+    },
+    {
+      "name": "Layer grid populated",
+      "status": "PASS",
+      "detail": "17 layers"
+    },
+    {
+      "name": "Chart chartPriceByDepto visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Chart chartPropertyTypes visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Chart chartDeptos visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Filter sheet toggle (mobile-only, hidden on desktop)",
+      "status": "PASS",
+      "detail": "hidden on desktop"
+    },
+    {
+      "name": "Geocoder returns results for \"Asunci\u00f3n\"",
+      "status": "PASS",
+      "detail": "1 results"
+    },
+    {
+      "name": "Mortgage computes values",
+      "status": "PASS",
+      "detail": "\n        Monthly: $697\n        Principal+interest$676\n        Insurance est.$21\n"
+    },
+    {
+      "name": "Mortgage payment $400-2000/mo",
+      "status": "PASS",
+      "detail": "$697"
+    },
+    {
+      "name": "Affordability computes",
+      "status": "PASS",
+      "detail": "\n        Max property: $91,161\n        Max housing payment$560/mo\n        Max lo"
+    },
+    {
+      "name": "Saved listings button visible",
+      "status": "PASS",
+      "detail": "#1"
+    },
+    {
+      "name": "Compare mode toggles",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Measure tool activates crosshair",
+      "status": "PASS",
+      "detail": "cursor=crosshair"
+    },
+    {
+      "name": "English UI active",
+      "status": "PASS",
+      "detail": "en text in DOM"
+    },
+    {
+      "name": "Spanish UI restored",
+      "status": "PASS",
+      "detail": "es text in DOM"
+    },
+    {
+      "name": "Service worker registered",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Map visible on mobile",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Sidebar toggle on mobile",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

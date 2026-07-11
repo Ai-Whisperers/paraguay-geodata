@@ -116,7 +116,8 @@
             --radius: 6px;
         }
         * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+        html, html, body { height: 100%; }
+        body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--fg); }
         body { display: flex; flex-direction: column; }
         header {
             padding: 14px 24px; background: var(--bg-elev);
@@ -138,8 +139,16 @@
             background: var(--accent-dim); color: var(--accent);
             border: 1px solid var(--accent);
         }
-        main { flex: 1; display: grid; grid-template-columns: 380px 1fr; min-height: 0; }
-        aside { background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; }
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 380px minmax(0, 1fr);
+            grid-template-rows: 1fr;
+            min-height: 0;
+            max-height: calc(100vh - 60px);
+            overflow: hidden;
+        }
+        aside { position: relative; background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; }
         aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 16px 0 6px 0; font-weight: 600; }
         aside h2:first-child { margin-top: 0; }
         .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -227,7 +236,7 @@
         .city.has-listings .count { color: var(--property); font-weight: 600; }
         .search input { width: 100%; padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 12px; }
         .search input:focus { outline: none; border-color: var(--accent); }
-        #map { flex: 1; height: 100%; background: #0e1322; }
+        #map { position: relative; width: 100%; height: 100%; min-height: 400px; background: #0e1322; }
         .loading-banner {
             position: fixed; top: 60px; right: 18px; z-index: 1000;
             background: var(--bg-elev-2); border: 1px solid var(--accent);
@@ -262,8 +271,7 @@
         @media (max-width: 880px) {
             html, body { height: 100%; overflow: hidden; }
             body { display: flex; flex-direction: column; }
-            main { flex: 1; display: flex; min-height: 0; }
-            main > aside { width: 0; min-width: 0; padding: 0; border: 0; }
+                        main > aside { width: 0; min-width: 0; padding: 0; border: 0; }
 
             /* Mobile drawer pattern */
             header { padding: 8px 12px; gap: 8px; flex-wrap: wrap; }
@@ -368,20 +376,7 @@
 
             /* Hide Insights sidebar text when collapsed */
             aside.collapsed .stat-grid { display: none; }
-        }
-        #sidebarToggle {
-            display: none;
-            background: var(--accent);
-            color: var(--bg);
-            border: 0;
-            padding: 6px 10px;
-            font-size: 11px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        @media (min-width: 881px) {
+        }        @media (min-width: 881px) {
             /* Drawer is always visible on desktop, hamburger hidden */
             aside { transform: none !important; position: static !important; }
             #drawerBackdrop { display: none !important; }
@@ -494,7 +489,7 @@
         <a href="./mapa.html">Per-Tile Viewer</a>
         <a href="./docs/INDEX.md">Docs</a>
     </nav>
-    <button id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar menu" title="Toggle sidebar menu">☰ Menu</button>
+
     <div class="repo-link">
         <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -574,10 +569,11 @@
         <h2>Layers (toggleable)</h2>
         <div class="layer-grid" id="layerGrid"></div>
 
-        <h2 data-i18n="price_by_depto">$/ha by depto</h2>
-                <div id="priceByDepto" style="font-size:11px; line-height:1.6;">
-                    <div style="color:var(--fg-dim);">Loading properties…</div>
+        <h2 data-i18n="price_by_depto">$/ha por depto</h2>
+                <div style="position:relative; height:200px; margin:8px 0;">
+                    <canvas id="chartPriceByDepto" aria-label="Average price per hectare by department"></canvas>
                 </div>
+                <div id="priceByDepto" style="font-size:11px; line-height:1.6; display:none;"></div>
 
                 <h2>Fair-price model (ML)</h2>
         <div id="fairPriceWidget" class="fair-price" style="font-size:11px; line-height:1.6;">
@@ -1497,9 +1493,6 @@ async function loadProperties() {
                     });
                 }
             } catch (e) { console.warn('Charts failed:', e); }
-        } catch (e) {
-            console.error('Market signals failed:', e);
-        }
 
         // Render $/ha-by-depto chart (Chart.js)
         try {
@@ -1579,8 +1572,7 @@ async function loadProperties() {
 // Save for clustering
         window.__properties = features;
 
-try {
-        const group = LAYER_GROUPS.properties_infocasas[0];
+const group = LAYER_GROUPS.properties_infocasas[0];
         features.forEach(f => {
             if (!f.geometry || !f.geometry.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
@@ -3367,34 +3359,67 @@ window.showDueDiligence = async function(listing) {
     modal.innerHTML = html;
     document.body.appendChild(modal);
 };
+
+// ========== MAP CONTROLS (UI buttons for floating actions) ==========
+(function injectMapControls() {
+    const mapDiv = document.getElementById('map');
+    if (!mapDiv) return;
+    const existing = mapDiv.querySelector('.map-controls');
+    if (existing) return; // already injected
+    const ctrls = document.createElement('div');
+    ctrls.className = 'map-controls';
+    ctrls.innerHTML = `
+        <button id="sidebarToggle" onclick="toggleSidebar()" aria-label="Toggle sidebar" title="Toggle sidebar">☰</button>
+        <button onclick="window.showSavedListings()" id="btnSaved" aria-label="Saved listings" title="Saved listings">⭐ <span id="savedCount">0</span></button>
+        <button onclick="window.toggleCompareMode()" id="btnCompare" aria-label="Compare listings" title="Compare listings">⚖ Compare</button>
+        <div id="compareIndicator" style="display:none; background:var(--warn); color:var(--bg); padding:6px 10px; font-size:11px; border-radius:4px; margin:4px; font-weight:600;"></div>
+        <button onclick="window.toggleMeasure()" id="btnMeasure" aria-label="Measure distance" title="Measure distance">📏 Measure</button>
+        <button onclick="window.exportKML()" id="btnKML" aria-label="Download KML" title="Download KML">⬇ KML</button>
+    `;
+    mapDiv.appendChild(ctrls);
+    console.log('[map-controls] injected ' + ctrls.children.length + ' buttons');
+})();
+
+// ========== LEGEND INJECTION (move legend into map div) ==========
+(function injectLegend() {
+    const legend = document.querySelector('.legend');
+    const mapDiv = document.getElementById('map');
+    if (!legend || !mapDiv) return;
+    if (legend.parentElement === mapDiv) return;
+    mapDiv.appendChild(legend);
+})();
+
+
 // ========== BOOTSTRAP ==========
-renderLayerGrid();
-loadBCP();
-loadClimate();
-loadINBIOWidget();
-loadInsights();
-loadFairPriceModel();
-calcYield();
-loadTileFabric();
-loadDepartamentos();
-loadDistritos();
-loadBarrios();
-loadCatastroDpto();
-loadCatastroDist();
-loadCatastroParcels();
-loadCatastroUrba();
-loadIndigenous();
-loadClimateRisk();
-loadFloodRisk();
-loadINBIO();
-loadProperties();
-loadGBIF();
-loadOSMRoads();
-loadOSMBuildings();
-loadOSMWater();
-applyI18n();
-addLangSwitcher();
-applyUrlParams();
+(async function bootstrap() {
+    try { renderLayerGrid(); } catch (e) { console.error('[bootstrap] renderLayerGrid:', e); }
+    try { loadBCP(); } catch (e) { console.error('[bootstrap] loadBCP:', e); };
+    try { loadClimate(); } catch (e) { console.error('[bootstrap] loadClimate:', e); };
+    try { loadINBIOWidget(); } catch (e) { console.error('[bootstrap] loadINBIOWidget:', e); };
+    try { loadInsights(); } catch (e) { console.error('[bootstrap] loadInsights:', e); };
+    try { loadFairPriceModel(); } catch (e) { console.error('[bootstrap] loadFairPriceModel:', e); };
+    try { calcYield(); } catch (e) { console.error('[bootstrap] calcYield:', e); };
+    try { loadTileFabric(); } catch (e) { console.error('[bootstrap] loadTileFabric:', e); };
+    try { loadDepartamentos(); } catch (e) { console.error('[bootstrap] loadDepartamentos:', e); };
+    try { loadDistritos(); } catch (e) { console.error('[bootstrap] loadDistritos:', e); };
+    try { loadBarrios(); } catch (e) { console.error('[bootstrap] loadBarrios:', e); };
+    try { loadCatastroDpto(); } catch (e) { console.error('[bootstrap] loadCatastroDpto:', e); };
+    try { loadCatastroDist(); } catch (e) { console.error('[bootstrap] loadCatastroDist:', e); };
+    try { loadCatastroParcels(); } catch (e) { console.error('[bootstrap] loadCatastroParcels:', e); };
+    try { loadCatastroUrba(); } catch (e) { console.error('[bootstrap] loadCatastroUrba:', e); };
+    try { loadIndigenous(); } catch (e) { console.error('[bootstrap] loadIndigenous:', e); };
+    try { loadClimateRisk(); } catch (e) { console.error('[bootstrap] loadClimateRisk:', e); };
+    try { loadFloodRisk(); } catch (e) { console.error('[bootstrap] loadFloodRisk:', e); };
+    try { loadINBIO(); } catch (e) { console.error('[bootstrap] loadINBIO:', e); };
+    try { loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
+    try { loadGBIF(); } catch (e) { console.error('[bootstrap] loadGBIF:', e); };
+    try { loadOSMRoads(); } catch (e) { console.error('[bootstrap] loadOSMRoads:', e); };
+    try { loadOSMBuildings(); } catch (e) { console.error('[bootstrap] loadOSMBuildings:', e); };
+    try { loadOSMWater(); } catch (e) { console.error('[bootstrap] loadOSMWater:', e); };
+    try { applyI18n(); } catch (e) { console.error('[bootstrap] applyI18n:', e); };
+    try { addLangSwitcher(); } catch (e) { console.error('[bootstrap] addLangSwitcher:', e); };
+    try { applyUrlParams(); } catch (e) { console.error('[bootstrap] applyUrlParams:', e); };
+})();
 </script>
 </body>
 </html>

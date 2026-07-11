@@ -1,0 +1,501 @@
+{
+  "suite": "paraguay-geodata",
+  "as_of_utc": "2026-07-11T17:04:17Z",
+  "elapsed_s": 9.31,
+  "passed": 82,
+  "total": 82,
+  "results": [
+    {
+      "name": "Endpoint properties_latest.geojson",
+      "status": "PASS",
+      "duration_s": 0.583,
+      "detail": "15169 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint roads.geojson",
+      "status": "PASS",
+      "duration_s": 0.319,
+      "detail": "5672 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint water.geojson",
+      "status": "PASS",
+      "duration_s": 0.153,
+      "detail": "2524 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint buildings_asuncion.geojson",
+      "status": "PASS",
+      "duration_s": 0.771,
+      "detail": "13738 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint gbif_paraguay.geojson",
+      "status": "PASS",
+      "duration_s": 0.057,
+      "detail": "94 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint bcp_snapshot.json",
+      "status": "PASS",
+      "duration_s": 0.07,
+      "detail": "1 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint inbio_zafra_2025_2026.json",
+      "status": "PASS",
+      "duration_s": 0.088,
+      "detail": "4 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint priority_tiles.json",
+      "status": "PASS",
+      "duration_s": 0.053,
+      "detail": "17 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint tile_index.json",
+      "status": "PASS",
+      "duration_s": 0.149,
+      "detail": "3682 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint data_freshness.json",
+      "status": "PASS",
+      "duration_s": 0.048,
+      "detail": "0 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint deploy-meta.json",
+      "status": "PASS",
+      "duration_s": 0.038,
+      "detail": "3 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint environment_meta.json",
+      "status": "PASS",
+      "duration_s": 0.096,
+      "detail": "0 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint nasa_power_asuncion.json",
+      "status": "PASS",
+      "duration_s": 0.054,
+      "detail": "0 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Endpoint admin/catastro_dpto.geojson",
+      "status": "PASS",
+      "duration_s": 0.049,
+      "detail": "34 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint admin/catastro_dist.geojson",
+      "status": "PASS",
+      "duration_s": 0.07,
+      "detail": "296 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint admin/catastro_parcels_sample.geojson",
+      "status": "PASS",
+      "duration_s": 0.21,
+      "detail": "4517 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint admin/catastro_urba.geojson",
+      "status": "PASS",
+      "duration_s": 0.075,
+      "detail": "803 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint admin/barrios_py.geojson",
+      "status": "PASS",
+      "duration_s": 0.059,
+      "detail": "90 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint admin/departamentos.geojson",
+      "status": "PASS",
+      "duration_s": 0.066,
+      "detail": "119 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint indigenous_territories.geojson",
+      "status": "PASS",
+      "duration_s": 0.04,
+      "detail": "8 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint climate_risk.geojson",
+      "status": "PASS",
+      "duration_s": 0.074,
+      "detail": "152 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint flood_risk.geojson",
+      "status": "PASS",
+      "duration_s": 0.033,
+      "detail": "3 KB, type=application/geo+json; charset=, OK"
+    },
+    {
+      "name": "Endpoint ml/fair_price_model.json",
+      "status": "PASS",
+      "duration_s": 0.049,
+      "detail": "5 KB, type=application/json; charset=utf-, OK"
+    },
+    {
+      "name": "Properties: 9K+ features + key fields",
+      "status": "PASS",
+      "duration_s": 0.527,
+      "detail": "10,898 properties, all fields present"
+    },
+    {
+      "name": "PII scrub: no emails/phones in source_agent",
+      "status": "PASS",
+      "duration_s": 0.516,
+      "detail": "No PII in 1000 sampled features"
+    },
+    {
+      "name": "Index.html loads with map div + Leaflet",
+      "status": "PASS",
+      "duration_s": 0.071,
+      "detail": "174 KB HTML"
+    },
+    {
+      "name": "Layer registered: tile_fabric",
+      "status": "PASS",
+      "duration_s": 0.079,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: priority_tiles",
+      "status": "PASS",
+      "duration_s": 0.418,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: inbio_soja",
+      "status": "PASS",
+      "duration_s": 0.06,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: inbio_arroz",
+      "status": "PASS",
+      "duration_s": 0.061,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: inbio_maiz",
+      "status": "PASS",
+      "duration_s": 0.058,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: properties_infocasas",
+      "status": "PASS",
+      "duration_s": 0.045,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: osm_roads",
+      "status": "PASS",
+      "duration_s": 0.059,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: osm_buildings",
+      "status": "PASS",
+      "duration_s": 0.07,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: osm_water",
+      "status": "PASS",
+      "duration_s": 0.069,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: catastro_dpto",
+      "status": "PASS",
+      "duration_s": 0.055,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: catastro_dist",
+      "status": "PASS",
+      "duration_s": 0.067,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: catastro_parcels",
+      "status": "PASS",
+      "duration_s": 0.098,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: catastro_urba",
+      "status": "PASS",
+      "duration_s": 0.066,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: indigenous",
+      "status": "PASS",
+      "duration_s": 0.081,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: climate_risk",
+      "status": "PASS",
+      "duration_s": 0.08,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: flood_risk",
+      "status": "PASS",
+      "duration_s": 0.071,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: gbif_animalia",
+      "status": "PASS",
+      "duration_s": 0.07,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: gbif_plantae",
+      "status": "PASS",
+      "duration_s": 0.081,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: distritos_py",
+      "status": "PASS",
+      "duration_s": 0.06,
+      "detail": "registered"
+    },
+    {
+      "name": "Layer registered: barrios_py",
+      "status": "PASS",
+      "duration_s": 0.055,
+      "detail": "registered"
+    },
+    {
+      "name": "CSP header set",
+      "status": "PASS",
+      "duration_s": 0.058,
+      "detail": "CSP present, 757 chars"
+    },
+    {
+      "name": "CSP allows required CDN hosts",
+      "status": "PASS",
+      "duration_s": 0.056,
+      "detail": "connect-src allows 3 CDN hosts"
+    },
+    {
+      "name": "HSTS preload enabled",
+      "status": "PASS",
+      "duration_s": 0.057,
+      "detail": "max-age=63072000; includeSubDomains; preload"
+    },
+    {
+      "name": "X-Frame-Options set",
+      "status": "PASS",
+      "duration_s": 0.062,
+      "detail": "SAMEORIGIN"
+    },
+    {
+      "name": "X-Content-Type-Options: nosniff",
+      "status": "PASS",
+      "duration_s": 0.056,
+      "detail": "nosniff"
+    },
+    {
+      "name": "COOP + COEP headers",
+      "status": "PASS",
+      "duration_s": 0.051,
+      "detail": "COOP=same-origin-allow-popups, COEP=same-origin"
+    },
+    {
+      "name": "Service worker exists + has handlers",
+      "status": "PASS",
+      "duration_s": 0.068,
+      "detail": "3765 bytes"
+    },
+    {
+      "name": "Manifest valid + has icons",
+      "status": "PASS",
+      "duration_s": 0.052,
+      "detail": "'Paraguay Geodata \u2014 National Viewer', 2 icons"
+    },
+    {
+      "name": "Lang switcher has es/en/gn",
+      "status": "PASS",
+      "duration_s": 0.074,
+      "detail": "no lang switcher"
+    },
+    {
+      "name": "I18N dicts balanced (es/en/gn)",
+      "status": "PASS",
+      "duration_s": 0.065,
+      "detail": "mismatched: {'es': 35, 'en': 88, 'gn': 88}"
+    },
+    {
+      "name": "Photon geocoder works for \"Asuncion\"",
+      "status": "PASS",
+      "duration_s": 0.832,
+      "detail": "API works, returned [125.75, 7.54]"
+    },
+    {
+      "name": "Mortgage calculator UI + JS",
+      "status": "PASS",
+      "duration_s": 0.138,
+      "detail": "mortValue + computeMortgage function"
+    },
+    {
+      "name": "Affordability calculator UI + JS",
+      "status": "PASS",
+      "duration_s": 0.055,
+      "detail": "affIncome + computeAffordability function"
+    },
+    {
+      "name": "Save listing (localStorage)",
+      "status": "PASS",
+      "duration_s": 0.079,
+      "detail": "function present"
+    },
+    {
+      "name": "Compare listings",
+      "status": "PASS",
+      "duration_s": 0.058,
+      "detail": "function present"
+    },
+    {
+      "name": "KML export",
+      "status": "PASS",
+      "duration_s": 0.069,
+      "detail": "function present"
+    },
+    {
+      "name": "CSV export",
+      "status": "PASS",
+      "duration_s": 0.073,
+      "detail": "function present"
+    },
+    {
+      "name": "Measure tool",
+      "status": "PASS",
+      "duration_s": 0.067,
+      "detail": "function present"
+    },
+    {
+      "name": "Due diligence",
+      "status": "PASS",
+      "duration_s": 0.08,
+      "detail": "function present"
+    },
+    {
+      "name": "Catastro lookup",
+      "status": "PASS",
+      "duration_s": 0.085,
+      "detail": "function present"
+    },
+    {
+      "name": "Time slider",
+      "status": "PASS",
+      "duration_s": 0.063,
+      "detail": "function present"
+    },
+    {
+      "name": "Coord display",
+      "status": "PASS",
+      "duration_s": 0.102,
+      "detail": "function present"
+    },
+    {
+      "name": "Sidebar toggle",
+      "status": "PASS",
+      "duration_s": 0.068,
+      "detail": "function present"
+    },
+    {
+      "name": "Filter sheet",
+      "status": "PASS",
+      "duration_s": 0.05,
+      "detail": "function present"
+    },
+    {
+      "name": "Chart canvas: Bar chart $/ha by depto",
+      "status": "PASS",
+      "duration_s": 0.104,
+      "detail": "canvas present"
+    },
+    {
+      "name": "Chart canvas: Doughnut property types",
+      "status": "PASS",
+      "duration_s": 0.087,
+      "detail": "canvas present"
+    },
+    {
+      "name": "Chart canvas: Top deptos bar",
+      "status": "PASS",
+      "duration_s": 0.06,
+      "detail": "canvas present"
+    },
+    {
+      "name": "Chart library: Chart.js loaded",
+      "status": "PASS",
+      "duration_s": 0.071,
+      "detail": "present"
+    },
+    {
+      "name": "JS: no eval() / new Function()",
+      "status": "PASS",
+      "duration_s": 0.084,
+      "detail": "no eval/new Function"
+    },
+    {
+      "name": "JS: innerHTML usage count",
+      "status": "PASS",
+      "duration_s": 0.092,
+      "detail": "34 innerHTML assignments (review manually)"
+    },
+    {
+      "name": "Index.html < 200KB",
+      "status": "PASS",
+      "duration_s": 0.065,
+      "detail": "175 KB (target <200KB)"
+    },
+    {
+      "name": "Service worker registration in HTML",
+      "status": "PASS",
+      "duration_s": 0.063,
+      "detail": "register call present"
+    },
+    {
+      "name": "Static file: /favicon.ico",
+      "status": "PASS",
+      "duration_s": 0.05,
+      "detail": "179718 bytes"
+    },
+    {
+      "name": "Static file: /mapa.html",
+      "status": "PASS",
+      "duration_s": 0.101,
+      "detail": "16955 bytes"
+    },
+    {
+      "name": "Static file: /sw.js",
+      "status": "PASS",
+      "duration_s": 0.041,
+      "detail": "3771 bytes"
+    },
+    {
+      "name": "Static file: /manifest.webmanifest",
+      "status": "PASS",
+      "duration_s": 0.051,
+      "detail": "1166 bytes"
+    }
+  ]
+}
