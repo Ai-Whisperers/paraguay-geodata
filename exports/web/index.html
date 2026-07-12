@@ -1559,6 +1559,8 @@ async function loadProperties() {
         
         
         // Reverse-geocode Unknown deptos via Photon (best effort, rate-limited)
+        // Photon reverse API: only accepts [include, debug, dedupe, query_string_filter, lon, layer, limit, osm_tag, distance_sort, exclude, geometry, lang, radius, lat]
+        // 'countrycode' is NOT valid for reverse (only search). 'lang=es' is also unsupported — use 'en'.
         (async () => {
             const unknown = features.filter(f => {
                 const p = f.properties || {};
@@ -1568,14 +1570,15 @@ async function loadProperties() {
             for (const f of unknown) {
                 const [lon, lat] = f.geometry.coordinates;
                 try {
-                    const r = await fetch(`https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}&lang=es`);
+                    const r = await fetch(`https://photon.komoot.io/reverse?lon=${lon}&lat=${lat}&lang=en&radius=50`);
                     if (r.ok) {
                         const d = await r.json();
                         const props = d.features?.[0]?.properties || {};
                         const depto = props.state || props.county || props.city;
-                        if (depto) {
+                        // Only accept results in Paraguay (Photon returns countrycode property)
+                        if (depto && (props.countrycode === 'PY' || !props.country)) {
                             f.properties.state_province = depto;
-                            f.properties.city = f.properties.city || props.city;
+                            f.properties.city = f.properties.city || props.name || props.city;
                             fixed++;
                         }
                     }
