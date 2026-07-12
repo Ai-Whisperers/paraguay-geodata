@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Priority 10x10 km tiles in Paraguay at urban anchor cities (Phase 1 coverage target).",
   "tile_count": 37,
   "tiles": [
@@ -22,7 +22,10 @@
         -27.313688480112866
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000061
+      "area_km2": 100.00000000000061,
+      "city": "Encarnaci\u00f3n",
+      "cities_nearby": [],
+      "distance_km": 6.3
     },
     {
       "tile_id": "-55.868_-27.404",
@@ -43,7 +46,12 @@
         -27.313688480112866
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000061
+      "area_km2": 100.00000000000061,
+      "city": "Encarnaci\u00f3n",
+      "cities_nearby": [
+        "Encarnaci\u00f3n"
+      ],
+      "distance_km": 6.0
     },
     {
       "tile_id": "-55.767_-27.404",
@@ -64,7 +72,10 @@
         -27.313688480112866
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000061
+      "area_km2": 100.00000000000061,
+      "city": "Encarnaci\u00f3n",
+      "cities_nearby": [],
+      "distance_km": 16.8
     },
     {
       "tile_id": "-58.317_-26.862",
@@ -85,7 +96,12 @@
         -26.771065440338596
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000063
+      "area_km2": 100.00000000000063,
+      "city": "Pilar",
+      "cities_nearby": [
+        "Pilar"
+      ],
+      "distance_km": 5.9
     },
     {
       "tile_id": "-58.216_-26.862",
@@ -106,7 +122,10 @@
         -26.771065440338596
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000063
+      "area_km2": 100.00000000000063,
+      "city": "Pilar",
+      "cities_nearby": [],
+      "distance_km": 15.5
     },
     {
       "tile_id": "-57.218_-26.681",
@@ -127,7 +146,12 @@
         -26.590191093747173
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999975
+      "area_km2": 99.9999999999975,
+      "city": "San Juan Bautista",
+      "cities_nearby": [
+        "San Juan Bautista"
+      ],
+      "distance_km": 4.0
     },
     {
       "tile_id": "-57.118_-26.681",
@@ -148,7 +172,10 @@
         -26.590191093747173
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999975
+      "area_km2": 99.9999999999975,
+      "city": "San Juan Bautista",
+      "cities_nearby": [],
+      "distance_km": 9.8
     },
     {
       "tile_id": "-56.539_-26.228",
@@ -169,7 +196,10 @@
         -26.138005227268614
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999983
+      "area_km2": 99.9999999999983,
+      "city": "Caazap\u00e1",
+      "cities_nearby": [],
+      "distance_km": 12.3
     },
     {
       "tile_id": "-56.439_-26.228",
@@ -190,7 +220,12 @@
         -26.138005227268614
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999983
+      "area_km2": 99.9999999999983,
+      "city": "Caazap\u00e1",
+      "cities_nearby": [
+        "Caazap\u00e1"
+      ],
+      "distance_km": 3.7
     },
     {
       "tile_id": "-56.339_-26.228",
@@ -211,7 +246,10 @@
         -26.138005227268614
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999983
+      "area_km2": 99.9999999999983,
+      "city": "Caazap\u00e1",
+      "cities_nearby": [],
+      "distance_km": 11.2
     },
     {
       "tile_id": "-56.458_-25.867",
@@ -232,7 +270,12 @@
         -25.776256534085768
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999841
+      "area_km2": 99.99999999999841,
+      "city": "Villarrica",
+      "cities_nearby": [
+        "Villarrica"
+      ],
+      "distance_km": 6.3
     },
     {
       "tile_id": "-56.358_-25.867",
@@ -253,7 +296,10 @@
         -25.776256534085768
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999841
+      "area_km2": 99.99999999999841,
+      "city": "Villarrica",
+      "cities_nearby": [],
+      "distance_km": 16.3
     },
     {
       "tile_id": "-54.680_-25.595",
@@ -274,7 +320,13 @@
         -25.504945014198633
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999997
+      "area_km2": 99.9999999999997,
+      "city": "Presidente Franco",
+      "cities_nearby": [
+        "Ciudad del Este",
+        "Presidente Franco"
+      ],
+      "distance_km": 2.4
     },
     {
       "tile_id": "-54.580_-25.595",
@@ -295,7 +347,10 @@
         -25.504945014198633
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999997
+      "area_km2": 99.9999999999997,
+      "city": "Presidente Franco",
+      "cities_nearby": [],
+      "distance_km": 9.8
     },
     {
       "tile_id": "-56.476_-25.505",
@@ -316,7 +371,12 @@
         -25.41450784090292
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999832
+      "area_km2": 99.99999999999832,
+      "city": "Coronel Oviedo",
+      "cities_nearby": [
+        "Coronel Oviedo"
+      ],
+      "distance_km": 5.6
     },
     {
       "tile_id": "-56.377_-25.505",
@@ -337,7 +397,10 @@
         -25.41450784090292
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999832
+      "area_km2": 99.99999999999832,
+      "city": "Coronel Oviedo",
+      "cities_nearby": [],
+      "distance_km": 9.4
     },
     {
       "tile_id": "-56.078_-25.505",
@@ -358,7 +421,12 @@
         -25.41450784090292
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999832
+      "area_km2": 99.99999999999832,
+      "city": "Caaguaz\u00fa",
+      "cities_nearby": [
+        "Caaguaz\u00fa"
+      ],
+      "distance_km": 2.9
     },
     {
       "tile_id": "-55.979_-25.505",
@@ -379,7 +447,10 @@
         -25.41450784090292
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999832
+      "area_km2": 99.99999999999832,
+      "city": "Caaguaz\u00fa",
+      "cities_nearby": [],
+      "distance_km": 10.1
     },
     {
       "tile_id": "-57.674_-25.415",
@@ -400,7 +471,13 @@
         -25.32407066760721
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000068
+      "area_km2": 100.00000000000068,
+      "city": "Lambar\u00e9",
+      "cities_nearby": [
+        "Fernando de la Mora",
+        "Lambar\u00e9"
+      ],
+      "distance_km": 6.2
     },
     {
       "tile_id": "-57.575_-25.415",
@@ -421,7 +498,12 @@
         -25.32407066760721
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000068
+      "area_km2": 100.00000000000068,
+      "city": "San Lorenzo",
+      "cities_nearby": [
+        "San Lorenzo"
+      ],
+      "distance_km": 3.7
     },
     {
       "tile_id": "-57.475_-25.415",
@@ -442,7 +524,12 @@
         -25.32407066760721
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000068
+      "area_km2": 100.00000000000068,
+      "city": "Capiat\u00e1",
+      "cities_nearby": [
+        "Capiat\u00e1"
+      ],
+      "distance_km": 1.7
     },
     {
       "tile_id": "-57.376_-25.415",
@@ -463,7 +550,12 @@
         -25.32407066760721
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000068
+      "area_km2": 100.00000000000068,
+      "city": "Itaugu\u00e1",
+      "cities_nearby": [
+        "Itaugu\u00e1"
+      ],
+      "distance_km": 3.1
     },
     {
       "tile_id": "-57.777_-25.324",
@@ -484,7 +576,10 @@
         -25.233633494311498
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999993
+      "area_km2": 99.9999999999993,
+      "city": "Lambar\u00e9",
+      "cities_nearby": [],
+      "distance_km": 9.7
     },
     {
       "tile_id": "-57.678_-25.324",
@@ -505,7 +600,13 @@
         -25.233633494311498
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999993
+      "area_km2": 99.9999999999993,
+      "city": "Lambar\u00e9",
+      "cities_nearby": [
+        "Fernando de la Mora",
+        "Lambar\u00e9"
+      ],
+      "distance_km": 5.2
     },
     {
       "tile_id": "-57.578_-25.324",
@@ -526,7 +627,13 @@
         -25.233633494311498
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999993
+      "area_km2": 99.9999999999993,
+      "city": "Luque",
+      "cities_nearby": [
+        "Asunci\u00f3n",
+        "Luque"
+      ],
+      "distance_km": 4.1
     },
     {
       "tile_id": "-57.479_-25.324",
@@ -547,7 +654,10 @@
         -25.233633494311498
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.9999999999993
+      "area_km2": 99.9999999999993,
+      "city": "Luque",
+      "cities_nearby": [],
+      "distance_km": 7.1
     },
     {
       "tile_id": "-57.681_-25.234",
@@ -568,7 +678,10 @@
         -25.143196321015786
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999798
+      "area_km2": 99.99999999999798,
+      "city": "Mariano Roque Alonso",
+      "cities_nearby": [],
+      "distance_km": 9.4
     },
     {
       "tile_id": "-57.582_-25.234",
@@ -589,7 +702,12 @@
         -25.143196321015786
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999798
+      "area_km2": 99.99999999999798,
+      "city": "Mariano Roque Alonso",
+      "cities_nearby": [
+        "Mariano Roque Alonso"
+      ],
+      "distance_km": 3.1
     },
     {
       "tile_id": "-57.483_-25.234",
@@ -610,7 +728,10 @@
         -25.143196321015786
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999798
+      "area_km2": 99.99999999999798,
+      "city": "Luque",
+      "cities_nearby": [],
+      "distance_km": 11.2
     },
     {
       "tile_id": "-54.378_-24.148",
@@ -631,7 +752,12 @@
         -24.057950241467246
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000188
+      "area_km2": 100.00000000000188,
+      "city": "Salto del Guair\u00e1",
+      "cities_nearby": [
+        "Salto del Guair\u00e1"
+      ],
+      "distance_km": 4.7
     },
     {
       "tile_id": "-54.280_-24.148",
@@ -652,7 +778,10 @@
         -24.057950241467246
       ],
       "utm_zone_hint": 21,
-      "area_km2": 15.268826919584097
+      "area_km2": 15.268826919584097,
+      "city": "Salto del Guair\u00e1",
+      "cities_nearby": [],
+      "distance_km": 9.5
     },
     {
       "tile_id": "-57.556_-23.425",
@@ -673,7 +802,10 @@
         -23.334452855101553
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999885
+      "area_km2": 99.99999999999885,
+      "city": "Concepci\u00f3n",
+      "cities_nearby": [],
+      "distance_km": 7.7
     },
     {
       "tile_id": "-57.458_-23.425",
@@ -694,7 +826,12 @@
         -23.334452855101553
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999885
+      "area_km2": 99.99999999999885,
+      "city": "Concepci\u00f3n",
+      "cities_nearby": [
+        "Concepci\u00f3n"
+      ],
+      "distance_km": 4.3
     },
     {
       "tile_id": "-57.360_-23.425",
@@ -715,7 +852,10 @@
         -23.334452855101553
       ],
       "utm_zone_hint": 21,
-      "area_km2": 99.99999999999885
+      "area_km2": 99.99999999999885,
+      "city": "Concepci\u00f3n",
+      "cities_nearby": [],
+      "distance_km": 14.6
     },
     {
       "tile_id": "-55.835_-22.611",
@@ -736,7 +876,10 @@
         -22.520518295440148
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000148
+      "area_km2": 100.00000000000148,
+      "city": "Pedro Juan Caballero",
+      "cities_nearby": [],
+      "distance_km": 7.2
     },
     {
       "tile_id": "-55.738_-22.611",
@@ -757,7 +900,12 @@
         -22.520518295440148
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000148
+      "area_km2": 100.00000000000148,
+      "city": "Pedro Juan Caballero",
+      "cities_nearby": [
+        "Pedro Juan Caballero"
+      ],
+      "distance_km": 4.7
     },
     {
       "tile_id": "-55.641_-22.611",
@@ -778,7 +926,11 @@
         -22.520518295440148
       ],
       "utm_zone_hint": 21,
-      "area_km2": 100.00000000000148
+      "area_km2": 100.00000000000148,
+      "city": "Pedro Juan Caballero",
+      "cities_nearby": [],
+      "distance_km": 15.0
     }
-  ]
+  ],
+  "city_attribution": "nearest city within 3x3 cluster, 2026-07-12"
 }

@@ -145,10 +145,10 @@
             grid-template-columns: 380px minmax(0, 1fr);
             grid-template-rows: 1fr;
             min-height: 0;
-            max-height: calc(100vh - 60px);
+            height: calc(100vh - 65px);  /* header is ~60-65px tall */
             overflow: hidden;
         }
-        aside { position: relative; background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; }
+        aside { position: relative; background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; max-height: 100%; height: 100%; box-sizing: border-box; }
         aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 16px 0 6px 0; font-weight: 600; }
         aside h2:first-child { margin-top: 0; }
         .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -236,7 +236,9 @@
         .city.has-listings .count { color: var(--property); font-weight: 600; }
         .search input { width: 100%; padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 12px; }
         .search input:focus { outline: none; border-color: var(--accent); }
-        #map { position: relative; width: 100%; height: 100%; min-height: 400px; background: #0e1322; }
+        #map { position: relative; width: 100%; height: 100%; min-height: 400px; background: #0e1322; overflow: hidden; }
+        .leaflet-container { overflow: hidden !important; }
+        .leaflet-overlay-pane > svg { max-width: none; }
         .loading-banner {
             position: fixed; top: 60px; right: 18px; z-index: 1000;
             background: var(--bg-elev-2); border: 1px solid var(--accent);
@@ -746,9 +748,10 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin=""></script>
 <script>
 // ========== MAP ==========
-const map = L.map('map', { zoomControl: true, worldCopyJump: true, preferCanvas: false }).setView([-23.5, -58.5], 6);
+const map = L.map('map', { zoomControl: true, worldCopyJump: false, preferCanvas: true, minZoom: 5, maxZoom: 18, zoomSnap: 0.5, zoomDelta: 0.5, attributionControl: true }).setView([-23.5, -58.5], 6);
 
 // Scale bar
 L.control.scale({ imperial: false, position: 'bottomright' }).addTo(map);
@@ -778,7 +781,7 @@ L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map
 
 const layerState = {
     // ---- base admin ----
-    departamentos_py:   { group: 'base',  label: 'Departamentos (18)',         active: true,  features: '?', source: 'OSM/Geofabrik', info: 'Provincia-level admin polygons from OSM. Click for ISO + DGEEC code.',  color: '#60a5fa', url: 'data/admin/deptos.geojson' },
+    departamentos_py:   { group: 'base',  label: 'Departamentos (18)',         active: true,  features: '?', source: 'OSM/Geofabrik', info: 'Provincia-level admin polygons from OSM. Click for ISO + DGEEC code.',  color: '#60a5fa', url: 'data/admin/departamentos.geojson' },
     distritos_py:        { group: 'base',  label: 'Distritos (23)',             active: false, features: '?', source: 'OSM/Geofabrik', info: 'District-level admin polygons (admin_level 6+7).',                          color: '#10b981', url: 'data/admin/distritos.geojson' },
     barrios_py:          { group: 'base',  label: 'Barrios / Localidades (1278)',active: false, features: '?', source: 'OSM/Geofabrik', info: 'Neighbourhood + locality polygons (admin_level 8-11). Slow with all on.',color: '#64748b', url: 'data/admin/barrios_py.geojson' },
 
@@ -1165,6 +1168,7 @@ async function loadTileFabric() {
                 <div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>
                 <div class="row"><span class="k">Area</span><span class="v">${t.area_km2.toFixed(1)} km²</span></div>
                 <div class="row"><span class="k">UTM</span><span class="v">${t.utm_zone_hint}</span></div>
+                ${isP && t.city ? `<div class="row"><span class="k">Ciudad</span><span class="v">${t.city}</span></div>` : ''}
                 ${isP ? '<div class="row"><span class="k">Status</span><span class="v" style="color:#2dd4bf">PRIORITY</span></div>' : ''}
                 <div style="margin-top:6px;"><a href="./mapa.html?tile=${t.tile_id}">Open per-tile viewer →</a></div>
             `);
@@ -1174,9 +1178,10 @@ async function loadTileFabric() {
         if (layerState.tile_fabric.active) fabricGroup.addTo(map);
         if (layerState.priority_tiles.active) prio.tiles.forEach(t => {
             const [w, s, e, n] = t.bbox_wsen;
+            const cityLabel = t.city ? ` — ${t.city}` : '';
             const rect = L.rectangle([[s, w], [n, e]], {
                 color: '#2dd4bf', weight: 2, fillColor: '#2dd4bf', fillOpacity: 0.0,
-            }).bindPopup(`<h3>Priority ${t.tile_id}</h3><div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>`);
+            }).bindPopup(`<h3>Priority ${t.tile_id}${cityLabel}</h3><div class="row"><span class="k">Centroid</span><span class="v">${t.centroid[1].toFixed(4)}, ${t.centroid[0].toFixed(4)}</span></div>${t.city ? `<div class="row"><span class="k">Ciudad</span><span class="v">${t.city} (${t.distance_km || '?'} km)</span></div>` : ''}`);
             rect.addTo(LAYER_GROUPS.priority_tiles[0]);
         });
     } catch (e) {
@@ -1449,66 +1454,72 @@ async function loadProperties() {
 
         // === CHARTS (Chart.js) ===
         try {
-                if (typeof Chart === 'undefined') return;
-                Chart.defaults.color = 'rgba(230, 234, 242, 0.7)';
-                Chart.defaults.borderColor = 'rgba(31, 41, 68, 0.6)';
-                Chart.defaults.font.size = 10;
-
-                // Property types (doughnut)
-                const typeCanvas = document.getElementById('chartPropertyTypes');
-                if (typeCanvas) {
-                    new Chart(typeCanvas, {
-                        type: 'doughnut',
-                        data: {
-                            labels: Object.keys(buckets.byType),
-                            datasets: [{
-                                data: Object.values(buckets.byType),
-                                backgroundColor: ['#2dd4bf', '#60a5fa', '#f59e0b', '#a78bfa', '#ef4444', '#10b981', '#8b94a8'],
-                            }],
-                        },
-                        options: { plugins: { legend: { position: 'right', labels: { boxWidth: 8 } } }, maintainAspectRatio: false }
-                    });
-                }
-
-                // Top 10 deptos (horizontal bar)
-                const deptosArr = Object.entries(buckets.byDepto).sort((a, b) => b[1] - a[1]).slice(0, 10);
-                const deptosCanvas = document.getElementById('chartDeptos');
-                if (deptosCanvas) {
-                    new Chart(deptosCanvas, {
-                        type: 'bar',
-                        data: {
-                            labels: deptosArr.map(d => d[0]),
-                            datasets: [{
-                                label: 'listings',
-                                data: deptosArr.map(d => d[1]),
-                                backgroundColor: '#2dd4bf',
-                            }],
-                        },
-                        options: {
-                            indexAxis: 'y',
-                            plugins: { legend: { display: false } },
-                            maintainAspectRatio: false,
-                            scales: { x: { grid: { color: 'rgba(31, 41, 68, 0.4)' } } },
-                        },
-                    });
-                }
-            } catch (e) { console.warn('Charts failed:', e); }
-
-        // Render $/ha-by-depto chart (Chart.js)
-        try {
             if (typeof Chart === 'undefined') return;
-            const buckets = {};
+            Chart.defaults.color = 'rgba(230, 234, 242, 0.7)';
+            Chart.defaults.borderColor = 'rgba(31, 41, 68, 0.6)';
+            Chart.defaults.font.size = 10;
+
+            // Recompute buckets for charts (scoped here since prior buckets is in a closed try-block)
+            const chartBuckets = { byType: {}, byDepto: {}, priceByDepto: {} };
             for (const f of features) {
                 const p = f.properties || {};
+                const t = p.property_type || 'unknown';
+                chartBuckets.byType[t] = (chartBuckets.byType[t] || 0) + 1;
+                const d = p.state_province || 'Unknown';
+                chartBuckets.byDepto[d] = (chartBuckets.byDepto[d] || 0) + 1;
                 if (p['$/ha'] && p.state_province && p['$/ha'] > 0 && p['$/ha'] < 100_000_000) {
-                    buckets[p.state_province] = buckets[p.state_province] || { sum: 0, count: 0 };
-                    buckets[p.state_province].sum += p['$/ha'];
-                    buckets[p.state_province].count++;
+                    if (!chartBuckets.priceByDepto[d]) chartBuckets.priceByDepto[d] = { sum: 0, count: 0 };
+                    chartBuckets.priceByDepto[d].sum += p['$/ha'];
+                    chartBuckets.priceByDepto[d].count++;
                 }
             }
-            const arr = Object.entries(buckets).map(([k, v]) => [k, Math.round(v.sum / v.count), v.count]).sort((a, b) => b[1] - a[1]).slice(0, 12);
+
+            // Property types (doughnut)
+            const typeCanvas = document.getElementById('chartPropertyTypes');
+            if (typeCanvas) {
+                if (Chart.getChart(typeCanvas)) Chart.getChart(typeCanvas).destroy();
+                new Chart(typeCanvas, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(chartBuckets.byType),
+                        datasets: [{
+                            data: Object.values(chartBuckets.byType),
+                            backgroundColor: ['#2dd4bf', '#60a5fa', '#f59e0b', '#a78bfa', '#ef4444', '#10b981', '#8b94a8'],
+                        }],
+                    },
+                    options: { plugins: { legend: { position: 'right', labels: { boxWidth: 8 } } }, maintainAspectRatio: false }
+                });
+            }
+
+            // Top 10 deptos (horizontal bar)
+            const deptosArr = Object.entries(chartBuckets.byDepto).sort((a, b) => b[1] - a[1]).slice(0, 10);
+            const deptosCanvas = document.getElementById('chartDeptos');
+            if (deptosCanvas) {
+                if (Chart.getChart(deptosCanvas)) Chart.getChart(deptosCanvas).destroy();
+                new Chart(deptosCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: deptosArr.map(d => d[0]),
+                        datasets: [{
+                            label: 'listings',
+                            data: deptosArr.map(d => d[1]),
+                            backgroundColor: '#2dd4bf',
+                        }],
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        plugins: { legend: { display: false } },
+                        maintainAspectRatio: false,
+                        scales: { x: { grid: { color: 'rgba(31, 41, 68, 0.4)' } } },
+                    },
+                });
+            }
+
+            // Render $/ha-by-depto chart
+            const arr = Object.entries(chartBuckets.priceByDepto).map(([k, v]) => [k, Math.round(v.sum / v.count), v.count]).sort((a, b) => b[1] - a[1]).slice(0, 12);
             const canvas = document.getElementById('chartPriceByDepto');
             if (canvas) {
+                if (Chart.getChart(canvas)) Chart.getChart(canvas).destroy();
                 new Chart(canvas, {
                     type: 'bar',
                     data: {
@@ -1599,8 +1610,7 @@ const group = LAYER_GROUPS.properties_infocasas[0];
             <div style="font-size:10px; color:var(--fg-dim); margin:4px 0;">Model: $${Math.round(fp.predicted).toLocaleString()} (${fp.label})</div>`;
         }
     }
-    return
-const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
+            const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
             const op = p.listing_type === 'rent' ? 'RENT' : p.listing_type === 'short_rent' ? 'SHORT-RENT' : 'SALE';
             const opColor = p.listing_type === 'rent' ? '#fbbf24' : p.listing_type === 'short_rent' ? '#a78bfa' : '#34d399';
             const cityNeigh = [p.city, p.neighborhood].filter(Boolean).join(' / ');
@@ -1717,11 +1727,15 @@ const GEOCODER = {
     async search(query) {
         if (!query || query.length < 3) return [];
         try {
-            const url = `${this.endpoint}?q=${encodeURIComponent(query)}&limit=8&lang=es`;
+            const url = `${this.endpoint}?q=${encodeURIComponent(query)}&limit=10&lang=es`;
             const r = await fetch(url, { headers: { 'User-Agent': 'Paraguay-Geodata/1.0' } });
             if (!r.ok) return [];
             const d = await r.json();
-            return d.features || [];
+            let features = d.features || [];
+            // Prioritize Paraguay (countrycode=PY) — Photon returns other countries first for ambiguous queries
+            const pyFeatures = features.filter(f => f.properties?.countrycode === 'PY');
+            const otherFeatures = features.filter(f => f.properties?.countrycode !== 'PY');
+            return [...pyFeatures, ...otherFeatures].slice(0, 8);
         } catch (e) {
             console.warn('Geocoder error:', e);
             return [];
@@ -2764,6 +2778,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (legend) {
         legend.addEventListener('click', () => legend.classList.toggle('open'));
     }
+    // Recalculate map size after layout is complete (Leaflet quirk: initialized before grid was sized)
+    setTimeout(() => {
+        try {
+            map.invalidateSize();
+            console.log('[map] invalidateSize() called after layout');
+        } catch (e) {
+            console.warn('[map] invalidateSize failed:', e);
+        }
+    }, 100);
+    // Second pass after async loaders might have changed layout
+    setTimeout(() => {
+        try { map.invalidateSize(); } catch (e) {}
+    }, 2000);
 });
 
 // ========== DISMISS LOADING BANNER ON BOOTSTRAP DONE ==========
@@ -3399,6 +3426,7 @@ window.showDueDiligence = async function(listing) {
     try { loadInsights(); } catch (e) { console.error('[bootstrap] loadInsights:', e); };
     try { loadFairPriceModel(); } catch (e) { console.error('[bootstrap] loadFairPriceModel:', e); };
     try { calcYield(); } catch (e) { console.error('[bootstrap] calcYield:', e); };
+    try { await loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
     try { loadTileFabric(); } catch (e) { console.error('[bootstrap] loadTileFabric:', e); };
     try { loadDepartamentos(); } catch (e) { console.error('[bootstrap] loadDepartamentos:', e); };
     try { loadDistritos(); } catch (e) { console.error('[bootstrap] loadDistritos:', e); };
