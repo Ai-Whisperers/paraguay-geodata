@@ -852,8 +852,8 @@ const layerState = {
 
     // ---- base admin (OSM) ----
     departamentos_py:   { group: 'base', label: 'Departamentos (18)',            active: true,  features: '?', info: 'Provincia-level admin polygons from OSM.',                            color: '#60a5fa', url: 'data/admin/departamentos.geojson' },
-    distritos_py:        { group: 'base', label: 'Distritos (268)',              active: false, features: '?', info: 'District-level admin polygons (admin_level 6+7).',                    color: '#10b981', url: 'data/admin/distritos.geojson' },
-    barrios_py:          { group: 'base', label: 'Barrios / Localidades (1,278)',active: false, features: '?', info: 'Neighbourhood + locality polygons (admin_level 8-11). Slow with all on.', color: '#64748b', url: 'data/admin/barrios_py.geojson' },
+    distritos_py:        { group: 'base', label: 'Distritos',              active: false, features: '?', info: 'District-level admin polygons (admin_level 6+7). Currently 10 mapped (Paraguarí only). Use catastro_dist.geojson for full 268.',                    color: '#10b981', url: 'data/admin/distritos.geojson' },
+    barrios_py:          { group: 'base', label: 'Barrios / Localidades',active: false, features: '?', info: 'Neighbourhood + locality polygons (admin_level 8-11). Currently 236 mapped (228 valid, 8 awaiting OSM polygon). Slow with all on.', color: '#64748b', url: 'data/admin/barrios_py.geojson' },
 
     // ---- admin (Catastro) ----
     catastro_dpto:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Departamentos (18)', active: false, features: '?', info: 'Official departamento boundaries + codes from Paraguay\'s land registry.', color: '#06b6d4', url: 'data/admin/catastro_dpto.geojson' },
@@ -1888,6 +1888,7 @@ features.forEach(f => {
         ${p.address ? `<div class="row"><span class="k">Address</span><span class="v" style="font-size:10px;">${typeof p.address === 'string' ? escapeHtml(p.address.slice(0,50)) : (p.address.street || '').slice(0,40)}</span></div>` : ''}
         ${p.source_agent ? `<div class="row"><span class="k">Agent</span><span class="v" style="font-size:10px;">${escapeHtml(p.source_agent)}</span></div>` : ''}
         ${fairPriceHtml}
+        ${(p.property_type_inferred || p.state_province_inferred) ? '<div style="margin-top:4px; font-size:9px; color:var(--warn);">⚠ Some fields inferred from listing text</div>' : ''}
         <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
     `, { maxWidth: 320 });
     // Add the marker to BOTH the listing-type sub-layer AND the property-type sub-layer
@@ -2694,12 +2695,13 @@ async function loadIndigenous() {
     await loadEnvironmental('indigenous', './data/indigenous_territories.geojson',
         { color: '#ec4899', weight: 2, fillColor: '#ec4899', fillOpacity: 0.15, dashArray: '6, 4' },
         'name',
-        ['people', 'status', 'area_km2'],
+        ['people', 'status', 'area_km2', 'area_km2_computed', 'area_km2_approx'],
         p => `<h3>${p.name || 'Indigenous territory'}</h3>
             <div class="row"><span class="k">People</span><span class="v">${p.people || '—'}</span></div>
             <div class="row"><span class="k">Status</span><span class="v">${p.status || '—'}</span></div>
-            <div class="row"><span class="k">Area</span><span class="v">${p.area_km2?.toLocaleString() || '?'} km²</span></div>
-            <div style="font-size:9px; color:var(--fg-dim); margin-top:6px;">⚠ Approximate bbox — not legal boundary</div>`);
+            <div class="row"><span class="k">Area (legal)</span><span class="v">${p.area_km2_approx?.toLocaleString() || '?'} km²</span></div>
+            <div class="row"><span class="k">Area (bbox)</span><span class="v" style="color:var(--warn);">${p.area_km2_computed?.toLocaleString() || '?'} km²</span></div>
+            <div style="font-size:9px; color:var(--warn); margin-top:6px;">⚠ Polygon is approximate bounding box. Legal boundaries recognized by INDI.</div>`);
 }
 
 async function loadClimateRisk() {
