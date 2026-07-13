@@ -110,6 +110,13 @@ A free, open, viewer for Paraguay real-estate + cadastral + environmental data. 
 | Theme toggle (dark/auto/light) | ✓ | Persisted in localStorage |
 | Cloudflare Web Analytics | ready | Token placeholder; activate once CF issues token |
 
+## National hillshade (2026-07-13)
+
+- ✓ Four bbox-cropped Copernicus GLO-30 regional JPEGs generated (`nw`, `ne`, `sw`, `se`), each 6000×6000 px.
+- ✓ Chunked Horn computation preserves all raster columns and is covered by regression tests.
+- ✓ National overlay loader registers all four quadrants; priority-city terrain still loads on demand at zoom ≥11.
+- ✓ Build can resume selected quadrants with `python3 scripts/build_paraguay_hillshade_v3.py --regions <names>` and exits non-zero if any region fails.
+
 ## Known issues / what's NOT done
 
 - **No auto-refresh** — data is whatever the last scrape produced. Will go stale.
@@ -117,7 +124,7 @@ A free, open, viewer for Paraguay real-estate + cadastral + environmental data. 
 - **GN (Guaraní)** — falls back to ES (no GN translations yet).
 - **10,898 properties' geo accuracy** — relies on source data; ~339 have unknown depto.
 - **5,649 properties with PII scrubbing** — agent phones null, no leak check on emails beyond @-pattern.
-- **No tests** — ad-hoc shell scripts only.
+- **Limited automated coverage** — hillshade builder/frontend regressions are automated; most remaining functionality still relies on ad-hoc shell/Playwright scripts.
 - **No CI** — manual `wrangler deploy`.
 - **No monitoring** — no uptime check, no error reporting.
 

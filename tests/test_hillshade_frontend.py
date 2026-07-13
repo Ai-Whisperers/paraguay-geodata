@@ -64,6 +64,7 @@ class HillshadeFrontendTests(unittest.TestCase):
             """() => {
                 window.applyPreset('tourist');
                 map.setView([-25.28, -57.63], 13, { animate: false });
+                return window.refreshPriorityHillshades();
             }"""
         )
         self.page.wait_for_function(
