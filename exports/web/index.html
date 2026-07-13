@@ -4856,6 +4856,79 @@ window.showDueDiligence = async function(listing) {
             console.log(`[hillshade] ${overlays.length} regional overlays ready`);
         } catch (e) { console.warn('[hillshade] load failed:', e); }
     })();
+
+    // ========== PARAGUAY HILLSHADE: candidate-city-level (high-res, 6 cities) ==========
+    const _paraguayPriorityHillshades = {};
+    window._paraguayPriorityHillshades = _paraguayPriorityHillshades;  // expose for tests
+    async function loadParaguayCityHillshade(candidate) {
+        if (_paraguayPriorityHillshades[candidate.id]) return _paraguayPriorityHillshades[candidate.id];
+        try {
+            const r = await fetch(`./data/hillshade_${candidate.id}.jpg`, { method: 'HEAD' });
+            if (!r.ok) return null;
+            const overlay = L.imageOverlay(`./data/hillshade_${candidate.id}.jpg`, [
+                [candidate.bbox[1], candidate.bbox[0]],
+                [candidate.bbox[3], candidate.bbox[2]]
+            ], { opacity: 0.65, interactive: false, className: 'hillshade-priority' });
+            overlay.candidateName = candidate.name;
+            _paraguayPriorityHillshades[candidate.id] = overlay;
+            if (!LAYER_GROUPS.hillshade_priority) {
+                LAYER_GROUPS.hillshade_priority = [L.layerGroup()];
+            }
+            LAYER_GROUPS.hillshade_priority[0].addLayer(overlay);
+            return overlay;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    let _priorityCandidates = null;
+    async function getPriorityCandidates() {
+        if (_priorityCandidates) return _priorityCandidates;
+        try {
+            const r = await fetch('./data/hillshade_priority_metadata.json');
+            if (!r.ok) return null;
+            const d = await r.json();
+            _priorityCandidates = d.candidates || [];
+            return _priorityCandidates;
+        } catch (e) { return null; }
+    }
+
+    // Load priority hillshades when zoom >= 11 and visible candidate area
+    let _lastPriorityZoom = null;
+    map.on('zoomend moveend', async () => {
+        if (!layerState.hillshade_priority || !layerState.hillshade_priority.active) return;
+        if (map.getZoom() < 11) {
+            if (LAYER_GROUPS.hillshade_priority && LAYER_GROUPS.hillshade_priority[0]) {
+                map.removeLayer(LAYER_GROUPS.hillshade_priority[0]);
+            }
+            _lastPriorityZoom = null;
+            return;
+        }
+        const candidates = await getPriorityCandidates();
+        if (!candidates) return;
+        const visibleBounds = map.getBounds();
+        let loaded = 0;
+        for (const c of candidates) {
+            const candidateBounds = L.latLngBounds([[c.bbox[1], c.bbox[0]], [c.bbox[3], c.bbox[2]]]);
+            if (visibleBounds.intersects(candidateBounds)) {
+                const overlay = await loadParaguayCityHillshade(c);
+                if (overlay) loaded++;
+            }
+        }
+        if (LAYER_GROUPS.hillshade_priority && LAYER_GROUPS.hillshade_priority[0] &&
+            !map.hasLayer(LAYER_GROUPS.hillshade_priority[0])) {
+            LAYER_GROUPS.hillshade_priority[0].addTo(map);
+            // bringToBack is on ImageOverlay, not LayerGroup — iterate
+            LAYER_GROUPS.hillshade_priority[0].getLayers().forEach(l => {
+                if (l.bringToBack) l.bringToBack();
+            });
+        }
+        if (loaded > 0) updateLayerCount('hillshade_priority', loaded);
+    });
+
+    // Expose loader functions on window for testing & debugging
+    window.getPriorityCandidates = getPriorityCandidates;
+    window.loadParaguayCityHillshade = loadParaguayCityHillshade;
 })();
 </script>
 </body>
