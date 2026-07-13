@@ -1,6 +1,6 @@
 # Paraguay Geodata — Gap analysis & opportunity matrix
 
-Generated: 2026-07-11.  Built on top of `655fdbd`. ~10,000 features live.
+Generated: 2026-07-13. Built on top of `fd44aa9` + 6 subsequent commits. 27 layers, 10,898 listings live.
 
 ## A. Crashes / broken behaviour (P0 — fix now)
 
@@ -97,3 +97,48 @@ Generated: 2026-07-11.  Built on top of `655fdbd`. ~10,000 features live.
 - 1,289 admin polygons (deptos + distritos + barrios)
 - Clean purple INBIO choropleth works (verified by vision)
 - All endpoints return 200
+
+---
+
+## Items completed in this session (2026-07-13)
+
+### Critical bugs fixed
+- ✅ **Properties vanished at zoom >= 11** (clusterProperties early-return bug) — now renders individual markers
+- ✅ **CSV export button missing** (function existed, no UI) — added to header, respects active filters
+- ✅ **INBIO choropleth scale collapsed** — switched to P95 percentile scale
+- ✅ **HTML <head> structurally broken** (regression from phase 0) — full reconstruction with og/twitter/manifest
+- ✅ **Properties fetched 2x in code** — memoized with fetchPropertiesOnce()
+- ✅ **Signals HTML rendered inline only once** — extracted to renderSignals() with refresh
+
+### Features added
+- ✅ **Saved listings** (localStorage) - Star Save button on popups, modal viewer
+- ✅ **Theme toggle** (dark/auto/light) - persists in localStorage
+- ✅ **Insights panel** at top of sidebar - live market signals with refresh
+- ✅ **Collapsible sidebar sections** - <details open> with chevron
+- ✅ **Print stylesheet** - clean B&W map printout, grayscale tiles
+- ✅ **PWA install + service worker** - beforeinstallprompt handler
+- ✅ **Keyboard nav in search** - ArrowUp/Down/Enter/Escape
+- ✅ **Google Maps / OSM / Search deep links** in popups
+- ✅ **Toast notification system** - success/error/info types
+- ✅ **Anchor city circles** - 20 cities, 30 km radius, listing density
+- ✅ **Heatmap overlays** - $/ha (green->red) and lot area (blue->yellow)
+- ✅ **NASA POWER 12-month strip** - temp + precip chart
+- ✅ **Price-radius scaling** - markers scale 3-14 px by log price
+- ✅ **Advanced filters** - depto, city, source, sort
+- ✅ **favicon.svg + og-image.svg** - referenced but missing
+
+### A11y improvements
+- ✅ **Skip-link to map** - appears on focus
+- ✅ **Focus-visible outline** - 2px accent ring on keyboard nav
+- ✅ **aria-live on loading banner**
+- ✅ **More aria-label** on action buttons
+
+### Pending (next session)
+- Cloudflare Web Analytics token (placeholder ready)
+- GN (Guarani) translations (currently ES fallback)
+- No CI / no auto-deploy on git push
+- No uptime monitor / error reporting
+- No mobile bottom-sheet refactor for filters
+- No chart export / share PNG
+- Catastro distrito layer to fetch 268 features (currently 10)
+- Distritos layer currently 10 (Paraguari only) - needs full WFS refetch
