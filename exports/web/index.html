@@ -2175,6 +2175,30 @@ for (const [id, g] of Object.entries(propertyLayers)) {
 
 // Populate city list with listing counts
 updateCityListWithCounts(features);
+// Populate depto + source filter dropdowns
+try {
+    const deptos = new Set();
+    const sources = new Set();
+    for (const f of features) {
+        const p = f.properties || {};
+        if (p.state_province && p.state_province !== 'Unknown') deptos.add(p.state_province);
+        if (p.source) sources.add(p.source);
+    }
+    const deptoSel = document.getElementById('filterDepto');
+    if (deptoSel) {
+        const cur = deptoSel.value;
+        deptoSel.innerHTML = '<option value="">All deptos</option>' +
+            Array.from(deptos).sort().map(d => `<option value="${d}">${d}</option>`).join('');
+        deptoSel.value = cur;
+    }
+    const sourceSel = document.getElementById('filterSource');
+    if (sourceSel) {
+        const cur = sourceSel.value;
+        sourceSel.innerHTML = '<option value="">All sources</option>' +
+            Array.from(sources).sort().map(s => `<option value="${s}">${s}</option>`).join('');
+        sourceSel.value = cur;
+    }
+} catch (e) { console.warn('Filter dropdown population failed:', e); }
 // Build heatmap overlays (cheap, runs once after features are in memory)
 try { updateHeatmap(); } catch (e) { console.warn('[heatmap] init failed:', e); }
 } catch (e) {
@@ -3409,13 +3433,17 @@ function applyFilters() {
     const listing = document.getElementById('filterListing').value;
     const beds = parseInt(document.getElementById('filterBeds').value) || 0;
     const minArea = parseFloat(document.getElementById('filterArea').value) || 0;
+    const depto = (document.getElementById('filterDepto') || {}).value || '';
+    const city = ((document.getElementById('filterCity') || {}).value || '').toLowerCase();
+    const source = (document.getElementById('filterSource') || {}).value || '';
+    const sort = (document.getElementById('filterSort') || {}).value || '';
 
-    activeFilters = { minPrice, maxPrice, type, listing, beds, minArea };
+    activeFilters = { minPrice, maxPrice, type, listing, beds, minArea, depto, city, source, sort };
 
     // Apply filter to property markers
     if (!window.__properties) return;
 
-    const filtered = window.__properties.filter(f => {
+    let filtered = window.__properties.filter(f => {
         const p = f.properties || {};
         const price = p.price_usd || 0;
         if (price < minPrice || price > maxPrice) return false;
@@ -3423,8 +3451,22 @@ function applyFilters() {
         if (listing && p.listing_type !== listing) return false;
         if (beds && (p.bedrooms || 0) < beds) return false;
         if (minArea && (p.area_ha || 0) < minArea) return false;
+        if (depto && p.state_province !== depto) return false;
+        if (city && !(p.city || '').toLowerCase().includes(city)) return false;
+        if (source && p.source !== source) return false;
         return true;
     });
+
+    // Sort
+    if (sort) {
+        filtered = filtered.slice();
+        if (sort === 'price_asc') filtered.sort((a, b) => (a.properties?.price_usd || 0) - (b.properties?.price_usd || 0));
+        else if (sort === 'price_desc') filtered.sort((a, b) => (b.properties?.price_usd || 0) - (a.properties?.price_usd || 0));
+        else if (sort === 'price_per_ha_asc') filtered.sort((a, b) => (a.properties?.['$/ha'] || 0) - (b.properties?.['$/ha'] || 0));
+        else if (sort === 'area_desc') filtered.sort((a, b) => (b.properties?.area_ha || 0) - (a.properties?.area_ha || 0));
+        else if (sort === 'beds_desc') filtered.sort((a, b) => (b.properties?.bedrooms || 0) - (a.properties?.bedrooms || 0));
+        else if (sort === 'newest') filtered.sort((a, b) => (b.properties?.scraped_at_utc || '').localeCompare(a.properties?.scraped_at_utc || ''));
+    }
 
     // Re-cluster with filtered set
     if (propertyClusterGroup) map.removeLayer(propertyClusterGroup);
@@ -3564,6 +3606,10 @@ function clearFilters() {
     document.getElementById('filterListing').value = '';
     document.getElementById('filterBeds').value = '';
     document.getElementById('filterArea').value = '';
+    const fd = document.getElementById('filterDepto'); if (fd) fd.value = '';
+    const fc = document.getElementById('filterCity'); if (fc) fc.value = '';
+    const fs = document.getElementById('filterSource'); if (fs) fs.value = '';
+    const fsort = document.getElementById('filterSort'); if (fsort) fsort.value = '';
     document.getElementById('filterResultCount').textContent = '';
     activeFilters = {};
     // Restore unfiltered set if we kept a backup
