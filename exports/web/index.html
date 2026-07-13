@@ -1318,7 +1318,7 @@ const LAZY_LOADERS = {
     gbif_animalia: null,  // shares fetch with gbif_plantae, loaded by loadGBIF
     gbif_plantae: null,
     // Anchors
-    anchor_circles: null,
+    anchor_circles: 'loadAnchorCircles',
 };
 
 // Track which layers have been initialized (fetched + added to LAYER_GROUPS).
@@ -1341,7 +1341,7 @@ async function ensureLayerLoaded(id) {
         const fetchGroups = {
             inbio_arroz: 'loadINBIO', inbio_maiz: 'loadINBIO',
             gbif_animalia: 'loadGBIF', gbif_plantae: 'loadGBIF',
-            anchor_circles: null,  // anchor_circles is generated from priority tiles (no separate fetch)
+            anchor_circles: 'loadAnchorCircles',  // own loader, reads from __properties
             properties_rent: 'loadProperties',
             properties_short: 'loadProperties',
             properties_house: 'loadProperties',
@@ -2735,6 +2735,63 @@ async function loadOSMBuildings() {
         console.error('OSM buildings load failed:', e);
     }
 }
+
+// ========== ANCHOR CIRCLES (30km radius around major cities) ==========
+function loadAnchorCircles() {
+    const group = LAYER_GROUPS.anchor_circles[0];
+    if (group.getLayers().length > 0) return;  // already loaded
+    const properties = window.__properties || [];
+    // Compute listing count per city (within 30km)
+    const cityStats = ANCHOR_CITIES.map(c => {
+        const nearby = properties.filter(f => {
+            if (!f.geometry || !f.geometry.coordinates) return false;
+            const [lon, lat] = f.geometry.coordinates;
+            const dlat = lat - c.lat, dlon = lon - c.lon;
+            const km = Math.hypot(dlat * 111, dlon * 111 * Math.cos(c.lat * Math.PI / 180));
+            return km < 30;
+        });
+        return { ...c, count: nearby.length };
+    });
+    const maxCount = Math.max(1, ...cityStats.map(c => c.count));
+    cityStats.forEach(c => {
+        const intensity = c.count / maxCount;
+        // Color: 0 listings = dim, max = bright purple
+        const color = c.count === 0 ? '#666' : `hsl(${280 - intensity * 30}, ${60 + intensity * 30}%, ${45 + intensity * 20}%)`;
+        const fillOpacity = 0.05 + intensity * 0.25;
+
+        // 30km radius circle
+        const circle = L.circle([c.lat, c.lon], {
+            radius: 30000,
+            color: color, weight: 1.5, fillColor: color, fillOpacity: fillOpacity,
+            dashArray: '4, 4',
+        }).bindPopup(`
+            <h3>${c.name}</h3>
+            <div class="row"><span class="k">Listings (30 km)</span><span class="v" style="color:${color}; font-weight:600;">${c.count.toLocaleString()}</span></div>
+            <div class="row"><span class="k">Intensity</span><span class="v">${(intensity * 100).toFixed(0)}%</span></div>
+            <div class="row"><span class="k">Coords</span><span class="v" style="font-size:10px;">${c.lat.toFixed(4)}, ${c.lon.toFixed(4)}</span></div>
+            <div style="margin-top:6px;"><a href="https://www.google.com/maps?q=${c.lat},${c.lon}" target="_blank">View on maps →</a></div>
+        `);
+        group.addLayer(circle);
+
+        // Center marker with count badge
+        const icon = L.divIcon({
+            className: 'anchor-badge',
+            html: `<div style="background:${color}; color:white; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:11px; box-shadow:0 2px 6px rgba(0,0,0,0.4); border:2px solid var(--bg);">${c.count > 999 ? Math.floor(c.count/1000) + 'k' : c.count}</div>`,
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+        });
+        const marker = L.marker([c.lat, c.lon], { icon: icon, title: `${c.name}: ${c.count} listings` });
+        marker.bindPopup(`
+            <h3>${c.name}</h3>
+            <div class="row"><span class="k">Listings (30 km)</span><span class="v" style="color:${color}; font-weight:600;">${c.count.toLocaleString()}</span></div>
+            <div style="margin-top:6px;"><a href="#" onclick="event.preventDefault(); map.flyTo([${c.lat}, ${c.lon}], 12);">Zoom in →</a></div>
+        `);
+        group.addLayer(marker);
+    });
+    updateLayerCount('anchor_circles', cityStats.length);
+    if (layerState.anchor_circles.active) group.addTo(map);
+}
+
 
 async function loadOSMWater() {
     try {
