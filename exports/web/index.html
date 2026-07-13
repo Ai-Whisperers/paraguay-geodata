@@ -2605,8 +2605,12 @@ function buildPropertyPopup(p, lon, lat) {
         }
     }
 
-    // Risk analysis (loaded from /data/property_risk_analysis.json by ID)
+    // Risk analysis (lazy load full data when popup opens)
     let riskAnalysisHtml = '';
+    if (!window.__riskById) {
+        // Trigger async load; if data is ready by render time it'll show
+        window.loadFullRisk && window.loadFullRisk();
+    }
     if (window.__riskById) {
         const propId = p.id || p.source_id || `${p.source}:${p.source_id}`;
         const r = window.__riskById.get(propId);
@@ -2614,10 +2618,24 @@ function buildPropertyPopup(p, lon, lat) {
             const risks = r.risks || {};
             const pros = r.pros || {};
             const riskItems = [];
-            // Flood zone
+            // Flood zone — downgrade severity if Asunción urban core (Catastro polygons
+            // are broad and include the city; but most of central Asunción is on a hill).
             if (risks.flood) {
-                const sevColor = risks.flood.severity === 'high' ? '#ef4444' : risks.flood.severity === 'medium' ? '#f59e0b' : '#84cc16';
-                riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Flood zone</span><span class="v"><span style="background:${sevColor}; color:white; padding:1px 6px; border-radius:3px; font-size:10px;">${risks.flood.severity}</span> ${risks.flood.zone || ''}</span></div>`);
+                let displaySev = risks.flood.severity;
+                let note = '';
+                const isAsuncion = (p.state_province === 'Asunción');
+                // If Asunción + flood zone is "Río Paraguay floodplain" (broad), downgrade to low
+                if (isAsuncion && risks.flood.zone && risks.flood.zone.includes('Río Paraguay')) {
+                    displaySev = 'low';
+                    note = ' <span style="color:var(--fg-dim); font-size:9px;">(broad zone)</span>';
+                }
+                // Same for "Gran Chaco lowlands" — broad seasonal polygon
+                if (risks.flood.zone === 'Gran Chaco lowlands') {
+                    displaySev = 'low';
+                    note = ' <span style="color:var(--fg-dim); font-size:9px;">(seasonal)</span>';
+                }
+                const sevColor = displaySev === 'high' ? '#ef4444' : displaySev === 'medium' ? '#f59e0b' : '#84cc16';
+                riskItems.push(`<div class="row"><span class="k" style="color:${displaySev === 'low' ? '#84cc16' : '#ef4444'};">⚠ Flood zone</span><span class="v"><span style="background:${sevColor}; color:white; padding:1px 6px; border-radius:3px; font-size:10px;">${displaySev}</span> ${risks.flood.zone || ''}${note}</span></div>`);
             }
             // Water proximity (close = risk)
             if (risks.water_proximity) {
@@ -3683,33 +3701,28 @@ async function updateHeatmap() {
     updateLayerCount('properties_heat_pha', phaData.length);
     updateLayerCount('properties_heat_area', areaData.length);
 
-    // Risk heatmap — uses /data/property_risk_analysis.json (10,754 analyses)
+    // Risk heatmap — uses /data/property_risk_index.json (lightweight ~600KB)
     const riskGroup = LAYER_GROUPS.properties_heat_risk && LAYER_GROUPS.properties_heat_risk[0];
-    if (riskGroup) {
+    if (riskGroup && window.__riskIndex) {
         try {
-            const r = await fetch('./data/property_risk_analysis.json');
-            if (r.ok) {
-                const riskData = await r.json();
-                const analyses = riskData.analyses || [];
-                const riskPts = [];
-                let maxRisk = 0;
-                for (const a of analyses) {
-                    const s = a.risk_score || 0;
-                    if (s > 0) {
-                        riskPts.push([a.lat, a.lon, s]);
-                        if (s > maxRisk) maxRisk = s;
-                    }
+            const entries = Object.entries(window.__riskIndex);
+            const riskPts = [];
+            let maxRisk = 0;
+            for (const [id, idx] of entries) {
+                const s = idx.risk_score || 0;
+                if (s > 0) {
+                    riskPts.push([idx.lat, idx.lon, s]);
+                    if (s > maxRisk) maxRisk = s;
                 }
-                if (maxRisk > 0) {
-                    // Normalize by max for heat intensity
-                    const normPts = riskPts.map(p => [p[0], p[1], p[2] / maxRisk]);
-                    _heatRiskLayer = L.heatLayer(normPts, {
-                        radius: 22, blur: 20, max: 0.15, maxZoom: 12,
-                        gradient: { 0.05: '#fef3c7', 0.2: '#fbbf24', 0.4: '#f97316', 0.7: '#ef4444', 1.0: '#7f1d1d' },
-                    });
-                    riskGroup.addLayer(_heatRiskLayer);
-                    updateLayerCount('properties_heat_risk', riskPts.length);
-                }
+            }
+            if (maxRisk > 0 && riskPts.length > 0) {
+                const normPts = riskPts.map(p => [p[0], p[1], p[2] / maxRisk]);
+                _heatRiskLayer = L.heatLayer(normPts, {
+                    radius: 22, blur: 20, max: 0.15, maxZoom: 12,
+                    gradient: { 0.05: '#fef3c7', 0.2: '#fbbf24', 0.4: '#f97316', 0.7: '#ef4444', 1.0: '#7f1d1d' },
+                });
+                riskGroup.addLayer(_heatRiskLayer);
+                updateLayerCount('properties_heat_risk', riskPts.length);
             }
         } catch (e) { console.warn('Risk heatmap failed:', e); }
     }
@@ -4483,16 +4496,36 @@ window.showDueDiligence = async function(listing) {
     try { addLangSwitcher(); } catch (e) { console.error('[bootstrap] addLangSwitcher:', e); };
     try { applyUrlParams(); } catch (e) { console.error('[bootstrap] applyUrlParams:', e); };
 
-    // Load property risk analysis (flood, water, climate, indigenous, shadow)
+    // Lazy loader for full risk analysis (only when popup needs it)
+    let _riskFullPromise = null;
+    window.loadFullRisk = async function() {
+        if (window.__riskById) return window.__riskById;
+        if (_riskFullPromise) return _riskFullPromise;
+        try {
+            _riskFullPromise = fetch('./data/property_risk_analysis.json')
+                .then(r => r.ok ? r.json() : null)
+                .then(d => {
+                    if (d && d.analyses) {
+                        window.__riskById = new Map(d.analyses.map(a => [a.id, a]));
+                        console.log('[risks] Full analysis loaded:', d.analyses.length);
+                        return window.__riskById;
+                    }
+                    return null;
+                });
+            return _riskFullPromise;
+        } catch (e) { console.warn('[risks] full load failed:', e); return null; }
+    };
+
+    // Load property risk INDEX (lightweight: just coords + scores, ~600 KB)
+    // Used for heatmap rendering and de-duplication. Full analysis loaded on-demand for popups.
     try {
-        const rr = await fetch('./data/property_risk_analysis.json');
+        const rr = await fetch('./data/property_risk_index.json');
         if (rr.ok) {
-            const riskData = await rr.json();
-            const analyses = riskData.analyses || [];
-            window.__riskById = new Map(analyses.map(a => [a.id, a]));
-            console.log('[risks] Loaded', analyses.length, 'property analyses');
+            const idx = await rr.json();
+            window.__riskIndex = idx.index || {};
+            console.log('[risks] Loaded', Object.keys(window.__riskIndex).length, 'property risk indices');
         }
-    } catch (e) { console.warn('[risks] load failed:', e); }
+    } catch (e) { console.warn('[risks] index load failed:', e); }
 })();
 </script>
 </body>

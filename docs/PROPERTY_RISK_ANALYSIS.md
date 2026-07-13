@@ -1,84 +1,83 @@
-# Property Risk Analysis
+# Property Risk Analysis v2
 
 **Live:** https://geodata.paragu-ai.com/
 
-Generated 2026-07-13. 10,754 properties scored against 7 environmental + structural risk layers.
+Generated 2026-07-13 (v2 with depto normalization + climate sub-risk derivation).
 
-## What's scored
+## What it scores
 
-Each property gets two parallel scores (0-200+ range):
+Every property gets two scores:
+- **Risk score** (0-200+): environmental, structural, legal
+- **Pro score** (0-35): amenities, ecology
 
-### Risk score (0-200+)
-- **Flood zone** (Catastro WFS, 5 polygons): 0-30 per zone, weighted by `severity` field
-- **Climate (depto-level)**: flood / drought / heatwave / wildfire from `climate_risk.geojson`
-  - high: ×2, medium: ×1, low: ×0.3
-- **Indigenous territory** (10 polygons): +50 if point-in-polygon
-- **Water proximity** (river/stream within 300m): 25-50
-- **Shadow** (wall-to-wall building in Asunción, 49,641 footprints): +8
-- **Lighting** (close building 5-15m): +3
+`net = pro - risk`. Categories: HIGH RISK (<-20), CAUTION (-20..0), OK (0..10), GOOD (≥10).
 
-### Pro score (0-35)
-- **Near water** (300m - 5km): +10-20
-- **Biodiversity** (GBIF observation within 10km): +8-15
+## Risk dimensions
 
-### Net score
-`pro_score - risk_score`. Bucketed as:
-- `net < -20`: HIGH RISK
-- `-20 ≤ net < 0`: CAUTION
-- `0 ≤ net < 10`: OK
-- `net ≥ 10`: GOOD
+| Dimension | Source | Max weight | Notes |
+|---|---|---|---|
+| Flood zone (point-in-polygon) | Catastro WFS, 5 polygons | 30 × severity | Asunción costanera + Río Paraguay broad zones |
+| Climate flood (depto) | climate_risk.geojson (risk_level) | 15 | Derived from composite risk_level |
+| Climate drought (depto) | climate_risk.geojson (drought_freq) | 8 | Numeric threshold |
+| Climate heatwave (depto) | climate_risk.geojson (annual_precip, spi_2024) | 5 | Derived |
+| Climate wildfire (depto) | climate_risk.geojson (forest_loss_pct_2020_2024) | 10 | Chaco deforestation = high |
+| Indigenous territory (point-in-polygon) | 10 indigenous territories | 50 | Legal/regulatory concern |
+| Water proximity (300m) | OSM water polylines | 25-50 | River/stream within 300m |
+| Shadow (Asunción) | 49,641 OSM buildings | 8 | Wall-to-wall (<5m) |
+| Lighting (close building) | same | 3 | 5-15m |
 
-## How the score is computed
+## Pro dimensions
 
-```
-risk_score = (
-    flood_zone_severity * 30 +
-    climate_flood * 15 +
-    climate_drought * 8 +
-    climate_heatwave * 5 +
-    climate_wildfire * 10 +
-    indigenous_territory * 50 +
-    water_close_severity * 25 +
-    shadow * 8 +
-    lighting * 3
-)
-```
+| Dimension | Max weight | Notes |
+|---|---|---|
+| Near water (300m-5km) | 10-20 | Irrigation / views |
+| Biodiversity (GBIF <10km) | 8-15 | Bird / nature value |
 
-The current dataset averages:
-- 78% of properties are in a flood zone (Catastro WFS layer is broad — includes seasonal flood plains, not just permanent risk)
-- 1.2% are in indigenous territories
-- 0.3% have wall-to-wall buildings (Asunción only)
-- 73% are within 5km of a water body
-- 87% have GBIF biodiversity observations within 10km
+## V2 fixes over v1
 
-## How it's surfaced in the UI
-
-1. **Property popup** — risk + pro score chip with severity, plus an itemized list of issues
-2. **Sidebar "Selected property analysis"** — same data, separate panel that persists while popup closes
-3. **Heatmap · risk score** — visualize the spatial distribution of risk
-4. **`/data/property_risk_summary.json`** — by-depto aggregate + top-30 riskiest + top-30 highest-pro
+1. **Depto name normalization** — handles `Asunción`/`Asuncion`, `Itapúa`/`Itapua`, etc. via a 25-entry lookup.
+2. **Spatial depto lookup** — when raw `state_province` is missing or wrong, we use `admin/departamentos.geojson` point-in-polygon.
+3. **Climate sub-risks derived correctly** — climate_risk.geojson only has `risk_level` (composite), `drought_freq`, `forest_loss_pct_2020_2024`, `annual_precip_mm`, `spi_2024`. v1 tried to read non-existent `flood_risk`/`drought_risk`/`heatwave_risk`/`wildfire_risk` and got all None for 9,293 properties. v2 derives them.
+4. **Foreign province filtering** — Formosa (AR), Corrientes (AR), Paraná (BR), Santa Cruz (BO) are normalized to None (data contamination from cross-border listings).
+5. **Asunción flood downgrade** — UI shows "(broad zone)" annotation when flood is in the Río Paraguay floodplain polygon (which covers most of central Asunción but is a coarse Catastro WFS layer).
+6. **Gran Chaco seasonal flood** — also downgraded in UI to "low" since `seasonal: true` means it's not a permanent risk.
 
 ## Files
 
 | File | Size | Purpose |
 |---|---|---|
-| `data/property_risk_analysis.json` | ~2-3 MB | Per-property full analysis (10,754 entries) |
-| `data/property_risk_summary.json` | ~50 KB | Aggregate stats + rankings |
-| `scripts/build_risk_fast.py` | 12 KB | Generator script (re-run when layers change) |
+| `data/property_risk_analysis.json` | ~6-8 MB | Full per-property data (10,754 entries) |
+| `data/property_risk_index.json` | ~600 KB | Lightweight coords + scores only (for heatmap) |
+| `data/property_risk_summary.json` | ~60 KB | By-depto aggregate + top-30 rankings |
+| `scripts/build_risk_v2.py` | ~21 KB | Generator (re-run when layers change) |
 
-## Caveats
+## How to load in browser
 
-- **Climate is deptos-level**, not point-level. Two properties in the same depto share flood/drought/heatwave/wildfire risk.
-- **Indigenous territories are point-in-polygon**. Some listings are in the approximate bbox of a territory; this is a strong negative signal but the bbox may be wider than the actual claimed land.
-- **Wall-to-wall detection only covers Asunción** (49,641 OSM building footprints). For other cities this dimension is unknown.
-- **Water proximity assumes straight-line distance** to OSM water polylines; actual flood propagation depends on terrain and infrastructure.
+```js
+// Index (~600 KB, fast — loaded at boot)
+const idx = await fetch('./data/property_risk_index.json').then(r => r.json());
+window.__riskIndex = idx.index;  // Map<id, {lat, lon, risk_score, ...}>
 
-## How to re-run
-
-```bash
-cd /root/paraguay-geodata
-python3 scripts/build_risk_fast.py
-python3 -c "import json; d = json.load(open('exports/web/data/property_risk_analysis.json')); print(len(d['analyses']), 'analyses')"
+// Full (heavy — loaded only when a property popup opens)
+window.loadFullRisk();  // lazy, caches in __riskById
 ```
 
-Takes ~10 minutes on a single thread. Could be parallelized to 2-3 minutes with multiprocessing if needed.
+## Caveats (in priority order)
+
+1. **Catastro flood polygons are coarse** — they cover seasonal flood plains, not just permanent risk. Most of Asunción scores as "high" because of the Río Paraguay floodplain polygon overlap, not because individual properties are flood-prone. UI shows "(broad zone)" annotation.
+2. **Climate is deptos-level** — two properties in the same depto share flood/drought/heatwave/wildfire risk.
+3. **Indigenous territory overlap is bbox-based** — may include listings near (but not inside) actual claimed land.
+4. **Shadow detection only covers Asunción** (49,641 OSM building footprints). For other cities this dimension is unknown.
+5. **Water proximity assumes straight-line distance** to OSM water polylines.
+6. **Drought/heatwave/wildfire are derived from composite indicators** (drought_freq, annual_precip, forest_loss) — not direct measurements.
+
+## Score distribution (preliminary v2)
+
+Expected distribution (after normalization):
+- avg_risk Asunción: ~50 (down from 90.4 — Río Paraguay flood downgrade)
+- avg_risk Central: ~85 (mostly remains high)
+- avg_risk Itapúa: ~2 (unchanged, no flood polygons)
+- avg_risk Boquerón: ~58 (indigenous + Chaco seasonal)
+- avg_risk Caaguazú: 0 (unchanged)
+
+Final numbers available after `build_risk_v2.py` completes (~15 min).
