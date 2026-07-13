@@ -1,0 +1,138 @@
+{
+  "candidates": [
+    {
+      "id": "asu_centro",
+      "name": "Asunci\u00f3n Centro",
+      "center": [
+        -25.28,
+        -57.63
+      ],
+      "size_km": 6,
+      "reason": "Capital city center. 4,323 properties, $42M avg premium. Catastro urban polygons. Construction zones (4 ordinance-defined).",
+      "bbox": [
+        -57.689778987853146,
+        -25.334054054054054,
+        -57.57022101214686,
+        -25.22594594594595
+      ],
+      "bounds": {
+        "min_lon": -57.689778987853146,
+        "min_lat": -25.334054054054054,
+        "max_lon": -57.57022101214686,
+        "max_lat": -25.22594594594595
+      }
+    },
+    {
+      "id": "san_bernardino",
+      "name": "San Bernardino",
+      "center": [
+        -25.31,
+        -57.3
+      ],
+      "size_km": 5,
+      "reason": "Lakefront resort town. Hills + lake = dramatic terrain contrast on hillshade. Premium vacation home market.",
+      "bbox": [
+        -57.34982815156771,
+        -25.355045045045046,
+        -57.25017184843228,
+        -25.264954954954952
+      ],
+      "bounds": {
+        "min_lon": -57.34982815156771,
+        "min_lat": -25.355045045045046,
+        "max_lon": -57.25017184843228,
+        "max_lat": -25.264954954954952
+      }
+    },
+    {
+      "id": "caacupe",
+      "name": "Caacup\u00e9",
+      "center": [
+        -25.37,
+        -57.05
+      ],
+      "size_km": 5,
+      "reason": "User-requested. Cordillera hills (Serran\u00eda de Caacup\u00e9). Religious tourism capital. Premium hill-view properties.",
+      "bbox": [
+        -57.0998528676156,
+        -25.415045045045048,
+        -57.00014713238439,
+        -25.324954954954954
+      ],
+      "bounds": {
+        "min_lon": -57.0998528676156,
+        "min_lat": -25.415045045045048,
+        "max_lon": -57.00014713238439,
+        "max_lat": -25.324954954954954
+      }
+    },
+    {
+      "id": "pjc",
+      "name": "Pedro Juan Caballero",
+      "center": [
+        -22.55,
+        -55.73
+      ],
+      "size_km": 6,
+      "reason": "Amambay department. Climate risk moderate. Border town. Hillshade shows rocky Amambay hills.",
+      "bbox": [
+        -55.78852886518675,
+        -22.604054054054053,
+        -55.671471134813245,
+        -22.495945945945948
+      ],
+      "bounds": {
+        "min_lon": -55.78852886518675,
+        "min_lat": -22.604054054054053,
+        "max_lon": -55.671471134813245,
+        "max_lat": -22.495945945945948
+      }
+    },
+    {
+      "id": "cde",
+      "name": "Ciudad del Este",
+      "center": [
+        -25.51,
+        -54.62
+      ],
+      "size_km": 7,
+      "reason": "Alto Paran\u00e1. 2nd largest city. Itaipu dam area. Acaray river valley. Risk: flood zones from Paran\u00e1 river.",
+      "bbox": [
+        -54.68987518567398,
+        -25.573063063063064,
+        -54.55012481432601,
+        -25.44693693693694
+      ],
+      "bounds": {
+        "min_lon": -54.68987518567398,
+        "min_lat": -25.573063063063064,
+        "max_lon": -54.55012481432601,
+        "max_lat": -25.44693693693694
+      }
+    },
+    {
+      "id": "filadelfia",
+      "name": "Filadelfia (Chaco)",
+      "center": [
+        -22.35,
+        -60.03
+      ],
+      "size_km": 8,
+      "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels. Flat with subtle ridges.",
+      "bbox": [
+        -60.107926012178865,
+        -22.422072072072073,
+        -59.95207398782114,
+        -22.27792792792793
+      ],
+      "bounds": {
+        "min_lon": -60.107926012178865,
+        "min_lat": -22.422072072072073,
+        "max_lon": -59.95207398782114,
+        "max_lat": -22.27792792792793
+      }
+    }
+  ],
+  "version": 1,
+  "method": "data-driven selection \u2014 most expensive areas, urban anchors, climate risk hotspots, user-requested sites"
+}
