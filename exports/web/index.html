@@ -178,6 +178,107 @@
         }
         .layer:hover { border-color: var(--accent); }
         .layer.active { border-color: var(--accent); background: var(--bg-elev); }
+        .layer-group-actions { display: flex; gap: 6px; align-items: center; }
+        /* Layer tree styles (collapsible groups + sub-groups) */
+        .layer-tree { display: flex; flex-direction: column; gap: 6px; }
+        .layer-group {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--bg-elev-2);
+            overflow: hidden;
+        }
+        .layer-group-head {
+            display: flex; align-items: center; gap: 6px;
+            padding: 8px 10px;
+            background: var(--bg-elev);
+            cursor: pointer;
+            user-select: none;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--fg-dim);
+            border-bottom: 1px solid transparent;
+            transition: background .12s;
+        }
+        .layer-group-head:hover { background: var(--bg-elev-2); }
+        .layer-group.expanded > .layer-group-head { border-bottom-color: var(--line); }
+        .layer-group-arrow {
+            width: 12px;
+            font-size: 10px;
+            color: var(--fg-dim);
+            transition: transform .15s;
+            display: inline-block;
+        }
+        .layer-group.expanded > .layer-group-head .layer-group-arrow { transform: rotate(90deg); }
+        .layer-group-title { flex: 1; font-weight: 600; color: var(--fg); }
+        .layer-group-count { color: var(--accent); font-family: monospace; font-size: 10px; }
+        .layer-group-body { display: none; padding: 6px; gap: 6px; flex-direction: column; }
+        .layer-group.expanded > .layer-group-body { display: flex; }
+        .layer-subgroup {
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            background: var(--bg-elev-2);
+            overflow: hidden;
+        }
+        .layer-subgroup-head {
+            display: flex; align-items: center; gap: 6px;
+            padding: 5px 8px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 10px;
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+        .layer-subgroup-head:hover { background: var(--bg-elev); }
+        .layer-subgroup-arrow {
+            width: 10px;
+            font-size: 9px;
+            color: var(--fg-dim);
+            transition: transform .15s;
+            display: inline-block;
+        }
+        .layer-subgroup.expanded > .layer-subgroup-head .layer-subgroup-arrow { transform: rotate(90deg); }
+        .layer-subgroup-title { flex: 1; font-weight: 600; }
+        .layer-subgroup-count { color: var(--accent); font-family: monospace; font-size: 9px; }
+        .layer-subgroup-body { display: none; padding: 0 6px 6px; gap: 3px; flex-direction: column; }
+        .layer-subgroup.expanded > .layer-subgroup-body { display: flex; }
+        /* Custom checkbox */
+        .lyr-check {
+            appearance: none;
+            width: 14px; height: 14px;
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            background: var(--bg);
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            margin: 0;
+        }
+        .lyr-check:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        .lyr-check:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px; left: 1px;
+            color: var(--bg);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .lyr-check:indeterminate {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+        }
+        .lyr-check:indeterminate::after {
+            content: '–';
+            position: absolute;
+            top: -3px; left: 3px;
+            color: var(--bg);
+            font-size: 14px;
+            font-weight: 700;
+        }
         .layer .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-top: 3px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.2); }
         .layer .layer-body { flex: 1; min-width: 0; }
         .layer .layer-line { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
@@ -731,67 +832,70 @@ L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map
 //   color        swatch color (matches on-map rendering)
 //   url          deep link to source data
 
+// ========== LAYER STATE — hierarchical tree model ==========
+// Each layer has: { group, subgroup, label, active, features, info, color, url, layerType, ... }
+// Groups: 'grid' | 'base' | 'admin' | 'env' | 'agri' | 'realestate' | 'urban' | 'biodiv'
+// Subgroups (per group, where applicable):
+//   grid:        (none)
+//   base:        (none)
+//   admin:       'catastro'
+//   env:         (none)
+//   agri:        'inbio'
+//   realestate:  'sale' | 'rent' | 'short_rent' | 'by_type'
+//   urban:       'infrastructure' | 'anchors'
+//   biodiv:      (none)
+// Each layer has a unique id. layersAllOrder[] flattens the tree in draw order.
 const layerState = {
-    // ---- base admin ----
-    departamentos_py:   { group: 'base',  label: 'Departamentos (18)',         active: true,  features: '?', source: 'OSM/Geofabrik', info: 'Provincia-level admin polygons from OSM. Click for ISO + DGEEC code.',  color: '#60a5fa', url: 'data/admin/departamentos.geojson' },
-    distritos_py:        { group: 'base',  label: 'Distritos (23)',             active: false, features: '?', source: 'OSM/Geofabrik', info: 'District-level admin polygons (admin_level 6+7).',                          color: '#10b981', url: 'data/admin/distritos.geojson' },
-    barrios_py:          { group: 'base',  label: 'Barrios / Localidades (1278)',active: false, features: '?', source: 'OSM/Geofabrik', info: 'Neighbourhood + locality polygons (admin_level 8-11). Slow with all on.',color: '#64748b', url: 'data/admin/barrios_py.geojson' },
+    // ---- grid ----
+    tile_fabric:        { group: 'grid', label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', info: 'National 10×10 km grid. Click any cell to open per-tile viewer.',  color: '#1e3a8a', url: 'data/tile_index.json' },
+    priority_tiles:     { group: 'grid', label: 'Priority tiles (37)',          active: true,  features: '?', info: 'Urban-anchor tiles with the densest data.',                            color: '#0f766e', url: 'data/priority_tiles.json' },
 
-    // ---- national tile grid ----
-    tile_fabric:        { group: 'grid',  label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', source: 'derived', info: 'National 10×10 km grid (7,912 cells). Each cell can be opened in per-tile viewer.', color: '#1e3a8a', url: 'data/tile_index.json' },
-    priority_tiles:     { group: 'grid',  label: 'Priority tiles (37)',          active: true,  features: '?', source: 'derived', info: 'Urban-anchor tiles with the densest data. Click any to open per-tile viewer.', color: '#0f766e', url: 'data/priority_tiles.json' },
+    // ---- base admin (OSM) ----
+    departamentos_py:   { group: 'base', label: 'Departamentos (18)',            active: true,  features: '?', info: 'Provincia-level admin polygons from OSM.',                            color: '#60a5fa', url: 'data/admin/departamentos.geojson' },
+    distritos_py:        { group: 'base', label: 'Distritos (268)',              active: false, features: '?', info: 'District-level admin polygons (admin_level 6+7).',                    color: '#10b981', url: 'data/admin/distritos.geojson' },
+    barrios_py:          { group: 'base', label: 'Barrios / Localidades (1,278)',active: false, features: '?', info: 'Neighbourhood + locality polygons (admin_level 8-11). Slow with all on.', color: '#64748b', url: 'data/admin/barrios_py.geojson' },
 
-    // ---- agriculture ----
-    inbio_soja:         { group: 'agri',  label: 'INBIO choropleth: soja',       active: true,  features: '?', source: 'INBIO PDF',   info: 'Per-depto soybean area zafra 2025/2026 (satellite-derived). Purple = more soja.', color: '#c084fc', url: 'data/inbio_zafra_2025_2026.json' },
-    inbio_arroz:        { group: 'agri',  label: 'INBIO choropleth: arroz',      active: false, features: '?', source: 'INBIO PDF',   info: 'Per-depto rice area zafra 2025/2026. South-PY drought signal.',                color: '#fb923c', url: 'data/inbio_zafra_2025_2026.json' },
-    inbio_maiz:         { group: 'agri',  label: 'INBIO choropleth: maíz zaf.',  active: false, features: '?', source: 'INBIO PDF',   info: 'Per-depto maize zafriña area. -29% nationally.',                              color: '#facc15', url: 'data/inbio_zafra_2025_2026.json' },
+    // ---- admin (Catastro) ----
+    catastro_dpto:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Departamentos (18)', active: false, features: '?', info: 'Official departamento boundaries + codes from Paraguay\'s land registry.', color: '#06b6d4', url: 'data/admin/catastro_dpto.geojson' },
+    catastro_dist:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Distritos (268)', active: false, features: '?', info: 'Official distrito (municipality) boundaries from Catastro.', color: '#0891b2', url: 'data/admin/catastro_dist.geojson' },
+    catastro_parcels:    { group: 'admin', subgroup: 'catastro', label: 'Catastro · Parcelas sample (7.5K)', active: false, features: '?', info: 'Sample of 7,500 land parcels with ownership padron + matrícula.',         color: '#0e7490', url: 'data/admin/catastro_parcels_sample.geojson' },
+    catastro_urba:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Urban zoning (470)', active: false, features: '?', info: 'Urban zoning polygons (urbanización) from Catastro.',                    color: '#155e75', url: 'data/admin/catastro_urba.geojson' },
 
-    // ---- real estate ----
-    properties_infocasas:{group: 'realestate', label: 'Properties · dots',    active: true,  features: '?', source: 'infocasas + TuLugar', info: 'One red dot per listing. Click for title, price, area, $/ha, depto, image.',  color: '#ef4444', url: 'data/properties_latest.geojson' },
-    properties_heat_pha: { group: 'realestate', label: 'Properties · $/ha heatmap', active: false, features: '?', source: 'infocasas + TuLugar', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',           color: '#f59e0b', url: 'data/properties_latest.geojson' },
-    properties_heat_area:{group: 'realestate', label: 'Properties · area heatmap',  active: false, features: '?', source: 'infocasas + TuLugar', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                 color: '#3b82f6', url: 'data/properties_latest.geojson' },
-    anchor_circles:      { group: 'urban', label: 'Anchor cities (30 km radius)', active: false, features: '?', source: 'derived', info: '20 anchor cities with 30 km search radius. Color = listing density.',  color: '#a855f7', url: null },
+    // ---- env (Environmental risk) ----
+    indigenous:         { group: 'env', label: 'Indigenous territories (10)', active: false, features: '?', info: 'Approximate bboxes for known indigenous territories. ⚠ NOT legal boundaries.', color: '#ec4899', url: 'data/indigenous_territories.geojson' },
+    climate_risk:       { group: 'env', label: 'Climate risk by depto (18)', active: false, features: '?', info: 'Combined climate risk: deforestation (50%) + drought (50%). 2024 baseline. DERIVED, not measured.', color: '#f97316', url: 'data/climate_risk.geojson' },
+    flood_risk:         { group: 'env', label: 'Flood-prone zones (5)', active: false, features: '?', info: 'Approximate flood zones. Check SEN alerts for live warnings.',         color: '#06b6d4', url: 'data/flood_risk.geojson' },
 
-    // ---- OSM infrastructure ----
-    osm_roads:           { group: 'urban', label: 'OSM major roads (motorway/trunk/primary/secondary)', active: false, features: '?', source: 'Geofabrik PY', info: '14,835 major roads from Geofabrik Paraguay OSM extract. Click for name + ref + maxspeed.', color: '#f97316', url: 'data/roads.geojson' },
-    osm_buildings:       { group: 'urban', label: 'OSM building footprints · Asunción (top 50K)', active: false, features: '?', source: 'Geofabrik PY', info: 'Top 50K OSM building polygons in Asunción metro by footprint area. Urban-density viz.', color: '#a78bfa', url: 'data/buildings_asuncion.geojson' },
-    osm_water:           { group: 'urban', label: 'OSM water bodies (40K)', active: false, features: '?', source: 'Geofabrik PY', info: 'Rivers, lakes, reservoirs from OSM.', color: '#3b82f6', url: 'data/water.geojson' },
+    // ---- agri (INBIO) ----
+    inbio_soja:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · soja',       active: true,  features: '?', info: 'Per-depto soybean area zafra 2025/2026 (satellite). Purple = more soja.', color: '#c084fc', url: 'data/inbio_zafra_2025_2026.json' },
+    inbio_arroz:        { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · arroz',      active: false, features: '?', info: 'Per-depto rice area zafra 2025/2026. South-PY drought signal.',          color: '#fb923c', url: 'data/inbio_zafra_2025_2026.json' },
+    inbio_maiz:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · maíz zaf.',  active: false, features: '?', info: 'Per-depto maize zafriña area. -29% nationally.',                        color: '#facc15', url: 'data/inbio_zafra_2025_2026.json' },
 
-    // ---- Catastro Nacional ----
-    catastro_dpto:       { group: 'admin',  label: 'Catastro · Departamentos (18)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Official departamento boundaries + codes from Paraguay\'s land registry.', color: '#06b6d4', url: 'data/admin/catastro_dpto.geojson' },
-    catastro_dist:       { group: 'admin',  label: 'Catastro · Distritos (268)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Official distrito (municipality) boundaries from Catastro.', color: '#0891b2', url: 'data/admin/catastro_dist.geojson' },
-    catastro_parcels:    { group: 'admin',  label: 'Catastro · Parcelas sample (7.5K)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Sample of 7,500 land parcels with ownership padron + matrícula. Full dataset has 2.19M parcels.', color: '#0e7490', url: 'data/admin/catastro_parcels_sample.geojson' },
-    catastro_urba:       { group: 'admin',  label: 'Catastro · Urban zoning (470)', active: false, features: '?', source: 'Catastro Nacional WFS', info: 'Urban zoning polygons (urbanización) from Catastro.', color: '#155e75', url: 'data/admin/catastro_urba.geojson' },
+    // ---- urban (OSM infrastructure + anchors) ----
+    osm_water:           { group: 'urban', subgroup: 'infrastructure', label: 'OSM water bodies (40K)', active: false, features: '?', info: 'Rivers, lakes, reservoirs from OSM.',                                  color: '#3b82f6', url: 'data/water.geojson' },
+    osm_buildings:       { group: 'urban', subgroup: 'infrastructure', label: 'OSM buildings · Asunción (top 50K)', active: false, features: '?', info: 'Top 50K OSM building polygons in Asunción metro by footprint area.',     color: '#a78bfa', url: 'data/buildings_asuncion.geojson' },
+    osm_roads:           { group: 'urban', subgroup: 'infrastructure', label: 'OSM major roads (14,835)', active: false, features: '?', info: 'Motorway/trunk/primary/secondary from Geofabrik Paraguay OSM extract.',   color: '#f97316', url: 'data/roads.geojson' },
+    anchor_circles:      { group: 'urban', subgroup: 'anchors', label: 'Anchor cities · 30 km radius', active: false, features: '?', info: '20 anchor cities with 30 km search radius. Color = listing density.',     color: '#a855f7', url: null },
 
-    // ---- Environmental risk layers ----
-    indigenous:         { group: 'env', label: 'Indigenous territories (10)', active: false, features: '?', source: 'IWGIA + AVINA + INDI', info: 'Approximate bboxes for known indigenous territories. ⚠ NOT legal boundaries.', color: '#ec4899', url: 'data/indigenous_territories.geojson' },
-    climate_risk:       { group: 'env', label: 'Climate risk by depto (18)', active: false, features: '?', source: 'NASA POWER + GFW + INBIO', info: 'Combined climate risk score: deforestation (50%) + drought (50%). 2024 baseline. DERIVED, not measured.', color: '#f97316', url: 'data/climate_risk.geojson' },
-    flood_risk:         { group: 'env', label: 'Flood-prone zones (5)', active: false, features: '?', source: 'OSM + floodplain refs', info: 'Approximate flood zones. APPROXIMATE regions — not engineering-level. Check SEN alerts for live warnings.', color: '#06b6d4', url: 'data/flood_risk.geojson' },
+    // ---- realestate (Properties) ----
+    // Sub-groups: by_listing (sale | rent | short_rent) and by_type (house | apartment | land | commercial)
+    // Each is its own leaflet layer (filtered client-side from properties_latest.geojson)
+    properties_sale:     { group: 'realestate', subgroup: 'by_listing', label: 'Properties · for sale', active: true,  features: '?', info: 'Listings marked as sale. Click dot for title, price, area, depto.',    color: '#ef4444', url: 'data/properties_latest.geojson' },
+    properties_rent:     { group: 'realestate', subgroup: 'by_listing', label: 'Properties · for rent', active: false, features: '?', info: 'Listings marked as rent (long-term). Click for $/mo + conditions.',      color: '#f59e0b', url: 'data/properties_latest.geojson' },
+    properties_short:    { group: 'realestate', subgroup: 'by_listing', label: 'Properties · short rent', active: false, features: '?', info: 'Listings marked as short-term / vacation rentals.',                    color: '#fbbf24', url: 'data/properties_latest.geojson' },
+    properties_house:    { group: 'realestate', subgroup: 'by_type',    label: 'Properties · houses',  active: false, features: '?', info: 'Detached houses + townhouses. Filter by listing type using the radio above.', color: '#10b981', url: 'data/properties_latest.geojson' },
+    properties_apartment:{ group: 'realestate', subgroup: 'by_type',    label: 'Properties · apartments', active: false, features: '?', info: 'Apartments + flats + condos.',                                          color: '#06b6d4', url: 'data/properties_latest.geojson' },
+    properties_land:     { group: 'realestate', subgroup: 'by_type',    label: 'Properties · land', active: false, features: '?', info: 'Bare land / lotes. $/ha shown in popup.',                              color: '#84cc16', url: 'data/properties_latest.geojson' },
+    properties_commercial:{group: 'realestate', subgroup: 'by_type',    label: 'Properties · commercial', active: false, features: '?', info: 'Commercial: shops, warehouses, offices, hotels.',                       color: '#a78bfa', url: 'data/properties_latest.geojson' },
+    properties_heat_pha: { group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · $/ha',     active: false, features: '?', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',         color: '#f59e0b', url: 'data/properties_latest.geojson' },
+    properties_heat_area:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · lot area', active: false, features: '?', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                color: '#3b82f6', url: 'data/properties_latest.geojson' },
 
-
-    // ---- biodiversity ----
-    gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', source: 'GBIF', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
-    gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', source: 'GBIF', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson' },
+    // ---- biodiv ----
+    gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
+    gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson' },
 };
 
-const LAYER_GROUPS_ORDER = [
-    // bottom of stack → top of stack (drawing order = addTo order = LATER layers render ON TOP)
-    // base/admin layers (background reference)
-    'tile_fabric', 'priority_tiles',
-    'departamentos_py', 'distritos_py', 'barrios_py',
-    'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba',
-    'indigenous', 'climate_risk', 'flood_risk',
-    'inbio_soja', 'inbio_arroz', 'inbio_maiz',
-    // infrastructure overlay (roads/buildings/water on top of admin)
-    'osm_water', 'osm_buildings', 'osm_roads',
-    // anchor cities (visual context for property clusters)
-    'anchor_circles',
-    // properties on top of everything (most important — user comes for these)
-    'properties_heat_area', 'properties_heat_pha', 'properties_infocasas',
-    // biodiversity as light overlay (rare points, don't want to obscure props)
-    'gbif_plantae', 'gbif_animalia',
-];
-
+// Group labels for the layer panel
 const LAYER_GROUP_LABELS = {
     grid:        'National tile grid',
     base:        'Admin boundaries (OSM)',
@@ -799,81 +903,180 @@ const LAYER_GROUP_LABELS = {
     env:         'Environmental risk',
     agri:        'Agriculture (INBIO)',
     realestate:  'Real estate (infocasas)',
+    urban:       'Urban infrastructure',
     biodiv:      'Biodiversity (GBIF)',
-    urban:       'Urban anchors',
 };
 
+// Sub-group labels (keyed by `${group}/${subgroup}`)
+const LAYER_SUBGROUP_LABELS = {
+    'realestate/by_listing': 'By listing type',
+    'realestate/by_type':    'By property type',
+    'realestate/overlays':   'Heatmap overlays',
+    'admin/catastro':        'Catastro layers',
+    'agri/inbio':            'INBIO crops',
+    'urban/infrastructure':  'OSM infrastructure',
+    'urban/anchors':         'Anchor cities',
+};
+
+// Order of groups in the layer panel (matches draw order bottom→top)
+const LAYER_GROUP_ORDER = ['grid', 'base', 'admin', 'env', 'agri', 'urban', 'realestate', 'biodiv'];
+
+// Flat drawing order: layers in the order they should be added to the map
+// (bottom-up). Later layers render on top. Built dynamically from layerState.
+const LAYER_GROUPS_ORDER = (() => {
+    const order = [];
+    for (const id of Object.keys(layerState)) {
+        order.push(id);
+    }
+    return order;
+})();
+
+// Initialize Leaflet LayerGroups for every layer id
 const LAYER_GROUPS = {};
 for (const id of LAYER_GROUPS_ORDER) LAYER_GROUPS[id] = [L.layerGroup()];
 
-// ========== RENDER LAYERS SIDEBAR ==========
-// ========== RENDER LAYERS SIDEBAR (grouped) ==========
+// ========== HTML ESCAPE HELPER ==========
+function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    })[c]);
+}
+
+// ========== RENDER LAYERS SIDEBAR (hierarchical tree) ==========
 function renderLayerGrid() {
     const root = document.getElementById('layerGrid');
+    if (!root) return;
     root.innerHTML = '';
-    // group layers by their group key, preserving LAYER_GROUPS_ORDER within group
-    const byGroup = {};
-    for (const id of LAYER_GROUPS_ORDER) {
-        const l = layerState[id];
-        if (!l) continue;
-        if (!byGroup[l.group]) byGroup[l.group] = [];
-        byGroup[l.group].push({ id, ...l });
-    }
-    // iterate groups in a stable order
-    const groupOrder = ['grid', 'base', 'admin', 'env', 'agri', 'urban', 'realestate', 'biodiv'];
-    for (const g of groupOrder) {
-        const items = byGroup[g] || [];
-        if (!items.length) continue;
-        // group header
-        const groupActive = items.filter(x => x.active).length;
-        const groupTotal = items.length;
+
+    // Restore expanded state from sessionStorage
+    const expandedKey = 'layerTreeExpanded';
+    let expanded = {};
+    try { expanded = JSON.parse(sessionStorage.getItem(expandedKey) || '{}'); } catch (e) {}
+
+    const tree = document.createElement('div');
+    tree.className = 'layer-tree';
+
+    // Build the tree
+    for (const g of LAYER_GROUP_ORDER) {
+        const groupLayers = Object.entries(layerState).filter(([id, l]) => l.group === g && !l.subgroup);
+        const subgroupMap = {};  // subgroup -> [layerIds]
+        for (const [id, l] of Object.entries(layerState)) {
+            if (l.group === g && l.subgroup) {
+                if (!subgroupMap[l.subgroup]) subgroupMap[l.subgroup] = [];
+                subgroupMap[l.subgroup].push(id);
+            }
+        }
+
+        // Skip empty groups
+        if (groupLayers.length === 0 && Object.keys(subgroupMap).length === 0) continue;
+
+        const isExpanded = expanded[g] !== false;  // default expanded
+
+        const groupEl = document.createElement('div');
+        groupEl.className = 'layer-group' + (isExpanded ? ' expanded' : '');
+
+        // Group header
+        const groupActive = Object.entries(layerState).filter(([id, l]) => l.group === g && l.active).length;
+        const groupTotal = Object.values(layerState).filter(l => l.group === g).length;
         const head = document.createElement('div');
         head.className = 'layer-group-head';
         head.innerHTML = `
-            <span class="layer-group-title">${LAYER_GROUP_LABELS[g]}</span>
-            <span class="layer-group-actions">
-                <span class="layer-group-count">${groupActive}/${groupTotal}</span>
-                <a class="layer-group-toggle" data-group="${g}" data-action="all" href="javascript:void(0)">all</a>
-                <a class="layer-group-toggle" data-group="${g}" data-action="none" href="javascript:void(0)">none</a>
-            </span>
+            <span class="layer-group-arrow">▶</span>
+            <input type="checkbox" class="lyr-check" data-group="${g}" data-action="group" ${groupActive === 0 ? '' : (groupActive === groupTotal ? 'checked' : 'indeterminate')}>
+            <span class="layer-group-title">${LAYER_GROUP_LABELS[g] || g}</span>
+            <span class="layer-group-count">${groupActive}/${groupTotal}</span>
         `;
-        root.appendChild(head);
-        // each layer row
-        for (const l of items) {
-            const div = document.createElement('div');
-            div.className = 'layer' + (l.active ? ' active' : '');
-            div.dataset.layerId = l.id;
-            const ftxt = l.features === '?' ? '…' : (typeof l.features === 'number' ? l.features.toLocaleString() : l.features);
-            const colorSwatch = `<span class="swatch" style="background:${l.color || '#888'}"></span>`;
-            div.innerHTML = `
-                ${colorSwatch}
-                <div class="layer-body">
-                    <div class="layer-line">
-                        <span class="label">${l.label}</span>
-                        <span class="count">${ftxt}</span>
-                    </div>
-                    <div class="layer-info" title="${l.info}">${l.info}</div>
-                </div>
-            `;
-            div.addEventListener('click', (ev) => {
-                ev.stopPropagation();
-                toggleLayer(l.id);
-            });
-            root.appendChild(div);
+        head.addEventListener('click', (ev) => {
+            if (ev.target.tagName === 'INPUT') return;  // checkbox handles its own
+            groupEl.classList.toggle('expanded');
+            expanded[g] = groupEl.classList.contains('expanded');
+            try { sessionStorage.setItem(expandedKey, JSON.stringify(expanded)); } catch (e) {}
+        });
+        groupEl.appendChild(head);
+
+        // Group body
+        const body = document.createElement('div');
+        body.className = 'layer-group-body';
+
+        // Direct layers (no subgroup)
+        for (const [id, l] of groupLayers) {
+            body.appendChild(renderLayerRow(id, l));
         }
+
+        // Sub-groups
+        const subgroups = Object.keys(subgroupMap);
+        // Stable subgroup order: by first appearance in layerState
+        const subgroupOrder = [];
+        for (const id of Object.keys(layerState)) {
+            const sg = layerState[id].subgroup;
+            if (sg && layerState[id].group === g && !subgroupOrder.includes(sg)) {
+                subgroupOrder.push(sg);
+            }
+        }
+        for (const sg of subgroupOrder) {
+            const sgKey = `${g}/${sg}`;
+            const sgExpanded = expanded[sgKey] !== false;
+            const sgEl = document.createElement('div');
+            sgEl.className = 'layer-subgroup' + (sgExpanded ? ' expanded' : '');
+
+            const sgLayers = subgroupMap[sg];
+            const sgActive = sgLayers.filter(id => layerState[id].active).length;
+
+            const sgHead = document.createElement('div');
+            sgHead.className = 'layer-subgroup-head';
+            sgHead.innerHTML = `
+                <span class="layer-subgroup-arrow">▶</span>
+                <input type="checkbox" class="lyr-check" data-group="${g}" data-subgroup="${sg}" data-action="subgroup" ${sgActive === 0 ? '' : (sgActive === sgLayers.length ? 'checked' : 'indeterminate')}>
+                <span class="layer-subgroup-title">${LAYER_SUBGROUP_LABELS[sgKey] || sg}</span>
+                <span class="layer-subgroup-count">${sgActive}/${sgLayers.length}</span>
+            `;
+            sgHead.addEventListener('click', (ev) => {
+                if (ev.target.tagName === 'INPUT') return;
+                sgEl.classList.toggle('expanded');
+                expanded[sgKey] = sgEl.classList.contains('expanded');
+                try { sessionStorage.setItem(expandedKey, JSON.stringify(expanded)); } catch (e) {}
+            });
+            sgEl.appendChild(sgHead);
+
+            const sgBody = document.createElement('div');
+            sgBody.className = 'layer-subgroup-body';
+            for (const id of sgLayers) {
+                sgBody.appendChild(renderLayerRow(id, layerState[id]));
+            }
+            sgEl.appendChild(sgBody);
+            body.appendChild(sgEl);
+        }
+
+        groupEl.appendChild(body);
+        tree.appendChild(groupEl);
     }
-    // wire group all/none toggles
-    root.querySelectorAll('.layer-group-toggle').forEach(a => {
-        a.addEventListener('click', (ev) => {
+    root.appendChild(tree);
+
+    // Wire up all checkboxes (delegated)
+    root.querySelectorAll('.lyr-check').forEach(cb => {
+        cb.addEventListener('click', (ev) => ev.stopPropagation());  // don't bubble to head
+        cb.addEventListener('change', (ev) => {
             ev.stopPropagation();
-            const g = a.dataset.group;
-            const want = a.dataset.action === 'all';
-            for (const id of LAYER_GROUPS_ORDER) {
-                const l = layerState[id];
-                if (l.group === g) {
-                    const next = want;
-                    if (l.active !== next) {
-                        l.active = next;
+            const action = cb.dataset.action;
+            if (action === 'group') {
+                const g = cb.dataset.group;
+                const wantActive = cb.checked || cb.indeterminate;
+                // Tri-state: checked = turn all ON, indeterminate = keep current, unchecked = turn all OFF
+                const targetActive = cb.indeterminate ? !isGroupFullyActive(g) : cb.checked;
+                for (const [id, l] of Object.entries(layerState)) {
+                    if (l.group === g && l.active !== targetActive) {
+                        l.active = targetActive;
+                        applyLayerVisibility(id);
+                    }
+                }
+            } else if (action === 'subgroup') {
+                const g = cb.dataset.group;
+                const sg = cb.dataset.subgroup;
+                const targetActive = cb.indeterminate ? !isSubgroupFullyActive(g, sg) : cb.checked;
+                for (const [id, l] of Object.entries(layerState)) {
+                    if (l.group === g && l.subgroup === sg && l.active !== targetActive) {
+                        l.active = targetActive;
                         applyLayerVisibility(id);
                     }
                 }
@@ -882,10 +1085,55 @@ function renderLayerGrid() {
             updateStats();
         });
     });
-    updateStats();
 }
 
-function updateLayerCount(id) {
+function renderLayerRow(id, l) {
+    const div = document.createElement('div');
+    div.className = 'layer' + (l.active ? ' active' : '');
+    div.dataset.layerId = id;
+    const ftxt = l.features === '?' ? '…' : (typeof l.features === 'number' ? l.features.toLocaleString() : l.features);
+    const colorSwatch = `<span class="swatch" style="background:${l.color || '#888'}"></span>`;
+    div.innerHTML = `
+        <input type="checkbox" class="lyr-check" data-action="layer" data-layer-id="${id}" ${l.active ? 'checked' : ''}>
+        ${colorSwatch}
+        <div class="layer-body">
+            <div class="layer-line">
+                <span class="label">${l.label}</span>
+                <span class="count">${ftxt}</span>
+            </div>
+            <div class="layer-info" title="${l.info}">${l.info}</div>
+        </div>
+    `;
+    div.querySelector('input[type=checkbox]').addEventListener('click', ev => ev.stopPropagation());
+    div.querySelector('input[type=checkbox]').addEventListener('change', (ev) => {
+        ev.stopPropagation();
+        layerState[id].active = ev.target.checked;
+        applyLayerVisibility(id);
+        renderLayerGrid();
+    });
+    // Click on body toggles
+    div.addEventListener('click', (ev) => {
+        if (ev.target.tagName === 'INPUT') return;
+        layerState[id].active = !layerState[id].active;
+        applyLayerVisibility(id);
+        renderLayerGrid();
+    });
+    return div;
+}
+
+function isGroupFullyActive(g) {
+    for (const [id, l] of Object.entries(layerState)) {
+        if (l.group === g && !l.active) return false;
+    }
+    return true;
+}
+
+function isSubgroupFullyActive(g, sg) {
+    for (const [id, l] of Object.entries(layerState)) {
+        if (l.group === g && l.subgroup === sg && !l.active) return false;
+    }
+    return true;
+}function updateLayerCount(id) {
     if (id in layerState) {
         layerState[id].features = arguments[1];
     }
@@ -1555,25 +1803,62 @@ async function loadProperties() {
 // Save for clustering
         window.__properties = features;
 
-const group = LAYER_GROUPS.properties_infocasas[0];
-        features.forEach(f => {
-            if (!f.geometry || !f.geometry.coordinates) return;
-            const [lon, lat] = f.geometry.coordinates;
-            const p = f.properties;
-            // Price display: prefer PYG when both, show USD parenthetical
-            const hasPyg = !!p.price_pyg;
-            const hasUsd = !!p.price_usd;
-            let price;
-            if (hasPyg && hasUsd) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})`;
-            else if (hasPyg) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()}`;
-            else if (hasUsd) price = `$${Math.round(p.price_usd).toLocaleString()}`;
-            else price = '—';
-            // Area: prefer ha for large properties, m² for small
-            let areaStr = '—';
-            if (p.area_ha && p.area_ha >= 0.5) areaStr = `${p.area_ha.toLocaleString()} ha`;
-            else if (p.area_sqm) areaStr = `${p.area_sqm.toLocaleString()} m²`;
-            else if (p.area_ha) areaStr = `${(p.area_ha * 10000).toLocaleString()} m²`;
-            // Fair-price ML score
+const propertyLayers = {
+    sale: LAYER_GROUPS.properties_sale[0],
+    rent: LAYER_GROUPS.properties_rent[0],
+    short: LAYER_GROUPS.properties_short[0],
+    house: LAYER_GROUPS.properties_house[0],
+    apartment: LAYER_GROUPS.properties_apartment[0],
+    land: LAYER_GROUPS.properties_land[0],
+    commercial: LAYER_GROUPS.properties_commercial[0],
+};
+// Color per listing type
+const listingColor = { sale: '#ef4444', rent: '#f59e0b', short_rent: '#fbbf24' };
+// Color per property type
+const propertyColor = { house: '#10b981', apartment: '#06b6d4', land: '#84cc16', commercial: '#a78bfa', unknown: '#888' };
+const propertyIcon = { house: '🏠', apartment: '🏢', land: '🌳', commercial: '🏪', unknown: '📍' };
+
+const _bucketsByListing = { sale: 0, rent: 0, short_rent: 0, unknown: 0 };
+const _bucketsByType = { house: 0, apartment: 0, land: 0, commercial: 0, unknown: 0 };
+features.forEach(_f => {
+    const _lt = _f.properties?.listing_type || 'unknown';
+    const _pt = _f.properties?.property_type || 'unknown';
+    _bucketsByListing[_lt] = (_bucketsByListing[_lt] || 0) + 1;
+    _bucketsByType[_pt] = (_bucketsByType[_pt] || 0) + 1;
+});
+updateLayerCount('properties_sale', _bucketsByListing.sale || 0);
+updateLayerCount('properties_rent', _bucketsByListing.rent || 0);
+updateLayerCount('properties_short', _bucketsByListing.short_rent || 0);
+updateLayerCount('properties_house', _bucketsByType.house || 0);
+updateLayerCount('properties_apartment', _bucketsByType.apartment || 0);
+updateLayerCount('properties_land', _bucketsByType.land || 0);
+updateLayerCount('properties_commercial', _bucketsByType.commercial || 0);
+// Backward-compat: the legacy "Properties · dots" label
+updateLayerCount('properties_infocasas', features.length);
+
+features.forEach(f => {
+    if (!f.geometry || !f.geometry.coordinates) return;
+    const [lon, lat] = f.geometry.coordinates;
+    const p = f.properties;
+    const listingType = p.listing_type || 'unknown';
+    const propertyType = p.property_type || 'unknown';
+    const ltKey = listingType === 'short_rent' ? 'short' : listingType;
+    const color = listingColor[listingType] || propertyColor[propertyType] || '#888';
+    const radius = listingType === 'sale' ? 5 : (listingType === 'rent' ? 4 : 4);
+    // Price display: prefer PYG when both, show USD parenthetical
+    const hasPyg = !!p.price_pyg;
+    const hasUsd = !!p.price_usd;
+    let price;
+    if (hasPyg && hasUsd) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()} ($${Math.round(p.price_usd).toLocaleString()})`;
+    else if (hasPyg) price = `Gs. ${Math.round(p.price_pyg).toLocaleString()}`;
+    else if (hasUsd) price = `$${Math.round(p.price_usd).toLocaleString()}`;
+    else price = '—';
+    // Area: prefer ha for large properties, m² for small
+    let areaStr = '—';
+    if (p.area_ha && p.area_ha >= 0.5) areaStr = `${p.area_ha.toLocaleString()} ha`;
+    else if (p.area_sqm) areaStr = `${p.area_sqm.toLocaleString()} m²`;
+    else if (p.area_ha) areaStr = `${(p.area_ha * 10000).toLocaleString()} m²`;
+    // Fair-price ML score
     let fairPriceHtml = '';
     if (typeof fairPriceScore === 'function') {
         const fp = fairPriceScore(p, lon || 0, lat || 0);
@@ -1582,58 +1867,43 @@ const group = LAYER_GROUPS.properties_infocasas[0];
             <div style="font-size:10px; color:var(--fg-dim); margin:4px 0;">Model: $${Math.round(fp.predicted).toLocaleString()} (${fp.label})</div>`;
         }
     }
-            const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
-            const op = p.listing_type === 'rent' ? 'RENT' : p.listing_type === 'short_rent' ? 'SHORT-RENT' : 'SALE';
-            const opColor = p.listing_type === 'rent' ? '#fbbf24' : p.listing_type === 'short_rent' ? '#a78bfa' : '#34d399';
-            const cityNeigh = [p.city, p.neighborhood].filter(Boolean).join(' / ');
-            const propertyType = p.property_type ? p.property_type.replace('_', ' ') : '—';
+    const perHa = p['$/ha'] ? `$${Math.round(p['$/ha']).toLocaleString()}/ha` : '';
+    const op = listingType === 'rent' ? 'RENT' : listingType === 'short_rent' ? 'SHORT-RENT' : 'SALE';
+    const opColor = listingType === 'rent' ? '#fbbf24' : listingType === 'short_rent' ? '#a78bfa' : '#34d399';
+    const cityNeigh = [p.city, p.neighbourhood].filter(Boolean).join(' / ');
+    const titleHtml = `<strong>${propertyIcon[propertyType] || '📍'} ${escapeHtml(p.title || 'Property')}</strong>`;
+    const m = L.circleMarker([lat, lon], {
+        radius, fillColor: color, color: '#fff', weight: 1, opacity: 0.9, fillOpacity: 0.7,
+    }).bindPopup(`
+        <h3>${titleHtml}</h3>
+        <div class="row"><span class="k">Listing</span><span class="v" style="color:${opColor}; font-weight:600;">${op}</span></div>
+        <div class="row"><span class="k">Type</span><span class="v">${propertyType}</span></div>
+        <div class="row"><span class="k">Depto</span><span class="v">${p.state_province || '—'}${cityNeigh ? ' · ' + escapeHtml(cityNeigh) : ''}</span></div>
+        ${p.source ? `<div class="row"><span class="k">Source</span><span class="v">${p.source}${p.source_platform && p.source_platform !== p.source ? ' <span style="color:var(--fg-dim); font-size:9px;">via ' + p.source_platform + '</span>' : ''} #${p.source_id || '?'}</span></div>` : ''}
+        <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
+        <div class="row"><span class="k">Area</span><span class="v">${areaStr}</span></div>
+        ${perHa ? `<div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>` : ''}
+        ${p.bedrooms ? `<div class="row"><span class="k">Bed/Bath</span><span class="v">${p.bedrooms} bed${p.bathrooms ? ' / ' + p.bathrooms + ' bath' : ''}</span></div>` : ''}
+        ${p.parking_spaces ? `<div class="row"><span class="k">Parking</span><span class="v">${p.parking_spaces}</span></div>` : ''}
+        ${p.address ? `<div class="row"><span class="k">Address</span><span class="v" style="font-size:10px;">${typeof p.address === 'string' ? escapeHtml(p.address.slice(0,50)) : (p.address.street || '').slice(0,40)}</span></div>` : ''}
+        ${p.source_agent ? `<div class="row"><span class="k">Agent</span><span class="v" style="font-size:10px;">${escapeHtml(p.source_agent)}</span></div>` : ''}
+        ${fairPriceHtml}
+        <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
+    `, { maxWidth: 320 });
+    // Add the marker to BOTH the listing-type sub-layer AND the property-type sub-layer
+    if (propertyLayers[ltKey]) m.addTo(propertyLayers[ltKey]);
+    if (propertyLayers[propertyType]) m.addTo(propertyLayers[propertyType]);
+});
+// Add each sub-layer to the map if its layerState.active === true
+for (const [id, g] of Object.entries(propertyLayers)) {
+    if (layerState[id] && layerState[id].active) g.addTo(map);
+}
 
-            // Image: prefer first property photo (hot-linked from source CDN, never downloaded)
-            const imgs = Array.isArray(p.images) ? p.images : [];
-            const imgUrl = imgs[0] || '';
-            const imgsHtml = imgUrl
-                ? `<div class="prop-imgs" style="margin:6px 0;">
-                       <a href="${p.source_url || '#'}" target="_blank" rel="noopener noreferrer">
-                           <img loading="lazy" src="${imgUrl}"
-                                style="width:100%; max-width:280px; max-height:180px; object-fit:cover; border-radius:4px; background:#0f172a;"
-                                onerror="this.style.display='none'; this.parentNode.insertAdjacentHTML('beforeend','<div class=&quot;prop-noimg&quot; style=&quot;font-size:10px; color:var(--fg-dim); padding:18px 0; text-align:center; background:#0f172a; border-radius:4px;&quot;>📷 image unavailable</div>');" />
-                       </a>
-                       ${imgs.length > 1 ? `<div style="font-size:9px; color:var(--fg-dim); margin-top:2px;">+${imgs.length - 1} more photos on listing</div>` : ''}
-                   </div>`
-                : '';
-            const m = L.circleMarker([lat, lon], {
-                radius: 6, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
-            });
-            const mergedFrom = Array.isArray(p._merged_from) ? `<span style="color:var(--accent); font-size:9px;">[merged: ${p._merged_from.join('+')}]</span><br>` : '';
-            m.bindPopup(`
-                <h3 style="max-width:280px;">${(p.title || p.source_id || 'Property').slice(0,80)}</h3>
-                ${mergedFrom}
-                ${imgsHtml}
-                <div style="font-size:11px; color:var(--fg-dim); margin-bottom:6px; max-width:280px;">
-                    <span style="color:${opColor}; font-weight:600;">${op}</span>
-                    · ${propertyType}
-                    ${cityNeigh ? '· ' + cityNeigh : ''}
-                    ${p.state_province ? '· ' + p.state_province : ''}
-                </div>
-                <div class="row"><span class="k">Source</span><span class="v">${p.source}${p.source_platform && p.source_platform !== p.source ? ' <span style="color:var(--fg-dim); font-size:9px;">via ' + p.source_platform + '</span>' : ''} #${p.source_id || '?'}</span></div>
-                <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${price}</span></div>
-                <div class="row"><span class="k">Area</span><span class="v">${areaStr}</span></div>
-                ${perHa ? `<div class="row"><span class="k">$/ha</span><span class="v">${perHa}</span></div>` : ''}
-                ${p.bedrooms ? `<div class="row"><span class="k">Bed/Bath</span><span class="v">${p.bedrooms} bed${p.bathrooms ? ' / ' + p.bathrooms + ' bath' : ''}</span></div>` : ''}
-                ${p.parking_spaces ? `<div class="row"><span class="k">Parking</span><span class="v">${p.parking_spaces}</span></div>` : ''}
-                ${p.address ? `<div class="row"><span class="k">Address</span><span class="v" style="font-size:10px;">${typeof p.address === 'string' ? p.address.slice(0,50) : (p.address.street || '').slice(0,40)}</span></div>` : ''}
-                ${p.source_agent ? `<div class="row"><span class="k">Agent</span><span class="v" style="font-size:10px;">${p.source_agent}</span></div>` : ''}
-                <div style="margin-top:6px;"><a href="${p.source_url}" target="_blank" rel="noopener">Open listing →</a></div>
-            `, { maxWidth: 320 });
-            m.addTo(group);
-        });
-        if (layerState.properties_infocasas.active) group.addTo(map);
-
-        // Populate city list with listing counts
-        updateCityListWithCounts(features);
-    } catch (e) {
-        console.error('Properties failed:', e);
-    }
+// Populate city list with listing counts
+updateCityListWithCounts(features);
+} catch (e) {
+    console.error('Properties failed:', e);
+}
 }
 
 const ANCHOR_CITIES = [
