@@ -1585,6 +1585,32 @@ if (typeof window['loadClimate'] === 'undefined') {
             const d = await r.json();
             const S = d.summary_2024;
             const widget = document.getElementById('climateWidget');
+            // 12-month strip chart (no Chart.js needed — pure CSS bars)
+            const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            const monthly = d.monthly || [];
+            const monthlyHtml = monthly.length > 0 ? `
+                <div style="margin-top:8px;">
+                    <div style="font-size:10px; color:var(--fg-dim); margin-bottom:4px;">Monthly (2024)</div>
+                    <div style="display:grid; grid-template-columns:repeat(12, 1fr); gap:2px; height:64px;">
+                        ${monthly.map(m => {
+                            const t = m.T2M != null ? Math.max(0, Math.min(1, (m.T2M - 5) / 35)) : 0;  // 5°C to 40°C scale
+                            const p = m.PRECTOTCORR != null ? Math.min(1, m.PRECTOTCORR / 15) : 0;
+                            return `<div title="${monthNames[m.month - 1]}: ${m.T2M}°C / ${m.PRECTOTCORR} mm" style="display:flex; flex-direction:column-reverse; background:var(--bg-elev-2); border-radius:2px; overflow:hidden;">
+                                <div style="background:#3b82f6; height:${(p * 100).toFixed(0)}%; opacity:0.85;"></div>
+                                <div style="background:#f97316; height:${(t * 100).toFixed(0)}%; opacity:0.7;"></div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--fg-dim); margin-top:2px;">
+                        <span>${monthNames[0]}</span><span>${monthNames[5]}</span><span>${monthNames[11]}</span>
+                    </div>
+                    <div style="display:flex; gap:8px; font-size:9px; color:var(--fg-dim); margin-top:4px;">
+                        <span><span style="display:inline-block; width:8px; height:8px; background:#f97316; border-radius:1px; vertical-align:middle;"></span> Temp</span>
+                        <span><span style="display:inline-block; width:8px; height:8px; background:#3b82f6; border-radius:1px; vertical-align:middle;"></span> Precip</span>
+                    </div>
+                </div>
+            ` : '';
+
             widget.innerHTML = `
                 <h3>${d.point.label} (2024)</h3>
                 <div class="row"><span class="k">Avg temp</span><span class="v">${S.T2M.avg}°C</span></div>
@@ -1592,6 +1618,7 @@ if (typeof window['loadClimate'] === 'undefined') {
                 <div class="row"><span class="k">Avg precip/day</span><span class="v">${S.PRECTOTCORR.avg} mm</span></div>
                 <div class="row"><span class="k">Max precip/day</span><span class="v">${S.PRECTOTCORR.max} mm</span></div>
                 <div class="row"><span class="k">Avg solar</span><span class="v">${S.ALLSKY_SFC_SW_DWN.avg} MJ/m²</span></div>
+                ${monthlyHtml}
             `;
             updateLayerCount('nasa_power_overlay', 'query-based');
         } catch (e) {
@@ -2148,6 +2175,8 @@ for (const [id, g] of Object.entries(propertyLayers)) {
 
 // Populate city list with listing counts
 updateCityListWithCounts(features);
+// Build heatmap overlays (cheap, runs once after features are in memory)
+try { updateHeatmap(); } catch (e) { console.warn('[heatmap] init failed:', e); }
 } catch (e) {
     console.error('Properties failed:', e);
 }
@@ -2419,12 +2448,27 @@ function clusterProperties(features) {
         const visible = features.length > cap
             ? features.slice(0, cap)
             : features;
+        // Compute price-based radius scaling. Log scale so outliers don't dominate.
+        const prices = visible.map(f => f.properties?.price_usd).filter(x => x > 0).sort((a, b) => a - b);
+        const p05 = prices[Math.floor(prices.length * 0.05)] || 1;
+        const p95 = prices[Math.floor(prices.length * 0.95)] || 1;
+        const minR = 3, maxR = 14;
+        const radiusFor = (p) => {
+            const v = p?.price_usd;
+            if (!v || v <= 0) return 5;
+            const t = (Math.log(v) - Math.log(p05)) / (Math.log(p95) - Math.log(p05) + 1e-9);
+            return minR + Math.max(0, Math.min(1, t)) * (maxR - minR);
+        };
+        // Listing type color
+        const listingColor = { sale: '#ef4444', rent: '#f59e0b', short_rent: '#fbbf24' };
         visible.forEach(f => {
             if (!f.geometry || !f.geometry.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
             const p = f.properties || {};
+            const lt = p.listing_type || 'sale';
+            const color = listingColor[lt] || '#ef4444';
             const m = L.circleMarker([lat, lon], {
-                radius: 5, color: '#ef4444', fillColor: '#ef4444',
+                radius: radiusFor(p), color: color, fillColor: color,
                 fillOpacity: 0.85, weight: 1.5,
             });
             m.bindPopup(buildPropertyPopup(p, lon, lat));
@@ -3337,6 +3381,123 @@ function applyFilters() {
     const stat = document.getElementById('statListings');
     if (stat) stat.textContent = filtered.length.toLocaleString();
 }
+
+// ========== HEATMAP LAYERS ($/ha + lot area) ==========
+let _heatPhLayer = null;
+let _heatAreaLayer = null;
+let _heatLegendEl = null;
+
+function buildHeatmapFeatures(features, valueFn) {
+    const out = [];
+    for (const f of features) {
+        if (!f.geometry || !f.geometry.coordinates) continue;
+        const v = valueFn(f.properties);
+        if (!v || !isFinite(v) || v <= 0) continue;
+        const [lon, lat] = f.geometry.coordinates;
+        out.push([lat, lon, v]);
+    }
+    return out;
+}
+
+function updateHeatmap() {
+    if (!window.__properties || !window.L) return;
+    if (typeof L.heatLayer !== 'function') return;
+
+    // Compute $/ha values; skip outliers > $10M/ha (clearly mis-scraped)
+    const phaData = buildHeatmapFeatures(window.__properties, p => {
+        if (p['$/ha'] && p['$/ha'] > 0 && p['$/ha'] < 1e7) return p['$/ha'];
+        if (p.price_usd && p.area_ha && p.area_ha > 0) return p.price_usd / p.area_ha;
+        return 0;
+    });
+
+    // Compute area in ha, capped at 1000 ha for visualization
+    const areaData = buildHeatmapFeatures(window.__properties, p => {
+        const ha = p.area_ha || 0;
+        if (ha > 0 && ha < 1000) return ha;
+        return 0;
+    });
+
+    const phaGroup = LAYER_GROUPS.properties_heat_pha && LAYER_GROUPS.properties_heat_pha[0];
+    const areaGroup = LAYER_GROUPS.properties_heat_area && LAYER_GROUPS.properties_heat_area[0];
+
+    if (_heatPhLayer) { phaGroup && phaGroup.removeLayer(_heatPhLayer); _heatPhLayer = null; }
+    if (_heatAreaLayer) { areaGroup && areaGroup.removeLayer(_heatAreaLayer); _heatAreaLayer = null; }
+
+    if (phaGroup) {
+        _heatPhLayer = L.heatLayer(phaData, {
+            radius: 22, blur: 18, max: 0.05, maxZoom: 12,
+            gradient: { 0.2: '#10b981', 0.4: '#84cc16', 0.6: '#eab308', 0.8: '#f97316', 1.0: '#ef4444' },
+        });
+        phaGroup.addLayer(_heatPhLayer);
+    }
+    if (areaGroup) {
+        _heatAreaLayer = L.heatLayer(areaData, {
+            radius: 22, blur: 18, max: 0.05, maxZoom: 12,
+            gradient: { 0.2: '#1e3a8a', 0.4: '#3b82f6', 0.6: '#06b6d4', 0.8: '#a855f7', 1.0: '#fbbf24' },
+        });
+        areaGroup.addLayer(_heatAreaLayer);
+    }
+    updateLayerCount('properties_heat_pha', phaData.length);
+    updateLayerCount('properties_heat_area', areaData.length);
+
+    // Inject legend into map if either heat layer is active
+    if ((layerState.properties_heat_pha && layerState.properties_heat_pha.active) ||
+        (layerState.properties_heat_area && layerState.properties_heat_area.active)) {
+        showHeatLegend();
+    } else {
+        hideHeatLegend();
+    }
+}
+
+function showHeatLegend() {
+    if (_heatLegendEl) return;
+    _heatLegendEl = document.createElement('div');
+    _heatLegendEl.className = 'heat-legend';
+    _heatLegendEl.style.cssText = 'position:absolute; bottom:60px; right:12px; z-index:1000; background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:8px 10px; font-size:11px; box-shadow:0 2px 8px rgba(0,0,0,0.3);';
+    const phaActive = layerState.properties_heat_pha && layerState.properties_heat_pha.active;
+    const areaActive = layerState.properties_heat_area && layerState.properties_heat_area.active;
+    let html = '';
+    if (phaActive) {
+        html += '<div style="margin-bottom:6px;"><div style="font-weight:600; margin-bottom:4px;">$/ha</div>';
+        html += '<div style="display:flex; align-items:center; gap:2px; height:12px;">';
+        html += '<div style="flex:1; background:linear-gradient(to right, #10b981, #84cc16, #eab308, #f97316, #ef4444); height:12px; border-radius:2px;"></div>';
+        html += '</div>';
+        html += '<div style="display:flex; justify-content:space-between; margin-top:2px; color:var(--fg-dim); font-size:10px;"><span>$0</span><span>$10K</span><span>$100K</span><span>$1M+</span></div></div>';
+    }
+    if (areaActive) {
+        html += '<div><div style="font-weight:600; margin-bottom:4px;">Lot area (ha)</div>';
+        html += '<div style="display:flex; align-items:center; gap:2px; height:12px;">';
+        html += '<div style="flex:1; background:linear-gradient(to right, #1e3a8a, #3b82f6, #06b6d4, #a855f7, #fbbf24); height:12px; border-radius:2px;"></div>';
+        html += '</div>';
+        html += '<div style="display:flex; justify-content:space-between; margin-top:2px; color:var(--fg-dim); font-size:10px;"><span>0</span><span>5</span><span>50</span><span>500+</span></div></div>';
+    }
+    _heatLegendEl.innerHTML = html;
+    document.querySelector('.map-container') ? document.querySelector('.map-container').appendChild(_heatLegendEl) : document.body.appendChild(_heatLegendEl);
+}
+
+function hideHeatLegend() {
+    if (_heatLegendEl) { _heatLegendEl.remove(); _heatLegendEl = null; }
+}
+
+// Hook into applyLayerVisibility to refresh heatmap when toggled
+const _origApply = window.applyLayerVisibility;
+// Wrap applyLayerVisibility if it exists
+try {
+    const obs = setInterval(() => {
+        if (typeof window.applyLayerVisibility === 'function') {
+            clearInterval(obs);
+            const orig = window.applyLayerVisibility;
+            window.applyLayerVisibility = function(id) {
+                orig.call(this, id);
+                if (id === 'properties_heat_pha' || id === 'properties_heat_area') {
+                    updateHeatmap();
+                    setTimeout(updateHeatmap, 300);  // Re-render after layer visibility propagates
+                }
+            };
+        }
+    }, 50);
+} catch (e) { /* noop */ }
+
 window.applyFilters = applyFilters;
 
 function clearFilters() {
@@ -3348,11 +3509,16 @@ function clearFilters() {
     document.getElementById('filterArea').value = '';
     document.getElementById('filterResultCount').textContent = '';
     activeFilters = {};
+    // Restore unfiltered set if we kept a backup
+    if (window.__allProperties) {
+        window.__properties = window.__allProperties;
+    }
     if (window.__properties && typeof clusterProperties === 'function') {
         clusterProperties(window.__properties);
     }
     const stat = document.getElementById('statListings');
     if (stat) stat.textContent = (window.__properties || []).length.toLocaleString();
+    try { updateHeatmap(); } catch (e) {}
 }
 window.clearFilters = clearFilters;
 
