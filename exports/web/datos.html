@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraguay Geodata — Data & Insights</title>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin=""></script>
+    <script src="widgets.v3.js"></script>
+    <style>
+
+        :root {
+            --bg: #0a0e1a;
+            --bg-elev: #111729;
+            --bg-elev-2: #1a2238;
+            --fg: #e6eaf2;
+            --fg-dim: #8b94a8;
+            --accent: #2dd4bf;
+            --accent-dim: #134e48;
+            --warn: #f59e0b;
+            --err: #ef4444;
+            --info: #60a5fa;
+            --line: #1f2944;
+            --tile-default: #2563eb;
+            --tile-priority: #2dd4bf;
+            --tile-priority-fill: #0f766e;
+            --property: #ef4444;
+            --property-fill: #7f1d1d;
+            --gbif-animalia: #f59e0b;
+            --gbif-plantae: #10b981;
+            --shadow: 0 4px 20px rgba(0,0,0,.45);
+            --radius: 6px;
+        }
+        * { box-sizing: border-box; }
+        html, html, body { height: 100%; }
+        body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+        body { display: flex; flex-direction: column; }
+        header {
+            padding: 14px 24px; background: var(--bg-elev);
+            border-bottom: 1px solid var(--line);
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; flex-wrap: wrap;
+        }
+        header h1 { font-size: 16px; margin: 0; font-weight: 600; letter-spacing: -.01em; }
+        header h1 span { color: var(--accent); }
+        header h1 .live { display: inline-block; background: var(--accent-dim); color: var(--accent); padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; vertical-align: middle; margin-left: 4px; }
+        header nav { display: flex; gap: 4px; font-size: 13px; }
+        header nav a { color: var(--fg-dim); text-decoration: none; padding: 4px 10px; border-radius: var(--radius); transition: all .15s; }
+        header nav a:hover { color: var(--fg); background: var(--bg-elev-2); }
+        header nav a.active { color: var(--accent); background: var(--accent-dim); }
+        header .repo-link { font-size: 11px; color: var(--fg-dim); }
+        header .repo-link a { color: var(--accent); text-decoration: none; }
+        header .bcp-badge {
+            font-size: 10px; padding: 3px 8px; border-radius: 3px;
+            background: var(--accent-dim); color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 380px minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);
+            min-height: 0;
+            max-height: calc(100vh - 53px);
+            overflow: hidden;
+        }
+        aside { position: relative; background: var(--bg-elev); border-right: 1px solid var(--line); padding: 18px; overflow-y: auto; }
+        aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 16px 0 6px 0; font-weight: 600; }
+        aside h2:first-child { margin-top: 0; }
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .stat { background: var(--bg-elev-2); padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); }
+        .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
+        .stat .label { font-size: 10px; color: var(--fg-dim); margin-top: 2px; line-height: 1.3; }
+        .layer-grid { display: flex; flex-direction: column; gap: 2px; max-height: 360px; overflow-y: auto; padding: 4px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-elev-2); }
+        .layer-group-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 6px 8px 4px 8px; margin-top: 8px;
+            border-bottom: 1px solid var(--line);
+            font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+            color: var(--fg-dim);
+        }
+        .layer-group-head:first-child { margin-top: 0; }
+        .layer-group-title { font-weight: 600; }
+        .layer-group-actions { display: flex; gap: 6px; align-items: center; }
+        .layer-group-count { color: var(--accent); font-family: monospace; }
+        .layer-group-toggle { color: var(--info); text-decoration: none; font-size: 9px; cursor: pointer; padding: 2px 4px; border-radius: 3px; }
+        .layer-group-toggle:hover { background: var(--bg-elev); }
+
+        .layer {
+            display: flex; align-items: flex-start; gap: 8px;
+            padding: 6px 8px; background: var(--bg-elev-2); border: 1px solid var(--line);
+            border-radius: var(--radius); font-size: 11px; line-height: 1.35;
+            cursor: pointer; user-select: none; transition: all .12s;
+        }
+        .layer:hover { border-color: var(--accent); }
+        .layer.active { border-color: var(--accent); background: var(--bg-elev); }
+        .layer .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-top: 3px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.2); }
+        .layer .layer-body { flex: 1; min-width: 0; }
+        .layer .layer-line { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+        .layer .label { font-weight: 600; }
+        .layer .count { font-family: monospace; color: var(--fg-dim); font-size: 10px; }
+        .layer .layer-info { color: var(--fg-dim); font-size: 10px; margin-top: 2px; opacity: .8; }
+        .legend .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 6px; vertical-align: middle; border: 1px solid rgba(255,255,255,.15); }
+        .bcp-widget {
+            background: var(--bg-elev-2); border: 1px solid var(--accent);
+            padding: 12px; border-radius: var(--radius); font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .bcp-widget h3 { margin: 0 0 6px 0; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+        .bcp-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .bcp-widget .row .k { color: var(--fg-dim); }
+        .bcp-widget .row .v { font-family: monospace; font-weight: 600; }
+        .bcp-widget .row .v.pos { color: var(--accent); }
+        .bcp-widget .row .v.neg { color: var(--err); }
+        .bcp-widget .row .v.warn { color: var(--warn); }
+        .climate-widget {
+            background: var(--bg-elev-2); border: 1px solid var(--info);
+            padding: 12px; border-radius: var(--radius); font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .climate-widget h3 { margin: 0 0 6px 0; font-size: 11px; color: var(--info); text-transform: uppercase; letter-spacing: .05em; }
+        .climate-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .climate-widget .row .k { color: var(--fg-dim); }
+        .climate-widget .row .v { font-family: monospace; }
+        .inbio-widget {
+            background: var(--bg-elev-2); border: 1px solid #c084fc;
+            padding: 12px; border-radius: var(--radius); font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .inbio-widget h3 { margin: 0 0 6px 0; font-size: 11px; color: #c084fc; text-transform: uppercase; letter-spacing: .05em; }
+        .inbio-widget .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .inbio-widget .row .k { color: var(--fg-dim); }
+        .inbio-widget .row .v { font-family: monospace; }
+        .inbio-widget .insight { color: var(--fg-dim); font-size: 10px; font-style: italic; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
+        .insights-widget {
+            background: var(--bg-elev-2); border: 1px solid var(--warn);
+            padding: 12px; border-radius: var(--radius); font-size: 11px;
+            margin-bottom: 8px;
+        }
+        .insights-widget .insight-row { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+        .insights-widget .insight-row:last-child { border-bottom: none; }
+        .insights-widget .insight-row span:last-child { color: var(--fg); line-height: 1.4; }
+        .insights-widget .dot { flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+        .insights-widget .dot-alert { background: var(--err); box-shadow: 0 0 6px var(--err); }
+        .insights-widget .dot-up { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+        .insights-widget .dot-down { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+        .insights-widget .dot-info { background: var(--info); box-shadow: 0 0 6px var(--info); }
+        .city-list { display: flex; flex-direction: column; gap: 4px; max-height: 280px; overflow-y: auto; }
+        .city { padding: 6px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; font-size: 12px; display: flex; justify-content: space-between; transition: all .12s; }
+        .city:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
+        .city .count { color: var(--fg-dim); font-size: 10px; font-family: monospace; }
+        .city.has-listings .count { color: var(--property); font-weight: 600; }
+        .search input { width: 100%; padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 12px; }
+        .search input:focus { outline: none; border-color: var(--accent); }
+        #map { position: relative; width: 100%; height: 100%; min-height: 400px; background: #0e1322; overflow: hidden; }
+        .leaflet-container { background: #0e1322; }
+        /* Force map panes to fill container so tiles layer correctly */
+        .leaflet-map-pane { position: absolute; left: 0; top: 0; }
+        .leaflet-tile-pane > .leaflet-layer { position: absolute; left: 0; top: 0; }
+        .leaflet-tile-container { position: absolute; left: 0; top: 0; width: 100% !important; height: 100% !important; }
+        /* Tile images fill the container */
+        .leaflet-tile { position: absolute; }
+        /* NOTE: Don't apply overflow:hidden to .leaflet-pane — Leaflet uses
+           absolute positioning + transform on these panes and clipping them
+           breaks the .leaflet-control-container size calculation. The #map's
+           own overflow:hidden + Leaflet's setView handle clipping correctly. */
+        .loading-banner {
+            position: fixed; top: 60px; right: 18px; z-index: 1000;
+            background: var(--bg-elev-2); border: 1px solid var(--accent);
+            color: var(--accent); padding: 8px 14px; border-radius: var(--radius);
+            font-size: 12px; box-shadow: var(--shadow);
+            transition: opacity .25s;
+        }
+        .loading-banner.hidden { opacity: 0; pointer-events: none; }
+        .legend {
+            position: absolute; bottom: 16px; left: 16px; z-index: 1000;
+            background: var(--bg-elev); border: 1px solid var(--line);
+            padding: 10px 14px; border-radius: var(--radius); font-size: 11px; box-shadow: var(--shadow);
+            max-width: 280px;
+        }
+        .legend .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+        .legend .swatch { width: 16px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+        .leaflet-popup-content-wrapper {
+            background: var(--bg-elev) !important;
+            color: var(--fg) !important;
+            border: 1px solid var(--accent);
+            border-radius: var(--radius) !important;
+            box-shadow: var(--shadow) !important;
+        }
+        .leaflet-popup-tip { background: var(--bg-elev) !important; border: 1px solid var(--accent); }
+        .leaflet-popup-content { margin: 12px 14px; font-size: 12px; line-height: 1.5; min-width: 200px; }
+        /* Map controls (☰ ⭐ ⚖ 📏 ⬇ buttons) — floating top-right inside the map area.
+           On desktop: absolute positioned top-right corner. On mobile: bottom-right per media query. */
+        .map-controls {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(14, 19, 34, 0.85);
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .map-controls button {
+            font-size: 12px;
+            padding: 8px 12px;
+            background: var(--bg-elev-2);
+            color: var(--fg);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all .12s;
+            min-height: 36px;
+        }
+        .map-controls button:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+        /* Ensure leaflet-control-zoom is visible at top-left (Leaflet CSS only loads z=1000
+           if stylesheet is loaded — the link was added above) */
+        .leaflet-popup-content h3 { margin: 0 0 6px 0; font-size: 13px; color: var(--accent); }
+        .leaflet-popup-content .row { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }
+        .leaflet-popup-content .row .k { color: var(--fg-dim); }
+        .leaflet-popup-content .row .v { font-family: monospace; }
+        .leaflet-popup-content a { color: var(--accent); text-decoration: none; }
+        .leaflet-popup-content a:hover { text-decoration: underline; }
+        @media (max-width: 880px) {
+            html, body { height: 100%; overflow: hidden; }
+            body { display: flex; flex-direction: column; }
+                        main > aside { width: 0; min-width: 0; padding: 0; border: 0; }
+
+            /* Mobile drawer pattern */
+            header { padding: 8px 12px; gap: 8px; flex-wrap: wrap; }
+            header h1 { font-size: 13px; }
+            header nav { font-size: 11px; gap: 2px; }
+            .pill { display: none; }
+
+            /* Sidebar = fixed drawer sliding from left */
+            aside {
+                position: fixed !important;
+                top: 56px; left: 0;
+                width: 92vw; max-width: 380px;
+                height: calc(100vh - 56px);
+                max-height: none;
+                border-right: 1px solid var(--line);
+                border-bottom: none;
+                overflow-y: auto;
+                z-index: 1000;
+                transform: translateX(-105%);
+                transition: transform 0.25s ease-out;
+                box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+            }
+            aside.open { transform: translateX(0); }
+
+            /* Drawer backdrop overlay */
+            #drawerBackdrop {
+                position: fixed; top: 56px; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5); z-index: 999;
+                opacity: 0; pointer-events: none; transition: opacity 0.2s;
+            }
+            #drawerBackdrop.open { opacity: 1; pointer-events: auto; }
+
+            /* Floating controls: bigger, bottom-right */
+            .leaflet-control-zoom a { width: 38px !important; height: 38px !important; line-height: 38px !important; font-size: 20px !important; }
+            .map-controls { bottom: 12px !important; right: 12px !important; top: auto !important; left: auto !important; display: flex; flex-direction: column; gap: 6px; }
+            .map-controls button { font-size: 13px !important; padding: 10px 14px !important; min-height: 44px !important; min-width: 44px !important; }
+
+            /* Legend = collapsible bottom-left */
+            .legend { max-width: 240px; font-size: 10px; padding: 8px 10px; max-height: 36px; overflow: hidden; transition: max-height 0.25s; cursor: pointer; }
+            .legend::after { content: ' ▼'; color: var(--accent); margin-left: 6px; }
+            .legend.open { max-height: 320px; overflow-y: auto; }
+            .legend.open::after { content: ' ▲'; }
+
+            /* Bottom sheet for filters */
+            #filterSheet {
+                position: fixed; bottom: 0; left: 0; right: 0;
+                background: var(--bg-elev);
+                border-top: 1px solid var(--line);
+                border-radius: 14px 14px 0 0;
+                padding: 14px 16px;
+                z-index: 998;
+                max-height: 60vh;
+                overflow-y: auto;
+                transform: translateY(105%);
+                transition: transform 0.25s ease-out;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+            }
+            #filterSheet.open { transform: translateY(0); }
+            #filterSheetHandle {
+                width: 40px; height: 4px; background: var(--fg-dim);
+                border-radius: 2px; margin: 0 auto 10px; opacity: 0.5;
+            }
+            #filterSheetToggle {
+                position: fixed; bottom: 14px; left: 14px; z-index: 997;
+                background: var(--accent); color: var(--bg);
+                border: none; padding: 12px 16px;
+                border-radius: 24px; font-weight: 600; font-size: 13px;
+                min-height: 48px; min-width: 48px;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+                cursor: pointer;
+            }
+            #sidebarToggle {
+                position: fixed; top: 64px; left: 12px; z-index: 998;
+                background: var(--bg-elev); color: var(--accent);
+                border: 1px solid var(--line); padding: 10px 12px;
+                border-radius: 8px; font-size: 18px;
+                min-width: 44px; min-height: 44px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+                cursor: pointer;
+            }
+
+            /* Stats grid = 2 columns on mobile */
+            .stat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; }
+            .stat .num { font-size: 18px !important; }
+            .stat .label { font-size: 9px !important; }
+
+            /* Inputs: bigger for touch, prevent iOS zoom */
+            input[type="text"], input[type="number"], select, textarea {
+                font-size: 16px !important;
+                padding: 8px 10px !important;
+                min-height: 44px !important;
+            }
+            button, .btn { min-height: 44px; }
+            .filter button, .search button { min-height: 44px; }
+
+            /* Loading banner smaller, dismissible */
+            #loadingBanner { padding: 8px 12px !important; font-size: 11px !important; }
+            #loadingBanner .spinner { width: 16px; height: 16px; }
+
+            /* Geo search results: full-width */
+            .geo-results { max-height: 50vh; }
+
+            /* Hide Insights sidebar text when collapsed */
+            aside.collapsed .stat-grid { display: none; }
+        }        @media (min-width: 881px) {
+            /* Drawer is always visible on desktop, hamburger hidden */
+            aside { transform: none !important; position: static !important; }
+            #drawerBackdrop { display: none !important; }
+            #filterSheet { display: none !important; }
+            #filterSheetToggle { display: none !important; }
+            .legend { max-height: none !important; }
+            .legend::before { display: none; }
+        }
+    
+        /* Geocoder search results */
+        .geo-results {
+            position: absolute;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-top: 2px;
+            max-height: 320px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .geo-result {
+            padding: 8px 10px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+        .geo-result:hover {
+            background: var(--bg-hover);
+        }
+        .geo-result:last-child {
+            border-bottom: none;
+        }
+        .geo-result-name {
+            font-weight: 600;
+            color: var(--fg);
+            font-size: 12px;
+        }
+        .geo-result-addr {
+            color: var(--fg-dim);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+        .geo-result-coord {
+            color: var(--accent);
+            font-size: 9px;
+            margin-top: 2px;
+            font-family: ui-monospace, monospace;
+        }
+
+        /* Lang switcher */
+        #langSwitcher select {
+            font-family: inherit;
+        }
+
+        /* Skip-to-content for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 8px 16px;
+            z-index: 10000;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus indicators (WCAG 2.2 AA) */
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* High contrast support */
+        @media (prefers-contrast: more) {
+            :root {
+                --fg: #ffffff;
+                --fg-dim: #cccccc;
+                --border: #555555;
+                --accent: #00ffff;
+            }
+        }
+
+        /* Reduce motion */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+
+    </style>
+    <style>
+        /* Page-specific layout: single-column dashboard */
+        .dashboard {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 32px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .dashboard h2 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--fg-dim);
+            margin: 0 0 8px 0;
+            font-weight: 600;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 6px;
+        }
+        .dashboard .full { grid-column: 1 / -1; }
+        .dashboard .panel {
+            background: var(--bg-elev);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+        @media (max-width: 880px) {
+            .dashboard { grid-template-columns: 1fr; padding: 16px; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+<div class="loading-banner" id="loading">Loading Paraguay data…</div>
+
+<header>
+    <h1>Paraguay <span>Geodata</span> — <span style="color:var(--accent)">Data</span> <span class="live">LIVE</span></h1>
+    <span class="bcp-badge" id="bcpBadge">BCP: TPM 5.5% · PIB +6%</span>
+    <nav>
+        <a href="./">National</a>
+        <a href="./datos.html" class="active">Data</a>
+        <a href="./mapa.html">Per-Tile Viewer</a>
+        <a href="./docs/INDEX.md">Docs</a>
+    </nav>
+    <div class="repo-link">
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener">GitHub</a>
+    </div>
+</header>
+
+<main style="display:block;">
+    <div class="dashboard">
+
+        <section class="full panel">
+            <h2>Coverage (live)</h2>
+            <div class="stats" id="coverageStats" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="stat"><div class="num" id="statListings">—</div><div class="label">properties (live)</div></div>
+                <div class="stat"><div class="num" id="statTiles">—</div><div class="label">tile fabric (10×10 km)</div></div>
+                <div class="stat"><div class="num" id="statPriority">—</div><div class="label">priority tiles</div></div>
+                <div class="stat"><div class="num" id="statDepts">—</div><div class="label">departamentos (OSM)</div></div>
+                <div class="stat"><div class="num" id="statRoads">—</div><div class="label">OSM roads</div></div>
+                <div class="stat"><div class="num" id="statBuildings">—</div><div class="label">OSM buildings</div></div>
+                <div class="stat"><div class="num" id="statGbif">—</div><div class="label">species (GBIF)</div></div>
+                <div class="stat"><div class="num" id="statLayers">—</div><div class="label">layers on</div></div>
+            </div>
+            <div id="fetchStatus" style="font-size:10px; color:var(--fg-dim); margin-top:8px;">Loading…</div>
+        </section>
+
+        <section class="panel">
+            <h2>Insights (auto-generated)</h2>
+            <div class="insights-widget" id="insightsWidget" style="margin-bottom:0;">
+                <div class="insight-row"><span class="dot dot-alert"></span><span id="insightDrought">Loading…</span></div>
+                <div class="insight-row"><span class="dot dot-up"></span><span id="insightSoja">Loading…</span></div>
+                <div class="insight-row"><span class="dot dot-info"></span><span id="insightPrices">Loading…</span></div>
+                <div class="insight-row"><span class="dot dot-up"></span><span id="insightMacros">Loading…</span></div>
+                <div class="insight-row"><span class="dot dot-info"></span><span id="insightDensity">Loading…</span></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>BCP macro (Feb 2026 snapshot)</h2>
+            <div class="bcp-widget" id="bcpWidget">
+                <h3>Banco Central del Paraguay</h3>
+                <div class="row"><span class="k">TPM</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Inflación YoY</span><span class="v">—</span></div>
+                <div class="row"><span class="k">PIB 2025</span><span class="v">—</span></div>
+                <div class="row"><span class="k">RIN</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Morosidad bancos</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Tasa activa ME</span><span class="v">—</span></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>NASA POWER 2024 (Asunción)</h2>
+            <div class="climate-widget" id="climateWidget">
+                <h3>Climate daily summary</h3>
+                <div class="row"><span class="k">Avg temp</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Min / Max</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Avg precip/day</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Max precip/day</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Avg solar</span><span class="v">—</span></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>INBIO zafra 2025-2026 (satellite)</h2>
+            <div class="inbio-widget" id="inbioWidget">
+                <h3>Per-depto satellite crop estimates</h3>
+                <div class="row"><span class="k">Soja total</span><span class="v">—</span></div>
+                <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Arroz total</span><span class="v">—</span></div>
+                <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
+                <div class="row"><span class="k">Maíz zaf. total</span><span class="v">—</span></div>
+                <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
+                <div class="insight">—</div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Fair-price model (ML)</h2>
+            <div id="fairPriceWidget" class="fair-price">
+                <div style="color:var(--fg-dim);">Loading model…</div>
+            </div>
+        </section>
+
+        <section class="full panel">
+            <h2>$/ha por depto</h2>
+            <div style="position:relative; height:280px;">
+                <canvas id="chartPriceByDepto" aria-label="Average price per hectare by department"></canvas>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Property types</h2>
+            <div style="position:relative; height:240px;">
+                <canvas id="chartPropertyTypes" aria-label="Listings by property type"></canvas>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Top 10 deptos (listings)</h2>
+            <div style="position:relative; height:240px;">
+                <canvas id="chartDeptos" aria-label="Top 10 deptos by listing count"></canvas>
+            </div>
+        </section>
+
+        <section class="full panel">
+            <h2>Market signals (auto)</h2>
+            <div id="marketSignals" class="market-signals">
+                <div style="color:var(--fg-dim);">Computing…</div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Yield calculator (USD)</h2>
+            <div class="yield-calc">
+                <label style="display:block; margin-bottom:4px;">Property value (USD)
+                    <input type="number" id="yieldPrice" value="100000" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Monthly rent (USD)
+                    <input type="number" id="yieldRent" value="500" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Annual costs (USD)
+                    <input type="number" id="yieldCosts" value="2000" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <div id="yieldResult" style="margin-top:6px; padding:8px; background:var(--bg-elev-2); border-radius:4px;"></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Mortgage calculator (PY)</h2>
+            <div class="mortgage-calc">
+                <label style="display:block; margin-bottom:4px;">Property value (USD)
+                    <input type="number" id="mortValue" value="100000" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Down payment (%)
+                    <input type="number" id="mortDownPct" value="30" min="0" max="100" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Interest rate (% annual)
+                    <input type="number" id="mortRate" value="10" step="0.1" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Term (years)
+                    <input type="number" id="mortTerm" value="20" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <div id="mortResult" style="margin-top:8px; padding:8px; background:var(--bg-elev-2); border-radius:4px;">
+                    <div style="color:var(--fg-dim);">Enter values to compute</div>
+                </div>
+                <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">
+                    PY banks typically require 20-30% down. Rates vary: Itaú ~9%, BBVA ~10%, Sudameris ~11%, GNB ~12%. Includes insurance estimate.
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Affordability calculator</h2>
+            <div class="afford-calc">
+                <label style="display:block; margin-bottom:4px;">Monthly income (USD)
+                    <input type="number" id="affIncome" value="2000" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Other monthly debts (USD)
+                    <input type="number" id="affDebts" value="0" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <label style="display:block; margin-bottom:4px;">Available for housing (%)
+                    <input type="number" id="affPct" value="28" min="0" max="100" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px; font-size:12px;">
+                </label>
+                <div id="affResult" style="margin-top:8px; padding:8px; background:var(--bg-elev-2); border-radius:4px;">
+                    <div style="color:var(--fg-dim);">Enter values to compute</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="full panel">
+            <h2>Source documents</h2>
+            <div style="font-size:12px; line-height:1.7;">
+                <div><a href="https://www.bcp.gov.py/documents/20117/1058058/informe_IEF+may+2025_vf.pdf" target="_blank" rel="noopener" style="color:var(--accent)">BCP IEF May 2025 (1.3 MB)</a> <span style="color:var(--fg-dim)">— mortgage stats</span></div>
+                <div><a href="https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetCapabilities" target="_blank" rel="noopener" style="color:var(--accent)">Catastro Nacional WFS</a> <span style="color:var(--fg-dim)">— 2.19M parcels</span></div>
+                <div><a href="https://www.catastro.gov.py/public/" target="_blank" rel="noopener" style="color:var(--accent)">Catastro rural $/ha PDF</a> <span style="color:var(--fg-dim)">— per-district reference prices</span></div>
+                <div><a href="https://download.geofabrik.de/south-america/paraguay-latest-free.shp.zip" target="_blank" rel="noopener" style="color:var(--accent)">Geofabrik PY (315 MB)</a> <span style="color:var(--fg-dim)">— OSM full extract</span></div>
+                <div><a href="https://overpass-api.de/api/interpreter" target="_blank" rel="noopener" style="color:var(--accent)">Overpass API</a> <span style="color:var(--fg-dim)">— ad-hoc OSM queries</span></div>
+                <div><a href="docs/research/PROPERTY_HOUSING_DATA_SOURCES.md" target="_blank" rel="noopener" style="color:var(--accent)">Survey catalog</a> <span style="color:var(--fg-dim)">— 30+ sources analyzed</span></div>
+            </div>
+        </section>
+
+        <section class="full panel">
+            <h2>Status</h2>
+            <div style="font-size:11px; color:var(--fg-dim); line-height:1.7;">
+                <div>Repo: <a href="https://github.com/Ai-Whisperers/paraguay-geodata" style="color:var(--accent)">Ai-Whisperers/paraguay-geodata</a></div>
+                <div>Commit: <code id="lastCommit">—</code></div>
+                <div>Branch: <code>main</code></div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+// Stub layerState for widgets that read it (e.g., updateStats uses it). The dashboard
+// does not have a map, so we feed it placeholder values that get updated when properties
+// data loads.
+let layerState = {};
+async function fetchPropertiesForDashboard() {
+    try {
+        const r = await fetch('./data/properties_latest.geojson');
+        if (!r.ok) return;
+        const d = await r.json();
+        const features = d.features || [];
+        document.getElementById('statListings').textContent = features.length.toLocaleString();
+        document.getElementById('fetchStatus').textContent = `${features.length.toLocaleString()} listings indexed.`;
+
+        // Compute deptos + coverage
+        const deptos = new Set();
+        features.forEach(f => {
+            if (f.properties.state_province) deptos.add(f.properties.state_province);
+        });
+        // Fetch tile fabric count
+        try {
+            const tr = await fetch('./data/tile_index.json');
+            if (tr.ok) {
+                const td = await tr.json();
+                const tiles = Array.isArray(td) ? td.length : (td.tiles || td).length || 0;
+                document.getElementById('statTiles').textContent = tiles.toLocaleString();
+            }
+        } catch {}
+        try {
+            const pr = await fetch('./data/priority_tiles.json');
+            if (pr.ok) {
+                const pd = await pr.json();
+                const arr = Array.isArray(pd) ? pd : (pd.tiles || []);
+                document.getElementById('statPriority').textContent = arr.length.toString();
+            }
+        } catch {}
+        document.getElementById('statDepts').textContent = deptos.size.toString();
+
+        // Feed signals + charts
+        renderMarketSignals(features);
+        renderPropertyCharts(features);
+    } catch (e) {
+        console.error('fetchPropertiesForDashboard:', e);
+    }
+}
+
+// Bootstrap dashboard
+(async function bootstrap() {
+    try { loadBCP(); } catch (e) { console.error(e); }
+    try { loadINBIOWidget(); } catch (e) { console.error(e); }
+    try { loadInsights(); } catch (e) { console.error(e); }
+    try { loadClimate(); } catch (e) { console.error(e); }
+    try { loadFairPriceModel(); } catch (e) { console.error(e); }
+    try { calcYield(); } catch (e) { console.error(e); }
+    try { computeMortgage(); } catch (e) { console.error(e); }
+    try { computeAffordability(); } catch (e) { console.error(e); }
+    // Wire calculator inputs (idempotent)
+    if (typeof wireCalculators === 'function') wireCalculators();
+    // Pull properties geojson (don't need a map; just feed widgets)
+    await fetchPropertiesForDashboard();
+})();
+</script>
+</body>
+</html>

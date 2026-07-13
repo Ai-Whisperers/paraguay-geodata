@@ -8,6 +8,9 @@ http://datos.paragu-ai.com/*    https://datos.paragu-ai.com/:splat    301
 # Friendly URL: /viewer → /mapa.html
 /viewer  /mapa.html  301
 
+# Friendly URL: /data → /datos.html
+/data  /datos.html  301
+
 # Friendly URL: /catalog → survey doc
 /catalog  /docs/research/PROPERTY_HOUSING_DATA_SOURCES.md  301
 

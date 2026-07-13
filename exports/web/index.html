@@ -527,6 +527,7 @@
     <span class="bcp-badge" id="bcpBadge">BCP: TPM 5.5% · PIB +6%</span>
     <nav>
         <a href="./" class="active">National</a>
+        <a href="./datos.html">Data</a>
         <a href="./mapa.html">Per-Tile Viewer</a>
         <a href="./docs/INDEX.md">Docs</a>
     </nav>
@@ -541,153 +542,42 @@
         <h2>Layers (toggleable)</h2>
         <div class="layer-grid" id="layerGrid"></div>
 
-        <h2>Coverage (live)</h2>
-        <div class="stats">
-            <div class="stat"><div class="num" id="statTiles">—</div><div class="label" id="statTiles-label">tile fabric (10×10 km)</div></div>
-            <div class="stat"><div class="num" id="statPriority">—</div><div class="label" id="statPriority-label">priority tiles</div></div>
-            <div class="stat"><div class="num" id="statDepts">—</div><div class="label" id="statDepts-label">departamentos (OSM)</div></div>
-            <div class="stat"><div class="num" id="statListings">—</div><div class="label" id="statListings-label">properties (live)</div></div>
-            <div class="stat"><div class="num" id="statRoads">—</div><div class="label" id="statRoads-label">OSM roads</div></div>
-            <div class="stat"><div class="num" id="statBuildings">—</div><div class="label" id="statBuildings-label">OSM buildings</div></div>
-            <div class="stat"><div class="num" id="statGbif">—</div><div class="label" id="statGbif-label">species (GBIF)</div></div>
-            <div class="stat"><div class="num" id="statLayers">—</div><div class="label" id="statLayers-label">layers on</div></div>
-        </div>
-
-        <h2>Insights (auto-generated)</h2>
-        <div class="insights-widget" id="insightsWidget">
-            <div class="insight-row">
-                <span class="dot dot-alert"></span>
-                <span id="insightDrought">Loading…</span>
-            </div>
-            <div class="insight-row">
-                <span class="dot dot-up"></span>
-                <span id="insightSoja">Loading…</span>
-            </div>
-            <div class="insight-row">
-                <span class="dot dot-info"></span>
-                <span id="insightPrices">Loading…</span>
-            </div>
-            <div class="insight-row">
-                <span class="dot dot-up"></span>
-                <span id="insightMacros">Loading…</span>
-            </div>
-            <div class="insight-row">
-                <span class="dot dot-info"></span>
-                <span id="insightDensity">Loading…</span>
-            </div>
-        </div>
-
-        <h2>BCP macro (Feb 2026 snapshot)</h2>
-        <div class="bcp-widget" id="bcpWidget">
-            <h3>Banco Central del Paraguay</h3>
-            <div class="row"><span class="k">TPM</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Inflación YoY</span><span class="v">—</span></div>
-            <div class="row"><span class="k">PIB 2025</span><span class="v">—</span></div>
-            <div class="row"><span class="k">RIN</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Morosidad bancos</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Tasa activa ME</span><span class="v">—</span></div>
-        </div>
-
-        <h2>NASA POWER 2024 (Asunción)</h2>
-        <div class="climate-widget" id="climateWidget">
-            <h3>Climate daily summary</h3>
-            <div class="row"><span class="k">Avg temp</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Min / Max</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Avg precip</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Max precip/day</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Avg solar</span><span class="v">—</span></div>
-        </div>
-
-        <h2>INBIO zafra 2025-2026 (soybean area, satellite-based)</h2>
-        <div class="inbio-widget" id="inbioWidget">
-            <h3>Per-depto satellite crop estimates</h3>
-            <div class="row"><span class="k">Soja total</span><span class="v">—</span></div>
-            <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Arroz total</span><span class="v">—</span></div>
-            <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
-            <div class="row"><span class="k">Maíz zaf. total</span><span class="v">—</span></div>
-            <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
-            <div class="insight">—</div>
-        </div>
-
-        <h2 data-i18n="price_by_depto">$/ha por depto</h2>
-                <div style="position:relative; height:200px; margin:8px 0;">
-                    <canvas id="chartPriceByDepto" aria-label="Average price per hectare by department"></canvas>
-                </div>
-                <div id="priceByDepto" style="font-size:11px; line-height:1.6; display:none;"></div>
-
-                <h2>Fair-price model (ML)</h2>
-        <div id="fairPriceWidget" class="fair-price" style="font-size:11px; line-height:1.6;">
-            <div style="color:var(--fg-dim);">Loading model…</div>
-        </div>
-
-        <h2>Yield calculator (USD)</h2>
-        <div class="yield-calc" style="font-size:11px; line-height:1.6;">
-            <label style="display:block; margin-bottom:4px;">Property value (USD)
-                <input type="number" id="yieldPrice" value="100000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+        <h2>Filters</h2>
+        <div class="filter-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <label style="font-size:11px;">Min price (USD)
+                <input type="number" id="filterMinPrice" placeholder="0" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
             </label>
-            <label style="display:block; margin-bottom:4px;">Monthly rent (USD)
-                <input type="number" id="yieldRent" value="500" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            <label style="font-size:11px;">Max price (USD)
+                <input type="number" id="filterMaxPrice" placeholder="∞" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
             </label>
-            <label style="display:block; margin-bottom:4px;">Annual costs (tax + maint, USD)
-                <input type="number" id="yieldCosts" value="2000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
+            <label style="font-size:11px;">Property type
+                <select id="filterType" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                    <option value="">All types</option>
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="land">Land</option>
+                    <option value="commercial">Commercial</option>
+                </select>
             </label>
-            <div id="yieldResult" style="margin-top:6px; padding:6px; background:var(--bg-elevated); border-radius:4px;"></div>
+            <label style="font-size:11px;">Listing
+                <select id="filterListing" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                    <option value="">All listings</option>
+                    <option value="sale">For sale</option>
+                    <option value="rent">For rent</option>
+                </select>
+            </label>
+            <label style="font-size:11px;">Min beds
+                <input type="number" id="filterBeds" placeholder="0" min="0" max="10" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+            </label>
+            <label style="font-size:11px;">Min area (ha)
+                <input type="number" id="filterArea" placeholder="0" step="0.1" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+            </label>
         </div>
-        <h2 style="margin-top:16px;" data-i18n="mortgage_calc">Mortgage calculator (PY)</h2>
-        <div class="mortgage-calc" style="font-size:11px; line-height:1.6;">
-            <label style="display:block; margin-bottom:4px;">Property value (USD)
-                <input type="number" id="mortValue" value="100000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <label style="display:block; margin-bottom:4px;">Down payment (%)
-                <input type="number" id="mortDownPct" value="30" min="0" max="100" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <label style="display:block; margin-bottom:4px;">Interest rate (% annual)
-                <input type="number" id="mortRate" value="10" step="0.1" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <label style="display:block; margin-bottom:4px;">Term (years)
-                <input type="number" id="mortTerm" value="20" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <div id="mortResult" style="margin-top:8px; padding:8px; background:var(--bg-elevated); border-radius:4px;">
-                <div style="color:var(--fg-dim);">Enter values to compute</div>
-            </div>
-            <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">
-                Note: PY banks typically require 20-30% down payment. Rates vary: Itaú ~9%, BBVA ~10%, Sudameris ~11%, GNB ~12%. Includes insurance estimate.
-            </div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+            <button onclick="applyFilters()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;">Apply</button>
+            <button onclick="clearFilters()" style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;">Clear</button>
         </div>
-
-        <h2 style="margin-top:16px;" data-i18n="affordability">Affordability calculator</h2>
-        <div class="afford-calc" style="font-size:11px; line-height:1.6;">
-            <label style="display:block; margin-bottom:4px;">Monthly income (USD)
-                <input type="number" id="affIncome" value="2000" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <label style="display:block; margin-bottom:4px;">Other monthly debts (USD)
-                <input type="number" id="affDebts" value="0" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <label style="display:block; margin-bottom:4px;">Available for housing (%)
-                <input type="number" id="affPct" value="28" min="0" max="100" style="width:100%; padding:4px; background:var(--bg-elevated); color:var(--fg); border:1px solid var(--border); border-radius:3px; font-size:11px;">
-            </label>
-            <div id="affResult" style="margin-top:8px; padding:8px; background:var(--bg-elevated); border-radius:4px;">
-                <div style="color:var(--fg-dim);">Enter values to compute</div>
-            </div>
-        </div>
-
-
-        <h2>Market signals (auto)</h2><canvas id="chartPropertyTypes" style="width:100%; height:200px; margin:6px 0;"></canvas>
-        <canvas id="chartDeptos" style="width:100%; height:220px; margin:6px 0;"></canvas>
-                <div id="marketSignals" class="market-signals" style="font-size:11px; line-height:1.6;">
-                    <div style="color:var(--fg-dim);">Computing…</div>
-                </div>
-
-                <h2 data-i18n="sources">Source documents</h2>
-        <div style="font-size:11px; line-height:1.7;">
-            <div><a href="https://www.bcp.gov.py/documents/20117/1058058/informe_IEF+may+2025_vf.pdf" target="_blank" rel="noopener" style="color:var(--accent)">BCP IEF May 2025 (1.3 MB)</a> <span style="color:var(--fg-dim)">— mortgage stats</span></div>
-            <div><a href="https://www.catastro.gov.py/geoserver/wfs?service=WFS&version=2.0.0&request=GetCapabilities" target="_blank" rel="noopener" style="color:var(--accent)">Catastro Nacional WFS</a> <span style="color:var(--fg-dim)">— 2.19M parcels</span></div>
-            <div><a href="https://www.catastro.gov.py/public/" target="_blank" rel="noopener" style="color:var(--accent)">Catastro rural $/ha PDF</a> <span style="color:var(--fg-dim)">— per-district reference prices</span></div>
-            <div><a href="https://download.geofabrik.de/south-america/paraguay-latest-free.shp.zip" target="_blank" rel="noopener" style="color:var(--accent)">Geofabrik PY (315 MB)</a> <span style="color:var(--fg-dim)">— OSM full extract</span></div>
-            <div><a href="https://overpass-api.de/api/interpreter" target="_blank" rel="noopener" style="color:var(--accent)">Overpass API</a> <span style="color:var(--fg-dim)">— ad-hoc OSM queries</span></div>
-            <div><a href="docs/research/PROPERTY_HOUSING_DATA_SOURCES.md" target="_blank" rel="noopener" style="color:var(--accent)">Survey catalog</a> <span style="color:var(--fg-dim)">— 30+ sources analyzed</span></div>
-        </div>
+        <div id="filterResultCount" style="margin-top:8px; font-size:11px; color:var(--fg-dim);"></div>
 
         <h2 data-i18n="search_title">Search address, city, or place</h2>
         <div class="search" style="position:relative;">
@@ -705,18 +595,19 @@
         </div>
         <div class="city-list" id="cityList"></div>
 
-        <h2>Status</h2>
-        <div style="font-size:11px; color:var(--fg-dim); line-height:1.7;">
-            <div>Repo: <a href="https://github.com/Ai-Whisperers/paraguay-geodata" style="color:var(--accent)">Ai-Whisperers/paraguay-geodata</a></div>
+        <h2>More</h2>
+        <div style="font-size:11px; line-height:1.7;">
+            <div><a href="./datos.html" style="color:var(--accent)">📊 Data &amp; insights →</a></div>
+            <div><a href="./mapa.html">🔍 Per-tile viewer</a></div>
+            <div><a href="./docs/INDEX.md" target="_blank">📚 Docs</a></div>
+            <div>Repo: <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" style="color:var(--accent)">Ai-Whisperers/paraguay-geodata</a></div>
             <div>Commit: <code id="lastCommit">—</code></div>
             <div>Branch: <code>main</code></div>
             <div id="fetchStatus">Loading data…</div>
         </div>
-            <!-- Mobile drawer backdrop -->
-        <div id="drawerBackdrop" onclick="toggleSidebar()"></div>
 
-        <!-- Mobile sidebar toggle (hidden on desktop) -->
-        
+        <!-- Mobile drawer backdrop -->
+        <div id="drawerBackdrop" onclick="toggleSidebar()"></div>
 
         <!-- Mobile filter sheet (collapsed by default) -->
         <div id="filterSheet" aria-label="Filters">
@@ -753,7 +644,8 @@
                 </label>
             </div>
             <div style="display:flex; gap:8px; margin-top:12px;">
-                <button onclick="applyFilters(); toggleFilterSheet()"   style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;"data-i18n="apply">Apply<<button onclick="clearFilters(); toggleFilterSheet()"   style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;"data-i18n="clear">s:6px;"data-i18n="clear">Clear</button>
+                <button onclick="applyFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;">Apply</button>
+                <button onclick="clearFilters(); toggleFilterSheet()" style="flex:1; padding:10px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:6px;">Clear</button>
             </div>
             <div id="filterResultCount" style="margin-top:8px; font-size:11px; color:var(--fg-dim);"></div>
         </div>
@@ -788,6 +680,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin=""></script>
+<script src="widgets.v3.js"></script>
 <script>
 // ========== MAP ==========
 const map = L.map('map', { zoomControl: true, worldCopyJump: false, preferCanvas: false }).setView([-23.5, -58.5], 6);
@@ -1013,7 +906,11 @@ function applyLayerVisibility(id) {
 }
 
 // ========== STATS COUNTERS ==========
+// Index sidebar no longer shows stats counters (moved to /datos.html), so this
+// becomes a no-op when the DOM elements are absent. The dashboard page defines
+// its own simple stats that update as data loads.
 function updateStats() {
+    if (!document.getElementById('statTiles')) return;
     document.getElementById('statTiles').textContent = layerState.tile_fabric.features === '?' ? '—' : layerState.tile_fabric.features.toLocaleString();
     document.getElementById('statPriority').textContent = layerState.priority_tiles.features === '?' ? '—' : layerState.priority_tiles.features;
     document.getElementById('statDepts').textContent = layerState.departamentos_py.features === '?' ? '—' : layerState.departamentos_py.features;
@@ -1033,172 +930,180 @@ function updateStats() {
 // Keep that single source of truth — adding new layers = add to LAYER_GROUPS_ORDER.
 
 // ========== BCP WIDGET + OVERLAY ==========
-async function loadBCP() {
-    try {
-        const r = await fetch('./data/bcp_snapshot.json');
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const d = await r.json();
-        const M = d.monetary, Mc = d.macro, B = d.banking_health, R = d.rate_types;
-        const widget = document.getElementById('bcpWidget');
-        widget.innerHTML = `
-            <h3>Banco Central del Paraguay (Feb 2026)</h3>
-            <div class="row"><span class="k">TPM</span><span class="v pos">${M.tpm_pct}%</span></div>
-            <div class="row"><span class="k">Inflación YoY</span><span class="v ${M.inflacion_interanual_pct < M.meta_inflacion_pct ? 'pos' : 'warn'}">${M.inflacion_interanual_pct}% (meta ${M.meta_inflacion_pct}%)</span></div>
-            <div class="row"><span class="k">PIB 2025</span><span class="v pos">+${Mc.pib_2025_growth_pct}%</span></div>
-            <div class="row"><span class="k">PIB 2026 (proj.)</span><span class="v">${Mc.pib_2026_proyeccion_pct}%</span></div>
-            <div class="row"><span class="k">RIN</span><span class="v">$${Mc.rin_usd_million.toLocaleString()}M</span></div>
-            <div class="row"><span class="k">Morosidad bancos</span><span class="v ${B.morosidad_bancos_pct < 3 ? 'pos' : 'warn'}">${B.morosidad_bancos_pct}%</span></div>
-            <div class="row"><span class="k">Morosidad financ.</span><span class="v ${B.morosidad_financieras_pct < 3 ? 'pos' : 'neg'}">${B.morosidad_financieras_pct}%</span></div>
-            <div class="row"><span class="k">Tasa activa ME</span><span class="v">${R.activa_me_bancos_pct}%</span></div>
-            <div class="row"><span class="k">Tasa pasiva ME</span><span class="v">${R.pasiva_me_bancos_pct}%</span></div>
-            <div class="row"><span class="k">Remesas 2008-2026</span><span class="v warn">$${d.remesas.total_2008_2026_million_usd.toLocaleString()}M</span></div>
-        `;
-        document.getElementById('bcpBadge').textContent = `BCP: TPM ${M.tpm_pct}% · PIB +${Mc.pib_2025_growth_pct}%`;
-        updateLayerCount('bcp_overlay', 'widget-only');
-    } catch (e) {
-        console.error('BCP load failed:', e);
-        document.getElementById('bcpWidget').innerHTML = `<h3>BCP load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+if (typeof window['loadBCP'] === 'undefined') {
+    async function loadBCP() {
+        try {
+            const r = await fetch('./data/bcp_snapshot.json');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const d = await r.json();
+            const M = d.monetary, Mc = d.macro, B = d.banking_health, R = d.rate_types;
+            const widget = document.getElementById('bcpWidget');
+            widget.innerHTML = `
+                <h3>Banco Central del Paraguay (Feb 2026)</h3>
+                <div class="row"><span class="k">TPM</span><span class="v pos">${M.tpm_pct}%</span></div>
+                <div class="row"><span class="k">Inflación YoY</span><span class="v ${M.inflacion_interanual_pct < M.meta_inflacion_pct ? 'pos' : 'warn'}">${M.inflacion_interanual_pct}% (meta ${M.meta_inflacion_pct}%)</span></div>
+                <div class="row"><span class="k">PIB 2025</span><span class="v pos">+${Mc.pib_2025_growth_pct}%</span></div>
+                <div class="row"><span class="k">PIB 2026 (proj.)</span><span class="v">${Mc.pib_2026_proyeccion_pct}%</span></div>
+                <div class="row"><span class="k">RIN</span><span class="v">$${Mc.rin_usd_million.toLocaleString()}M</span></div>
+                <div class="row"><span class="k">Morosidad bancos</span><span class="v ${B.morosidad_bancos_pct < 3 ? 'pos' : 'warn'}">${B.morosidad_bancos_pct}%</span></div>
+                <div class="row"><span class="k">Morosidad financ.</span><span class="v ${B.morosidad_financieras_pct < 3 ? 'pos' : 'neg'}">${B.morosidad_financieras_pct}%</span></div>
+                <div class="row"><span class="k">Tasa activa ME</span><span class="v">${R.activa_me_bancos_pct}%</span></div>
+                <div class="row"><span class="k">Tasa pasiva ME</span><span class="v">${R.pasiva_me_bancos_pct}%</span></div>
+                <div class="row"><span class="k">Remesas 2008-2026</span><span class="v warn">$${d.remesas.total_2008_2026_million_usd.toLocaleString()}M</span></div>
+            `;
+            document.getElementById('bcpBadge').textContent = `BCP: TPM ${M.tpm_pct}% · PIB +${Mc.pib_2025_growth_pct}%`;
+            updateLayerCount('bcp_overlay', 'widget-only');
+        } catch (e) {
+            console.error('BCP load failed:', e);
+            document.getElementById('bcpWidget').innerHTML = `<h3>BCP load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+        }
     }
 }
 
 // ========== INBIO WIDGET ==========
-async function loadINBIOWidget() {
-    try {
-        const r = await fetch('./data/inbio_zafra_2025_2026.json');
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const d = await r.json();
-        const fmt = (n) => n == null ? '—' : `${(n/1000).toFixed(0)}K ha`;
-        const delta = (cur, prev) => {
-            if (cur == null || prev == null) return '—';
-            const d = cur - prev;
-            const pct = (d / prev * 100).toFixed(1);
-            return `${d > 0 ? '+' : ''}${d.toLocaleString()} ha (${d > 0 ? '+' : ''}${pct}%)`;
-        };
-        const T = d.totals_national;
-        const w = document.getElementById('inbioWidget');
-        w.innerHTML = `
-            <h3>${d.zafra} (satellite ${d.published})</h3>
-            <div class="row"><span class="k">Soja total</span><span class="v" style="color:#c084fc">${fmt(T.soja.area_ha_2025_2026)}</span></div>
-            <div class="row"><span class="k">  vs 24/25</span><span class="v ${T.soja.delta_ha >= 0 ? '' : 'warn'}">${fmt(T.soja.delta_ha)} (${T.soja.delta_pct > 0 ? '+' : ''}${T.soja.delta_pct.toFixed(1)}%)</span></div>
-            <div class="row"><span class="k">Arroz total</span><span class="v">${fmt(T.arroz.area_ha_2025_2026)}</span></div>
-            <div class="row"><span class="k">  vs 24/25</span><span class="v warn">${fmt(T.arroz.delta_ha)} (${T.arroz.delta_pct.toFixed(1)}%)</span></div>
-            <div class="row"><span class="k">Maíz zafriña</span><span class="v">${fmt(T.maiz_zaf.area_ha_2025_2026)}</span></div>
-            <div class="row"><span class="k">  vs 24/25</span><span class="v warn">${fmt(T.maiz_zaf.delta_ha)} (${T.maiz_zaf.delta_pct.toFixed(1)}%)</span></div>
-            <div class="insight">⚠️ Arroz down -22%, Maíz zafriña down -29% — south PY (Itapúa, Misiones) drought signal</div>
-        `;
-    } catch (e) {
-        console.error('INBIO widget failed:', e);
-        document.getElementById('inbioWidget').innerHTML = `<h3>INBIO load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+if (typeof window['loadINBIOWidget'] === 'undefined') {
+    async function loadINBIOWidget() {
+        try {
+            const r = await fetch('./data/inbio_zafra_2025_2026.json');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const d = await r.json();
+            const fmt = (n) => n == null ? '—' : `${(n/1000).toFixed(0)}K ha`;
+            const delta = (cur, prev) => {
+                if (cur == null || prev == null) return '—';
+                const d = cur - prev;
+                const pct = (d / prev * 100).toFixed(1);
+                return `${d > 0 ? '+' : ''}${d.toLocaleString()} ha (${d > 0 ? '+' : ''}${pct}%)`;
+            };
+            const T = d.totals_national;
+            const w = document.getElementById('inbioWidget');
+            w.innerHTML = `
+                <h3>${d.zafra} (satellite ${d.published})</h3>
+                <div class="row"><span class="k">Soja total</span><span class="v" style="color:#c084fc">${fmt(T.soja.area_ha_2025_2026)}</span></div>
+                <div class="row"><span class="k">  vs 24/25</span><span class="v ${T.soja.delta_ha >= 0 ? '' : 'warn'}">${fmt(T.soja.delta_ha)} (${T.soja.delta_pct > 0 ? '+' : ''}${T.soja.delta_pct.toFixed(1)}%)</span></div>
+                <div class="row"><span class="k">Arroz total</span><span class="v">${fmt(T.arroz.area_ha_2025_2026)}</span></div>
+                <div class="row"><span class="k">  vs 24/25</span><span class="v warn">${fmt(T.arroz.delta_ha)} (${T.arroz.delta_pct.toFixed(1)}%)</span></div>
+                <div class="row"><span class="k">Maíz zafriña</span><span class="v">${fmt(T.maiz_zaf.area_ha_2025_2026)}</span></div>
+                <div class="row"><span class="k">  vs 24/25</span><span class="v warn">${fmt(T.maiz_zaf.delta_ha)} (${T.maiz_zaf.delta_pct.toFixed(1)}%)</span></div>
+                <div class="insight">⚠️ Arroz down -22%, Maíz zafriña down -29% — south PY (Itapúa, Misiones) drought signal</div>
+            `;
+        } catch (e) {
+            console.error('INBIO widget failed:', e);
+            document.getElementById('inbioWidget').innerHTML = `<h3>INBIO load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+        }
     }
 }
 
 // ========== INSIGHTS PANEL (auto-generated) ==========
-async function loadInsights() {
-    try {
-        const [inbio, bcp, nasa, propsRes] = await Promise.all([
-            fetch('./data/inbio_zafra_2025_2026.json').then(r => r.ok ? r.json() : null),
-            fetch('./data/bcp_snapshot.json').then(r => r.ok ? r.json() : null),
-            fetch('./data/nasa_power_asuncion.json').then(r => r.ok ? r.json() : null),
-            fetch('./data/properties_latest.geojson').then(r => r.ok ? r.json() : null),
-        ]);
-
-        // 1. Drought signal: where INBIO shows the biggest losses
-        let droughtLine = 'No significant crop-loss signal in 2025-2026 zafra.';
-        if (inbio && inbio.totals_national) {
-            const T = inbio.totals_national;
-            const losses = [];
-            if (T.arroz.delta_pct < -10) losses.push(`arroz ${T.arroz.delta_pct.toFixed(0)}%`);
-            if (T.maiz_zaf.delta_pct < -10) losses.push(`maíz zafriña ${T.maiz_zaf.delta_pct.toFixed(0)}%`);
-            if (T.soja.delta_pct < -5) losses.push(`soja ${T.soja.delta_pct.toFixed(0)}%`);
-            if (losses.length) {
-                const worst = (inbio.rows_by_dept || []).reduce((w, r) => {
-                    const d = (r.arroz_25_26 || 0) - (r.arroz_24_25 || 0);
-                    return d < w.d ? { d, name: r.depto } : w;
-                }, { d: 0, name: '' });
-                droughtLine = `Crop loss signal: ${losses.join(', ')} nationally. Worst arroz drop in ${worst.name || 'Misiones'} (−${Math.abs(Math.round(worst.d / 1000))}K ha).`;
-            } else if (losses.length === 0 && T.soja.delta_pct > 0) {
-                droughtLine = `No drought signal — soja +${T.soja.delta_pct.toFixed(1)}% nationally, arroz stable.`;
+if (typeof window['loadInsights'] === 'undefined') {
+    async function loadInsights() {
+        try {
+            const [inbio, bcp, nasa, propsRes] = await Promise.all([
+                fetch('./data/inbio_zafra_2025_2026.json').then(r => r.ok ? r.json() : null),
+                fetch('./data/bcp_snapshot.json').then(r => r.ok ? r.json() : null),
+                fetch('./data/nasa_power_asuncion.json').then(r => r.ok ? r.json() : null),
+                fetch('./data/properties_latest.geojson').then(r => r.ok ? r.json() : null),
+            ]);
+    
+            // 1. Drought signal: where INBIO shows the biggest losses
+            let droughtLine = 'No significant crop-loss signal in 2025-2026 zafra.';
+            if (inbio && inbio.totals_national) {
+                const T = inbio.totals_national;
+                const losses = [];
+                if (T.arroz.delta_pct < -10) losses.push(`arroz ${T.arroz.delta_pct.toFixed(0)}%`);
+                if (T.maiz_zaf.delta_pct < -10) losses.push(`maíz zafriña ${T.maiz_zaf.delta_pct.toFixed(0)}%`);
+                if (T.soja.delta_pct < -5) losses.push(`soja ${T.soja.delta_pct.toFixed(0)}%`);
+                if (losses.length) {
+                    const worst = (inbio.rows_by_dept || []).reduce((w, r) => {
+                        const d = (r.arroz_25_26 || 0) - (r.arroz_24_25 || 0);
+                        return d < w.d ? { d, name: r.depto } : w;
+                    }, { d: 0, name: '' });
+                    droughtLine = `Crop loss signal: ${losses.join(', ')} nationally. Worst arroz drop in ${worst.name || 'Misiones'} (−${Math.abs(Math.round(worst.d / 1000))}K ha).`;
+                } else if (losses.length === 0 && T.soja.delta_pct > 0) {
+                    droughtLine = `No drought signal — soja +${T.soja.delta_pct.toFixed(1)}% nationally, arroz stable.`;
+                }
             }
-        }
-        document.getElementById('insightDrought').textContent = droughtLine;
-
-        // 2. Soja expansion
-        let sojaLine = 'Soja data not loaded.';
-        if (inbio && inbio.totals_national) {
-            const T = inbio.totals_national;
-            const expanded = (inbio.rows_by_dept || []).filter(r => (r.soja_25_26 || 0) > (r.soja_24_25 || 0))
-                .sort((a, b) => (b.soja_25_26 - b.soja_24_25) - (a.soja_25_26 - a.soja_24_25))
-                .slice(0, 3);
-            const expandedStr = expanded.map(r => `${r.depto} +${((r.soja_25_26 - r.soja_24_25) / 1000).toFixed(0)}K`).join(', ');
-            sojaLine = `Soja zafra 2025-26: ${(T.soja.area_ha_2025_2026 / 1e6).toFixed(2)}M ha (+${T.soja.delta_pct.toFixed(1)}% vs 24/25). Top expansion: ${expandedStr || 'n/a'}.`;
-        }
-        document.getElementById('insightSoja').textContent = sojaLine;
-
-        // 3. Property prices (from already-loaded properties)
-        let pricesLine = 'Property data not loaded yet.';
-        if (propsRes && propsRes.features && propsRes.features.length) {
-            const usds = propsRes.features.map(f => f.properties.price_usd).filter(x => x > 0);
-            if (usds.length) {
-                usds.sort((a, b) => a - b);
-                const median = usds[Math.floor(usds.length / 2)];
-                const min = usds[0], max = usds[usds.length - 1];
-                const perHa = propsRes.features.map(f => f.properties['$/ha']).filter(x => x > 0);
-                perHa.sort((a, b) => a - b);
-                const medPerHa = perHa.length ? perHa[Math.floor(perHa.length / 2)] : 0;
-                pricesLine = `${usds.length} priced listings: median $${Math.round(median).toLocaleString()} USD (range $${Math.round(min).toLocaleString()}–$${Math.round(max).toLocaleString()}). Median $${Math.round(medPerHa).toLocaleString()}/ha.`;
+            document.getElementById('insightDrought').textContent = droughtLine;
+    
+            // 2. Soja expansion
+            let sojaLine = 'Soja data not loaded.';
+            if (inbio && inbio.totals_national) {
+                const T = inbio.totals_national;
+                const expanded = (inbio.rows_by_dept || []).filter(r => (r.soja_25_26 || 0) > (r.soja_24_25 || 0))
+                    .sort((a, b) => (b.soja_25_26 - b.soja_24_25) - (a.soja_25_26 - a.soja_24_25))
+                    .slice(0, 3);
+                const expandedStr = expanded.map(r => `${r.depto} +${((r.soja_25_26 - r.soja_24_25) / 1000).toFixed(0)}K`).join(', ');
+                sojaLine = `Soja zafra 2025-26: ${(T.soja.area_ha_2025_2026 / 1e6).toFixed(2)}M ha (+${T.soja.delta_pct.toFixed(1)}% vs 24/25). Top expansion: ${expandedStr || 'n/a'}.`;
             }
-        }
-        document.getElementById('insightPrices').textContent = pricesLine;
-
-        // 4. Macro snapshot
-        let macroLine = 'BCP data not loaded.';
-        if (bcp) {
-            const m = bcp.macro, mon = bcp.monetary;
-            macroLine = `PY 2025: PIB +${m.pib_2025_growth_pct}%, TPM ${mon.tpm_pct}%, inflación YoY ${mon.inflacion_interanual_pct}% (meta ${mon.meta_inflacion_pct}%), RIN $${m.rin_usd_million.toLocaleString()}M.`;
-        }
-        document.getElementById('insightMacros').textContent = macroLine;
-
-        // 5. Listing density: where are listings concentrated?
-        let densityLine = 'Property distribution not yet computed.';
-        if (propsRes && propsRes.features.length) {
-            const byDepto = {};
-            propsRes.features.forEach(f => {
-                const d = f.properties.depto || 'Unknown';
-                byDepto[d] = (byDepto[d] || 0) + 1;
-            });
-            const sorted = Object.entries(byDepto).sort((a, b) => b[1] - a[1]);
-            if (sorted.length) {
-                const top = sorted[0];
-                const topPct = (top[1] / propsRes.features.length * 100).toFixed(1);
-                densityLine = `Top listing deptos: ${sorted.slice(0, 3).map(([k, v]) => `${k} (${v})`).join(', ')}. ${top[0]} = ${topPct}% of all listings.`;
+            document.getElementById('insightSoja').textContent = sojaLine;
+    
+            // 3. Property prices (from already-loaded properties)
+            let pricesLine = 'Property data not loaded yet.';
+            if (propsRes && propsRes.features && propsRes.features.length) {
+                const usds = propsRes.features.map(f => f.properties.price_usd).filter(x => x > 0);
+                if (usds.length) {
+                    usds.sort((a, b) => a - b);
+                    const median = usds[Math.floor(usds.length / 2)];
+                    const min = usds[0], max = usds[usds.length - 1];
+                    const perHa = propsRes.features.map(f => f.properties['$/ha']).filter(x => x > 0);
+                    perHa.sort((a, b) => a - b);
+                    const medPerHa = perHa.length ? perHa[Math.floor(perHa.length / 2)] : 0;
+                    pricesLine = `${usds.length} priced listings: median $${Math.round(median).toLocaleString()} USD (range $${Math.round(min).toLocaleString()}–$${Math.round(max).toLocaleString()}). Median $${Math.round(medPerHa).toLocaleString()}/ha.`;
+                }
             }
+            document.getElementById('insightPrices').textContent = pricesLine;
+    
+            // 4. Macro snapshot
+            let macroLine = 'BCP data not loaded.';
+            if (bcp) {
+                const m = bcp.macro, mon = bcp.monetary;
+                macroLine = `PY 2025: PIB +${m.pib_2025_growth_pct}%, TPM ${mon.tpm_pct}%, inflación YoY ${mon.inflacion_interanual_pct}% (meta ${mon.meta_inflacion_pct}%), RIN $${m.rin_usd_million.toLocaleString()}M.`;
+            }
+            document.getElementById('insightMacros').textContent = macroLine;
+    
+            // 5. Listing density: where are listings concentrated?
+            let densityLine = 'Property distribution not yet computed.';
+            if (propsRes && propsRes.features.length) {
+                const byDepto = {};
+                propsRes.features.forEach(f => {
+                    const d = f.properties.depto || 'Unknown';
+                    byDepto[d] = (byDepto[d] || 0) + 1;
+                });
+                const sorted = Object.entries(byDepto).sort((a, b) => b[1] - a[1]);
+                if (sorted.length) {
+                    const top = sorted[0];
+                    const topPct = (top[1] / propsRes.features.length * 100).toFixed(1);
+                    densityLine = `Top listing deptos: ${sorted.slice(0, 3).map(([k, v]) => `${k} (${v})`).join(', ')}. ${top[0]} = ${topPct}% of all listings.`;
+                }
+            }
+            document.getElementById('insightDensity').textContent = densityLine;
+        } catch (e) {
+            console.error('Insights failed:', e);
         }
-        document.getElementById('insightDensity').textContent = densityLine;
-    } catch (e) {
-        console.error('Insights failed:', e);
     }
 }
 
 // ========== NASA POWER WIDGET ==========
-async function loadClimate() {
-    try {
-        const r = await fetch('./data/nasa_power_asuncion.json');
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const d = await r.json();
-        const S = d.summary_2024;
-        const widget = document.getElementById('climateWidget');
-        widget.innerHTML = `
-            <h3>${d.point.label} (2024)</h3>
-            <div class="row"><span class="k">Avg temp</span><span class="v">${S.T2M.avg}°C</span></div>
-            <div class="row"><span class="k">Min / Max</span><span class="v">${S.T2M.min}°C / ${S.T2M.max}°C</span></div>
-            <div class="row"><span class="k">Avg precip/day</span><span class="v">${S.PRECTOTCORR.avg} mm</span></div>
-            <div class="row"><span class="k">Max precip/day</span><span class="v">${S.PRECTOTCORR.max} mm</span></div>
-            <div class="row"><span class="k">Avg solar</span><span class="v">${S.ALLSKY_SFC_SW_DWN.avg} MJ/m²</span></div>
-        `;
-        updateLayerCount('nasa_power_overlay', 'query-based');
-    } catch (e) {
-        console.error('Climate load failed:', e);
-        document.getElementById('climateWidget').innerHTML = `<h3>Climate load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+if (typeof window['loadClimate'] === 'undefined') {
+    async function loadClimate() {
+        try {
+            const r = await fetch('./data/nasa_power_asuncion.json');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const d = await r.json();
+            const S = d.summary_2024;
+            const widget = document.getElementById('climateWidget');
+            widget.innerHTML = `
+                <h3>${d.point.label} (2024)</h3>
+                <div class="row"><span class="k">Avg temp</span><span class="v">${S.T2M.avg}°C</span></div>
+                <div class="row"><span class="k">Min / Max</span><span class="v">${S.T2M.min}°C / ${S.T2M.max}°C</span></div>
+                <div class="row"><span class="k">Avg precip/day</span><span class="v">${S.PRECTOTCORR.avg} mm</span></div>
+                <div class="row"><span class="k">Max precip/day</span><span class="v">${S.PRECTOTCORR.max} mm</span></div>
+                <div class="row"><span class="k">Avg solar</span><span class="v">${S.ALLSKY_SFC_SW_DWN.avg} MJ/m²</span></div>
+            `;
+            updateLayerCount('nasa_power_overlay', 'query-based');
+        } catch (e) {
+            console.error('Climate load failed:', e);
+            document.getElementById('climateWidget').innerHTML = `<h3>Climate load failed</h3><div style="color:var(--err)">${e.message}</div>`;
+        }
     }
 }
 
@@ -2569,78 +2474,82 @@ async function loadFloodRisk() {
 }
 
 // ========== FAIR-PRICE MODEL (ML) ==========
-let fairPriceModel = null;
-async function loadFairPriceModel() {
-    try {
-        const r = await fetch('./data/ml/fair_price_model.json');
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        fairPriceModel = await r.json();
-        const w = document.getElementById('fairPriceWidget');
-        const stats = fairPriceModel.global_stats;
-        const nDeptoModels = Object.keys(fairPriceModel.depto_models).length;
-        w.innerHTML = `
-            <div>Trained on <strong>${fairPriceModel.training_samples.toLocaleString()}</strong> properties</div>
-            <div>Median $/ha: <strong>$${Math.round(stats.median_per_ha).toLocaleString()}</strong></div>
-            <div>P25–P75: <span style="color:var(--fg-dim)">$${Math.round(stats.p25_per_ha).toLocaleString()} – $${Math.round(stats.p75_per_ha).toLocaleString()}</span></div>
-            <div style="margin-top:4px;">Deptos modeled: <strong>${nDeptoModels}</strong> of 18</div>
-            <div style="color:var(--fg-dim); font-size:10px; margin-top:4px;">Click any property → fair-price score shown in popup. 🔥 = overpriced, 💰 = deal.</div>
-        `;
-    } catch (e) {
-        document.getElementById('fairPriceWidget').innerHTML = '<div style="color:var(--err)">⚠ Model unavailable</div>';
-        console.error('Fair-price model load failed:', e);
+if (typeof window["fairPriceModel"] === "undefined") { var fairPriceModel = null; }
+if (typeof window['loadFairPriceModel'] === 'undefined') {
+    async function loadFairPriceModel() {
+        try {
+            const r = await fetch('./data/ml/fair_price_model.json');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            fairPriceModel = await r.json();
+            const w = document.getElementById('fairPriceWidget');
+            const stats = fairPriceModel.global_stats;
+            const nDeptoModels = Object.keys(fairPriceModel.depto_models).length;
+            w.innerHTML = `
+                <div>Trained on <strong>${fairPriceModel.training_samples.toLocaleString()}</strong> properties</div>
+                <div>Median $/ha: <strong>$${Math.round(stats.median_per_ha).toLocaleString()}</strong></div>
+                <div>P25–P75: <span style="color:var(--fg-dim)">$${Math.round(stats.p25_per_ha).toLocaleString()} – $${Math.round(stats.p75_per_ha).toLocaleString()}</span></div>
+                <div style="margin-top:4px;">Deptos modeled: <strong>${nDeptoModels}</strong> of 18</div>
+                <div style="color:var(--fg-dim); font-size:10px; margin-top:4px;">Click any property → fair-price score shown in popup. 🔥 = overpriced, 💰 = deal.</div>
+            `;
+        } catch (e) {
+            document.getElementById('fairPriceWidget').innerHTML = '<div style="color:var(--err)">⚠ Model unavailable</div>';
+            console.error('Fair-price model load failed:', e);
+        }
     }
 }
 
-function fairPricePredict(p, lon, lat) {
-    if (!fairPriceModel) return null;
-    const depto = p.state_province || 'Unknown';
-    const model = fairPriceModel.depto_models[depto] || fairPriceModel.global_fallback;
-    if (!model || !p.area_ha) return null;
-    const log_area = Math.log10(Math.max(0.01, p.area_ha));
-    const log_pred = model.intercept +
-        model.coefs.log_area * log_area +
-        model.coefs.lat * lat +
-        model.coefs.lon * lon +
-        model.coefs.beds * (p.bedrooms || 0);
-    return Math.pow(10, log_pred) * p.area_ha;  // predicted total price
+if (typeof window['fairPricePredict'] === 'undefined') {
+    function fairPricePredict(p, lon, lat) {
+        if (!fairPriceModel) return null;
+        const depto = p.state_province || 'Unknown';
+        const model = fairPriceModel.depto_models[depto] || fairPriceModel.global_fallback;
+        if (!model || !p.area_ha) return null;
+        const log_area = Math.log10(Math.max(0.01, p.area_ha));
+        const log_pred = model.intercept +
+            model.coefs.log_area * log_area +
+            model.coefs.lat * lat +
+            model.coefs.lon * lon +
+            model.coefs.beds * (p.bedrooms || 0);
+        return Math.pow(10, log_pred) * p.area_ha;  // predicted total price
+    }
 }
 
-function fairPriceScore(p, lon, lat) {
-    if (!fairPriceModel || !p.price_usd) return null;
-    const pred = fairPricePredict(p, lon, lat);
-    if (!pred) return null;
-    const ratio = p.price_usd / pred;
-    let flag, color, label;
-    if (ratio < 0.5) { flag = '💰 DEAL'; color = 'var(--accent)'; label = `${Math.round((1 - ratio) * 100)}% below market`; }
-    else if (ratio < 0.8) { flag = '✓ Cheap'; color = 'var(--accent)'; label = `${Math.round((1 - ratio) * 100)}% below market`; }
-    else if (ratio < 1.2) { flag = '✓ Fair'; color = 'var(--fg)'; label = 'market priced'; }
-    else if (ratio < 2.0) { flag = '⚠ Premium'; color = 'var(--warn)'; label = `${Math.round((ratio - 1) * 100)}% above market`; }
-    else { flag = '🔥 Overpriced'; color = 'var(--err)'; label = `${Math.round((ratio - 1) * 100)}% above market`; }
-    return { ratio, flag, color, label, predicted: pred };
+if (typeof window['fairPriceScore'] === 'undefined') {
+    function fairPriceScore(p, lon, lat) {
+        if (!fairPriceModel || !p.price_usd) return null;
+        const pred = fairPricePredict(p, lon, lat);
+        if (!pred) return null;
+        const ratio = p.price_usd / pred;
+        let flag, color, label;
+        if (ratio < 0.5) { flag = '💰 DEAL'; color = 'var(--accent)'; label = `${Math.round((1 - ratio) * 100)}% below market`; }
+        else if (ratio < 0.8) { flag = '✓ Cheap'; color = 'var(--accent)'; label = `${Math.round((1 - ratio) * 100)}% below market`; }
+        else if (ratio < 1.2) { flag = '✓ Fair'; color = 'var(--fg)'; label = 'market priced'; }
+        else if (ratio < 2.0) { flag = '⚠ Premium'; color = 'var(--warn)'; label = `${Math.round((ratio - 1) * 100)}% above market`; }
+        else { flag = '🔥 Overpriced'; color = 'var(--err)'; label = `${Math.round((ratio - 1) * 100)}% above market`; }
+        return { ratio, flag, color, label, predicted: pred };
+    }
 }
 
 // ========== YIELD CALCULATOR ==========
-function calcYield() {
-    const price = parseFloat(document.getElementById('yieldPrice').value) || 0;
-    const rent = parseFloat(document.getElementById('yieldRent').value) || 0;
-    const costs = parseFloat(document.getElementById('yieldCosts').value) || 0;
-    const annualRent = rent * 12;
-    const netYield = ((annualRent - costs) / price) * 100;
-    const grossYield = (annualRent / price) * 100;
-    const paybackYears = annualRent > 0 ? price / annualRent : Infinity;
-    const color = netYield < 3 ? 'var(--err)' : netYield < 6 ? 'var(--warn)' : 'var(--accent)';
-    document.getElementById('yieldResult').innerHTML = `
-        <div>Gross yield: <strong>${grossYield.toFixed(2)}%</strong></div>
-        <div>Net yield: <strong style="color:${color}">${netYield.toFixed(2)}%</strong></div>
-        <div>Annual rent: <span style="color:var(--fg-dim)">$${annualRent.toLocaleString()}</span></div>
-        <div>Annual costs: <span style="color:var(--fg-dim)">$${costs.toLocaleString()}</span></div>
-        <div style="margin-top:4px; font-size:10px; color:var(--fg-dim)">Payback: ${paybackYears < 100 ? paybackYears.toFixed(1) + ' years' : '—'}</div>
-    `;
+if (typeof window['calcYield'] === 'undefined') {
+    function calcYield() {
+        const price = parseFloat(document.getElementById('yieldPrice').value) || 0;
+        const rent = parseFloat(document.getElementById('yieldRent').value) || 0;
+        const costs = parseFloat(document.getElementById('yieldCosts').value) || 0;
+        const annualRent = rent * 12;
+        const netYield = ((annualRent - costs) / price) * 100;
+        const grossYield = (annualRent / price) * 100;
+        const paybackYears = annualRent > 0 ? price / annualRent : Infinity;
+        const color = netYield < 3 ? 'var(--err)' : netYield < 6 ? 'var(--warn)' : 'var(--accent)';
+        document.getElementById('yieldResult').innerHTML = `
+            <div>Gross yield: <strong>${grossYield.toFixed(2)}%</strong></div>
+            <div>Net yield: <strong style="color:${color}">${netYield.toFixed(2)}%</strong></div>
+            <div>Annual rent: <span style="color:var(--fg-dim)">$${annualRent.toLocaleString()}</span></div>
+            <div>Annual costs: <span style="color:var(--fg-dim)">$${costs.toLocaleString()}</span></div>
+            <div style="margin-top:4px; font-size:10px; color:var(--fg-dim)">Payback: ${paybackYears < 100 ? paybackYears.toFixed(1) + ' years' : '—'}</div>
+        `;
+    }
 }
-
-['yieldPrice', 'yieldRent', 'yieldCosts'].forEach(id => {
-    document.getElementById(id).addEventListener('input', calcYield);
-});
 
 // ========== ACCESSIBILITY + i18n INIT ==========
 const skipLink = document.createElement('a');
@@ -3069,77 +2978,81 @@ window.setupMap = function(...args) {
 
 
 // ========== MORTGAGE CALCULATOR ==========
-function computeMortgage() {
-    const value = parseFloat(document.getElementById('mortValue').value) || 0;
-    const downPct = parseFloat(document.getElementById('mortDownPct').value) || 0;
-    const rate = parseFloat(document.getElementById('mortRate').value) || 0;
-    const years = parseFloat(document.getElementById('mortTerm').value) || 0;
-
-    if (!value || !rate || !years) {
-        return document.getElementById('mortResult').innerHTML = '<div style="color:var(--fg-dim);">Enter values to compute</div>';
+if (typeof window['computeMortgage'] === 'undefined') {
+    function computeMortgage() {
+        const value = parseFloat(document.getElementById('mortValue').value) || 0;
+        const downPct = parseFloat(document.getElementById('mortDownPct').value) || 0;
+        const rate = parseFloat(document.getElementById('mortRate').value) || 0;
+        const years = parseFloat(document.getElementById('mortTerm').value) || 0;
+    
+        if (!value || !rate || !years) {
+            return document.getElementById('mortResult').innerHTML = '<div style="color:var(--fg-dim);">Enter values to compute</div>';
+        }
+    
+        const downPayment = value * (downPct / 100);
+        const loanAmount = value - downPayment;
+        const monthlyRate = rate / 100 / 12;
+        const numPayments = years * 12;
+    
+        let monthlyPayment;
+        if (monthlyRate === 0) {
+            monthlyPayment = loanAmount / numPayments;
+        } else {
+            const factor = Math.pow(1 + monthlyRate, numPayments);
+            monthlyPayment = loanAmount * (monthlyRate * factor) / (factor - 1);
+        }
+    
+        const totalPaid = monthlyPayment * numPayments;
+        const totalInterest = totalPaid - loanAmount;
+        const monthlyInsurance = loanAmount * 0.0003;  // ~0.36%/yr hazard insurance
+        const monthlyTotal = monthlyPayment + monthlyInsurance;
+    
+        document.getElementById('mortResult').innerHTML = `
+            <div style="font-weight:bold; color:var(--accent); margin-bottom:6px;">Monthly: $${monthlyTotal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+            <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Principal+interest</span><span>$${monthlyPayment.toFixed(0)}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Insurance est.</span><span>$${monthlyInsurance.toFixed(0)}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Down payment</span><span>$${downPayment.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Loan amount</span><span>$${loanAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Total interest</span><span style="color:var(--warn);">$${totalInterest.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+            <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Total paid</span><span>$${(totalPaid + downPayment).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+        `;
     }
-
-    const downPayment = value * (downPct / 100);
-    const loanAmount = value - downPayment;
-    const monthlyRate = rate / 100 / 12;
-    const numPayments = years * 12;
-
-    let monthlyPayment;
-    if (monthlyRate === 0) {
-        monthlyPayment = loanAmount / numPayments;
-    } else {
-        const factor = Math.pow(1 + monthlyRate, numPayments);
-        monthlyPayment = loanAmount * (monthlyRate * factor) / (factor - 1);
-    }
-
-    const totalPaid = monthlyPayment * numPayments;
-    const totalInterest = totalPaid - loanAmount;
-    const monthlyInsurance = loanAmount * 0.0003;  // ~0.36%/yr hazard insurance
-    const monthlyTotal = monthlyPayment + monthlyInsurance;
-
-    document.getElementById('mortResult').innerHTML = `
-        <div style="font-weight:bold; color:var(--accent); margin-bottom:6px;">Monthly: $${monthlyTotal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
-        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Principal+interest</span><span>$${monthlyPayment.toFixed(0)}</span></div>
-        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Insurance est.</span><span>$${monthlyInsurance.toFixed(0)}</span></div>
-        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Down payment</span><span>$${downPayment.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
-        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Loan amount</span><span>$${loanAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
-        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Total interest</span><span style="color:var(--warn);">$${totalInterest.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
-        <div style="display:flex; justify-content:space-between; gap:4px;"><span style="color:var(--fg-dim);">Total paid</span><span>$${(totalPaid + downPayment).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
-    `;
 }
 window.computeMortgage = computeMortgage;
 
 // ========== AFFORDABILITY CALCULATOR ==========
-function computeAffordability() {
-    const income = parseFloat(document.getElementById('affIncome').value) || 0;
-    const debts = parseFloat(document.getElementById('affDebts').value) || 0;
-    const pct = parseFloat(document.getElementById('affPct').value) || 0;
-
-    if (!income) {
-        return document.getElementById('affResult').innerHTML = '<div style="color:var(--fg-dim);">Enter values to compute</div>';
+if (typeof window['computeAffordability'] === 'undefined') {
+    function computeAffordability() {
+        const income = parseFloat(document.getElementById('affIncome').value) || 0;
+        const debts = parseFloat(document.getElementById('affDebts').value) || 0;
+        const pct = parseFloat(document.getElementById('affPct').value) || 0;
+    
+        if (!income) {
+            return document.getElementById('affResult').innerHTML = '<div style="color:var(--fg-dim);">Enter values to compute</div>';
+        }
+    
+        // Front-end ratio: monthly housing payment / income
+        const maxHousingPayment = (income * (pct / 100)) - debts;
+        // Assume 30y @ 10% interest
+        const monthlyRate = 0.10 / 12;
+        const numPayments = 360;
+        const factor = Math.pow(1 + monthlyRate, numPayments);
+        const maxLoan = maxHousingPayment * (factor - 1) / (monthlyRate * factor);
+        // With 30% down
+        const maxPrice = maxLoan / 0.7;
+    
+        // Back-end ratio: total debt / income
+        const backEndRatio = ((maxHousingPayment + debts) / income) * 100;
+    
+        document.getElementById('affResult').innerHTML = `
+            <div style="font-weight:bold; color:var(--accent); margin-bottom:6px;">Max property: $${maxPrice.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Max housing payment</span><span>$${maxHousingPayment.toFixed(0)}/mo</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Max loan (30y @ 10%)</span><span>$${maxLoan.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Front-end ratio</span><span>${pct}%</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Back-end ratio</span><span>${backEndRatio.toFixed(0)}%</span></div>
+            ${backEndRatio > 36 ? '<div style="margin-top:4px; color:var(--warn);">⚠ Back-end ratio >36% — bank may reject</div>' : ''}
+        `;
     }
-
-    // Front-end ratio: monthly housing payment / income
-    const maxHousingPayment = (income * (pct / 100)) - debts;
-    // Assume 30y @ 10% interest
-    const monthlyRate = 0.10 / 12;
-    const numPayments = 360;
-    const factor = Math.pow(1 + monthlyRate, numPayments);
-    const maxLoan = maxHousingPayment * (factor - 1) / (monthlyRate * factor);
-    // With 30% down
-    const maxPrice = maxLoan / 0.7;
-
-    // Back-end ratio: total debt / income
-    const backEndRatio = ((maxHousingPayment + debts) / income) * 100;
-
-    document.getElementById('affResult').innerHTML = `
-        <div style="font-weight:bold; color:var(--accent); margin-bottom:6px;">Max property: $${maxPrice.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
-        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Max housing payment</span><span>$${maxHousingPayment.toFixed(0)}/mo</span></div>
-        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Max loan (30y @ 10%)</span><span>$${maxLoan.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span></div>
-        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Front-end ratio</span><span>${pct}%</span></div>
-        <div style="display:flex; justify-content:space-between;"><span style="color:var(--fg-dim);">Back-end ratio</span><span>${backEndRatio.toFixed(0)}%</span></div>
-        ${backEndRatio > 36 ? '<div style="margin-top:4px; color:var(--warn);">⚠ Back-end ratio >36% — bank may reject</div>' : ''}
-    `;
 }
 window.computeAffordability = computeAffordability;
 
@@ -3162,14 +3075,8 @@ function computeInmueble(depto, valorFiscal) {
 
 // Wire up the inputs (event listeners)
 document.addEventListener('DOMContentLoaded', () => {
-    ['mortValue', 'mortDownPct', 'mortRate', 'mortTerm'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', computeMortgage);
-    });
-    ['affIncome', 'affDebts', 'affPct'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', computeAffordability);
-    });
+    // mortgage/affordability wiring moved to widgets.v3.js (wireCalculators)
+    
     // Initial calc
     setTimeout(computeMortgage, 200);
     setTimeout(computeAffordability, 200);
