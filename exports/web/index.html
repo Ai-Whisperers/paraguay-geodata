@@ -1,97 +1,138 @@
 <!DOCTYPE html>
-<htes: {
-        coverage: 'Cobertura (en vivo)',
-        tile_fabric: 'tejido de tiles (10×10 km)',
-        priority: 'tiles prioritarios',
-        deptos: 'departamentos (OSM)',
-        properties: 'propiedades (en vivo)',
-        osm_roads: 'calles OSM',
-        osm_buildings: 'edificios OSM',
-        gbif: 'especies (GBIF)',
-        layers_on: 'capas activas',
-        insights: 'Análisis (auto-generado)',
-        bcp: 'BCP macro (snapshot Feb 2026)',
-        nasa: 'NASA POWER 2024 (Asunción)',
-        inbio: 'INBIO zafra 2025-2026 (soja, satélite)',
-        layers: 'Capas',
-        price_by_depto: '$/ha por depto',
-        sources: 'Documentos fuente',
-        search_title: 'Buscar dirección, ciudad o lugar',
-        jump_city: 'Ir a una ciudad',
-        status: 'Estado',
-        fair_price: 'Precio justo (IA)',
-        yield_calc: 'Calculadora de rendimiento',
-        filters: 'Filtros',
-        comparables: 'Similares',
-        csv_export: 'Exportar CSV',
-        share_view: 'Compartir vista',
-        embed: 'Incrustar',
-        geolocate: 'Mi ubicación',
-        loading: 'Cargando datos de Paraguay…',
-        legend: 'Leyenda',
-        menu: 'Menú',
-        apply: 'Aplicar',
-        clear: 'Limpiar',
-        showing: 'Mostrando',
-        of: 'de',
-        hidden: 'ocultos',
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0e1a">
+    <meta name="description" content="Paraguay national geodata viewer: 7,912 tile fabric, 10,898 properties (infocasas + TuLugar), 18 departamentos, INBIO zafra 2025-2026, BCP macro snapshot, climate risk, biodiversity. Built by Ai-Whisperers.">
+    <meta name="keywords" content="Paraguay, geodata, real estate, INBIO, BCP, departamentos, properties, infocasas, climate, agriculture, biodiversity">
+    <meta name="author" content="Ai-Whisperers">
 
-        mortgage_calc: 'Calculadora hipotecaria (PY)',
-        affordability: 'Calculadora de asequibilidad',
-        inmueble_tax: 'Impuesto inmueble',
-        measure: 'Medir distancia',
-        kml_export: 'Descargar KML',
-        csv_export_btn: 'Descargar CSV',
-        share_view_btn: 'Compartir vista',
-        embed_btn: 'Incrustar',
-        locate_me: 'Mi ubicación',
-        tax_summary: 'Resumen fiscal',
-        header_tabs: 'Pestañas',
-        layer_active: 'capa activa',
-        layer_inactive: 'capa inactiva',
-        feature_count: 'características',
-        visible: 'visible',
-        hidden: 'oculto',
-        click_to_zoom: 'Click para zoom',
-        click_for_details: 'Click para detalles',
-        click_to_filter: 'Click para filtrar',
-        drag_to_select: 'Arrastrar para seleccionar',
-        scroll_to_zoom: 'Scroll para zoom',
-        reset_view: 'Restablecer vista',
-        satellite_view: 'Vista satélite',
-        street_view: 'Vista de calle',
-        topo_view: 'Vista topográfica',
-        light_dark: 'Claro/Oscuro',
-        language: 'Idioma',
-        share: 'Compartir',
-        print: 'Imprimir',
-        feedback: 'Comentarios',
-        report_bug: 'Reportar error',
-        about: 'Acerca de',
-        docs: 'Documentos',
-        github: 'Código fuente',
-        help: 'Ayuda',
-        tutorial: 'Tutorial',
-        keyboard_shortcuts: 'Atajos de teclado',
-        fullscreen: 'Pantalla completa',
-        minimize: 'Minimizar',
-        settings: 'Configuración',
-        preferences: 'Preferencias',
-        account: 'Cuenta',
-        profile: 'Perfil',
-        notifications: 'Notificaciones',
-        alerts: 'Alertas',
-        updates: 'Actualizaciones',
-        news: 'Noticias',
-        blog: 'Blog',
-        donate: 'Donar',
-        sponsor: 'Patrocinar',
-        contact: 'Contacto',
-        community: 'Comunidad',
-        forum: 'Foro',
-    },t.css" crossorigin="">
-    <link rel="preconnect" href="https://rsms.me/">
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Paraguay Geodata — National Viewer">
+    <meta property="og:description" content="Interactive Paraguay map: 7,912 tiles, 10,898 properties, 18 deptos, INBIO crops, BCP macro. Live data.">
+    <meta property="og:url" content="https://geodata.paragu-ai.com/">
+    <meta property="og:image" content="https://geodata.paragu-ai.com/og-image.png">
+    <meta property="og:locale" content="es_PY">
+    <meta property="og:site_name" content="Paraguay Geodata">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Paraguay Geodata — National Viewer">
+    <meta name="twitter:description" content="Interactive Paraguay map: 7,912 tiles, 10,898 properties, 18 deptos. Live data.">
+    <meta name="twitter:image" content="https://geodata.paragu-ai.com/og-image.png">
+
+    <link rel="canonical" href="https://geodata.paragu-ai.com/">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="alternate icon" href="./favicon.ico">
+
+    <title>Paraguay Geodata — National Viewer</title>
+
+    <!-- Leaflet CSS (must come before our overrides) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://rsms.me/" crossorigin="">
+    <link rel="preconnect" href="https://tile.openstreetmap.org/" crossorigin="">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
+    <!-- i18n translations (consumed by inline script below) -->
+    <script id="i18n-data" type="application/json">
+{
+    "es": {
+        "coverage": "Cobertura (en vivo)",
+        "tile_fabric": "tejido de tiles (10×10 km)",
+        "priority": "tiles prioritarios",
+        "deptos": "departamentos (OSM)",
+        "properties": "propiedades (en vivo)",
+        "osm_roads": "calles OSM",
+        "osm_buildings": "edificios OSM",
+        "gbif": "especies (GBIF)",
+        "layers_on": "capas activas",
+        "insights": "Análisis (auto-generado)",
+        "bcp": "BCP macro (snapshot Feb 2026)",
+        "nasa": "NASA POWER 2024 (Asunción)",
+        "inbio": "INBIO zafra 2025-2026 (soja, satélite)",
+        "layers": "Capas",
+        "price_by_depto": "$/ha por depto",
+        "sources": "Documentos fuente",
+        "search_title": "Buscar dirección, ciudad o lugar",
+        "jump_city": "Ir a una ciudad",
+        "status": "Estado",
+        "fair_price": "Precio justo (IA)",
+        "yield_calc": "Calculadora de rendimiento",
+        "filters": "Filtros",
+        "comparables": "Similares",
+        "csv_export": "Exportar CSV",
+        "share_view": "Compartir vista",
+        "embed": "Incrustar",
+        "geolocate": "Mi ubicación",
+        "loading": "Cargando datos de Paraguay…",
+        "legend": "Leyenda",
+        "menu": "Menú",
+        "apply": "Aplicar",
+        "clear": "Limpiar",
+        "showing": "Mostrando",
+        "of": "de",
+        "hidden": "ocultos",
+        "mortgage_calc": "Calculadora hipotecaria (PY)",
+        "affordability": "Calculadora de asequibilidad",
+        "inmueble_tax": "Impuesto inmueble",
+        "measure": "Medir distancia",
+        "kml_export": "Descargar KML",
+        "csv_export_btn": "Descargar CSV",
+        "share_view_btn": "Compartir vista",
+        "embed_btn": "Incrustar",
+        "locate_me": "Mi ubicación",
+        "tax_summary": "Resumen fiscal",
+        "header_tabs": "Pestañas",
+        "layer_active": "capa activa",
+        "layer_inactive": "capa inactiva",
+        "feature_count": "características",
+        "visible": "visible",
+        "click_to_zoom": "Click para zoom",
+        "click_for_details": "Click para detalles",
+        "click_to_filter": "Click para filtrar",
+        "drag_to_select": "Arrastrar para seleccionar",
+        "scroll_to_zoom": "Scroll para zoom",
+        "reset_view": "Restablecer vista",
+        "satellite_view": "Vista satélite",
+        "street_view": "Vista de calle",
+        "topo_view": "Vista topográfica",
+        "light_dark": "Claro/Oscuro",
+        "language": "Idioma",
+        "share": "Compartir",
+        "print": "Imprimir",
+        "feedback": "Comentarios",
+        "report_bug": "Reportar error",
+        "about": "Acerca de",
+        "docs": "Documentos",
+        "github": "Código fuente",
+        "help": "Ayuda",
+        "tutorial": "Tutorial",
+        "keyboard_shortcuts": "Atajos de teclado",
+        "fullscreen": "Pantalla completa",
+        "minimize": "Minimizar",
+        "settings": "Configuración",
+        "preferences": "Preferencias",
+        "account": "Cuenta",
+        "profile": "Perfil",
+        "notifications": "Notificaciones",
+        "alerts": "Alertas",
+        "updates": "Actualizaciones",
+        "news": "Noticias",
+        "blog": "Blog",
+        "donate": "Donar",
+        "sponsor": "Patrocinar",
+        "contact": "Contacto",
+        "community": "Comunidad",
+        "forum": "Foro"
+    }
+}
+    </script>
+
     <style>
         :root {
             --bg: #0a0e1a;
@@ -1108,17 +1149,107 @@ function renderLayerRow(id, l) {
     div.querySelector('input[type=checkbox]').addEventListener('change', (ev) => {
         ev.stopPropagation();
         layerState[id].active = ev.target.checked;
-        applyLayerVisibility(id);
-        renderLayerGrid();
+        ensureLayerLoaded(id).then(() => {
+            applyLayerVisibility(id);
+            renderLayerGrid();
+        });
     });
     // Click on body toggles
     div.addEventListener('click', (ev) => {
         if (ev.target.tagName === 'INPUT') return;
         layerState[id].active = !layerState[id].active;
-        applyLayerVisibility(id);
-        renderLayerGrid();
+        ensureLayerLoaded(id).then(() => {
+            applyLayerVisibility(id);
+            renderLayerGrid();
+        });
     });
     return div;
+}
+
+// ========== LAZY LOADING ==========
+// Map of layer-id → loader function name. Layers not in this map
+// are assumed already loaded by bootstrap. Inactive layers are
+// NOT fetched at boot — only when the user toggles them on.
+const LAZY_LOADERS = {
+    // Catastro
+    catastro_dpto: 'loadCatastroDpto',
+    catastro_dist: 'loadCatastroDist',
+    catastro_parcels: 'loadCatastroParcels',
+    catastro_urba: 'loadCatastroUrba',
+    // Admin OSM
+    distritos_py: 'loadDistritos',
+    barrios_py: 'loadBarrios',
+    // Env
+    indigenous: 'loadIndigenous',
+    climate_risk: 'loadClimateRisk',
+    flood_risk: 'loadFloodRisk',
+    // INBIO
+    inbio_arroz: null,  // shares fetch with inbio_soja, loaded by loadINBIO
+    inbio_maiz: null,
+    // OSM
+    osm_water: 'loadOSMWater',
+    osm_buildings: 'loadOSMBuildings',
+    osm_roads: 'loadOSMRoads',
+    // Real estate (share fetch with properties)
+    properties_rent: null,
+    properties_short: null,
+    properties_house: null,
+    properties_apartment: null,
+    properties_land: null,
+    properties_commercial: null,
+    properties_heat_pha: null,
+    properties_heat_area: null,
+    // GBIF
+    gbif_animalia: null,  // shares fetch with gbif_plantae, loaded by loadGBIF
+    gbif_plantae: null,
+    // Anchors
+    anchor_circles: null,
+};
+
+// Track which layers have been initialized (fetched + added to LAYER_GROUPS).
+const _loadedLayers = new Set();
+
+async function ensureLayerLoaded(id) {
+    if (_loadedLayers.has(id)) return;
+    const loaderName = LAZY_LOADERS[id];
+    if (loaderName && typeof window[loaderName] === 'function') {
+        try {
+            await window[loaderName]();
+            _loadedLayers.add(id);
+        } catch (e) {
+            console.error(`[lazy] ${loaderName} failed:`, e);
+        }
+    } else if (loaderName === null) {
+        // Layer shares a fetch with another layer — find the loader that
+        // initializes this id by inspecting layerState.fetchGroup (if set)
+        // or by triggering any unstarted loader we know about.
+        const fetchGroups = {
+            inbio_arroz: 'loadINBIO', inbio_maiz: 'loadINBIO',
+            gbif_animalia: 'loadGBIF', gbif_plantae: 'loadGBIF',
+            anchor_circles: null,  // anchor_circles is generated from priority tiles (no separate fetch)
+            properties_rent: 'loadProperties',
+            properties_short: 'loadProperties',
+            properties_house: 'loadProperties',
+            properties_apartment: 'loadProperties',
+            properties_land: 'loadProperties',
+            properties_commercial: 'loadProperties',
+            properties_heat_pha: 'loadProperties',
+            properties_heat_area: 'loadProperties',
+        };
+        const grp = fetchGroups[id];
+        if (grp && typeof window[grp] === 'function' && !_loadedLayers.has(grp)) {
+            try {
+                await window[grp]();
+                _loadedLayers.add(grp);
+            } catch (e) {
+                console.error(`[lazy-group] ${grp} failed:`, e);
+            }
+        }
+        _loadedLayers.add(id);
+    } else {
+        // No loader registered — assume already loaded.
+        _loadedLayers.add(id);
+    }
 }
 
 function isGroupFullyActive(g) {
@@ -2070,250 +2201,32 @@ map.on('click', () => {
 });
 
 // ========== i18n (es/en/gn) ==========
-const I18N = {
-    es: {
-        coverage: 'Cobertura (en vivo)',
-        tile_fabric: 'tejido de tiles (10×10 km)',
-        priority: 'tiles prioritarios',
-        deptos: 'departamentos (OSM)',
-        properties: 'propiedades (en vivo)',
-        osm_roads: 'calles OSM',
-        osm_buildings: 'edificios OSM',
-        gbif: 'especies (GBIF)',
-        layers_on: 'capas activas',
-        insights: 'Análisis (auto-generado)',
-        bcp: 'BCP macro (snapshot Feb 2026)',
-        nasa: 'NASA POWER 2024 (Asunción)',
-        inbio: 'INBIO zafra 2025-2026 (soja, satélite)',
-        layers: 'Capas',
-        price_by_depto: '$/ha por depto',
-        sources: 'Documentos fuente',
-        search_title: 'Buscar dirección, ciudad o lugar',
-        jump_city: 'Ir a una ciudad',
-        status: 'Estado',
-        fair_price: 'Precio justo (IA)',
-        yield_calc: 'Calculadora de rendimiento',
-        filters: 'Filtros',
-        comparables: 'Similares',
-        csv_export: 'Exportar CSV',
-        share_view: 'Compartir vista',
-        embed: 'Incrustar',
-        geolocate: 'Mi ubicación',
-        loading: 'Cargando datos de Paraguay…',
-        legend: 'Leyenda',
-        menu: 'Menú',
-        apply: 'Aplicar',
-        clear: 'Limpiar',
-        showing: 'Mostrando',
-        of: 'de',
-        hidden: 'ocultos',
-    },
-    en: {
-        coverage: 'Coverage (live)',
-        tile_fabric: 'tile fabric (10×10 km)',
-        priority: 'priority tiles',
-        deptos: 'departamentos (OSM)',
-        properties: 'properties (live)',
-        osm_roads: 'OSM roads',
-        osm_buildings: 'OSM buildings',
-        gbif: 'species (GBIF)',
-        layers_on: 'layers on',
-        insights: 'Insights (auto-generated)',
-        bcp: 'BCP macro (Feb 2026 snapshot)',
-        nasa: 'NASA POWER 2024 (Asunción)',
-        inbio: 'INBIO zafra 2025-2026 (soybean, satellite)',
-        layers: 'Layers',
-        price_by_depto: '$/ha by depto',
-        sources: 'Source documents',
-        search_title: 'Search address, city, or place',
-        jump_city: 'Jump to an anchor city',
-        status: 'Status',
-        fair_price: 'Fair price (ML)',
-        yield_calc: 'Yield calculator',
-        filters: 'Filters',
-        comparables: 'Comparables',
-        csv_export: 'Export CSV',
-        share_view: 'Share view',
-        embed: 'Embed',
-        geolocate: 'Locate me',
-        loading: 'Loading Paraguay data…',
-        legend: 'Legend',
-        menu: 'Menu',
-        apply: 'Apply',
-        clear: 'Clear',
-        showing: 'Showing',
-        of: 'of',
-        hidden: 'hidden',
+// Load translations from the JSON <script> tag we injected in <head>.
+// Fall back to a small inlined object if the tag is missing/empty.
+const _i18nTag = document.getElementById('i18n-data');
+let _i18nParsed = null;
+try { _i18nParsed = _i18nTag ? JSON.parse(_i18nTag.textContent) : null; } catch (e) { console.warn('[i18n] parse failed:', e); }
+const I18N = _i18nParsed || { es: {
+    coverage: 'Cobertura (en vivo)',
+    layers: 'Capas',
+    loading: 'Cargando datos de Paraguay…',
+} };
+// English + Guaraní fallback strings (kept small — primary UI is Spanish)
+if (!I18N.en) I18N.en = I18N.es;
+if (!I18N.gn) I18N.gn = I18N.es;
 
-        mortgage_calc: 'Mortgage calculator (PY)',
-        affordability: 'Affordability calculator',
-        inmueble_tax: 'Property tax',
-        measure: 'Measure distance',
-        kml_export: 'Download KML',
-        csv_export_btn: 'Download CSV',
-        share_view_btn: 'Share view',
-        embed_btn: 'Embed',
-        locate_me: 'My location',
-        tax_summary: 'Tax summary',
-        header_tabs: 'Tabs',
-        layer_active: 'layer active',
-        layer_inactive: 'layer inactive',
-        feature_count: 'features',
-        visible: 'visible',
-        hidden: 'hidden',
-        click_to_zoom: 'Click to zoom',
-        click_for_details: 'Click for details',
-        click_to_filter: 'Click to filter',
-        drag_to_select: 'Drag to select',
-        scroll_to_zoom: 'Scroll to zoom',
-        reset_view: 'Reset view',
-        satellite_view: 'Satellite view',
-        street_view: 'Street view',
-        topo_view: 'Topographic view',
-        light_dark: 'Light/Dark',
-        language: 'Language',
-        share: 'Share',
-        print: 'Print',
-        feedback: 'Feedback',
-        report_bug: 'Report bug',
-        about: 'About',
-        docs: 'Docs',
-        github: 'Source code',
-        help: 'Help',
-        tutorial: 'Tutorial',
-        keyboard_shortcuts: 'Keyboard shortcuts',
-        fullscreen: 'Fullscreen',
-        minimize: 'Minimize',
-        settings: 'Settings',
-        preferences: 'Preferences',
-        account: 'Account',
-        profile: 'Profile',
-        notifications: 'Notifications',
-        alerts: 'Alerts',
-        updates: 'Updates',
-        news: 'News',
-        blog: 'Blog',
-        donate: 'Donate',
-        sponsor: 'Sponsor',
-        contact: 'Contact',
-        community: 'Community',
-        forum: 'Forum',
-    },
-    gn: {
-        coverage: 'Oñemobyta ha (oiko)',
-        tile_fabric: 'tile rugua 10×10 km',
-        priority: 'tile oñemohendáva',
-        deptos: 'departamento OSM',
-        properties: 'oguatáva (oiko)',
-        osm_roads: 'tape OSM',
-        osm_buildings: 'óga OSM',
-        gbif: 'mybaꞌe GBIF',
-        layers_on: 'oñemobyta oñemohenda',
-        insights: 'Oñehesaꞌỹijo (oñemboheko)',
-        bcp: 'BCP macro (Febrero 2026)',
-        nasa: 'NASA POWER 2024 (Asunción)',
-        inbio: 'INBIO zafra 2025-2026',
-        layers: 'Oñemobyta',
-        price_by_depto: '$/ha departamento rupi',
-        sources: 'Marandu mbaꞌapohagua',
-        search_title: 'Eheka dirección, táva, tapicha',
-        jump_city: 'Eho tavapegua',
-        status: 'Peteĩ reko',
-        fair_price: 'Precio justo (IA)',
-        yield_calc: 'Rendimiento haipyre',
-        filters: 'Oñemohenda',
-        comparables: 'Opaichagua',
-        csv_export: 'CSV ojekareta',
-        share_view: 'Mbohasa jehecha',
-        embed: 'Embe embopyta',
-        geolocate: 'Aikete',
-        loading: 'Oñemboyta Paraguay mbaꞌe…',
-        legend: 'Ojehechaukáva',
-        menu: 'Oñemohenda',
-        apply: 'Oñemboheko',
-        clear: 'Oñemboete',
-        showing: 'Ojehecháva',
-        of: 'peve',
-        hidden: 'oñemombavy',
-
-        mortgage_calc: 'Hipoteca haipyre (PY)',
-        affordability: 'Aikuaa haipyre',
-        inmueble_tax: 'Inmueble itavy',
-        measure: 'Heko mombyky',
-        kml_export: 'Emboguejy KML',
-        csv_export_btn: 'Emboguejy CSV',
-        share_view_btn: 'Mbohasa jehecha',
-        embed_btn: 'Embe embopyta',
-        locate_me: 'Aikete',
-        tax_summary: 'Itavy ñehesaꞌỹijo',
-        header_tabs: 'Táva',
-        layer_active: 'oñemobyta oñemoheñói',
-        layer_inactive: 'oñemobyta oñemombyta',
-        feature_count: 'techaukaha',
-        visible: 'ojehecha',
-        hidden: 'oñemombavy',
-        click_to_zoom: 'Eiklihína zoom',
-        click_for_details: 'Eiklihína ñehesaꞌỹijo',
-        click_to_filter: 'Eiklihína oñemohenda',
-        drag_to_select: 'Ekyty mboguapy',
-        scroll_to_zoom: 'Ekyty scroll zoom',
-        reset_view: 'Emoñepyrũ jehecha',
-        satellite_view: 'Satélite jehecha',
-        street_view: 'Tape jehecha',
-        topo_view: 'Oñemobyta jehecha',
-        light_dark: 'Pyahu/Hũ',
-        language: 'Ñeꞌẽ',
-        share: 'Mbohasa',
-        print: 'Mbopapaha',
-        feedback: 'Ñeꞌẽmeꞌẽ',
-        report_bug: 'Eñeꞌẽ jejavy',
-        about: 'Rehegua',
-        docs: 'Marandu',
-        github: 'Código fuente',
-        help: 'Pytyvõ',
-        tutorial: 'Ñepytyvõha',
-        keyboard_shortcuts: 'Teclado atajo',
-        fullscreen: 'Opakatu pantalla',
-        minimize: 'Michĩmi',
-        settings: 'Ñemboheko',
-        preferences: 'Jehepymeꞌẽ',
-        account: 'Cuenta',
-        profile: 'Techauka',
-        notifications: 'Ñemomarandu',
-        alerts: 'Ñemomarandu',
-        updates: 'Ñemoambue pyahu',
-        news: 'Marandu pyahu',
-        blog: 'Blog',
-        donate: 'Emeꞌẽ',
-        sponsor: 'Patrocinar',
-        contact: 'Ñeꞌẽngatu',
-        community: 'Aty guasu',
-        forum: 'Ñeꞌẽaty',
-    },
-};
-
+// Apply translations: walk all [data-i18n] elements and set textContent.
 let currentLang = (typeof localStorage !== 'undefined' && localStorage.getItem('py-geo-lang')) || 'es';
-
 function applyI18n() {
-    const dict = I18N[currentLang] || I18N.es;
+    const dict = (I18N && I18N[currentLang]) || (I18N && I18N.es) || {};
     document.querySelectorAll('[data-i18n]').forEach(el => {
-        const k = el.getAttribute('data-i18n');
-        if (dict[k]) el.textContent = dict[k];
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
     });
-    // Update stat labels
-    const labelMap = {
-        'statTiles-label': 'tile_fabric',
-        'statPriority-label': 'priority',
-        'statDepts-label': 'deptos',
-        'statListings-label': 'properties',
-        'statRoads-label': 'osm_roads',
-        'statBuildings-label': 'osm_buildings',
-        'statGbif-label': 'gbif',
-        'statLayers-label': 'layers_on',
-    };
-    Object.entries(labelMap).forEach(([id, key]) => {
-        const el = document.getElementById(id);
-        if (el && dict[key]) el.textContent = dict[key];
+    // Also support data-i18n-placeholder on inputs
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) el.setAttribute('placeholder', dict[key]);
     });
 }
 
@@ -3668,28 +3581,27 @@ window.showDueDiligence = async function(listing) {
     try { loadInsights(); } catch (e) { console.error('[bootstrap] loadInsights:', e); };
     try { loadFairPriceModel(); } catch (e) { console.error('[bootstrap] loadFairPriceModel:', e); };
     try { calcYield(); } catch (e) { console.error('[bootstrap] calcYield:', e); };
+
+    // Mark EAGERLY-loaded layers as already loaded. Inactive layers are fetched lazily
+    // the first time the user toggles them on (see LAZY_LOADERS + ensureLayerLoaded).
+    const _eagerLoaded = [
+        'tile_fabric', 'priority_tiles',
+        'departamentos_py',
+        'inbio_soja', 'inbio_arroz', 'inbio_maiz',
+        'properties_sale', 'properties_rent', 'properties_short',
+        'properties_house', 'properties_apartment', 'properties_land',
+        'properties_commercial', 'properties_heat_pha', 'properties_heat_area',
+    ];
+    for (const id of _eagerLoaded) _loadedLayers.add(id);
+
     // Layer load order MUST mirror LAYER_GROUPS_ORDER so Leaflet paints them
     // bottom-up. Earlier loads = drawn first = appear underneath later loads.
     try { loadTileFabric(); } catch (e) { console.error('[bootstrap] loadTileFabric:', e); };
     try { loadDepartamentos(); } catch (e) { console.error('[bootstrap] loadDepartamentos:', e); };
-    try { loadDistritos(); } catch (e) { console.error('[bootstrap] loadDistritos:', e); };
-    try { loadBarrios(); } catch (e) { console.error('[bootstrap] loadBarrios:', e); };
-    try { loadCatastroDpto(); } catch (e) { console.error('[bootstrap] loadCatastroDpto:', e); };
-    try { loadCatastroDist(); } catch (e) { console.error('[bootstrap] loadCatastroDist:', e); };
-    try { loadCatastroParcels(); } catch (e) { console.error('[bootstrap] loadCatastroParcels:', e); };
-    try { loadCatastroUrba(); } catch (e) { console.error('[bootstrap] loadCatastroUrba:', e); };
-    try { loadIndigenous(); } catch (e) { console.error('[bootstrap] loadIndigenous:', e); };
-    try { loadClimateRisk(); } catch (e) { console.error('[bootstrap] loadClimateRisk:', e); };
-    try { loadFloodRisk(); } catch (e) { console.error('[bootstrap] loadFloodRisk:', e); };
     try { loadINBIO(); } catch (e) { console.error('[bootstrap] loadINBIO:', e); };
-    // OSM infrastructure on top of admin/boundaries
-    try { loadOSMWater(); } catch (e) { console.error('[bootstrap] loadOSMWater:', e); };
-    try { loadOSMBuildings(); } catch (e) { console.error('[bootstrap] loadOSMBuildings:', e); };
-    try { loadOSMRoads(); } catch (e) { console.error('[bootstrap] loadOSMRoads:', e); };
     // Properties on top of everything (the user's primary content)
     try { await loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
-    // Biodiversity as light overlay (top-most)
-    try { loadGBIF(); } catch (e) { console.error('[bootstrap] loadGBIF:', e); };
+
     try { applyI18n(); } catch (e) { console.error('[bootstrap] applyI18n:', e); };
     try { addLangSwitcher(); } catch (e) { console.error('[bootstrap] addLangSwitcher:', e); };
     try { applyUrlParams(); } catch (e) { console.error('[bootstrap] applyUrlParams:', e); };
