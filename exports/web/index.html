@@ -794,6 +794,19 @@
             </div>
         </div>
 
+        <div id="topRiskyAreas" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px; display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <h2 style="margin:0; font-size:14px;">⚠️ Highest-risk clusters</h2>
+                <button onclick="window.toggleTopRisky()" style="background:none; border:none; color:var(--accent); cursor:pointer; font-size:11px;" aria-label="Toggle">▾</button>
+            </div>
+            <div id="topRiskyList" style="font-size:11px;"></div>
+        </div>
+
+        <details open class="sidebar-section" id="locationAnalysisSection" style="display:none;">
+            <summary><h2 style="display:inline;">📍 Selected property analysis</h2><span class="chevron">▾</span></summary>
+            <div id="locationAnalysis" style="font-size:11px; line-height:1.5; padding:8px 0;"></div>
+        </details>
+
         <details open class="sidebar-section">
             <summary><h2 style="display:inline;">Layers</h2><span class="chevron">▾</span></summary>
             <div class="layer-grid" id="layerGrid"></div>
@@ -1045,6 +1058,7 @@ const layerState = {
     properties_commercial:{group: 'realestate', subgroup: 'by_type',    label: 'Properties · commercial', active: false, features: '?', info: 'Commercial: shops, warehouses, offices, hotels.',                       color: '#a78bfa', url: 'data/properties_latest.geojson' },
     properties_heat_pha: { group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · $/ha',     active: false, features: '?', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',         color: '#f59e0b', url: 'data/properties_latest.geojson' },
     properties_heat_area:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · lot area', active: false, features: '?', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                color: '#3b82f6', url: 'data/properties_latest.geojson' },
+    properties_heat_risk:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · risk score', active: false, features: '?', info: 'Heatmap of risk score (flood+water+climate+indigenous+shadow). Brighter = more risk. From /data/property_risk_analysis.json.', color: '#ef4444', url: 'data/property_risk_analysis.json' },
 
     // ---- biodiv ----
     gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
@@ -1314,6 +1328,7 @@ const LAZY_LOADERS = {
     properties_commercial: null,
     properties_heat_pha: null,
     properties_heat_area: null,
+    properties_heat_risk: 'loadRiskHeatmap',
     // GBIF
     gbif_animalia: null,  // shares fetch with gbif_plantae, loaded by loadGBIF
     gbif_plantae: null,
@@ -1350,6 +1365,7 @@ async function ensureLayerLoaded(id) {
             properties_commercial: 'loadProperties',
             properties_heat_pha: 'loadProperties',
             properties_heat_area: 'loadProperties',
+            properties_heat_risk: 'loadRiskHeatmap',
         };
         const grp = fetchGroups[id];
         if (grp && typeof window[grp] === 'function' && !_loadedLayers.has(grp)) {
@@ -2589,6 +2605,77 @@ function buildPropertyPopup(p, lon, lat) {
         }
     }
 
+    // Risk analysis (loaded from /data/property_risk_analysis.json by ID)
+    let riskAnalysisHtml = '';
+    if (window.__riskById) {
+        const propId = p.id || p.source_id || `${p.source}:${p.source_id}`;
+        const r = window.__riskById.get(propId);
+        if (r) {
+            const risks = r.risks || {};
+            const pros = r.pros || {};
+            const riskItems = [];
+            // Flood zone
+            if (risks.flood) {
+                const sevColor = risks.flood.severity === 'high' ? '#ef4444' : risks.flood.severity === 'medium' ? '#f59e0b' : '#84cc16';
+                riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Flood zone</span><span class="v"><span style="background:${sevColor}; color:white; padding:1px 6px; border-radius:3px; font-size:10px;">${risks.flood.severity}</span> ${risks.flood.zone || ''}</span></div>`);
+            }
+            // Water proximity (close = risk)
+            if (risks.water_proximity) {
+                const sevColor = risks.water_proximity.severity === 'high' ? '#ef4444' : '#f59e0b';
+                riskItems.push(`<div class="row"><span class="k" style="color:${sevColor};">⚠ Near water (${(risks.water_proximity.distance_km * 1000).toFixed(0)} m)</span><span class="v">${risks.water_proximity.name || 'unnamed'}</span></div>`);
+            }
+            // Indigenous
+            if (risks.indigenous) {
+                riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Indigenous territory</span><span class="v">${risks.indigenous.territory || '—'}</span></div>`);
+            }
+            // Shadow
+            if (risks.shadow) {
+                riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Wall-to-wall (${risks.shadow.closest_building_m} m)</span><span class="v">no light</span></div>`);
+            } else if (risks.lighting) {
+                riskItems.push(`<div class="row"><span class="k" style="color:#f59e0b;">⚠ Close building (${risks.lighting.closest_building_m} m)</span><span class="v">reduced light</span></div>`);
+            }
+            // Climate risks
+            if (risks.climate) {
+                const c = risks.climate;
+                if (c.flood_risk && String(c.flood_risk).toLowerCase() === 'high') riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Flood (depto)</span><span class="v">${c.depto}: high</span></div>`);
+                if (c.drought_risk && String(c.drought_risk).toLowerCase() === 'high') riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Drought (depto)</span><span class="v">${c.depto}: high</span></div>`);
+                if (c.heatwave_risk && String(c.heatwave_risk).toLowerCase() === 'high') riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Heatwave (depto)</span><span class="v">${c.depto}: high</span></div>`);
+                if (c.wildfire_risk && String(c.wildfire_risk).toLowerCase() === 'high') riskItems.push(`<div class="row"><span class="k" style="color:#ef4444;">⚠ Wildfire (depto)</span><span class="v">${c.depto}: high</span></div>`);
+            }
+            // Pros
+            const proItems = [];
+            if (pros.near_water) {
+                proItems.push(`<div class="row"><span class="k" style="color:#10b981;">✓ Near water (${pros.near_water.distance_km} km)</span><span class="v">${pros.near_water.name || 'water body'}</span></div>`);
+            }
+            if (pros.biodiversity) {
+                proItems.push(`<div class="row"><span class="k" style="color:#10b981;">✓ Biodiversity (${pros.biodiversity.distance_km} km)</span><span class="v">${pros.biodiversity.nearest_species || '—'}</span></div>`);
+            }
+            // Composite scores
+            const riskScore = r.risk_score || 0;
+            const proScore = r.pro_score || 0;
+            const netScore = r.net_score || 0;
+            const scoreColor = netScore < -20 ? '#ef4444' : netScore < 0 ? '#f59e0b' : netScore < 10 ? '#84cc16' : '#10b981';
+            const scoreLabel = netScore < -20 ? 'HIGH RISK' : netScore < 0 ? 'CAUTION' : netScore < 10 ? 'OK' : 'GOOD';
+            let detailHtml = '';
+            if (riskItems.length > 0) {
+                detailHtml += '<div style="margin-top:6px; padding:6px; background:rgba(239, 68, 68, 0.08); border-left:3px solid #ef4444; border-radius:3px;"><div style="font-weight:600; color:#ef4444; font-size:11px; margin-bottom:3px;">⚠ Risks (' + riskItems.length + ')</div>' + riskItems.join('') + '</div>';
+            }
+            if (proItems.length > 0) {
+                detailHtml += '<div style="margin-top:4px; padding:6px; background:rgba(16, 185, 129, 0.08); border-left:3px solid #10b981; border-radius:3px;"><div style="font-weight:600; color:#10b981; font-size:11px; margin-bottom:3px;">✓ Pros (' + proItems.length + ')</div>' + proItems.join('') + '</div>';
+            }
+            riskAnalysisHtml = `
+                <div style="margin-top:6px; padding:8px; background:var(--bg-elev-2); border-radius:4px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <span style="font-weight:600; font-size:11px;">📍 Location analysis</span>
+                        <span style="background:${scoreColor}; color:white; padding:2px 8px; border-radius:3px; font-size:10px; font-weight:600;">${scoreLabel}</span>
+                    </div>
+                    <div style="font-size:10px; color:var(--fg-dim); margin-bottom:4px;">Risk: <strong style="color:#ef4444;">${riskScore}</strong> · Pro: <strong style="color:#10b981;">${proScore}</strong> · Net: <strong style="color:${scoreColor};">${netScore > 0 ? '+' : ''}${netScore}</strong></div>
+                    ${detailHtml}
+                </div>
+            `;
+        }
+    }
+
     // Comparables: find similar listings (same type, +/-50% price, same depto)
     let comparablesHtml = '';
     if (window.__properties && p.property_type && p.state_province && p.price_usd) {
@@ -2625,6 +2712,7 @@ function buildPropertyPopup(p, lon, lat) {
         ${p.bedrooms ? `<div class="row"><span class="k">Beds</span><span class="v">${p.bedrooms}</span></div>` : ''}
         ${p.bathrooms ? `<div class="row"><span class="k">Baths</span><span class="v">${p.bathrooms}</span></div>` : ''}
         ${p.state_province ? `<div class="row"><span class="k">Depto</span><span class="v">${p.state_province}${p.city ? ' / ' + p.city : ''}</span></div>` : ''}
+        ${riskAnalysisHtml}
         ${fairPriceHtml}
         ${comparablesHtml}
         <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">Source: ${p.source || '?'}${p.source_platform && p.source_platform !== p.source ? ' via ' + p.source_platform : ''} · scraped ${(p.scraped_at_utc || '').substring(0, 10) || '?'}</div>
@@ -3481,9 +3569,65 @@ function applyFilters() {
     if (stat) stat.textContent = filtered.length.toLocaleString();
 }
 
-// ========== HEATMAP LAYERS ($/ha + lot area) ==========
+// ========== TOP RISKY AREAS PANEL ==========
+async function loadTopRiskyAreas() {
+    try {
+        const r = await fetch('./data/property_risk_summary.json');
+        if (!r.ok) return;
+        const d = await r.json();
+        const panel = document.getElementById('topRiskyAreas');
+        const list = document.getElementById('topRiskyList');
+        if (!panel || !list) return;
+        panel.style.display = 'block';
+
+        const byDepto = d.by_depto || {};
+        const ranked = Object.entries(byDepto)
+            .filter(([k]) => k !== 'Unknown' && k !== 'Distrito Capital de Pa' && !k.startsWith('Departamento') && k !== 'Minga Guazu' && k !== 'Paraná' && k !== 'Corrientes' && k !== 'Santa Cruz' && k !== 'Formosa')
+            .sort((a, b) => b[1].avg_risk - a[1].avg_risk)
+            .slice(0, 5);
+
+        let html = '<div style="font-size:10px; color:var(--fg-dim); margin-bottom:4px;">By avg risk (depto)</div>';
+        html += '<div style="display:flex; flex-direction:column; gap:4px;">';
+        for (const [depto, s] of ranked) {
+            const sevColor = s.avg_risk > 50 ? '#ef4444' : s.avg_risk > 20 ? '#f59e0b' : '#84cc16';
+            html += '<div style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; background:var(--bg-elev-2); border-radius:3px;">';
+            html += '<span>' + depto + ' (' + s.count + ')</span>';
+            html += '<span style="background:' + sevColor + '; color:white; padding:1px 6px; border-radius:3px; font-size:10px; font-weight:600;">' + Math.round(s.avg_risk) + '</span>';
+            html += '</div>';
+        }
+        html += '</div>';
+
+        // Add safest depto
+        const safe = Object.entries(byDepto)
+            .filter(([k]) => k !== 'Unknown' && !k.startsWith('Departamento') && k !== 'Distrito Capital de Pa' && k !== 'Formosa' && k !== 'Corrientes' && k !== 'Santa Cruz' && k !== 'Minga Guazu' && k !== 'Paraná')
+            .filter(([k, s]) => s.count >= 20)
+            .sort((a, b) => a[1].avg_risk - b[1].avg_risk)
+            .slice(0, 3);
+        if (safe.length > 0) {
+            html += '<div style="font-size:10px; color:var(--fg-dim); margin:8px 0 4px;">Lowest risk (≥20 listings)</div>';
+            html += '<div style="display:flex; flex-direction:column; gap:4px;">';
+            for (const [depto, s] of safe) {
+                html += '<div style="display:flex; justify-content:space-between; align-items:center; padding:3px 6px; background:var(--bg-elev-2); border-radius:3px;">';
+                html += '<span>' + depto + ' (' + s.count + ')</span>';
+                html += '<span style="background:#10b981; color:white; padding:1px 6px; border-radius:3px; font-size:10px; font-weight:600;">' + Math.round(s.avg_risk) + '</span>';
+                html += '</div>';
+            }
+            html += '</div>';
+        }
+        list.innerHTML = html;
+    } catch (e) { console.warn('Top risky load failed:', e); }
+}
+window.loadTopRiskyAreas = loadTopRiskyAreas;
+
+// Hook into the bootstrap
+window.addEventListener('load', () => {
+    setTimeout(loadTopRiskyAreas, 500);
+});
+
+// ========== HEATMAP LAYERS ($/ha + lot area + risk) ==========
 let _heatPhLayer = null;
 let _heatAreaLayer = null;
+let _heatRiskLayer = null;
 let _heatLegendEl = null;
 
 function buildHeatmapFeatures(features, valueFn) {
@@ -3498,7 +3642,7 @@ function buildHeatmapFeatures(features, valueFn) {
     return out;
 }
 
-function updateHeatmap() {
+async function updateHeatmap() {
     if (!window.__properties || !window.L) return;
     if (typeof L.heatLayer !== 'function') return;
 
@@ -3539,9 +3683,41 @@ function updateHeatmap() {
     updateLayerCount('properties_heat_pha', phaData.length);
     updateLayerCount('properties_heat_area', areaData.length);
 
-    // Inject legend into map if either heat layer is active
+    // Risk heatmap — uses /data/property_risk_analysis.json (10,754 analyses)
+    const riskGroup = LAYER_GROUPS.properties_heat_risk && LAYER_GROUPS.properties_heat_risk[0];
+    if (riskGroup) {
+        try {
+            const r = await fetch('./data/property_risk_analysis.json');
+            if (r.ok) {
+                const riskData = await r.json();
+                const analyses = riskData.analyses || [];
+                const riskPts = [];
+                let maxRisk = 0;
+                for (const a of analyses) {
+                    const s = a.risk_score || 0;
+                    if (s > 0) {
+                        riskPts.push([a.lat, a.lon, s]);
+                        if (s > maxRisk) maxRisk = s;
+                    }
+                }
+                if (maxRisk > 0) {
+                    // Normalize by max for heat intensity
+                    const normPts = riskPts.map(p => [p[0], p[1], p[2] / maxRisk]);
+                    _heatRiskLayer = L.heatLayer(normPts, {
+                        radius: 22, blur: 20, max: 0.15, maxZoom: 12,
+                        gradient: { 0.05: '#fef3c7', 0.2: '#fbbf24', 0.4: '#f97316', 0.7: '#ef4444', 1.0: '#7f1d1d' },
+                    });
+                    riskGroup.addLayer(_heatRiskLayer);
+                    updateLayerCount('properties_heat_risk', riskPts.length);
+                }
+            }
+        } catch (e) { console.warn('Risk heatmap failed:', e); }
+    }
+
+    // Inject legend into map if any heat layer is active
     if ((layerState.properties_heat_pha && layerState.properties_heat_pha.active) ||
-        (layerState.properties_heat_area && layerState.properties_heat_area.active)) {
+        (layerState.properties_heat_area && layerState.properties_heat_area.active) ||
+        (layerState.properties_heat_risk && layerState.properties_heat_risk.active)) {
         showHeatLegend();
     } else {
         hideHeatLegend();
@@ -3555,7 +3731,15 @@ function showHeatLegend() {
     _heatLegendEl.style.cssText = 'position:absolute; bottom:60px; right:12px; z-index:1000; background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:8px 10px; font-size:11px; box-shadow:0 2px 8px rgba(0,0,0,0.3);';
     const phaActive = layerState.properties_heat_pha && layerState.properties_heat_pha.active;
     const areaActive = layerState.properties_heat_area && layerState.properties_heat_area.active;
+    const riskActive = layerState.properties_heat_risk && layerState.properties_heat_risk.active;
     let html = '';
+    if (riskActive) {
+        html += '<div style="margin-bottom:6px;"><div style="font-weight:600; margin-bottom:4px;">Risk score</div>';
+        html += '<div style="display:flex; align-items:center; gap:2px; height:12px;">';
+        html += '<div style="flex:1; background:linear-gradient(to right, #fef3c7, #fbbf24, #f97316, #ef4444, #7f1d1d); height:12px; border-radius:2px;"></div>';
+        html += '</div>';
+        html += '<div style="display:flex; justify-content:space-between; margin-top:2px; color:var(--fg-dim); font-size:10px;"><span>0</span><span>50</span><span>100</span><span>200+</span></div></div>';
+    }
     if (phaActive) {
         html += '<div style="margin-bottom:6px;"><div style="font-weight:600; margin-bottom:4px;">$/ha</div>';
         html += '<div style="display:flex; align-items:center; gap:2px; height:12px;">';
@@ -4298,6 +4482,17 @@ window.showDueDiligence = async function(listing) {
     try { applyI18n(); } catch (e) { console.error('[bootstrap] applyI18n:', e); };
     try { addLangSwitcher(); } catch (e) { console.error('[bootstrap] addLangSwitcher:', e); };
     try { applyUrlParams(); } catch (e) { console.error('[bootstrap] applyUrlParams:', e); };
+
+    // Load property risk analysis (flood, water, climate, indigenous, shadow)
+    try {
+        const rr = await fetch('./data/property_risk_analysis.json');
+        if (rr.ok) {
+            const riskData = await rr.json();
+            const analyses = riskData.analyses || [];
+            window.__riskById = new Map(analyses.map(a => [a.id, a]));
+            console.log('[risks] Loaded', analyses.length, 'property analyses');
+        }
+    } catch (e) { console.warn('[risks] load failed:', e); }
 })();
 </script>
 </body>
