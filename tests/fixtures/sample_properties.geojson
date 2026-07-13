@@ -1,0 +1,544 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "merged_at_utc": "2026-07-11T15:44:17.590610+00:00",
+    "count": 10898,
+    "sources": [
+      "tulugar",
+      "infocasas"
+    ],
+    "auto_refresh_version": "1.0"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.738,
+          -22.55
+        ]
+      },
+      "properties": {
+        "id": "ic_16f48a0ada69",
+        "source": "infocasas",
+        "source_id": "191434481",
+        "source_url": "https://www.infocasas.com.py/vendo-7-hectareas-en-pedro-juan-caballero/191434481",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.800582+00:00",
+        "title": "Vendo 7 hectáreas en Pedro Juan Caballero",
+        "lat": -22.55,
+        "lon": -55.738,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": null,
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": null,
+        "currency": "USD",
+        "price_pyg": 2700000000,
+        "price_usd": 360000,
+        "bedrooms": null,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 360000,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/9b36102d54cd6bad24cd6060a72c1ddd3c4221c5.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/9b36102d54cd6bad24cd6060a72c1ddd3c4221c5.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/6b694ac778c883f2e968fabd7415366da6c5e0bc.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/1c2d9f7887915c33bd2cd55ba29698588886ae9d.jpeg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.647,
+          -25.247
+        ]
+      },
+      "properties": {
+        "id": "ic_65ea62fb732a",
+        "source": "infocasas",
+        "source_id": "193355572",
+        "source_url": "https://www.infocasas.com.py/vendo-terreno-en-chacoi-villa-hayes/193355572",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.971330+00:00",
+        "title": "VENDO TERRENO EN CHACOI VILLA HAYES",
+        "lat": -25.247,
+        "lon": -57.647,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": null,
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": "land",
+        "currency": "USD",
+        "price_pyg": 75000000,
+        "price_usd": 10000.0,
+        "bedrooms": null,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 10000,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/be1a4df7b9148c37038ce196301d0f21960786bf.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/5b8421c999199_perfil-remax-family.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/be1a4df7b9148c37038ce196301d0f21960786bf.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/235dc527cda7ef3b0079c480211254238f05618b.jpeg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "property_type_inferred": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.014,
+          -25.465
+        ]
+      },
+      "properties": {
+        "id": "ic_19586464a83d",
+        "source": "infocasas",
+        "source_id": "193660511",
+        "source_url": "https://www.infocasas.com.py/estancia-de-10019-hectareas-en-caaguazu-ja/193660511",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:09.512214+00:00",
+        "title": "ESTANCIA DE 10.019 HECTAREAS EN CAAGUAZU      J.A.",
+        "lat": -25.465,
+        "lon": -56.014,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": "Caaguazú",
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": "land",
+        "currency": "USD",
+        "price_pyg": 229496385000,
+        "price_usd": 30599518,
+        "bedrooms": 3,
+        "bathrooms": null,
+        "area_sqm": 100190.0,
+        "area_ha": 10.019,
+        "lot_size_sqm": null,
+        "$/ha": 3054149,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/69e7feabb52f4_infocdn__kq3dcjwlfunetjmb0qzflv7idrpbvnyv6jk2j258jpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/69e7feab976c8_infocdn__wkgeejpuubciyqesrfrcp3gtpm8khbbdbwiiqikbjpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/69e7feab9b2b4_infocdn__kngf1fnfv3hzoirvs2u9uva80pslcqmnq2tebf4njpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/69e7feaba0362_infocdn__lvdnkg6fiqcf3m5tmd76xj4sd0qglh7zlpt6mkuyjpg.jpg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "property_type_inferred": true,
+        "state_province_inferred": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.625,
+          -25.342
+        ]
+      },
+      "properties": {
+        "id": "ic_8ca9dbff14ac",
+        "source": "infocasas",
+        "source_id": "193498841",
+        "source_url": "https://www.infocasas.com.py/vendo-hermosa-propiedad-en-barrio-machio-lambare/193498841",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:10.909431+00:00",
+        "title": "Vendo hermosa propiedad en Barrio Machio Lambaré",
+        "lat": -25.342,
+        "lon": -57.625,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": null,
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": null,
+        "currency": "USD",
+        "price_pyg": 1200000000,
+        "price_usd": 160000.0,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "area_sqm": 20000.0,
+        "area_ha": 2.0,
+        "lot_size_sqm": null,
+        "$/ha": 80000,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/69b2c16661c60_infocdn__j1unyur7bepjesgrh2erxij5hwltu7qa1yqvhd3zjpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/69b2c039b3426_infocdn__gleekk8tqxs9gw2lphc7b2m1quvm05crhzlutqepjpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/69b2c03a37d37_infocdn__byz0vswajnnrx3j3oz708hwvzc6l8985x48gpa7ijpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/69b2c037ce9e2_infocdn__evu4lls6iy4xqaqttkljew2pirpfonh2otbiczvpjpg.jpg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -60.124,
+          -22.644
+        ]
+      },
+      "properties": {
+        "id": "ic_b845353b82a3",
+        "source": "infocasas",
+        "source_id": "193790375",
+        "source_url": "https://www.infocasas.com.py/campo-de-1918-hectareas-en-venta/193790375",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.828929+00:00",
+        "title": "CAMPO DE 1918 HECTAREAS EN VENTA",
+        "lat": -22.644,
+        "lon": -60.124,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": null,
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": "land",
+        "currency": "USD",
+        "price_pyg": 21577500000,
+        "price_usd": 2877000,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "area_sqm": 19180000.0,
+        "area_ha": 1918.0,
+        "lot_size_sqm": null,
+        "$/ha": 1500,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/4e97008cc05a66ab5829c1c0024d67698fb40252.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/6320e84731297_logo.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/4e97008cc05a66ab5829c1c0024d67698fb40252.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/26b9ad63b5cf1fa8951a5b1f998d6f6b73b09e6a.jpeg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "property_type_inferred": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.577,
+          -25.297
+        ]
+      },
+      "properties": {
+        "id": "ic_1056baf43c53",
+        "source": "infocasas",
+        "source_id": "192742134",
+        "source_url": "https://www.infocasas.com.py/vendo-departamento-de-2-dormitorios-ubicado-a-pasos-del-shopping-mariscal/192742134",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.832002+00:00",
+        "title": "Vendo departamento de 2 dormitorios ubicado a pasos del Shopping Mariscal",
+        "lat": -25.297,
+        "lon": -57.577,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": null,
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": "apartment",
+        "currency": "USD",
+        "price_pyg": 960202500,
+        "price_usd": 128027,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 128027,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/0a7426f4616eecd4564da6f7e70c2fe7b685e2e5.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/63b46b493b101_logosgghd.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/0a7426f4616eecd4564da6f7e70c2fe7b685e2e5.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/c5c0e7773b4690af0009d95668d7759a104505be.jpg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "property_type_inferred": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.152,
+          -25.626
+        ]
+      },
+      "properties": {
+        "id": "ic_4d7c1c6ff2fb",
+        "source": "infocasas",
+        "source_id": "193061216",
+        "source_url": "https://www.infocasas.com.py/venta-de-quinta-en-paraguari-paraguari/193061216",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:11.519486+00:00",
+        "title": "Venta De Quinta En Paraguarí, Paraguarí",
+        "lat": -25.626,
+        "lon": -57.152,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": "Paraguarí",
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": "house",
+        "currency": "USD",
+        "price_pyg": 2250000000,
+        "price_usd": 300000,
+        "bedrooms": 4,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 300000,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/b2943d9ec80e8d23b31d4f959245127d49dc9026.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/687a68c4ba080_century21-infinity-logo.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/b2943d9ec80e8d23b31d4f959245127d49dc9026.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/eaea3344e090140ce119450acd0ba8498f9c1642.jpg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "property_type_inferred": true,
+        "state_province_inferred": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.574,
+          -25.301
+        ]
+      },
+      "properties": {
+        "id": "ic_e2d6fd4a33bb",
+        "source": "infocasas",
+        "source_id": "192900242",
+        "source_url": "https://www.infocasas.com.py/departamento-en-venta-de-2-dormitorios-y-cochera-incluida-en-asuncion/192900242",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.843714+00:00",
+        "title": "Departamento en venta de 2 dormitorios y cochera incluida en Asunción",
+        "lat": -25.301,
+        "lon": -57.574,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": "Asunción",
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": "apartment",
+        "currency": "USD",
+        "price_pyg": 1045785000,
+        "price_usd": 139438,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 139438,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/815c60836acd8ae7a312320420bf29f80f510668.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/68b0d107c3749_foto-de-perfil-fondo-blanco.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/815c60836acd8ae7a312320420bf29f80f510668.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/f1c5e7af486ad0a509f9b3c772301e2ad8d01bd2.jpeg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "property_type_inferred": true,
+        "state_province_inferred": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.511,
+          -25.263
+        ]
+      },
+      "properties": {
+        "id": "ic_ff546d533ca7",
+        "source": "infocasas",
+        "source_id": "192942699",
+        "source_url": "https://www.infocasas.com.py/en-venta-detapartamento-un-dormitorio-con-todos-los-amenities/192942699",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.849344+00:00",
+        "title": "En venta detapartamento un Dormitorio con todos los amenities",
+        "lat": -25.263,
+        "lon": -57.511,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": null,
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": null,
+        "currency": "USD",
+        "price_pyg": 365475000,
+        "price_usd": 48730,
+        "bedrooms": 1,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 48730,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/68defcf0bcda0_infocdn__un1h4ojked0ufcvnxthikcp7m08pq0mpatcisg58jpg.jpg",
+          "https://cdn1.infocasas.com.uy/repo/img/678a699e2d49d_img_20250117_112426.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/68defcff9b79a_infocdn__nwjz5cuan8ng2nqx7ircia3hu3ixc5b5qewqnkbwjpg.jpg",
+          "https://cdn2.infocasas.com.uy/repo/img/68defcff6b5cf_infocdn__ig5olwzhrd4anhp3wcindtgixcplty9cjhglgxk6jpg.jpg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.214,
+          -25.596
+        ]
+      },
+      "properties": {
+        "id": "ic_ef10a5c7e3b3",
+        "source": "infocasas",
+        "source_id": "193446571",
+        "source_url": "https://www.infocasas.com.py/4-terrenos-sobre-ruta-1-entre-yaguaron-y-paraguari/193446571",
+        "source_platform": "infocasas.com.py",
+        "scraped_at_utc": "2026-07-11T04:32:08.855409+00:00",
+        "title": "4 Terrenos Sobre Ruta 1 Entre Yaguaron Y Paraguari",
+        "lat": -25.596,
+        "lon": -57.214,
+        "address": null,
+        "city": null,
+        "neighborhood": null,
+        "state_province": "Paraguarí",
+        "country": "Paraguay",
+        "listing_type": "sale",
+        "property_type": null,
+        "currency": "USD",
+        "price_pyg": 350000000,
+        "price_usd": 46666.666666666664,
+        "bedrooms": null,
+        "bathrooms": null,
+        "area_sqm": 10000.0,
+        "area_ha": 1.0,
+        "lot_size_sqm": null,
+        "$/ha": 46667,
+        "parking_spaces": null,
+        "year_built": null,
+        "condition": null,
+        "furnished": null,
+        "verified": false,
+        "features": [],
+        "images": [
+          "https://cdn2.infocasas.com.uy/repo/img/e5e3fa9d1953d12c8fd4ac9c09d890d47bdaa9b6.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/e5e3fa9d1953d12c8fd4ac9c09d890d47bdaa9b6.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/fcd6173971091b9f611d09b34e92b88463f63f00.jpeg",
+          "https://cdn1.infocasas.com.uy/repo/img/a2e4800fa7de58cfde276d14b83dd6327939355b.jpeg"
+        ],
+        "pii_scrubbed": true,
+        "pii_scrub_utc": "2026-07-11T00:00:00Z",
+        "pii_scrub_version": "1.0",
+        "state_province_inferred": true
+      }
+    }
+  ]
+}

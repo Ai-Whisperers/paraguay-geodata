@@ -7,22 +7,34 @@ on:
     branches: [main]
 
 jobs:
-  endpoints:
-    name: Endpoint validator
+  offline-tests:
+    name: Offline test suite (no network)
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run endpoint tests
-        run: python3 tools/test_endpoints.py
+          cache: pip
+      - name: Install playwright + chromium (for hillshade frontend tests)
+        run: |
+          pip install playwright pytest pytest-cov
+          playwright install chromium
+      - name: Install project dev deps
+        run: pip install -e ".[dev]" || true   # tolerate missing extras
+      - name: Run pytest offline suite
+        run: |
+          python3 -m pytest tests/ -q -m 'not live' --tb=short --no-header \
+            --ignore=tests/test_deploy_smoke.py \
+            --ignore=tests/test_layer_registry.py \
+            --ignore=tests/test_user_features.py \
+            --ignore=tests/test_security_headers.py
 
-  schema:
-    name: Schema validation
+  schema-and-pii:
+    name: Schema + GeoJSON + PII sanity (legacy jobs)
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -59,9 +71,12 @@ jobs:
                   ok = False
           sys.exit(0 if ok else 1)
           "
+      - name: Audit PII scrub (full sample, not 500)
+        run: |
+          python3 -m pytest tests/test_pii_scrub.py::test_live_properties_full_pii_scan -v
 
-  pii:
-    name: PII scrub audit
+  pii-unit:
+    name: PII scrub unit tests
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -69,21 +84,59 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Audit PII scrub
+      - name: Run scrub_pii unit suite
+        run: python3 -m pytest tests/test_pii_scrub.py -q -m 'not live'
+
+  merge-contract:
+    name: merge_property_sources contract tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run merge contract suite
+        run: python3 -m pytest tests/test_merge_property_sources.py -q -m 'not live'
+
+  risk-fairprice:
+    name: Property risk + fair-price model schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run risk + fair-price suites
         run: |
-          python3 -c "
-          import json, re, sys
-          from pathlib import Path
-          f = Path('exports/web/data/properties_latest.geojson')
-          d = json.load(open(f))
-          bad = 0
-          for feat in d['features'][:500]:
-              p = feat.get('properties') or {}
-              for k, v in p.items():
-                  if v and isinstance(v, str):
-                      if re.search(r'\+?595\s*9?\d{2}', v) and not k.startswith('pii_'):
-                          print(f'PII: {feat.get(\"id\", \"?\")} → {k}={v[:50]}')
-                          bad += 1
-          print(f'PII violations in sample: {bad}')
-          sys.exit(0 if bad == 0 else 1)
-          "
+          python3 -m pytest tests/test_property_risk.py tests/test_fair_price_model.py -v
+
+  hillshade-builders:
+    name: Hillshade v3 + priority regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run hillshade builder + regression suites
+        run: |
+          python3 -m pytest tests/test_build_paraguay_hillshade_v3.py tests/test_hillshade_regression.py tests/test_national_tile_index.py tests/test_tile_fabric_regression.py -v
+
+  live-smoke:
+    name: Live deploy smoke (slow; runs on push only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Smoke against live base
+        run: |
+          python3 -m pytest tests/test_deploy_smoke.py tests/test_layer_registry.py tests/test_user_features.py tests/test_security_headers.py -m live -q --tb=short --no-header
+        env:
+          PY_GEO_BASE_URL: https://geodata.paragu-ai.com

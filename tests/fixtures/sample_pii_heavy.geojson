@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5759,
+          -25.2637
+        ]
+      },
+      "properties": {
+        "id": "pii_test_1",
+        "title": "Casa en Asunción +595 991 234 567",
+        "description": "Contact Juan at juan@gmail.com or +595981123456 para visita",
+        "agent_phone": "+595991555111",
+        "agent_whatsapp": "+595991555111",
+        "agent_email": "juan@gmail.com",
+        "landlord_name": "Juan Pérez",
+        "agent_id": "agent_12345"
+      }
+    }
+  ]
+}

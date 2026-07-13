@@ -54,3 +54,7 @@ ignore = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "live: marks tests that hit the live geodata.paragu-ai.com (deselect with -m 'not live')",
+    "large: marks tests that scan large datasets (skippable with -m 'not large')",
+]              # noqa: E501

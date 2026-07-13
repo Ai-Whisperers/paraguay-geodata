@@ -22,7 +22,7 @@ import hashlib
 from pathlib import Path
 
 
-PHONE_RE = re.compile(r'(\+?595\s*9?\d{2}[\s\-]?\d{3}[\s\-]?\d{3,4})')
+PHONE_RE = re.compile(r'(\+?595[\s\-]?9?\d{2}[\s\-]?\d{3}[\s\-]?\d{3,4})')
 EMAIL_RE = re.compile(r'([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})')
 URL_USERID_RE = re.compile(r'/(\d{8,})')  # numeric user IDs in URLs
 

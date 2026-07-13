@@ -1,0 +1,74 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5759,
+          -25.2637
+        ]
+      },
+      "properties": {
+        "id": "ic_test_1",
+        "source": "infocasas",
+        "source_id": "v001",
+        "source_url": "https://infocasas.com.py/anuncio/v001",
+        "title": "Test Listing INF",
+        "price_usd": 100000,
+        "price_pyg": 730000000,
+        "area_ha": 0.5,
+        "depto": "Central"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.5759,
+          -25.2637
+        ]
+      },
+      "properties": {
+        "id": "tl_test_1",
+        "source": "tulugar",
+        "source_id": "TL001",
+        "source_url": "https://tulugar.com.py/TL001",
+        "title": "Test Listing TL (richer)",
+        "price_usd": 105000,
+        "price_pyg": 770000000,
+        "description": "Lo mejor del barrio",
+        "address": "Calle Palma 123",
+        "city": "Asunción",
+        "state_province": "Central",
+        "listing_type": "sale",
+        "property_type": "casa",
+        "bedrooms": 3,
+        "area_sqm": 5000,
+        "area_ha": 0.5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.6,
+          -25.3
+        ]
+      },
+      "properties": {
+        "id": "tl_test_2",
+        "source": "tulugar",
+        "source_id": "TL002",
+        "title": "Test Rent",
+        "price_pyg": 5000000,
+        "state_province": "Central",
+        "listing_type": "rent",
+        "area_ha": 0.5
+      }
+    }
+  ]
+}
