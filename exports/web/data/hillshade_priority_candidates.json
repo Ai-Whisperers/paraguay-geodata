@@ -7,19 +7,19 @@
         -25.28,
         -57.63
       ],
-      "size_km": 6,
+      "size_km": 5,
       "reason": "Capital city center. 4,323 properties, $42M avg premium. Catastro urban polygons. Construction zones (4 ordinance-defined).",
       "bbox": [
-        -57.689778987853146,
-        -25.334054054054054,
-        -57.57022101214686,
-        -25.22594594594595
+        -57.65490791160548,
+        -25.302522522522523,
+        -57.60509208839453,
+        -25.25747747747748
       ],
       "bounds": {
-        "min_lon": -57.689778987853146,
-        "min_lat": -25.334054054054054,
-        "max_lon": -57.57022101214686,
-        "max_lat": -25.22594594594595
+        "min_lon": -57.65490791160548,
+        "min_lat": -25.302522522522523,
+        "max_lon": -57.60509208839453,
+        "max_lat": -25.25747747747748
       }
     },
     {
@@ -32,16 +32,16 @@
       "size_km": 5,
       "reason": "Lakefront resort town. Hills + lake = dramatic terrain contrast on hillshade. Premium vacation home market.",
       "bbox": [
-        -57.34982815156771,
-        -25.355045045045046,
-        -57.25017184843228,
-        -25.264954954954952
+        -57.32491407578385,
+        -25.33252252252252,
+        -57.27508592421614,
+        -25.287477477477477
       ],
       "bounds": {
-        "min_lon": -57.34982815156771,
-        "min_lat": -25.355045045045046,
-        "max_lon": -57.25017184843228,
-        "max_lat": -25.264954954954952
+        "min_lon": -57.32491407578385,
+        "min_lat": -25.33252252252252,
+        "max_lon": -57.27508592421614,
+        "max_lat": -25.287477477477477
       }
     },
     {
@@ -54,16 +54,16 @@
       "size_km": 5,
       "reason": "User-requested. Cordillera hills (Serran\u00eda de Caacup\u00e9). Religious tourism capital. Premium hill-view properties.",
       "bbox": [
-        -57.0998528676156,
-        -25.415045045045048,
-        -57.00014713238439,
-        -25.324954954954954
+        -57.074926433807796,
+        -25.392522522522523,
+        -57.0250735661922,
+        -25.34747747747748
       ],
       "bounds": {
-        "min_lon": -57.0998528676156,
-        "min_lat": -25.415045045045048,
-        "max_lon": -57.00014713238439,
-        "max_lat": -25.324954954954954
+        "min_lon": -57.074926433807796,
+        "min_lat": -25.392522522522523,
+        "max_lon": -57.0250735661922,
+        "max_lat": -25.34747747747748
       }
     },
     {
@@ -73,19 +73,19 @@
         -22.55,
         -55.73
       ],
-      "size_km": 6,
+      "size_km": 5,
       "reason": "Amambay department. Climate risk moderate. Border town. Hillshade shows rocky Amambay hills.",
       "bbox": [
-        -55.78852886518675,
-        -22.604054054054053,
-        -55.671471134813245,
-        -22.495945945945948
+        -55.754387027161144,
+        -22.572522522522522,
+        -55.70561297283885,
+        -22.52747747747748
       ],
       "bounds": {
-        "min_lon": -55.78852886518675,
-        "min_lat": -22.604054054054053,
-        "max_lon": -55.671471134813245,
-        "max_lat": -22.495945945945948
+        "min_lon": -55.754387027161144,
+        "min_lat": -22.572522522522522,
+        "max_lon": -55.70561297283885,
+        "max_lat": -22.52747747747748
       }
     },
     {
@@ -95,19 +95,19 @@
         -25.51,
         -54.62
       ],
-      "size_km": 7,
-      "reason": "Alto Paran\u00e1. 2nd largest city. Itaipu dam area. Acaray river valley. Risk: flood zones from Paran\u00e1 river.",
+      "size_km": 6,
+      "reason": "Alto Paran\u00e1. 2nd largest city. Itaipu dam area. Acaray river valley.",
       "bbox": [
-        -54.68987518567398,
-        -25.573063063063064,
-        -54.55012481432601,
-        -25.44693693693694
+        -54.64994650814599,
+        -25.53702702702703,
+        -54.59005349185401,
+        -25.482972972972973
       ],
       "bounds": {
-        "min_lon": -54.68987518567398,
-        "min_lat": -25.573063063063064,
-        "max_lon": -54.55012481432601,
-        "max_lat": -25.44693693693694
+        "min_lon": -54.64994650814599,
+        "min_lat": -25.53702702702703,
+        "max_lon": -54.59005349185401,
+        "max_lat": -25.482972972972973
       }
     },
     {
@@ -117,19 +117,19 @@
         -22.35,
         -60.03
       ],
-      "size_km": 8,
-      "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels. Flat with subtle ridges.",
+      "size_km": 6,
+      "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels.",
       "bbox": [
-        -60.107926012178865,
-        -22.422072072072073,
-        -59.95207398782114,
-        -22.27792792792793
+        -60.059222254567075,
+        -22.37702702702703,
+        -60.00077774543293,
+        -22.322972972972973
       ],
       "bounds": {
-        "min_lon": -60.107926012178865,
-        "min_lat": -22.422072072072073,
-        "max_lon": -59.95207398782114,
-        "max_lat": -22.27792792792793
+        "min_lon": -60.059222254567075,
+        "min_lat": -22.37702702702703,
+        "max_lon": -60.00077774543293,
+        "max_lat": -22.322972972972973
       }
     },
     {
@@ -139,21 +139,21 @@
         -25.2757,
         -57.7115
       ],
-      "size_km": 4,
+      "size_km": 3,
+      "reason": "User-requested. Chaco town across R\u00edo Paraguay from Asunci\u00f3n. Rio Paraguay floodplain + subtle Chaco topography.",
       "bbox": [
-        -57.75135124621219,
-        -25.311736036036038,
-        -57.671648753787814,
-        -25.239663963963963
+        -57.72644421732957,
+        -25.289213513513513,
+        -57.69655578267043,
+        -25.26218648648649
       ],
-      "reason": "User-requested. Chaco town across R\u00edo Paraguay from Asunci\u00f3n (8.2 km). 19 properties avg $1.24M. The \"across the river\" city \u2014 Chaco development frontier. Hillshade shows R\u00edo Paraguay floodplain + subtle Chaco topography.",
       "bounds": {
-        "min_lon": -57.75135124621219,
-        "min_lat": -25.311736036036038,
-        "max_lon": -57.671648753787814,
-        "max_lat": -25.239663963963963
+        "min_lon": -57.72644421732957,
+        "min_lat": -25.289213513513513,
+        "max_lon": -57.69655578267043,
+        "max_lat": -25.26218648648649
       }
     }
   ],
-  "version": 2
+  "version": 3
 }

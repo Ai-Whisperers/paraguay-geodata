@@ -4,10 +4,10 @@
       "id": "asu_centro",
       "name": "Asunci\u00f3n Centro",
       "bbox": [
-        -57.689778987853146,
-        -25.334054054054054,
-        -57.57022101214686,
-        -25.22594594594595
+        -57.65490791160548,
+        -25.302522522522523,
+        -57.60509208839453,
+        -25.25747747747748
       ],
       "reason": "Capital city center. 4,323 properties, $42M avg premium. Catastro urban polygons. Construction zones (4 ordinance-defined)."
     },
@@ -15,10 +15,10 @@
       "id": "san_bernardino",
       "name": "San Bernardino",
       "bbox": [
-        -57.34982815156771,
-        -25.355045045045046,
-        -57.25017184843228,
-        -25.264954954954952
+        -57.32491407578385,
+        -25.33252252252252,
+        -57.27508592421614,
+        -25.287477477477477
       ],
       "reason": "Lakefront resort town. Hills + lake = dramatic terrain contrast on hillshade. Premium vacation home market."
     },
@@ -26,10 +26,10 @@
       "id": "caacupe",
       "name": "Caacup\u00e9",
       "bbox": [
-        -57.0998528676156,
-        -25.415045045045048,
-        -57.00014713238439,
-        -25.324954954954954
+        -57.074926433807796,
+        -25.392522522522523,
+        -57.0250735661922,
+        -25.34747747747748
       ],
       "reason": "User-requested. Cordillera hills (Serran\u00eda de Caacup\u00e9). Religious tourism capital. Premium hill-view properties."
     },
@@ -37,10 +37,10 @@
       "id": "pjc",
       "name": "Pedro Juan Caballero",
       "bbox": [
-        -55.78852886518675,
-        -22.604054054054053,
-        -55.671471134813245,
-        -22.495945945945948
+        -55.754387027161144,
+        -22.572522522522522,
+        -55.70561297283885,
+        -22.52747747747748
       ],
       "reason": "Amambay department. Climate risk moderate. Border town. Hillshade shows rocky Amambay hills."
     },
@@ -48,37 +48,36 @@
       "id": "cde",
       "name": "Ciudad del Este",
       "bbox": [
-        -54.68987518567398,
-        -25.573063063063064,
-        -54.55012481432601,
-        -25.44693693693694
+        -54.64994650814599,
+        -25.53702702702703,
+        -54.59005349185401,
+        -25.482972972972973
       ],
-      "reason": "Alto Paran\u00e1. 2nd largest city. Itaipu dam area. Acaray river valley. Risk: flood zones from Paran\u00e1 river."
+      "reason": "Alto Paran\u00e1. 2nd largest city. Itaipu dam area. Acaray river valley."
     },
     {
       "id": "filadelfia",
       "name": "Filadelfia (Chaco)",
       "bbox": [
-        -60.107926012178865,
-        -22.422072072072073,
-        -59.95207398782114,
-        -22.27792792792793
+        -60.059222254567075,
+        -22.37702702702703,
+        -60.00077774543293,
+        -22.322972972972973
       ],
-      "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels. Flat with subtle ridges."
+      "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels."
     },
     {
       "id": "nanawa",
       "name": "Nanawa",
       "bbox": [
-        -57.75135124621219,
-        -25.311736036036038,
-        -57.671648753787814,
-        -25.239663963963963
+        -57.72644421732957,
+        -25.289213513513513,
+        -57.69655578267043,
+        -25.26218648648649
       ],
-      "reason": "User-requested. Chaco town across R\u00edo Paraguay from Asunci\u00f3n (8.2 km). 19 properties avg $1.24M. The \"across the river\" city \u2014 Chaco development frontier. Hillshade shows R\u00edo Paraguay floodplain + subtle Chaco topography."
+      "reason": "User-requested. Chaco town across R\u00edo Paraguay from Asunci\u00f3n. Rio Paraguay floodplain + subtle Chaco topography."
     }
   ],
-  "method": "data-driven selection (Asunci\u00f3n centro + San Bernardino + Caacup\u00e9 + PJC + CDE + Filadelfia + Nanawa)",
-  "resolution": "10m visual (3x downsample from 30m Copernicus GLO-30)",
-  "generated_at": "2026-07-13T18:12:00Z"
+  "method": "square bboxes, non-overlapping, 1200x1200 px, 10m resolution (3x downsample from 30m DEM)",
+  "generated_at": "2026-07-13T18:30:00Z"
 }
