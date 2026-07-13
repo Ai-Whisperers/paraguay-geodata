@@ -1,0 +1,130 @@
+{
+  "zones": [
+    {
+      "zone_id": "asu-centro-C1",
+      "city": "Asunción",
+      "category": "commercial",
+      "name": "Centro - Comercial intensivo C1",
+      "max_height_m": 30,
+      "max_floors": 9,
+      "max_lot_coverage_pct": 80,
+      "max_construction_pct": 600,
+      "setback_front_m": 0,
+      "setback_side_m": 3,
+      "setback_back_m": 3,
+      "allowed_use": [
+        "comercio",
+        "oficina",
+        "vivienda",
+        "hotel",
+        "gastronomía"
+      ],
+      "restricted_use": [
+        "industrial",
+        "taller mecánico",
+        "depósito"
+      ],
+      "ordinance_ref": "Ord. 246/94 art. 17 - Zona C1 Centro",
+      "last_updated": "2024-01-15",
+      "approximate_bbox": [
+        -57.585,
+        -25.29,
+        -57.56,
+        -25.265
+      ]
+    },
+    {
+      "zone_id": "asu-centro-R2",
+      "city": "Asunción",
+      "category": "residential",
+      "name": "Centro - Residencial R2",
+      "max_height_m": 15,
+      "max_floors": 5,
+      "max_lot_coverage_pct": 60,
+      "max_construction_pct": 300,
+      "setback_front_m": 3,
+      "setback_side_m": 2,
+      "setback_back_m": 2,
+      "allowed_use": [
+        "vivienda",
+        "comercio menor",
+        "oficina"
+      ],
+      "restricted_use": [
+        "industrial",
+        "gastronomía con extracción",
+        "estacionamiento > 5 autos"
+      ],
+      "ordinance_ref": "Ord. 246/94 art. 22 - Zona R2",
+      "last_updated": "2024-01-15",
+      "approximate_bbox": [
+        -57.61,
+        -25.305,
+        -57.575,
+        -25.275
+      ]
+    },
+    {
+      "zone_id": "asu-villa-morra-R3",
+      "city": "Asunción",
+      "category": "residential",
+      "name": "Villa Morra - Residencial R3 (denso)",
+      "max_height_m": 25,
+      "max_floors": 7,
+      "max_lot_coverage_pct": 60,
+      "max_construction_pct": 400,
+      "setback_front_m": 3,
+      "setback_side_m": 3,
+      "setback_back_m": 3,
+      "allowed_use": [
+        "vivienda",
+        "comercio",
+        "oficina",
+        "hotel boutique"
+      ],
+      "restricted_use": [
+        "industrial",
+        "depósito",
+        "taller"
+      ],
+      "ordinance_ref": "Ord. 246/94 art. 24 - Zona R3",
+      "last_updated": "2024-01-15",
+      "approximate_bbox": [
+        -57.605,
+        -25.31,
+        -57.56,
+        -25.27
+      ]
+    },
+    {
+      "zone_id": "asu-carmelitas-R3",
+      "city": "Asunción",
+      "category": "residential",
+      "name": "Carmelitas - Residencial R3",
+      "max_height_m": 25,
+      "max_floors": 7,
+      "max_lot_coverage_pct": 60,
+      "max_construction_pct": 400,
+      "setback_front_m": 3,
+      "setback_side_m": 3,
+      "setback_back_m": 3,
+      "allowed_use": [
+        "vivienda",
+        "comercio",
+        "oficina"
+      ],
+      "restricted_use": [
+        "industrial"
+      ],
+      "ordinance_ref": "Ord. 246/94 art. 24 - Zona R3",
+      "last_updated": "2024-01-15",
+      "approximate_bbox": [
+        -57.575,
+        -25.29,
+        -57.535,
+        -25.25
+      ]
+    }
+  ],
+  "version": 1
+}

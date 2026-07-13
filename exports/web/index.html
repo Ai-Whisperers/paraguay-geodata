@@ -1018,6 +1018,8 @@ const layerState = {
     // ---- grid ----
     tile_fabric:        { group: 'grid', label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', info: 'National 10×10 km grid. Click any cell to open per-tile viewer.',  color: '#1e3a8a', url: 'data/tile_index.json' },
     priority_tiles:     { group: 'grid', label: 'Priority tiles (37)',          active: true,  features: '?', info: 'Urban-anchor tiles with the densest data.',                            color: '#0f766e', url: 'data/priority_tiles.json' },
+    hillshade_national: { group: 'grid', subgroup: 'topography', label: 'Hillshade (national, 30m DEM)', active: false, features: '?', info: 'Hillshade overlay derived from Copernicus GLO-30 DEM. Shows terrain relief. Opacity 0.5.', color: '#666', url: null },
+    hillshade_priority: { group: 'grid', subgroup: 'topography', label: 'Hillshade (priority tiles, 5m)', active: false, features: '?', info: 'High-resolution hillshade for the 37 urban-anchor tiles. Loads on-demand when zoom >= 11.', color: '#888', url: null },
 
     // ---- base admin (OSM) ----
     departamentos_py:   { group: 'base', label: 'Departamentos (18)',            active: true,  features: '?', info: 'Provincia-level admin polygons from OSM.',                            color: '#60a5fa', url: 'data/admin/departamentos.geojson' },
@@ -2665,6 +2667,48 @@ function buildPropertyPopup(p, lon, lat) {
         }
     }
 
+    // Construction zone (loaded at boot)
+    let constructionZoneHtml = '';
+    if (window.__constructionZones) {
+            // Find zone by point-in-bbox (cheap approximation)
+            for (const z of window.__constructionZones) {
+                const bb = z.approximate_bbox || [];
+                if (bb.length === 4 && lon >= bb[0] && lon <= bb[2] && lat >= bb[1] && lat <= bb[3]) {
+                    constructionZoneHtml = `
+                        <div style="margin-top:6px; padding:8px; background:rgba(99, 102, 241, 0.08); border-left:3px solid #6366f1; border-radius:4px;">
+                            <div style="font-weight:600; color:#6366f1; font-size:11px; margin-bottom:4px;">📋 Zona de construcción</div>
+                            <div style="font-size:11px; margin-bottom:2px;"><strong>${escapeHtml(z.name)}</strong></div>
+                            <div style="font-size:10px; color:var(--fg-dim); margin-bottom:4px;">${z.ordinance_ref || ''}</div>
+                            <div style="font-size:10px; display:grid; grid-template-columns:1fr 1fr; gap:2px 8px;">
+                                <span>Altura máx:</span><strong>${z.max_height_m} m</strong>
+                                <span>Pisos:</span><strong>${z.max_floors}</strong>
+                                <span>COS:</span><strong>${z.max_lot_coverage_pct}%</span>
+                                <span>FOT/COS:</span><strong>${z.max_construction_pct}%</strong>
+                                <span>Retiro frontal:</span><strong>${z.setback_front_m} m</strong>
+                                <span>Retiro lateral:</span><strong>${z.setback_side_m} m</strong>
+                            </div>
+                            <div style="font-size:9px; color:var(--fg-dim); margin-top:4px;">
+                                <strong>Permitido:</strong> ${(z.allowed_use || []).slice(0,3).join(', ')}<br>
+                                ${z.restricted_use && z.restricted_use.length ? '<strong>Restringido:</strong> ' + z.restricted_use.slice(0,2).join(', ') : ''}
+                            </div>
+                            <div style="font-size:9px; color:var(--warn); margin-top:4px;">
+                                ⚠ Datos preliminares de Asunción centro. Datos completos cuando Lucía suba ordinances.
+                            </div>
+                        </div>
+                    `;
+                    break;
+                }
+            }
+            if (!constructionZoneHtml) {
+                constructionZoneHtml = `
+                    <div style="margin-top:6px; padding:6px; background:var(--bg-elev-2); border-radius:4px; font-size:10px; color:var(--fg-dim);">
+                        📋 Zona sin datos de construcción disponibles para este punto.<br>
+                        <span style="font-size:9px;">Contactanos si tenés una municipalidad que falte.</span>
+                    </div>
+                `;
+            }
+    }
+
     // Risk analysis (lazy load full data when popup opens)
     let riskAnalysisHtml = '';
     if (!window.__riskById) {
@@ -2791,6 +2835,7 @@ function buildPropertyPopup(p, lon, lat) {
         ${p.bathrooms ? `<div class="row"><span class="k">Baths</span><span class="v">${p.bathrooms}</span></div>` : ''}
         ${p.state_province ? `<div class="row"><span class="k">Depto</span><span class="v">${p.state_province}${p.city ? ' / ' + p.city : ''}</span></div>` : ''}
         ${riskAnalysisHtml}
+        ${constructionZoneHtml}
         ${fairPriceHtml}
         ${comparablesHtml}
         <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">Source: ${p.source || '?'}${p.source_platform && p.source_platform !== p.source ? ' via ' + p.source_platform : ''} · scraped ${(p.scraped_at_utc || '').substring(0, 10) || '?'}</div>
@@ -4586,6 +4631,51 @@ window.showDueDiligence = async function(listing) {
             console.log('[risks] Loaded', Object.keys(window.__riskIndex).length, 'property risk indices');
         }
     } catch (e) { console.warn('[risks] index load failed:', e); }
+
+    // Construction zones (eager load, 4 KB, used in popup)
+    try {
+        const zr = await fetch('./data/construction_zones.json');
+        if (zr.ok) {
+            const zd = await zr.json();
+            window.__constructionZones = zd.zones || [];
+            window.__constructionZonesLoaded = true;
+            console.log('[zones] Loaded', window.__constructionZones.length, 'construction zones');
+        }
+    } catch (e) { console.warn('[zones] load failed:', e); }
+
+    // Hillshade overlay loader — 4 regional quadrants (nW, nE, sW, sE)
+    // Each: hillshade_py_<quadrant>.jpg + _bounds.json
+    (async () => {
+        try {
+            const regions = ['nw', 'ne', 'sw', 'se'];
+            const overlays = [];
+            for (const r of regions) {
+                try {
+                    const boundsResp = await fetch(`./data/hillshade_py_${r}_bounds.json`);
+                    if (!boundsResp.ok) continue;
+                    const bounds = await boundsResp.json();
+                    const overlay = L.imageOverlay(`./data/hillshade_py_${r}.jpg`, [
+                        [bounds.min_lat, bounds.min_lon],
+                        [bounds.max_lat, bounds.max_lon]
+                    ], { opacity: 0.5, interactive: false, className: 'hillshade-national' });
+                    overlays.push(overlay);
+                } catch (e) {}
+            }
+            if (overlays.length === 0) {
+                console.log('[hillshade] no regional overlays available yet');
+                return;
+            }
+            const group = L.layerGroup(overlays);
+            window.__hillshadeGroup = group;
+            LAYER_GROUPS.hillshade_national = [group];
+            if (layerState.hillshade_national && layerState.hillshade_national.active) {
+                group.addTo(map);
+                overlays.forEach(o => o.bringToBack());
+            }
+            updateLayerCount('hillshade_national', overlays.length);
+            console.log(`[hillshade] ${overlays.length} regional overlays ready`);
+        } catch (e) { console.warn('[hillshade] load failed:', e); }
+    })();
 })();
 </script>
 </body>
