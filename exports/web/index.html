@@ -794,6 +794,22 @@
             </div>
         </div>
 
+        <div id="constructionZonesSection" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <h2 style="margin:0; font-size:14px;">📋 Construction zones</h2>
+                <a href="./data/construction_zones.json" download style="background:none; border:1px solid var(--line); color:var(--accent); padding:2px 8px; border-radius:3px; font-size:10px; text-decoration:none;">⬇ JSON</a>
+            </div>
+            <div style="font-size:11px; color:var(--fg-dim); margin-bottom:6px;">
+                Per-zone building limits (height, m², setbacks, allowed use).
+            </div>
+            <div id="constructionZonesList" style="font-size:11px; line-height:1.5;">
+                <div style="color:var(--fg-dim);">Loading…</div>
+            </div>
+            <div style="margin-top:8px; padding-top:8px; border-top:1px solid var(--line); font-size:10px; color:var(--warn);">
+                ⚠ Datos preliminares. Source ordinances from Lucía + municipal Catastro.
+            </div>
+        </div>
+
         <div id="topRiskyAreas" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px; display:none;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                 <h2 style="margin:0; font-size:14px;">⚠️ Highest-risk clusters</h2>
@@ -4632,7 +4648,7 @@ window.showDueDiligence = async function(listing) {
         }
     } catch (e) { console.warn('[risks] index load failed:', e); }
 
-    // Construction zones (eager load, 4 KB, used in popup)
+    // Construction zones (eager load, 4 KB, used in popup + sidebar)
     try {
         const zr = await fetch('./data/construction_zones.json');
         if (zr.ok) {
@@ -4640,6 +4656,16 @@ window.showDueDiligence = async function(listing) {
             window.__constructionZones = zd.zones || [];
             window.__constructionZonesLoaded = true;
             console.log('[zones] Loaded', window.__constructionZones.length, 'construction zones');
+            // Populate sidebar list
+            const list = document.getElementById('constructionZonesList');
+            if (list) {
+                list.innerHTML = window.__constructionZones.map(z => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:4px 6px; background:var(--bg-elev-2); border-radius:3px; margin-bottom:3px;">
+                        <span>${escapeHtml(z.name)}</span>
+                        <span style="font-size:9px; color:var(--fg-dim);">${z.max_height_m}m / ${z.max_floors}p</span>
+                    </div>
+                `).join('');
+            }
         }
     } catch (e) { console.warn('[zones] load failed:', e); }
 
