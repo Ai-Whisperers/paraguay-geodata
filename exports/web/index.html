@@ -1413,6 +1413,32 @@ function applyLayerVisibility(id) {
     const groups = LAYER_GROUPS[id] || [];
     const visible = layerState[id].active;
     groups.forEach(g => { if (visible) g.addTo(map); else map.removeLayer(g); });
+
+    // When any property sub-layer is toggled, re-cluster the visible properties
+    // so the cluster view reflects the new active set (markers appear/disappear).
+    const propertySubLayerIds = [
+        'properties_sale', 'properties_rent', 'properties_short',
+        'properties_house', 'properties_apartment', 'properties_land', 'properties_commercial',
+    ];
+    if (propertySubLayerIds.includes(id)) {
+        if (window.__properties && typeof clusterProperties === 'function') {
+            clusterProperties(window.__properties);
+        }
+    }
+
+    // When any heatmap is toggled, refresh the in-map legend.
+    // The legend is shown only if at least one heatmap layer is active.
+    const heatLayerIds = ['properties_heat_pha', 'properties_heat_area', 'properties_heat_risk'];
+    if (heatLayerIds.includes(id)) {
+        const anyHeatActive = heatLayerIds.some(h => layerState[h] && layerState[h].active);
+        if (anyHeatActive) {
+            // Re-create the legend with current state (show/hide risk/pha/area rows)
+            hideHeatLegend();
+            showHeatLegend();
+        } else {
+            hideHeatLegend();
+        }
+    }
 }
 
 // ========== STATS COUNTERS ==========
@@ -2476,7 +2502,36 @@ function clusterProperties(features) {
         propertyClusterGroup = null;
     }
 
-    // At zoom >= 11, render every feature as an individual circleMarker so
+    // Pre-filter features by active sub-layers so turning a layer OFF
+    // immediately removes its markers from the cluster view.
+    // A property is included if EITHER its listing_type OR its property_type
+    // sub-layer is active. This matches how loadProperties() registers
+    // markers into LAYER_GROUPS (dual registration in both subgroups).
+    const activeListing = {
+        sale:    layerState.properties_sale    && layerState.properties_sale.active,
+        rent:    layerState.properties_rent    && layerState.properties_rent.active,
+        short_rent: layerState.properties_short && layerState.properties_short.active,
+    };
+    const activeType = {
+        house:      layerState.properties_house      && layerState.properties_house.active,
+        apartment:  layerState.properties_apartment  && layerState.properties_apartment.active,
+        land:       layerState.properties_land       && layerState.properties_land.active,
+        commercial: layerState.properties_commercial && layerState.properties_commercial.active,
+    };
+    const anyPropertyActive = Object.values(activeListing).some(Boolean) || Object.values(activeType).some(Boolean);
+    if (!anyPropertyActive) {
+        // No property sub-layers active — don't render any markers
+        return;
+    }
+    const visibleFeatures = features.filter(f => {
+        const p = f.properties || {};
+        const lt = p.listing_type || 'sale';
+        const ltKey = lt === 'short_rent' ? 'short_rent' : lt;
+        const pt = p.property_type || 'unknown';
+        return (activeListing[ltKey] === true) || (activeType[pt] === true);
+    });
+
+    // At zoom >= 11, render every visible feature as an individual circleMarker so
     // users see all properties when they zoom in. At zoom < 11, group nearby
     // properties into clusters (5km grid).
     const zoom = map.getZoom();
@@ -2485,9 +2540,9 @@ function clusterProperties(features) {
     if (zoom >= 11) {
         // Individual markers, capped at 1500 to avoid DOM thrash
         const cap = 1500;
-        const visible = features.length > cap
-            ? features.slice(0, cap)
-            : features;
+        const visible = visibleFeatures.length > cap
+            ? visibleFeatures.slice(0, cap)
+            : visibleFeatures;
         // Compute price-based radius scaling. Log scale so outliers don't dominate.
         const prices = visible.map(f => f.properties?.price_usd).filter(x => x > 0).sort((a, b) => a - b);
         const p05 = prices[Math.floor(prices.length * 0.05)] || 1;
@@ -2514,21 +2569,21 @@ function clusterProperties(features) {
             m.bindPopup(buildPropertyPopup(p, lon, lat));
             propertyClusterGroup.addLayer(m);
         });
-        if (features.length > cap) {
+        if (visibleFeatures.length > cap) {
             // Show "more" indicator at map center for the over-cap remainder
             const center = map.getCenter();
             const more = L.circleMarker(center, {
                 radius: 14, color: '#fbbf24', fillColor: '#fbbf24',
                 fillOpacity: 0.8, weight: 2,
             });
-            more.bindPopup(`Showing first ${cap.toLocaleString()} of ${features.length.toLocaleString()} properties. Zoom out or apply filters to see more.`);
+            more.bindPopup(`Showing first ${cap.toLocaleString()} of ${visibleFeatures.length.toLocaleString()} properties (filtered by active sub-layers). Zoom out or apply filters to see more.`);
             propertyClusterGroup.addLayer(more);
         }
     } else {
         // Grid-based clustering at low zoom (~5km cells)
         const cellSize = 0.05;
         const buckets = {};
-        features.forEach(f => {
+        visibleFeatures.forEach(f => {
             if (!f.geometry?.coordinates) return;
             const [lon, lat] = f.geometry.coordinates;
             const cx = Math.floor(lon / cellSize) * cellSize;
@@ -2543,8 +2598,10 @@ function clusterProperties(features) {
                 const f = items[0];
                 const [lon, lat] = f.geometry.coordinates;
                 const p = f.properties;
+                const lt = p.listing_type || 'sale';
+                const color = ({ sale: '#ef4444', rent: '#f59e0b', short_rent: '#fbbf24' })[lt] || '#ef4444';
                 const m = L.circleMarker([lat, lon], {
-                    radius: 5, color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.85, weight: 1.5,
+                    radius: 5, color: color, fillColor: color, fillOpacity: 0.85, weight: 1.5,
                 });
                 m.bindPopup(buildPropertyPopup(p, lon, lat));
                 propertyClusterGroup.addLayer(m);
@@ -2562,7 +2619,9 @@ function clusterProperties(features) {
         });
     }
 
-    propertyClusterGroup.addTo(map);
+    if (propertyClusterGroup.getLayers().length > 0) {
+        propertyClusterGroup.addTo(map);
+    }
 }
 
 function buildPropertyPopup(p, lon, lat) {
