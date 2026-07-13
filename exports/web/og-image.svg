@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#1a2238"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="py-flag" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="33%" stop-color="#2dd4bf"/>
+      <stop offset="33%" stop-color="#dc2626"/>
+      <stop offset="66%" stop-color="#dc2626"/>
+      <stop offset="66%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="600" cy="315" r="280" fill="url(#glow)"/>
+
+  <!-- Paraguay map silhouette (simplified) -->
+  <path d="M 280 230 L 360 200 L 460 210 L 580 200 L 720 220 L 840 240 L 920 270 L 940 340 L 920 400 L 880 440 L 800 450 L 700 470 L 580 460 L 460 440 L 360 420 L 290 380 L 280 320 Z"
+        fill="none" stroke="#2dd4bf" stroke-width="2" opacity="0.5"/>
+
+  <!-- Tile grid dots (sample) -->
+  <g fill="#2dd4bf" opacity="0.7">
+    <circle cx="320" cy="270" r="3"/>
+    <circle cx="380" cy="290" r="3"/>
+    <circle cx="440" cy="250" r="3"/>
+    <circle cx="500" cy="310" r="3"/>
+    <circle cx="560" cy="280" r="3"/>
+    <circle cx="620" cy="320" r="3"/>
+    <circle cx="680" cy="290" r="3"/>
+    <circle cx="740" cy="340" r="3"/>
+    <circle cx="800" cy="310" r="3"/>
+    <circle cx="860" cy="370" r="3"/>
+    <circle cx="350" cy="350" r="3"/>
+    <circle cx="410" cy="380" r="3"/>
+    <circle cx="470" cy="360" r="3"/>
+    <circle cx="530" cy="400" r="3"/>
+    <circle cx="590" cy="370" r="3"/>
+    <circle cx="650" cy="410" r="3"/>
+    <circle cx="710" cy="380" r="3"/>
+    <circle cx="770" cy="420" r="3"/>
+    <circle cx="830" cy="390" r="3"/>
+    <circle cx="890" cy="430" r="3"/>
+  </g>
+
+  <!-- Property dots (red, accent) -->
+  <g fill="#ef4444" opacity="0.85">
+    <circle cx="500" cy="350" r="5"/>
+    <circle cx="600" cy="370" r="4"/>
+    <circle cx="700" cy="340" r="4"/>
+    <circle cx="550" cy="290" r="3"/>
+    <circle cx="650" cy="320" r="3"/>
+  </g>
+
+  <!-- Flag mini -->
+  <rect x="60" y="60" width="64" height="80" rx="6" fill="url(#py-flag)" stroke="#1f2944" stroke-width="2"/>
+  <text x="92" y="108" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#0a0e1a">PY</text>
+
+  <!-- Title -->
+  <text x="60" y="220" font-family="system-ui, -apple-system, 'Inter', sans-serif" font-size="78" font-weight="800" fill="#e6eaf2">Paraguay</text>
+  <text x="60" y="295" font-family="system-ui, -apple-system, 'Inter', sans-serif" font-size="78" font-weight="800" fill="#2dd4bf">Geodata</text>
+
+  <!-- Subtitle -->
+  <text x="60" y="345" font-family="system-ui, sans-serif" font-size="22" font-weight="400" fill="#8b94a8">7,912 tiles · 10,898 properties · 18 deptos · INBIO · BCP</text>
+
+  <!-- Stat boxes -->
+  <g transform="translate(60, 410)">
+    <rect width="180" height="80" rx="8" fill="#111729" stroke="#1f2944" stroke-width="1"/>
+    <text x="90" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b94a8">PROPERTIES</text>
+    <text x="90" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#2dd4bf">10,898</text>
+  </g>
+  <g transform="translate(260, 410)">
+    <rect width="180" height="80" rx="8" fill="#111729" stroke="#1f2944" stroke-width="1"/>
+    <text x="90" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b94a8">DEPTOS</text>
+    <text x="90" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#2dd4bf">18</text>
+  </g>
+  <g transform="translate(460, 410)">
+    <rect width="180" height="80" rx="8" fill="#111729" stroke="#1f2944" stroke-width="1"/>
+    <text x="90" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b94a8">CAT. DISTRITOS</text>
+    <text x="90" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#2dd4bf">268</text>
+  </g>
+  <g transform="translate(660, 410)">
+    <rect width="180" height="80" rx="8" fill="#111729" stroke="#1f2944" stroke-width="1"/>
+    <text x="90" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b94a8">PRIORITY TILES</text>
+    <text x="90" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#2dd4bf">37</text>
+  </g>
+  <g transform="translate(860, 410)">
+    <rect width="180" height="80" rx="8" fill="#111729" stroke="#1f2944" stroke-width="1"/>
+    <text x="90" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#8b94a8">BUILDINGS</text>
+    <text x="90" y="62" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#2dd4bf">49K</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="60" y="560" font-family="system-ui, sans-serif" font-size="16" fill="#8b94a8">Live: geodata.paragu-ai.com · Open data · CC0/MIT</text>
+  <text x="1140" y="560" text-anchor="end" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#2dd4bf">Ai-Whisperers</text>
+</svg>
