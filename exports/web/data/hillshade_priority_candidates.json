@@ -131,8 +131,29 @@
         "max_lon": -59.95207398782114,
         "max_lat": -22.27792792792793
       }
+    },
+    {
+      "id": "nanawa",
+      "name": "Nanawa",
+      "center": [
+        -25.2757,
+        -57.7115
+      ],
+      "size_km": 4,
+      "bbox": [
+        -57.75135124621219,
+        -25.311736036036038,
+        -57.671648753787814,
+        -25.239663963963963
+      ],
+      "reason": "User-requested. Chaco town across R\u00edo Paraguay from Asunci\u00f3n (8.2 km). 19 properties avg $1.24M. The \"across the river\" city \u2014 Chaco development frontier. Hillshade shows R\u00edo Paraguay floodplain + subtle Chaco topography.",
+      "bounds": {
+        "min_lon": -57.75135124621219,
+        "min_lat": -25.311736036036038,
+        "max_lon": -57.671648753787814,
+        "max_lat": -25.239663963963963
+      }
     }
   ],
-  "version": 1,
-  "method": "data-driven selection \u2014 most expensive areas, urban anchors, climate risk hotspots, user-requested sites"
+  "version": 2
 }

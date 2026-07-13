@@ -65,9 +65,20 @@
         -22.27792792792793
       ],
       "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels. Flat with subtle ridges."
+    },
+    {
+      "id": "nanawa",
+      "name": "Nanawa",
+      "bbox": [
+        -57.75135124621219,
+        -25.311736036036038,
+        -57.671648753787814,
+        -25.239663963963963
+      ],
+      "reason": "User-requested. Chaco town across R\u00edo Paraguay from Asunci\u00f3n (8.2 km). 19 properties avg $1.24M. The \"across the river\" city \u2014 Chaco development frontier. Hillshade shows R\u00edo Paraguay floodplain + subtle Chaco topography."
     }
   ],
-  "method": "data-driven selection (Asunci\u00f3n centro + San Bernardino + Caacup\u00e9 + PJC + CDE + Filadelfia)",
+  "method": "data-driven selection (Asunci\u00f3n centro + San Bernardino + Caacup\u00e9 + PJC + CDE + Filadelfia + Nanawa)",
   "resolution": "10m visual (3x downsample from 30m Copernicus GLO-30)",
-  "generated_at": "2026-07-13T20:57:08Z"
+  "generated_at": "2026-07-13T18:12:00Z"
 }
