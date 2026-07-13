@@ -155,7 +155,7 @@
         .stat { background: var(--bg-elev-2); padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); }
         .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
         .stat .label { font-size: 10px; color: var(--fg-dim); margin-top: 2px; line-height: 1.3; }
-        .layer-grid { display: flex; flex-direction: column; gap: 2px; }
+        .layer-grid { display: flex; flex-direction: column; gap: 2px; max-height: 360px; overflow-y: auto; padding: 4px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-elev-2); }
         .layer-group-head {
             display: flex; justify-content: space-between; align-items: center;
             padding: 6px 8px 4px 8px; margin-top: 8px;
@@ -236,14 +236,32 @@
         .city.has-listings .count { color: var(--property); font-weight: 600; }
         .search input { width: 100%; padding: 7px 10px; background: var(--bg-elev-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); font-family: inherit; font-size: 12px; }
         .search input:focus { outline: none; border-color: var(--accent); }
-        #map { position: relative; width: 100%; height: 100%; min-height: 400px; background: #0e1322; }
-        .leaflet-container { background: #0e1322; }
+        #map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            background: #0e1322;
+            overflow: hidden;
+            contain: strict;
+        }
+        .leaflet-container { background: #0e1322; overflow: hidden !important; }
         /* Force map panes to fill container so tiles layer correctly */
         .leaflet-map-pane { position: absolute; left: 0; top: 0; }
         .leaflet-tile-pane > .leaflet-layer { position: absolute; left: 0; top: 0; }
         .leaflet-tile-container { position: absolute; left: 0; top: 0; width: 100% !important; height: 100% !important; }
         /* Tile images fill the container */
         .leaflet-tile { position: absolute; }
+        /* Clip overlay/marker/tilepanes to container so they don't overflow visible area */
+        .leaflet-pane,
+        .leaflet-tile-pane,
+        .leaflet-overlay-pane,
+        .leaflet-shadow-pane,
+        .leaflet-marker-pane,
+        .leaflet-tooltip-pane,
+        .leaflet-popup-pane {
+            overflow: hidden;
+        }
         .loading-banner {
             position: fixed; top: 60px; right: 18px; z-index: 1000;
             background: var(--bg-elev-2); border: 1px solid var(--accent);
@@ -504,6 +522,9 @@
 
 <main>
     <aside>
+        <h2>Layers (toggleable)</h2>
+        <div class="layer-grid" id="layerGrid"></div>
+
         <h2>Coverage (live)</h2>
         <div class="stats">
             <div class="stat"><div class="num" id="statTiles">—</div><div class="label" id="statTiles-label">tile fabric (10×10 km)</div></div>
@@ -572,9 +593,6 @@
             <div class="row"><span class="k">  vs 24/25</span><span class="v">—</span></div>
             <div class="insight">—</div>
         </div>
-
-        <h2>Layers (toggleable)</h2>
-        <div class="layer-grid" id="layerGrid"></div>
 
         <h2 data-i18n="price_by_depto">$/ha por depto</h2>
                 <div style="position:relative; height:200px; margin:8px 0;">
@@ -758,6 +776,26 @@
 // ========== MAP ==========
 const map = L.map('map', { zoomControl: true, worldCopyJump: false, preferCanvas: false }).setView([-23.5, -58.5], 6);
 
+// Leaflet caches container size at init. CSS grid + flexbox often have the map
+// at 0×0 when L.map() runs, which makes the .leaflet-overlay-pane grow
+// beyond the visible area. Call invalidateSize after layout settles, plus on
+// every resize/orientation change.
+function reflowMap() {
+    try { map.invalidateSize(); } catch (e) { /* map not ready */ }
+}
+if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(() => requestAnimationFrame(reflowMap));
+} else {
+    setTimeout(reflowMap, 100);
+}
+setTimeout(reflowMap, 500);
+window.addEventListener('resize', reflowMap);
+window.addEventListener('orientationchange', reflowMap);
+// Re-fit on tab visibility changes (handles tab-switch recovery)
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) reflowMap();
+});
+
 // Scale bar
 L.control.scale({ imperial: false, position: 'bottomright' }).addTo(map);
 
@@ -828,15 +866,21 @@ const layerState = {
 };
 
 const LAYER_GROUPS_ORDER = [
+    // bottom of stack → top of stack (drawing order = addTo order = LATER layers render ON TOP)
+    // base/admin layers (background reference)
     'tile_fabric', 'priority_tiles',
     'departamentos_py', 'distritos_py', 'barrios_py',
     'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba',
     'indigenous', 'climate_risk', 'flood_risk',
     'inbio_soja', 'inbio_arroz', 'inbio_maiz',
-    'properties_infocasas', 'properties_heat_pha', 'properties_heat_area',
-    'osm_roads', 'osm_buildings', 'osm_water',
-    'gbif_animalia', 'gbif_plantae',
+    // infrastructure overlay (roads/buildings/water on top of admin)
+    'osm_water', 'osm_buildings', 'osm_roads',
+    // anchor cities (visual context for property clusters)
     'anchor_circles',
+    // properties on top of everything (most important — user comes for these)
+    'properties_heat_area', 'properties_heat_pha', 'properties_infocasas',
+    // biodiversity as light overlay (rare points, don't want to obscure props)
+    'gbif_plantae', 'gbif_animalia',
 ];
 
 const LAYER_GROUP_LABELS = {
@@ -867,7 +911,7 @@ function renderLayerGrid() {
         byGroup[l.group].push({ id, ...l });
     }
     // iterate groups in a stable order
-    const groupOrder = ['grid', 'base', 'agri', 'realestate', 'urban', 'biodiv'];
+    const groupOrder = ['grid', 'base', 'admin', 'env', 'agri', 'urban', 'realestate', 'biodiv'];
     for (const g of groupOrder) {
         const items = byGroup[g] || [];
         if (!items.length) continue;
@@ -3420,7 +3464,8 @@ window.showDueDiligence = async function(listing) {
     try { loadInsights(); } catch (e) { console.error('[bootstrap] loadInsights:', e); };
     try { loadFairPriceModel(); } catch (e) { console.error('[bootstrap] loadFairPriceModel:', e); };
     try { calcYield(); } catch (e) { console.error('[bootstrap] calcYield:', e); };
-    try { await loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
+    // Layer load order MUST mirror LAYER_GROUPS_ORDER so Leaflet paints them
+    // bottom-up. Earlier loads = drawn first = appear underneath later loads.
     try { loadTileFabric(); } catch (e) { console.error('[bootstrap] loadTileFabric:', e); };
     try { loadDepartamentos(); } catch (e) { console.error('[bootstrap] loadDepartamentos:', e); };
     try { loadDistritos(); } catch (e) { console.error('[bootstrap] loadDistritos:', e); };
@@ -3433,11 +3478,14 @@ window.showDueDiligence = async function(listing) {
     try { loadClimateRisk(); } catch (e) { console.error('[bootstrap] loadClimateRisk:', e); };
     try { loadFloodRisk(); } catch (e) { console.error('[bootstrap] loadFloodRisk:', e); };
     try { loadINBIO(); } catch (e) { console.error('[bootstrap] loadINBIO:', e); };
-    try { loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
-    try { loadGBIF(); } catch (e) { console.error('[bootstrap] loadGBIF:', e); };
-    try { loadOSMRoads(); } catch (e) { console.error('[bootstrap] loadOSMRoads:', e); };
-    try { loadOSMBuildings(); } catch (e) { console.error('[bootstrap] loadOSMBuildings:', e); };
+    // OSM infrastructure on top of admin/boundaries
     try { loadOSMWater(); } catch (e) { console.error('[bootstrap] loadOSMWater:', e); };
+    try { loadOSMBuildings(); } catch (e) { console.error('[bootstrap] loadOSMBuildings:', e); };
+    try { loadOSMRoads(); } catch (e) { console.error('[bootstrap] loadOSMRoads:', e); };
+    // Properties on top of everything (the user's primary content)
+    try { await loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
+    // Biodiversity as light overlay (top-most)
+    try { loadGBIF(); } catch (e) { console.error('[bootstrap] loadGBIF:', e); };
     try { applyI18n(); } catch (e) { console.error('[bootstrap] applyI18n:', e); };
     try { addLangSwitcher(); } catch (e) { console.error('[bootstrap] addLangSwitcher:', e); };
     try { applyUrlParams(); } catch (e) { console.error('[bootstrap] applyUrlParams:', e); };
