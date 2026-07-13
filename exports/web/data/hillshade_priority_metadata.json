@@ -1,0 +1,73 @@
+{
+  "candidates": [
+    {
+      "id": "asu_centro",
+      "name": "Asunci\u00f3n Centro",
+      "bbox": [
+        -57.689778987853146,
+        -25.334054054054054,
+        -57.57022101214686,
+        -25.22594594594595
+      ],
+      "reason": "Capital city center. 4,323 properties, $42M avg premium. Catastro urban polygons. Construction zones (4 ordinance-defined)."
+    },
+    {
+      "id": "san_bernardino",
+      "name": "San Bernardino",
+      "bbox": [
+        -57.34982815156771,
+        -25.355045045045046,
+        -57.25017184843228,
+        -25.264954954954952
+      ],
+      "reason": "Lakefront resort town. Hills + lake = dramatic terrain contrast on hillshade. Premium vacation home market."
+    },
+    {
+      "id": "caacupe",
+      "name": "Caacup\u00e9",
+      "bbox": [
+        -57.0998528676156,
+        -25.415045045045048,
+        -57.00014713238439,
+        -25.324954954954954
+      ],
+      "reason": "User-requested. Cordillera hills (Serran\u00eda de Caacup\u00e9). Religious tourism capital. Premium hill-view properties."
+    },
+    {
+      "id": "pjc",
+      "name": "Pedro Juan Caballero",
+      "bbox": [
+        -55.78852886518675,
+        -22.604054054054053,
+        -55.671471134813245,
+        -22.495945945945948
+      ],
+      "reason": "Amambay department. Climate risk moderate. Border town. Hillshade shows rocky Amambay hills."
+    },
+    {
+      "id": "cde",
+      "name": "Ciudad del Este",
+      "bbox": [
+        -54.68987518567398,
+        -25.573063063063064,
+        -54.55012481432601,
+        -25.44693693693694
+      ],
+      "reason": "Alto Paran\u00e1. 2nd largest city. Itaipu dam area. Acaray river valley. Risk: flood zones from Paran\u00e1 river."
+    },
+    {
+      "id": "filadelfia",
+      "name": "Filadelfia (Chaco)",
+      "bbox": [
+        -60.107926012178865,
+        -22.422072072072073,
+        -59.95207398782114,
+        -22.27792792792793
+      ],
+      "reason": "Chaco Mennonite colony. Visible grid pattern on hillshade from agricultural parcels. Flat with subtle ridges."
+    }
+  ],
+  "method": "data-driven selection (Asunci\u00f3n centro + San Bernardino + Caacup\u00e9 + PJC + CDE + Filadelfia)",
+  "resolution": "10m visual (3x downsample from 30m Copernicus GLO-30)",
+  "generated_at": "2026-07-13T20:57:08Z"
+}
