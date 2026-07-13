@@ -4,13 +4,14 @@
 Strategy:
 - Fetch 30m DEM tiles from Planetary Computer
 - Merge into a single array
-- DOWNSAMPLE to 60m (every 2x2 average) before hillshade compute
+- DOWNSAMPLE to 60m (every second source pixel) before hillshade compute
 - This makes hillshade ~4x faster AND smaller output
 - 60m hillshade is still useful for visual context at national zoom
 
 Output: 4 regions × ~4 MB JPEG = ~16 MB total
 Compute time: ~2-3 min per region (down from 6+ min)
 """
+import argparse
 import json
 import math
 import os
@@ -22,8 +23,12 @@ import numpy as np
 from PIL import Image
 import rasterio
 from rasterio.merge import merge
+from affine import Affine
 import planetary_computer
 import pystac_client
+
+# Class-level terrain/raster technique:
+# ~/.hermes/skills/devops/satellite-to-blender-pipeline/SKILL.md
 
 ROOT = Path('/root/paraguay-geodata')
 DATA = ROOT / 'exports' / 'web' / 'data'
@@ -63,29 +68,32 @@ def fetch_dem_for_bbox(bbox):
             print(f"  skip {item.id}: {e}")
     if not datasets:
         return None
-    if len(datasets) == 1:
-        ds = datasets[0]
-        data = ds.read(1)
-        transform = ds.transform
-        ds.close()
-        return data, transform
-    merged, transform = merge(datasets)
-    for ds in datasets:
-        ds.close()
+    # STAC bbox intersection is inclusive at tile boundaries. Crop while
+    # merging so the raster matches the exact requested overlay bounds instead
+    # of silently including a fifth tile along each edge.
+    try:
+        merged, transform = merge(datasets, bounds=bbox)
+    finally:
+        for ds in datasets:
+            ds.close()
     return merged[0], transform
+
+
+def meters_per_cell(transform, height):
+    """Return geographic pixel dimensions in metres at raster center latitude."""
+    dx = abs(transform.a)
+    dy = abs(transform.e)
+    lat_center = transform.f + (height * transform.e / 2)
+    m_per_deg_lon = 111320 * math.cos(math.radians(lat_center))
+    m_per_deg_lat = 111320
+    return dx * m_per_deg_lon, dy * m_per_deg_lat
 
 
 def compute_hillshade_chunked(dem, transform, azimuth=315, altitude=45, chunk_rows=2000):
     """Horn's method hillshade, computed in chunks to manage memory."""
     az_rad = math.radians(360 - azimuth + 90)
     alt_rad = math.radians(altitude)
-    dx = abs(transform.a)
-    dy = abs(transform.e)
-    lat_center = (dem.shape[0] * dy / 2 + transform.f)
-    m_per_deg_lon = 111320 * math.cos(math.radians(-lat_center))
-    m_per_deg_lat = 111320
-    cellsize_x = dx * m_per_deg_lon
-    cellsize_y = dy * m_per_deg_lat
+    cellsize_x, cellsize_y = meters_per_cell(transform, dem.shape[0])
 
     dem = dem.astype(np.float32)
     dem = np.nan_to_num(dem, nan=np.nanmean(dem[dem > 0]) if np.any(dem > 0) else 100)
@@ -93,18 +101,17 @@ def compute_hillshade_chunked(dem, transform, azimuth=315, altitude=45, chunk_ro
     h, w = dem.shape
     out = np.zeros((h, w), dtype=np.uint8)
 
-    # Pad DEM with 1 row on top and bottom for gradient computation
-    dem_padded = np.pad(dem, ((1, 1), (0, 0)), mode='edge')
+    # Pad all four edges. The Horn 3x3 stencil removes one cell from every
+    # side; without horizontal padding each chunk becomes two columns narrower
+    # than the destination array (e.g. 8998 values for a 9000-column DEM).
+    dem_padded = np.pad(dem, ((1, 1), (1, 1)), mode='edge')
 
     for i in range(0, h, chunk_rows):
         end = min(i + chunk_rows, h)
-        # chunk_rows are in the original DEM space; padded indices are +1
-        chunk = dem_padded[i+1:end+1]  # rows i+1 to end+1 in padded
-        # Need also the row above (i) and below (end+1) for gradient
-        top_row = dem_padded[i:i+1]      # row above this chunk
-        bot_row = dem_padded[end+1:end+2] if end < h else dem_padded[end+1:end+2]
-        # Build chunk with top + data + bottom
-        chunk = np.vstack([top_row, chunk, bot_row])
+        # In padded coordinates rows [i:end + 2] contain one halo row above
+        # and below the original DEM rows [i:end]. Horizontal halo columns are
+        # already present from the four-edge padding above.
+        chunk = dem_padded[i:end + 2]
 
         a = chunk[:-2, :-2]; b = chunk[:-2, 1:-1]; c = chunk[:-2, 2:]
         d = chunk[1:-1, :-2]; f = chunk[1:-1, 2:]
@@ -137,11 +144,8 @@ def process_region(name, bbox):
     # Downsample
     if DOWNSAMPLE > 1:
         dem = dem[::DOWNSAMPLE, ::DOWNSAMPLE]
-        # Update transform to reflect downsampling
-        from rasterio.transform import from_bounds
-        new_transform = from_bounds(bbox[0], bbox[1], bbox[2], bbox[3],
-                                     dem.shape[1], dem.shape[0])
-        transform = new_transform
+        # Preserve the cropped raster origin and scale its pixel dimensions.
+        transform = transform * Affine.scale(DOWNSAMPLE, DOWNSAMPLE)
         print(f"  Downsampled to {dem.shape}")
 
     t0 = time.time()
@@ -165,21 +169,36 @@ def process_region(name, bbox):
         img = img.resize(new_size, Image.LANCZOS)
         print(f"  resized to {new_size}")
 
-    img.save(out_jpg, 'JPEG', quality=80, optimize=True)
+    # Publish atomically so an interrupted build never leaves a partial JPEG.
+    tmp_jpg = out_jpg.with_suffix('.jpg.tmp')
+    img.save(tmp_jpg, 'JPEG', quality=80, optimize=True)
+    tmp_jpg.replace(out_jpg)
     out_bounds = DATA / f'hillshade_py_{name}_bounds.json'
     out_bounds.write_text(json.dumps(bounds))
     print(f"  ✓ {out_jpg.name}: {out_jpg.stat().st_size/1024/1024:.2f} MB")
     return True
 
 
-if __name__ == '__main__':
-    for name, *bbox in REGIONS:
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '--regions', nargs='+', choices=[region[0] for region in REGIONS],
+        default=[region[0] for region in REGIONS],
+        help='Region names to build (default: all four)',
+    )
+    args = parser.parse_args(argv)
+    selected = [region for region in REGIONS if region[0] in args.regions]
+    failures = []
+
+    for name, *bbox in selected:
         try:
-            process_region(name, bbox)
+            if not process_region(name, bbox):
+                failures.append(name)
         except Exception as e:
             print(f"  ERROR: {e}")
             import traceback
             traceback.print_exc()
+            failures.append(name)
 
     union_bounds = {
         'min_lon': min(r[1] for r in REGIONS),
@@ -190,3 +209,13 @@ if __name__ == '__main__':
     }
     (DATA / 'hillshade_py_bounds.json').write_text(json.dumps(union_bounds))
     print(f"\n✓ wrote union bounds")
+
+    if failures:
+        print(f"FAILED regions: {', '.join(failures)}", file=sys.stderr)
+        return 1
+    print(f"Built {len(selected)} region(s): {', '.join(args.regions)}")
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

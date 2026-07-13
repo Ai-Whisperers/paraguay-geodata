@@ -4719,7 +4719,7 @@ window.showDueDiligence = async function(listing) {
         farmer: {
             label: 'Productor agrícola',
             description: 'INBIO zafra + indigenous territories + climate risk + soil/water. Tierras cultivables.',
-            layers: ['departamentos_py', 'inbio_soja', 'inbio_arroz', 'inbio_maiz', 'climate_risk', 'indigenous', 'water', 'properties_land', 'properties_heat_area'],
+            layers: ['departamentos_py', 'inbio_soja', 'inbio_arroz', 'inbio_maiz', 'climate_risk', 'indigenous', 'osm_water', 'properties_land', 'properties_heat_area'],
         },
         developer: {
             label: 'Desarrollador inmobiliario',
@@ -4729,7 +4729,7 @@ window.showDueDiligence = async function(listing) {
         ecologist: {
             label: 'Ecólogo / Conservacionista',
             description: 'Biodiversity GBIF + climate risk + forest loss + water. Conservation focus.',
-            layers: ['departamentos_py', 'gbif_animalia', 'gbif_plantae', 'water', 'climate_risk', 'indigenous', 'osm_water', 'properties_land', 'hillshade_national'],
+            layers: ['departamentos_py', 'gbif_animalia', 'gbif_plantae', 'osm_water', 'climate_risk', 'indigenous', 'properties_land', 'hillshade_national'],
         },
         indigenous_advocate: {
             label: 'Abogado / DDHH',
@@ -4744,7 +4744,7 @@ window.showDueDiligence = async function(listing) {
         tourist: {
             label: 'Turista / Outdoor',
             description: 'Hillshade + water + GBIF + hillshade_priority. Lugares bonitos y únicos.',
-            layers: ['departamentos_py', 'hillshade_national', 'water', 'osm_water', 'gbif_animalia', 'gbif_plantae', 'indigenous', 'anchor_circles'],
+            layers: ['departamentos_py', 'hillshade_national', 'hillshade_priority', 'osm_water', 'gbif_animalia', 'gbif_plantae', 'indigenous', 'anchor_circles'],
         },
         urban_planner: {
             label: 'Planificador urbano',
@@ -4895,7 +4895,7 @@ window.showDueDiligence = async function(listing) {
 
     // Load priority hillshades when zoom >= 11 and visible candidate area
     let _lastPriorityZoom = null;
-    map.on('zoomend moveend', async () => {
+    async function refreshPriorityHillshades() {
         if (!layerState.hillshade_priority || !layerState.hillshade_priority.active) return;
         if (map.getZoom() < 11) {
             if (LAYER_GROUPS.hillshade_priority && LAYER_GROUPS.hillshade_priority[0]) {
@@ -4924,11 +4924,13 @@ window.showDueDiligence = async function(listing) {
             });
         }
         if (loaded > 0) updateLayerCount('hillshade_priority', loaded);
-    });
+    }
+    map.on('zoomend moveend', refreshPriorityHillshades);
 
     // Expose loader functions on window for testing & debugging
     window.getPriorityCandidates = getPriorityCandidates;
     window.loadParaguayCityHillshade = loadParaguayCityHillshade;
+    window.refreshPriorityHillshades = refreshPriorityHillshades;
 })();
 </script>
 </body>
