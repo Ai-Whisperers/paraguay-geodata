@@ -4947,6 +4947,7 @@ window.showDueDiligence = async function(listing) {
     // Total ~80 tiles cover Paraguay, lazy-loaded on demand.
 
     const _natHillshadeTiles = {};  // tile_id → { overlay, loaded }
+    const _natHillshadeLoading = new Set();  // tile_ids currently being loaded
     let _natTileIndex = null;       // [{ id, bbox: [w,s,e,n] }, ...]
     let _natHillshadeGroup = L.layerGroup();
 
@@ -4968,15 +4969,23 @@ window.showDueDiligence = async function(listing) {
     async function loadNationalTile(tile) {
         const tid = tile.id;
         if (_natHillshadeTiles[tid]) return _natHillshadeTiles[tid].overlay;
+        if (_natHillshadeLoading.has(tid)) return null;
+        _natHillshadeLoading.add(tid);
 
         try {
             // Check the JPEG exists
             const head = await fetch(`./data/hillshade_${tid}.jpg`, { method: 'HEAD' });
-            if (!head.ok) return null;
+            if (!head.ok) {
+                _natHillshadeLoading.delete(tid);
+                return null;
+            }
 
             // Fetch bounds
             const boundsResp = await fetch(`./data/hillshade_${tid}_bounds.json`);
-            if (!boundsResp.ok) return null;
+            if (!boundsResp.ok) {
+                _natHillshadeLoading.delete(tid);
+                return null;
+            }
             const bounds = await boundsResp.json();
 
             const overlay = L.imageOverlay(`./data/hillshade_${tid}.jpg`, [
@@ -4986,8 +4995,10 @@ window.showDueDiligence = async function(listing) {
             overlay.tileId = tid;
             _natHillshadeTiles[tid] = { overlay, loaded: true };
             _natHillshadeGroup.addLayer(overlay);
+            _natHillshadeLoading.delete(tid);
             return overlay;
         } catch (e) {
+            _natHillshadeLoading.delete(tid);
             return null;
         }
     }
