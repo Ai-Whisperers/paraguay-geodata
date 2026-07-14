@@ -329,6 +329,59 @@
         .layer .label { font-weight: 600; }
         .layer .count { font-family: monospace; color: var(--fg-dim); font-size: 10px; }
         .layer .layer-info { color: var(--fg-dim); font-size: 10px; margin-top: 2px; opacity: .8; }
+
+.layer-opacity {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 10px;
+    color: var(--fg-dim);
+}
+.opacity-label {
+    flex-shrink: 0;
+    min-width: 40px;
+    opacity: 0.7;
+}
+.opacity-slider {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--bg-elev-2);
+    border-radius: 2px;
+    cursor: pointer;
+    margin: 0;
+}
+.opacity-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 1px solid var(--bg);
+}
+.opacity-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 1px solid var(--bg);
+}
+.opacity-slider:hover {
+    background: var(--line);
+}
+.opacity-value {
+    flex-shrink: 0;
+    min-width: 32px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--fg);
+}
         .legend .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 6px; vertical-align: middle; border: 1px solid rgba(255,255,255,.15); }
         .bcp-widget {
             background: var(--bg-elev-2); border: 1px solid var(--accent);
@@ -1057,55 +1110,55 @@ L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map
 // Each layer has a unique id. layersAllOrder[] flattens the tree in draw order.
 const layerState = {
     // ---- grid ----
-    tile_fabric:        { group: 'grid', label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', info: 'National 10×10 km grid. Click any cell to open per-tile viewer.',  color: '#1e3a8a', url: 'data/tile_index.json' },
-    priority_tiles:     { group: 'grid', label: 'Priority tiles (37)',          active: true,  features: '?', info: 'Urban-anchor tiles with the densest data.',                            color: '#0f766e', url: 'data/priority_tiles.json' },
-    hillshade_national: { group: 'grid', subgroup: 'topography', label: 'Hillshade (national, 30m DEM)', active: false, features: '?', info: 'Hillshade overlay derived from Copernicus GLO-30 DEM. Shows terrain relief. Opacity 0.5.', color: '#666', url: null },
-    hillshade_priority: { group: 'grid', subgroup: 'topography', label: 'Hillshade (priority tiles, 5m)', active: false, features: '?', info: 'High-resolution hillshade for the 37 urban-anchor tiles. Loads on-demand when zoom >= 11.', color: '#888', url: null },
+    tile_fabric:        { group: 'grid', label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', info: 'National 10×10 km grid. Click any cell to open per-tile viewer.',  color: '#1e3a8a', url: 'data/tile_index.json', opacity: 0.35 },
+    priority_tiles:     { group: 'grid', label: 'Priority tiles (37)',          active: true,  features: '?', info: 'Urban-anchor tiles with the densest data.',                            color: '#0f766e', url: 'data/priority_tiles.json', opacity: 0.5 },
+    hillshade_national: { group: 'grid', subgroup: 'topography', label: 'Hillshade (national, 30m DEM)', active: false, features: '?', info: 'Hillshade overlay derived from Copernicus GLO-30 DEM. Shows terrain relief. Opacity 0.5.', color: '#666', url: null, opacity: 0.5 },
+    hillshade_priority: { group: 'grid', subgroup: 'topography', label: 'Hillshade (priority tiles, 5m)', active: false, features: '?', info: 'High-resolution hillshade for the 37 urban-anchor tiles. Loads on-demand when zoom >= 11.', color: '#888', url: null, opacity: 0.5 },
 
     // ---- base admin (OSM) ----
-    departamentos_py:   { group: 'base', label: 'Departamentos (18)',            active: true,  features: '?', info: 'Provincia-level admin polygons from OSM.',                            color: '#60a5fa', url: 'data/admin/departamentos.geojson' },
-    distritos_py:        { group: 'base', label: 'Distritos',              active: false, features: '?', info: 'District-level admin polygons (admin_level 6+7). Currently 10 mapped (Paraguarí only). Use catastro_dist.geojson for full 268.',                    color: '#10b981', url: 'data/admin/distritos.geojson' },
-    barrios_py:          { group: 'base', label: 'Barrios / Localidades',active: false, features: '?', info: 'Neighbourhood + locality polygons (admin_level 8-11). Currently 236 mapped (228 valid, 8 awaiting OSM polygon). Slow with all on.', color: '#64748b', url: 'data/admin/barrios_py.geojson' },
+    departamentos_py:   { group: 'base', label: 'Departamentos (18)',            active: true,  features: '?', info: 'Provincia-level admin polygons from OSM.',                            color: '#60a5fa', url: 'data/admin/departamentos.geojson', opacity: 0.5 },
+    distritos_py:        { group: 'base', label: 'Distritos',              active: false, features: '?', info: 'District-level admin polygons (admin_level 6+7). Currently 10 mapped (Paraguarí only). Use catastro_dist.geojson for full 268.',                    color: '#10b981', url: 'data/admin/distritos.geojson', opacity: 0.5 },
+    barrios_py:          { group: 'base', label: 'Barrios / Localidades',active: false, features: '?', info: 'Neighbourhood + locality polygons (admin_level 8-11). Currently 236 mapped (228 valid, 8 awaiting OSM polygon). Slow with all on.', color: '#64748b', url: 'data/admin/barrios_py.geojson', opacity: 0.5 },
 
     // ---- admin (Catastro) ----
-    catastro_dpto:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Departamentos (18)', active: false, features: '?', info: 'Official departamento boundaries + codes from Paraguay\'s land registry.', color: '#06b6d4', url: 'data/admin/catastro_dpto.geojson' },
-    catastro_dist:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Distritos (268)', active: false, features: '?', info: 'Official distrito (municipality) boundaries from Catastro.', color: '#0891b2', url: 'data/admin/catastro_dist.geojson' },
-    catastro_parcels:    { group: 'admin', subgroup: 'catastro', label: 'Catastro · Parcelas sample (7.5K)', active: false, features: '?', info: 'Sample of 7,500 land parcels with ownership padron + matrícula.',         color: '#0e7490', url: 'data/admin/catastro_parcels_sample.geojson' },
-    catastro_urba:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Urban zoning (470)', active: false, features: '?', info: 'Urban zoning polygons (urbanización) from Catastro.',                    color: '#155e75', url: 'data/admin/catastro_urba.geojson' },
+    catastro_dpto:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Departamentos (18)', active: false, features: '?', info: 'Official departamento boundaries + codes from Paraguay\'s land registry.', color: '#06b6d4', url: 'data/admin/catastro_dpto.geojson', opacity: 0.6 },
+    catastro_dist:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Distritos (268)', active: false, features: '?', info: 'Official distrito (municipality) boundaries from Catastro.', color: '#0891b2', url: 'data/admin/catastro_dist.geojson', opacity: 0.6 },
+    catastro_parcels:    { group: 'admin', subgroup: 'catastro', label: 'Catastro · Parcelas sample (7.5K)', active: false, features: '?', info: 'Sample of 7,500 land parcels with ownership padron + matrícula.',         color: '#0e7490', url: 'data/admin/catastro_parcels_sample.geojson', opacity: 0.6 },
+    catastro_urba:       { group: 'admin', subgroup: 'catastro', label: 'Catastro · Urban zoning (470)', active: false, features: '?', info: 'Urban zoning polygons (urbanización) from Catastro.',                    color: '#155e75', url: 'data/admin/catastro_urba.geojson', opacity: 0.6 },
 
     // ---- env (Environmental risk) ----
-    indigenous:         { group: 'env', label: 'Indigenous territories (10)', active: false, features: '?', info: 'Approximate bboxes for known indigenous territories. ⚠ NOT legal boundaries.', color: '#ec4899', url: 'data/indigenous_territories.geojson' },
-    climate_risk:       { group: 'env', label: 'Climate risk by depto (18)', active: false, features: '?', info: 'Combined climate risk: deforestation (50%) + drought (50%). 2024 baseline. DERIVED, not measured.', color: '#f97316', url: 'data/climate_risk.geojson' },
-    flood_risk:         { group: 'env', label: 'Flood-prone zones (5)', active: false, features: '?', info: 'Approximate flood zones. Check SEN alerts for live warnings.',         color: '#06b6d4', url: 'data/flood_risk.geojson' },
+    indigenous:         { group: 'env', label: 'Indigenous territories (10)', active: false, features: '?', info: 'Approximate bboxes for known indigenous territories. ⚠ NOT legal boundaries.', color: '#ec4899', url: 'data/indigenous_territories.geojson', opacity: 0.55 },
+    climate_risk:       { group: 'env', label: 'Climate risk by depto (18)', active: false, features: '?', info: 'Combined climate risk: deforestation (50%) + drought (50%). 2024 baseline. DERIVED, not measured.', color: '#f97316', url: 'data/climate_risk.geojson', opacity: 0.55 },
+    flood_risk:         { group: 'env', label: 'Flood-prone zones (5)', active: false, features: '?', info: 'Approximate flood zones. Check SEN alerts for live warnings.',         color: '#06b6d4', url: 'data/flood_risk.geojson', opacity: 0.55 },
 
     // ---- agri (INBIO) ----
-    inbio_soja:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · soja',       active: true,  features: '?', info: 'Per-depto soybean area zafra 2025/2026 (satellite). Purple = more soja.', color: '#c084fc', url: 'data/inbio_zafra_2025_2026.json' },
-    inbio_arroz:        { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · arroz',      active: false, features: '?', info: 'Per-depto rice area zafra 2025/2026. South-PY drought signal.',          color: '#fb923c', url: 'data/inbio_zafra_2025_2026.json' },
-    inbio_maiz:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · maíz zaf.',  active: false, features: '?', info: 'Per-depto maize zafriña area. -29% nationally.',                        color: '#facc15', url: 'data/inbio_zafra_2025_2026.json' },
+    inbio_soja:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · soja',       active: true,  features: '?', info: 'Per-depto soybean area zafra 2025/2026 (satellite). Purple = more soja.', color: '#c084fc', url: 'data/inbio_zafra_2025_2026.json', opacity: 0.5 },
+    inbio_arroz:        { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · arroz',      active: false, features: '?', info: 'Per-depto rice area zafra 2025/2026. South-PY drought signal.',          color: '#fb923c', url: 'data/inbio_zafra_2025_2026.json', opacity: 0.5 },
+    inbio_maiz:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · maíz zaf.',  active: false, features: '?', info: 'Per-depto maize zafriña area. -29% nationally.',                        color: '#facc15', url: 'data/inbio_zafra_2025_2026.json', opacity: 0.5 },
 
     // ---- urban (OSM infrastructure + anchors) ----
-    osm_water:           { group: 'urban', subgroup: 'infrastructure', label: 'OSM water bodies (40K)', active: false, features: '?', info: 'Rivers, lakes, reservoirs from OSM.',                                  color: '#3b82f6', url: 'data/water.geojson' },
-    osm_buildings:       { group: 'urban', subgroup: 'infrastructure', label: 'OSM buildings · Asunción (top 50K)', active: false, features: '?', info: 'Top 50K OSM building polygons in Asunción metro by footprint area.',     color: '#a78bfa', url: 'data/buildings_asuncion.geojson' },
-    osm_roads:           { group: 'urban', subgroup: 'infrastructure', label: 'OSM major roads (14,835)', active: false, features: '?', info: 'Motorway/trunk/primary/secondary from Geofabrik Paraguay OSM extract.',   color: '#f97316', url: 'data/roads.geojson' },
-    anchor_circles:      { group: 'urban', subgroup: 'anchors', label: 'Anchor cities · 30 km radius', active: false, features: '?', info: '20 anchor cities with 30 km search radius. Color = listing density.',     color: '#a855f7', url: null },
+    osm_water:           { group: 'urban', subgroup: 'infrastructure', label: 'OSM water bodies (40K)', active: false, features: '?', info: 'Rivers, lakes, reservoirs from OSM.',                                  color: '#3b82f6', url: 'data/water.geojson', opacity: 0.8 },
+    osm_buildings:       { group: 'urban', subgroup: 'infrastructure', label: 'OSM buildings · Asunción (top 50K)', active: false, features: '?', info: 'Top 50K OSM building polygons in Asunción metro by footprint area.',     color: '#a78bfa', url: 'data/buildings_asuncion.geojson', opacity: 0.8 },
+    osm_roads:           { group: 'urban', subgroup: 'infrastructure', label: 'OSM major roads (14,835)', active: false, features: '?', info: 'Motorway/trunk/primary/secondary from Geofabrik Paraguay OSM extract.',   color: '#f97316', url: 'data/roads.geojson', opacity: 0.8 },
+    anchor_circles:      { group: 'urban', subgroup: 'anchors', label: 'Anchor cities · 30 km radius', active: false, features: '?', info: '20 anchor cities with 30 km search radius. Color = listing density.',     color: '#a855f7', url: null, opacity: 0.7 },
 
     // ---- realestate (Properties) ----
     // Sub-groups: by_listing (sale | rent | short_rent) and by_type (house | apartment | land | commercial)
     // Each is its own leaflet layer (filtered client-side from properties_latest.geojson)
-    properties_sale:     { group: 'realestate', subgroup: 'by_listing', label: 'Properties · for sale', active: true,  features: '?', info: 'Listings marked as sale. Click dot for title, price, area, depto.',    color: '#ef4444', url: 'data/properties_latest.geojson' },
-    properties_rent:     { group: 'realestate', subgroup: 'by_listing', label: 'Properties · for rent', active: false, features: '?', info: 'Listings marked as rent (long-term). Click for $/mo + conditions.',      color: '#f59e0b', url: 'data/properties_latest.geojson' },
-    properties_short:    { group: 'realestate', subgroup: 'by_listing', label: 'Properties · short rent', active: false, features: '?', info: 'Listings marked as short-term / vacation rentals.',                    color: '#fbbf24', url: 'data/properties_latest.geojson' },
-    properties_house:    { group: 'realestate', subgroup: 'by_type',    label: 'Properties · houses',  active: false, features: '?', info: 'Detached houses + townhouses. Filter by listing type using the radio above.', color: '#10b981', url: 'data/properties_latest.geojson' },
-    properties_apartment:{ group: 'realestate', subgroup: 'by_type',    label: 'Properties · apartments', active: false, features: '?', info: 'Apartments + flats + condos.',                                          color: '#06b6d4', url: 'data/properties_latest.geojson' },
-    properties_land:     { group: 'realestate', subgroup: 'by_type',    label: 'Properties · land', active: false, features: '?', info: 'Bare land / lotes. $/ha shown in popup.',                              color: '#84cc16', url: 'data/properties_latest.geojson' },
-    properties_commercial:{group: 'realestate', subgroup: 'by_type',    label: 'Properties · commercial', active: false, features: '?', info: 'Commercial: shops, warehouses, offices, hotels.',                       color: '#a78bfa', url: 'data/properties_latest.geojson' },
-    properties_heat_pha: { group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · $/ha',     active: false, features: '?', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',         color: '#f59e0b', url: 'data/properties_latest.geojson' },
-    properties_heat_area:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · lot area', active: false, features: '?', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                color: '#3b82f6', url: 'data/properties_latest.geojson' },
-    properties_heat_risk:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · risk score', active: false, features: '?', info: 'Heatmap of risk score (flood+water+climate+indigenous+shadow). Brighter = more risk. From /data/property_risk_analysis.json.', color: '#ef4444', url: 'data/property_risk_analysis.json' },
+    properties_sale:     { group: 'realestate', subgroup: 'by_listing', label: 'Properties · for sale', active: true,  features: '?', info: 'Listings marked as sale. Click dot for title, price, area, depto.',    color: '#ef4444', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_rent:     { group: 'realestate', subgroup: 'by_listing', label: 'Properties · for rent', active: false, features: '?', info: 'Listings marked as rent (long-term). Click for $/mo + conditions.',      color: '#f59e0b', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_short:    { group: 'realestate', subgroup: 'by_listing', label: 'Properties · short rent', active: false, features: '?', info: 'Listings marked as short-term / vacation rentals.',                    color: '#fbbf24', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_house:    { group: 'realestate', subgroup: 'by_type',    label: 'Properties · houses',  active: false, features: '?', info: 'Detached houses + townhouses. Filter by listing type using the radio above.', color: '#10b981', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_apartment:{ group: 'realestate', subgroup: 'by_type',    label: 'Properties · apartments', active: false, features: '?', info: 'Apartments + flats + condos.',                                          color: '#06b6d4', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_land:     { group: 'realestate', subgroup: 'by_type',    label: 'Properties · land', active: false, features: '?', info: 'Bare land / lotes. $/ha shown in popup.',                              color: '#84cc16', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_commercial:{group: 'realestate', subgroup: 'by_type',    label: 'Properties · commercial', active: false, features: '?', info: 'Commercial: shops, warehouses, offices, hotels.',                       color: '#a78bfa', url: 'data/properties_latest.geojson', opacity: 0.85 },
+    properties_heat_pha: { group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · $/ha',     active: false, features: '?', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',         color: '#f59e0b', url: 'data/properties_latest.geojson', opacity: 0.7 },
+    properties_heat_area:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · lot area', active: false, features: '?', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                color: '#3b82f6', url: 'data/properties_latest.geojson', opacity: 0.7 },
+    properties_heat_risk:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · risk score', active: false, features: '?', info: 'Heatmap of risk score (flood+water+climate+indigenous+shadow). Brighter = more risk. From /data/property_risk_analysis.json.', color: '#ef4444', url: 'data/property_risk_analysis.json', opacity: 0.7 },
 
     // ---- biodiv ----
-    gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson' },
-    gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson' },
+    gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson', opacity: 0.5 },
+    gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson', opacity: 0.5 },
 };
 
 // Group labels for the layer panel
@@ -1307,6 +1360,8 @@ function renderLayerRow(id, l) {
     div.dataset.layerId = id;
     const ftxt = l.features === '?' ? '…' : (typeof l.features === 'number' ? l.features.toLocaleString() : l.features);
     const colorSwatch = `<span class="swatch" style="background:${l.color || '#888'}"></span>`;
+    const opacity = l.opacity != null ? l.opacity : 0.7;
+    const opacityPct = Math.round(opacity * 100);
     div.innerHTML = `
         <input type="checkbox" class="lyr-check" data-action="layer" data-layer-id="${id}" ${l.active ? 'checked' : ''}>
         ${colorSwatch}
@@ -1316,6 +1371,11 @@ function renderLayerRow(id, l) {
                 <span class="count">${ftxt}</span>
             </div>
             <div class="layer-info" title="${l.info}">${l.info}</div>
+            <div class="layer-opacity" data-layer-id="${id}">
+                <span class="opacity-label">opacity</span>
+                <input type="range" class="opacity-slider" min="0" max="100" value="${opacityPct}" data-layer-id="${id}" aria-label="Adjust opacity for ${l.label}">
+                <span class="opacity-value">${opacityPct}%</span>
+            </div>
         </div>
     `;
     div.querySelector('input[type=checkbox]').addEventListener('click', ev => ev.stopPropagation());
@@ -1326,6 +1386,18 @@ function renderLayerRow(id, l) {
             applyLayerVisibility(id);
             renderLayerGrid();
         });
+    });
+    // Opacity slider handler — live updates the layer
+    const slider = div.querySelector('.opacity-slider');
+    const opacityValueEl = div.querySelector('.opacity-value');
+    slider.addEventListener('click', ev => ev.stopPropagation());
+    slider.addEventListener('mousedown', ev => ev.stopPropagation());
+    slider.addEventListener('input', (ev) => {
+        ev.stopPropagation();
+        const v = parseInt(ev.target.value) / 100;
+        layerState[id].opacity = v;
+        if (opacityValueEl) opacityValueEl.textContent = ev.target.value + '%';
+        applyLayerOpacity(id);
     });
     // Click on body toggles
     div.addEventListener('click', (ev) => {
@@ -1390,6 +1462,8 @@ async function ensureLayerLoaded(id) {
         try {
             await window[loaderName]();
             _loadedLayers.add(id);
+            // Apply opacity after loader creates the layer
+            if (typeof applyLayerOpacity === 'function') applyLayerOpacity(id);
         } catch (e) {
             console.error(`[lazy] ${loaderName} failed:`, e);
         }
@@ -1457,6 +1531,10 @@ function applyLayerVisibility(id) {
     const groups = LAYER_GROUPS[id] || [];
     const visible = layerState[id].active;
     groups.forEach(g => { if (visible) g.addTo(map); else map.removeLayer(g); });
+    // Apply current opacity (in case layer was just created)
+    if (visible && layerState[id].opacity != null) {
+        applyLayerOpacity(id);
+    }
 
     // When any property sub-layer is toggled, re-cluster the visible properties
     // so the cluster view reflects the new active set (markers appear/disappear).
@@ -1482,6 +1560,41 @@ function applyLayerVisibility(id) {
         } else {
             hideHeatLegend();
         }
+    }
+}
+
+// ========== OPACITY SLIDER ==========
+// Apply opacity to all Leaflet sub-layers of a given layer id.
+// Handles: ImageOverlay, TileLayer, GeoJSON layer, Polygon/Polyline,
+//   CircleMarker, Heat layer (has setOptions), SVG paths.
+function applyLayerOpacity(id) {
+    const opacity = layerState[id]?.opacity;
+    if (opacity == null) return;
+    const groups = LAYER_GROUPS[id] || [];
+    const fillOpacity = Math.min(opacity, 0.95);  // cap fill alpha to keep labels visible
+    for (const g of groups) {
+        g.eachLayer(layer => {
+            try {
+                // ImageOverlay (hillshade)
+                if (layer.setOpacity) {
+                    layer.setOpacity(opacity);
+                }
+                // Heat layer (Leaflet.heat)
+                if (layer.setOptions && layer._heat) {
+                    layer.setOptions({ radius: layer.options.radius, blur: layer.options.blur, max: layer.options.max, gradient: layer.options.gradient, minOpacity: opacity * 0.7 });
+                }
+                // GeoJSON polygons/polylines
+                if (layer.setStyle) {
+                    layer.setStyle({ opacity: fillOpacity, fillOpacity: fillOpacity * 0.6 });
+                }
+                // Marker (CircleMarker) — has setStyle
+                if (layer.setStyle && layer instanceof L.CircleMarker) {
+                    layer.setStyle({ opacity: fillOpacity, fillOpacity: fillOpacity * 0.7 });
+                }
+            } catch (e) {
+                // Silently ignore layers we can't style
+            }
+        });
     }
 }
 
