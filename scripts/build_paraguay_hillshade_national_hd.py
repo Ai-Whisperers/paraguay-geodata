@@ -55,46 +55,110 @@ catalog = pystac_client.Client.open(
 )
 
 
-def fetch_dem_crop(bbox):
-    """Fetch DEM and crop to bbox."""
-    search = catalog.search(collections=["cop-dem-glo-30"], bbox=bbox)
+def fetch_dem_crop(bbox, search_bbox=None):
+    """Fetch DEM and crop to bbox.
+
+    IMPORTANT: Planetary Computer Copernicus DEM has misleading metadata
+    bbox (shifted 1° south of actual coverage). We search a wider bbox
+    then validate each candidate tile's actual transform-based coverage.
+    """
+    if search_bbox is None:
+        # Search 2° south to catch tiles whose metadata lies about coverage
+        search_bbox = [bbox[0] - 0.5, bbox[1] - 2.0, bbox[2] + 0.5, bbox[3]]
+    search = catalog.search(collections=["cop-dem-glo-30"], bbox=search_bbox)
     items = list(search.item_collection())
     if not items:
         return None, None
-    datasets = []
+
+    # Open all candidates, filter to those with ACTUAL overlap with our bbox
+    candidates = []
     for item in items:
         asset = planetary_computer.sign(item.assets['data'])
         try:
             ds = rasterio.open(asset.href)
-            datasets.append(ds)
         except Exception:
-            pass
-    if not datasets:
+            continue
+        t = ds.transform
+        actual_top = t.f                    # max lat (north edge)
+        actual_bottom = t.f + ds.height * t.e  # min lat (south edge)
+        actual_left = t.c
+        actual_right = t.c + ds.width * t.a
+
+        # Check ACTUAL overlap with requested bbox
+        # bbox = [min_lon, min_lat, max_lon, max_lat]
+        if (actual_left <= bbox[2] and actual_right >= bbox[0] and
+            actual_bottom <= bbox[3] and actual_top >= bbox[1]):
+            candidates.append(ds)
+        else:
+            ds.close()
+
+    if not candidates:
         return None, None
 
-    if len(datasets) == 1:
-        ds = datasets[0]
-        window = window_from_bounds(bbox[0], bbox[1], bbox[2], bbox[3], ds.transform)
-        window = window.round_offsets().round_lengths()
-        dem = ds.read(1, window=window)
-        transform = transform_from_bounds(bbox[0], bbox[1], bbox[2], bbox[3],
-                                           dem.shape[1], dem.shape[0])
-        ds.close()
-        return dem, transform
+    # Merge all overlapping tiles, then crop
+    if len(candidates) == 1:
+        ds = candidates[0]
     else:
         from rasterio.merge import merge
-        merged, transform = merge(datasets)
-        for ds in datasets:
-            ds.close()
+        merged, transform = merge(candidates)
+        for c in candidates:
+            c.close()
+        # Use the merged array
         dem = merged[0]
-        window = window_from_bounds(bbox[0], bbox[1], bbox[2], bbox[3], transform)
+        # Compute crop window using merged transform
+        t = transform
+        # Clamp bbox to merged bounds
+        merged_top = t.f
+        merged_bottom = t.f + dem.shape[0] * t.e
+        merged_left = t.c
+        merged_right = t.c + dem.shape[1] * t.a
+        crop_bbox = [
+            max(bbox[0], merged_left),
+            max(bbox[1], merged_bottom),
+            min(bbox[2], merged_right),
+            min(bbox[3], merged_top),
+        ]
+        if crop_bbox[0] >= crop_bbox[2] or crop_bbox[1] >= crop_bbox[3]:
+            return None, None
+        window = window_from_bounds(crop_bbox[0], crop_bbox[1], crop_bbox[2], crop_bbox[3], transform)
         window = window.round_offsets().round_lengths()
-        r1, r2 = max(0, window.row_off), min(dem.shape[0], window.row_off + int(window.height))
-        c1, c2 = max(0, window.col_off), min(dem.shape[1], window.col_off + int(window.width))
-        dem = dem[r1:r2, c1:c2]
-        transform = transform_from_bounds(bbox[0], bbox[1], bbox[2], bbox[3],
-                                           dem.shape[1], dem.shape[0])
-        return dem, transform
+        r1, r2 = max(0, int(window.row_off)), min(dem.shape[0], int(window.row_off + window.height))
+        c1, c2 = max(0, int(window.col_off)), min(dem.shape[1], int(window.col_off + window.width))
+        if r1 >= r2 or c1 >= c2:
+            return None, None
+        dem_crop = dem[r1:r2, c1:c2]
+        out_transform = transform_from_bounds(crop_bbox[0], crop_bbox[1], crop_bbox[2], crop_bbox[3],
+                                               dem_crop.shape[1], dem_crop.shape[0])
+        return dem_crop, out_transform
+
+    # Single tile: use its actual transform to crop
+    t = ds.transform
+    actual_top = t.f
+    actual_bottom = t.f + ds.height * t.e
+    actual_left = t.c
+    actual_right = t.c + ds.width * t.a
+
+    crop_bbox = [
+        max(bbox[0], actual_left),
+        max(bbox[1], actual_bottom),
+        min(bbox[2], actual_right),
+        min(bbox[3], actual_top),
+    ]
+    if crop_bbox[0] >= crop_bbox[2] or crop_bbox[1] >= crop_bbox[3]:
+        ds.close()
+        return None, None
+
+    window = window_from_bounds(crop_bbox[0], crop_bbox[1], crop_bbox[2], crop_bbox[3], t)
+    window = window.round_offsets().round_lengths()
+    window = window.intersect(rasterio.windows.Window(0, 0, ds.width, ds.height))
+    if window.width <= 0 or window.height <= 0:
+        ds.close()
+        return None, None
+    dem = ds.read(1, window=window)
+    transform = transform_from_bounds(crop_bbox[0], crop_bbox[1], crop_bbox[2], crop_bbox[3],
+                                       dem.shape[1], dem.shape[0])
+    ds.close()
+    return dem, transform
 
 
 def compute_hillshade(dem, transform, azimuth=315, altitude=45):
