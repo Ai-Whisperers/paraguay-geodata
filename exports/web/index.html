@@ -1535,6 +1535,10 @@ function applyLayerVisibility(id) {
     if (visible && layerState[id].opacity != null) {
         applyLayerOpacity(id);
     }
+    // Trigger lazy national-hillshade loader if relevant
+    if (id === 'hillshade_national' && typeof refreshNationalHillshades === 'function') {
+        refreshNationalHillshades();
+    }
 
     // When any property sub-layer is toggled, re-cluster the visible properties
     // so the cluster view reflects the new active set (markers appear/disappear).
@@ -4936,39 +4940,131 @@ window.showDueDiligence = async function(listing) {
         sel.value = 'custom';
     }, 100);
 
-    // Hillshade overlay loader — 4 regional quadrants (nW, nE, sW, sE)
-    // Each: hillshade_py_<quadrant>.jpg + _bounds.json
-    (async () => {
+    // ========== PARAGUAY NATIONAL HILLSHADE: lazy-loaded 1°×1° tiles ==========
+    // Strategy: at zoom <8, show coarse 4°×4° quadrants (legacy, fast).
+    // At zoom >=8, fetch tile index and lazy-load only visible 1°×1° tiles.
+    // Each tile is full 30m resolution = ~3600×3600 px JPEG (~500-700 KB).
+    // Total ~80 tiles cover Paraguay, lazy-loaded on demand.
+
+    const _natHillshadeTiles = {};  // tile_id → { overlay, loaded }
+    let _natTileIndex = null;       // [{ id, bbox: [w,s,e,n] }, ...]
+    let _natHillshadeGroup = L.layerGroup();
+
+    async function loadNationalTileIndex() {
+        if (_natTileIndex) return _natTileIndex;
         try {
-            const regions = ['nw', 'ne', 'sw', 'se'];
-            const overlays = [];
-            for (const r of regions) {
-                try {
-                    const boundsResp = await fetch(`./data/hillshade_py_${r}_bounds.json`);
-                    if (!boundsResp.ok) continue;
-                    const bounds = await boundsResp.json();
-                    const overlay = L.imageOverlay(`./data/hillshade_py_${r}.jpg`, [
-                        [bounds.min_lat, bounds.min_lon],
-                        [bounds.max_lat, bounds.max_lon]
-                    ], { opacity: 0.5, interactive: false, className: 'hillshade-national', zIndex: 350 });
-                    overlays.push(overlay);
-                } catch (e) {}
+            const r = await fetch('./data/hillshade_national_tiles.json');
+            if (!r.ok) return null;
+            const d = await r.json();
+            _natTileIndex = d.tiles || [];
+            console.log(`[hillshade] tile index loaded: ${_natTileIndex.length} tiles`);
+            return _natTileIndex;
+        } catch (e) {
+            console.warn('[hillshade] tile index load failed:', e);
+            return null;
+        }
+    }
+
+    async function loadNationalTile(tile) {
+        const tid = tile.id;
+        if (_natHillshadeTiles[tid]) return _natHillshadeTiles[tid].overlay;
+
+        try {
+            // Check the JPEG exists
+            const head = await fetch(`./data/hillshade_${tid}.jpg`, { method: 'HEAD' });
+            if (!head.ok) return null;
+
+            // Fetch bounds
+            const boundsResp = await fetch(`./data/hillshade_${tid}_bounds.json`);
+            if (!boundsResp.ok) return null;
+            const bounds = await boundsResp.json();
+
+            const overlay = L.imageOverlay(`./data/hillshade_${tid}.jpg`, [
+                [bounds.min_lat, bounds.min_lon],
+                [bounds.max_lat, bounds.max_lon]
+            ], { opacity: 0.5, interactive: false, className: 'hillshade-national', zIndex: 350 });
+            overlay.tileId = tid;
+            _natHillshadeTiles[tid] = { overlay, loaded: true };
+            _natHillshadeGroup.addLayer(overlay);
+            return overlay;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async function refreshNationalHillshades() {
+        if (!layerState.hillshade_national || !layerState.hillshade_national.active) return;
+        if (map.getZoom() < 7) {
+            // Zoomed out — clear tiles, no hillshade
+            _natHillshadeGroup.clearLayers();
+            for (const tid of Object.keys(_natHillshadeTiles)) delete _natHillshadeTiles[tid];
+            if (map.hasLayer(_natHillshadeGroup)) map.removeLayer(_natHillshadeGroup);
+            return;
+        }
+
+        // Add group to map if not already
+        if (!map.hasLayer(_natHillshadeGroup)) _natHillshadeGroup.addTo(map);
+
+        // Load tile index
+        const tileIndex = await loadNationalTileIndex();
+        if (!tileIndex) return;
+
+        // Find visible tiles
+        const visibleBounds = map.getBounds();
+        const visibleTileIds = new Set();
+        for (const tile of tileIndex) {
+            const tb = tile.bbox;  // [w, s, e, n]
+            const tileBounds = L.latLngBounds([[tb[1], tb[0]], [tb[3], tb[2]]]);
+            if (visibleBounds.intersects(tileBounds)) {
+                visibleTileIds.add(tile.id);
             }
-            if (overlays.length === 0) {
-                console.log('[hillshade] no regional overlays available yet');
-                return;
+        }
+
+        // Load tiles that aren't loaded yet
+        let loaded = 0;
+        for (const tile of tileIndex) {
+            if (visibleTileIds.has(tile.id) && !_natHillshadeTiles[tile.id]) {
+                const overlay = await loadNationalTile(tile);
+                if (overlay) loaded++;
             }
-            const group = L.layerGroup(overlays);
-            window.__hillshadeGroup = group;
-            LAYER_GROUPS.hillshade_national = [group];
-            if (layerState.hillshade_national && layerState.hillshade_national.active) {
-                group.addTo(map);
-                overlays.forEach(o => o.bringToBack());
+        }
+
+        // Remove tiles that are no longer visible
+        const groupLayers = _natHillshadeGroup.getLayers();
+        for (const layer of groupLayers) {
+            if (layer.tileId && !visibleTileIds.has(layer.tileId)) {
+                _natHillshadeGroup.removeLayer(layer);
+                delete _natHillshadeTiles[layer.tileId];
             }
-            updateLayerCount('hillshade_national', overlays.length);
-            console.log(`[hillshade] ${overlays.length} regional overlays ready`);
-        } catch (e) { console.warn('[hillshade] load failed:', e); }
-    })();
+        }
+
+        // Apply opacity
+        if (typeof applyLayerOpacity === 'function') {
+            applyLayerOpacity('hillshade_national');
+        }
+
+        if (loaded > 0) {
+            updateLayerCount('hillshade_national', Object.keys(_natHillshadeTiles).length);
+        }
+    }
+
+    // Initial setup
+    LAYER_GROUPS.hillshade_national = [_natHillshadeGroup];
+
+    // Wire up to map events
+    map.on('zoomend moveend', refreshNationalHillshades);
+
+    // Also called when the hillshade_national layer is toggled on
+    const origApplyLayerVisibility = window.applyLayerVisibility;
+    // Apply when toggled
+    map.on('layeradd layerremove', () => {
+        if (layerState.hillshade_national && layerState.hillshade_national.active) {
+            refreshNationalHillshades();
+        }
+    });
+
+    // Preload tile index in background
+    loadNationalTileIndex();
 
     // ========== PARAGUAY HILLSHADE: candidate-city-level (high-res, 6 cities) ==========
     const _paraguayPriorityHillshades = {};

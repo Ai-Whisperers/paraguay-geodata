@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "method": "multi-directional hillshade (315/45/135/225 at 60/20/10/10%) from Copernicus GLO-30 DEM",
+  "tile_size_deg": 1.0,
+  "bounds": {
+    "min_lon": -62.5,
+    "max_lon": -54.3,
+    "min_lat": -27.6,
+    "max_lat": -19.3
+  },
+  "tiles": [
+    {
+      "id": "py_t63_l40",
+      "bbox": [
+        -58.5,
+        -26.6,
+        -57.5,
+        -25.6
+      ]
+    }
+  ]
+}
