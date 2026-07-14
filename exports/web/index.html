@@ -4837,7 +4837,7 @@ window.showDueDiligence = async function(listing) {
                     const overlay = L.imageOverlay(`./data/hillshade_py_${r}.jpg`, [
                         [bounds.min_lat, bounds.min_lon],
                         [bounds.max_lat, bounds.max_lon]
-                    ], { opacity: 0.5, interactive: false, className: 'hillshade-national' });
+                    ], { opacity: 0.5, interactive: false, className: 'hillshade-national', zIndex: 350 });
                     overlays.push(overlay);
                 } catch (e) {}
             }
@@ -4879,7 +4879,7 @@ window.showDueDiligence = async function(listing) {
             const overlay = L.imageOverlay(`./data/hillshade_${candidate.id}.jpg`, [
                 [candidate.bbox[1], candidate.bbox[0]],
                 [candidate.bbox[3], candidate.bbox[2]]
-            ], { opacity: 0.65, interactive: false, className: 'hillshade-priority' });
+            ], { opacity: 0.65, interactive: false, className: 'hillshade-priority', zIndex: 350 });
             overlay.candidateName = candidate.name;
             overlay.candidateId = candidate.id;
             // Check if another concurrent call already added an overlay
