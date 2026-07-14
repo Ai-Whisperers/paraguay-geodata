@@ -1,7 +1,7 @@
 // Service Worker — Paraguay Geodata PWA
 // Cache-first for static assets, stale-while-revalidate for data
 // Robust against CSP-blocked fetches, offline mode
-const CACHE_NAME = 'paraguay-geodata-v5';
+const CACHE_NAME = 'paraguay-geodata-v6';  // bumped 2026-07-14 — hillshade z-index fix + correct per-city terrain
 
 // On-install: precache critical same-origin assets only
 // CDN assets (Leaflet, Inter font) are cached on first fetch, not on install
