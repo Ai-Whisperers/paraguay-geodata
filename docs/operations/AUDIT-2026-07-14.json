@@ -1,0 +1,21 @@
+{
+  "date": "2026-07-14",
+  "total_files": 1,
+  "file_types": {
+    "geojson": 9,
+    "json": 17,
+    "jpg": 11,
+    "bounds": 12,
+    "bak": 3,
+    "other": 2
+  },
+  "layers": 33,
+  "candidates": 7,
+  "issues": {
+    "critical": [],
+    "warning": [
+      "Layers referenced but not defined: ['active', 'fetch', 'properties_infocasas']"
+    ],
+    "info": []
+  }
+}
