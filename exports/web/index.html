@@ -4860,8 +4860,19 @@ window.showDueDiligence = async function(listing) {
     // ========== PARAGUAY HILLSHADE: candidate-city-level (high-res, 6 cities) ==========
     const _paraguayPriorityHillshades = {};
     window._paraguayPriorityHillshades = _paraguayPriorityHillshades;  // expose for tests
+    const _pendingHillshadeLoads = new Set();
     async function loadParaguayCityHillshade(candidate) {
+        // Prevent race condition: if already loaded or loading, return existing/promise
         if (_paraguayPriorityHillshades[candidate.id]) return _paraguayPriorityHillshades[candidate.id];
+        if (_pendingHillshadeLoads.has(candidate.id)) {
+            // Wait for the in-flight load to complete (poll cache)
+            for (let i = 0; i < 100; i++) {
+                await new Promise(r => setTimeout(r, 50));
+                if (_paraguayPriorityHillshades[candidate.id]) return _paraguayPriorityHillshades[candidate.id];
+            }
+            return null;
+        }
+        _pendingHillshadeLoads.add(candidate.id);
         try {
             const r = await fetch(`./data/hillshade_${candidate.id}.jpg`, { method: 'HEAD' });
             if (!r.ok) return null;
@@ -4870,7 +4881,11 @@ window.showDueDiligence = async function(listing) {
                 [candidate.bbox[3], candidate.bbox[2]]
             ], { opacity: 0.65, interactive: false, className: 'hillshade-priority' });
             overlay.candidateName = candidate.name;
-            overlay.candidateId = candidate.id;  // for cleanup
+            overlay.candidateId = candidate.id;
+            // Check if another concurrent call already added an overlay
+            if (_paraguayPriorityHillshades[candidate.id]) {
+                return _paraguayPriorityHillshades[candidate.id];
+            }
             _paraguayPriorityHillshades[candidate.id] = overlay;
             if (!LAYER_GROUPS.hillshade_priority) {
                 LAYER_GROUPS.hillshade_priority = [L.layerGroup()];
@@ -4879,6 +4894,8 @@ window.showDueDiligence = async function(listing) {
             return overlay;
         } catch (e) {
             return null;
+        } finally {
+            _pendingHillshadeLoads.delete(candidate.id);
         }
     }
 
