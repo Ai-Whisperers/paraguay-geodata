@@ -1028,16 +1028,76 @@
             <input type="range" id="timeInput" min="0" max="0" value="0" style="width:100%; accent-color:var(--accent);" disabled>
             <div style="font-size:9px; color:var(--fg-dim); margin-top:2px;">Single snapshot — multi-time data coming soon</div>
         </div>
-    
-    <div class="row"><span class="swatch" style="background:var(--tile-priority-fill); border: 1px solid var(--tile-priority);"></span><span>10×10 km tile</span></div>
-    <div class="row"><span class="swatch" style="background:var(--accent);"></span><span>Priority (urban anchor)</span></div>
-    <div class="row"><span class="swatch" style="background:var(--info); opacity:.5;"></span><span>Departamento</span></div>
-    <div class="row"><span class="swatch" style="background:var(--property);"></span><span>Property listing</span></div>
-    <div class="row"><span class="swatch" style="background:#dc2626;"></span><span>Motorway / Trunk</span></div>
-    <div class="row"><span class="swatch" style="background:#eab308;"></span><span>Primary road</span></div>
-    <div class="row"><span class="swatch" style="background:#a78bfa; opacity:.5;"></span><span>Building footprint</span></div>
-    <div class="row"><span class="swatch" style="background:var(--gbif-animalia);"></span><span>GBIF Animalia</span></div>
-    <div class="row"><span class="swatch" style="background:var(--gbif-plantae);"></span><span>GBIF Plantae</span></div>
+
+    <details open style="margin:6px 0;">
+        <summary style="cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-dim); padding:4px 0; border-top:1px solid var(--line);">Topography</summary>
+        <div class="row"><span class="swatch" style="background:linear-gradient(90deg, #1f1f1f, #8a8a8a, #f5f5f5);"></span><span>Hillshade (Copernicus GLO-30, 30 m)</span></div>
+        <div class="row" style="padding-left:14px; font-size:10px; color:var(--fg-dim);">81 national 1°×1° tiles + 7 city crops; blend-mode: <span id="legendHillshadeBlend">multiply</span></div>
+        <div class="row"><span class="swatch" style="background:var(--tile-priority-fill); border: 1px solid var(--tile-priority);"></span><span>10×10 km tile</span></div>
+        <div class="row"><span class="swatch" style="background:var(--accent);"></span><span>Priority tile (urban anchor)</span></div>
+    </details>
+
+    <details open style="margin:6px 0;">
+        <summary style="cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-dim); padding:4px 0; border-top:1px solid var(--line);">Admin + satellite-derived overlays</summary>
+        <div class="row"><span class="swatch" style="background:var(--info); opacity:.5;"></span><span>Departamento (OSM)</span></div>
+        <div class="row"><span class="swatch" style="background:#06b6d4; opacity:.5;"></span><span>Catastro · depto / dist / parcelas / urba</span></div>
+        <div class="row"><span class="swatch" style="background:linear-gradient(90deg, #ec4899 0%, transparent 50%, transparent 100%); border: 1px dashed #ec4899;"></span><span>Indigenous territories (approx.)</span></div>
+        <div class="row"><span class="swatch" style="background:#06b6d4; opacity:.3; border:1px solid #06b6d4;"></span><span>Flood-prone zones</span></div>
+        <div class="row"><span class="swatch" style="background:#f97316; opacity:.3; border:1px solid #f97316;"></span><span>Climate risk (depto)</span></div>
+    </details>
+
+    <details open style="margin:6px 0;">
+        <summary style="cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-dim); padding:4px 0; border-top:1px solid var(--line);">INBIO zafra 2025/2026 (satélite)</summary>
+        <div class="row">
+            <span class="swatch" style="background:linear-gradient(90deg, #2a1a4a, #c084fc);"></span>
+            <span>Soja · <span style="color:var(--fg-dim);">purple = more área</span></span>
+        </div>
+        <div class="row">
+            <span class="swatch" style="background:linear-gradient(90deg, #2a1a0f, #fb923c);"></span>
+            <span>Arroz · <span style="color:var(--fg-dim);">orange</span></span>
+        </div>
+        <div class="row">
+            <span class="swatch" style="background:linear-gradient(90deg, #2a2400, #facc15);"></span>
+            <span>Maíz zafriña · <span style="color:var(--fg-dim);">yellow</span></span>
+        </div>
+    </details>
+
+    <details open style="margin:6px 0;">
+        <summary style="cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-dim); padding:4px 0; border-top:1px solid var(--line);">Risk · property · price</summary>
+        <div class="row"><span class="swatch" style="background:var(--property);"></span><span>Property listing</span></div>
+        <div class="row"><span class="swatch" style="background:#dc2626;"></span><span>Motorway / Trunk</span></div>
+        <div class="row"><span class="swatch" style="background:#eab308;"></span><span>Primary road</span></div>
+        <div class="row"><span class="swatch" style="background:#a78bfa; opacity:.5;"></span><span>Building footprint</span></div>
+        <div class="row"><span class="swatch" style="background:#6366f1; opacity:.3; border:1px solid #6366f1;"></span><span>Construction zones (Asunción)</span></div>
+        <div class="row">
+            <span class="swatch" style="background:linear-gradient(90deg, #84cc16, #facc15, #f97316, #ef4444); height:10px;"></span>
+            <span>Risk score · <span style="color:var(--fg-dim);">low → high</span></span>
+        </div>
+        <div class="row">
+            <span class="swatch" style="background:linear-gradient(90deg, #10b981, #84cc16, #eab308, #f97316, #ef4444); height:10px;"></span>
+            <span>$/ha heatmap</span>
+        </div>
+        <div class="row">
+            <span class="swatch" style="background:linear-gradient(90deg, #1e3a8a, #3b82f6, #06b6d4, #a855f7, #fbbf24); height:10px;"></span>
+            <span>Lot area heatmap</span>
+        </div>
+    </details>
+
+    <details open style="margin:6px 0;">
+        <summary style="cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-dim); padding:4px 0; border-top:1px solid var(--line);">Climate + biodiversity</summary>
+        <div class="row"><span class="swatch" style="background:#f97316;"></span><span>Temp NASA POWER (Asunción)</span></div>
+        <div class="row"><span class="swatch" style="background:#3b82f6;"></span><span>Precip NASA POWER (Asunción)</span></div>
+        <div class="row"><span class="swatch" style="background:var(--gbif-animalia);"></span><span>GBIF Animalia</span></div>
+        <div class="row"><span class="swatch" style="background:var(--gbif-plantae);"></span><span>GBIF Plantae</span></div>
+        <div class="row"><span class="swatch" style="background:linear-gradient(90deg, #1e40af, #3b82f6);"></span><span>OSM water bodies</span></div>
+    </details>
+
+    <details style="margin:6px 0;">
+        <summary style="cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-dim); padding:4px 0; border-top:1px solid var(--line);">BCP macro (Feb 2026 snapshot)</summary>
+        <div class="row" style="font-size:11px;">TPM <strong style="color:var(--accent);">5.50%</strong> · Inflación YoY 2.3% (meta 3.5%)</div>
+        <div class="row" style="font-size:11px;">PIB 2025 <strong style="color:var(--accent);">+6.0%</strong> · Proj. 2026 +4.2%</div>
+        <div class="row" style="font-size:11px;">RIN $11.6B · Morosidad bancos 2.3% / financ. 7.5%</div>
+    </details>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
@@ -1082,6 +1142,23 @@ const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/W
 });
 L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map);
 
+// Track Esri imagery state so the layer tree can toggle it independently.
+// Esri is added/removed via Leaflet's L.control.layers switch above; this hook
+// keeps our per-layer opacity slider and the bcp-style badge in sync.
+window.__esriLayer = esri;
+window.__esriOpacity = 1.0;
+esri.on('add', () => {
+    esri.setOpacity(window.__esriOpacity);
+    document.getElementById('esriToggleLabel')?.classList.add('active');
+});
+esri.on('remove', () => {
+    document.getElementById('esriToggleLabel')?.classList.remove('active');
+});
+
+// Expose the Leaflet map so external automation (Playwright validator, devtools)
+// can inspect layers / drive the camera without poking through DOM.
+window.map = map;
+
 // ========== LAYERS STATE ==========
 // ========== LAYER REGISTRY ==========
 // Each layer has:
@@ -1112,6 +1189,7 @@ const layerState = {
     // ---- grid ----
     tile_fabric:        { group: 'grid', label: 'Tile fabric 10×10 km (7,912)', active: true,  features: '?', info: 'National 10×10 km grid. Click any cell to open per-tile viewer.',  color: '#1e3a8a', url: 'data/tile_index.json', opacity: 0.35 },
     priority_tiles:     { group: 'grid', label: 'Priority tiles (37)',          active: true,  features: '?', info: 'Urban-anchor tiles with the densest data.',                            color: '#0f766e', url: 'data/priority_tiles.json', opacity: 0.5 },
+    esri_imagery:       { group: 'grid', subgroup: 'basemap', label: 'Esri satellite imagery (HD)', active: false, features: '?', info: 'High-resolution aerial imagery from Esri World Imagery. z=17 ≈ 1 m/px, z=18 ≈ 0.5 m/px. Toggle the basemap, then drag the opacity slider to fade.', color: '#0ea5e9', url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', opacity: 1.0 },
     hillshade_national: { group: 'grid', subgroup: 'topography', label: 'Hillshade (national, 30m DEM)', active: false, features: '?', info: 'Hillshade overlay derived from Copernicus GLO-30 DEM. Shows terrain relief. Opacity 0.5.', color: '#666', url: null, opacity: 0.5 },
     hillshade_priority: { group: 'grid', subgroup: 'topography', label: 'Hillshade (priority tiles, 5m)', active: false, features: '?', info: 'High-resolution hillshade for the 37 urban-anchor tiles. Loads on-demand when zoom >= 11.', color: '#888', url: null, opacity: 0.5 },
 
@@ -1130,6 +1208,7 @@ const layerState = {
     indigenous:         { group: 'env', label: 'Indigenous territories (10)', active: false, features: '?', info: 'Approximate bboxes for known indigenous territories. ⚠ NOT legal boundaries.', color: '#ec4899', url: 'data/indigenous_territories.geojson', opacity: 0.55 },
     climate_risk:       { group: 'env', label: 'Climate risk by depto (18)', active: false, features: '?', info: 'Combined climate risk: deforestation (50%) + drought (50%). 2024 baseline. DERIVED, not measured.', color: '#f97316', url: 'data/climate_risk.geojson', opacity: 0.55 },
     flood_risk:         { group: 'env', label: 'Flood-prone zones (5)', active: false, features: '?', info: 'Approximate flood zones. Check SEN alerts for live warnings.',         color: '#06b6d4', url: 'data/flood_risk.geojson', opacity: 0.55 },
+    construction_zones: { group: 'env', label: 'Construction zones (Asunción, 4)', active: false, features: '?', info: 'Ordinance-defined zoning limits (max height, m², setbacks, allowed use). Asunción centro only — full coverage requires Lucía.', color: '#6366f1', url: 'data/construction_zones.json', opacity: 0.55 },
 
     // ---- agri (INBIO) ----
     inbio_soja:         { group: 'agri', subgroup: 'inbio', label: 'INBIO choropleth · soja',       active: true,  features: '?', info: 'Per-depto soybean area zafra 2025/2026 (satellite). Purple = more soja.', color: '#c084fc', url: 'data/inbio_zafra_2025_2026.json', opacity: 0.5 },
@@ -1155,11 +1234,16 @@ const layerState = {
     properties_heat_pha: { group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · $/ha',     active: false, features: '?', info: 'Heatmap of price per hectare. Green=cheap, red=expensive land.',         color: '#f59e0b', url: 'data/properties_latest.geojson', opacity: 0.7 },
     properties_heat_area:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · lot area', active: false, features: '?', info: 'Heatmap of lot size. Brighter = bigger lote (hectares).',                color: '#3b82f6', url: 'data/properties_latest.geojson', opacity: 0.7 },
     properties_heat_risk:{ group: 'realestate', subgroup: 'overlays',   label: 'Heatmap · risk score', active: false, features: '?', info: 'Heatmap of risk score (flood+water+climate+indigenous+shadow). Brighter = more risk. From /data/property_risk_analysis.json.', color: '#ef4444', url: 'data/property_risk_analysis.json', opacity: 0.7 },
+    properties_risk_dots:{ group: 'realestate', subgroup: 'overlays',   label: 'Risk dots · per-property', active: false, features: '?', info: 'Each property as a dot, colored by net risk score (5-stop ramp). Best at zoom >= 11.', color: '#f97316', url: 'data/property_risk_index.json', opacity: 0.8 },
 
     // ---- biodiv ----
     gbif_animalia:      { group: 'biodiv', label: 'GBIF Animalia (200)',         active: false, features: '?', info: 'Animal species observations from GBIF. Click for species + family.',  color: '#f59e0b', url: 'data/gbif_paraguay.geojson', opacity: 0.5 },
     gbif_plantae:       { group: 'biodiv', label: 'GBIF Plantae (200)',          active: false, features: '?', info: 'Plant species observations from GBIF. Click for species + family.',   color: '#10b981', url: 'data/gbif_paraguay.geojson', opacity: 0.5 },
 };
+
+// Expose key registry + functions on window so the Playwright validator and
+// external automation can inspect/mutate layer state without re-querying the DOM.
+window.layerState = layerState;
 
 // Group labels for the layer panel
 const LAYER_GROUP_LABELS = {
@@ -1183,6 +1267,7 @@ const LAYER_SUBGROUP_LABELS = {
     'urban/infrastructure':  'OSM infrastructure',
     'urban/anchors':         'Anchor cities',
     'grid/topography':       'Topographic overlays',
+    'grid/basemap':          'Satellite basemap',
 };
 
 // Order of groups in the layer panel (matches draw order bottom→top)
@@ -1292,11 +1377,16 @@ function renderLayerGrid() {
 
             const sgHead = document.createElement('div');
             sgHead.className = 'layer-subgroup-head';
+            // Topography subgroup gets a blend-mode cycle button on the right
+            const extraAction = (g === 'grid' && sg === 'topography')
+                ? `<button onclick="event.stopPropagation(); window.cycleHillshadeBlendMode();" title="Cycle blend-mode" style="background:none; border:1px solid var(--line); color:var(--accent); padding:1px 6px; border-radius:3px; font-size:9px; cursor:pointer; margin-left:6px;">⤳ blend</button>`
+                : '';
             sgHead.innerHTML = `
                 <span class="layer-subgroup-arrow">▶</span>
                 <input type="checkbox" class="lyr-check" data-group="${g}" data-subgroup="${sg}" data-action="subgroup" ${sgActive === 0 ? '' : (sgActive === sgLayers.length ? 'checked' : 'indeterminate')}>
                 <span class="layer-subgroup-title">${LAYER_SUBGROUP_LABELS[sgKey] || sg}</span>
                 <span class="layer-subgroup-count">${sgActive}/${sgLayers.length}</span>
+                ${extraAction}
             `;
             sgHead.addEventListener('click', (ev) => {
                 if (ev.target.tagName === 'INPUT') return;
@@ -1428,6 +1518,7 @@ const LAZY_LOADERS = {
     indigenous: 'loadIndigenous',
     climate_risk: 'loadClimateRisk',
     flood_risk: 'loadFloodRisk',
+    construction_zones: 'loadConstructionZones',
     // INBIO
     inbio_arroz: null,  // shares fetch with inbio_soja, loaded by loadINBIO
     inbio_maiz: null,
@@ -1445,11 +1536,14 @@ const LAZY_LOADERS = {
     properties_heat_pha: null,
     properties_heat_area: null,
     properties_heat_risk: 'loadRiskHeatmap',
+    properties_risk_dots: 'loadRiskDots',
     // GBIF
     gbif_animalia: null,  // shares fetch with gbif_plantae, loaded by loadGBIF
     gbif_plantae: null,
     // Anchors
     anchor_circles: 'loadAnchorCircles',
+    // Basemap toggle
+    esri_imagery: 'toggleEsriImagery',
 };
 
 // Track which layers have been initialized (fetched + added to LAYER_GROUPS).
@@ -1528,16 +1622,23 @@ function toggleLayer(id) {
 }
 
 function applyLayerVisibility(id) {
+    const ls = layerState[id];
+    if (!ls) return;  // unknown id (defensive: presets may reference retired layers)
     const groups = LAYER_GROUPS[id] || [];
-    const visible = layerState[id].active;
+    const visible = ls.active;
     groups.forEach(g => { if (visible) g.addTo(map); else map.removeLayer(g); });
     // Apply current opacity (in case layer was just created)
-    if (visible && layerState[id].opacity != null) {
+    if (visible && ls.opacity != null) {
         applyLayerOpacity(id);
     }
     // Trigger lazy national-hillshade loader if relevant
     if (id === 'hillshade_national' && typeof refreshNationalHillshades === 'function') {
         refreshNationalHillshades();
+    }
+
+    // Basemap toggle: show/hide Esri imagery tile layer (idempotent)
+    if (id === 'esri_imagery' && typeof window.toggleEsriImagery === 'function') {
+        window.toggleEsriImagery();
     }
 
     // When any property sub-layer is toggled, re-cluster the visible properties
@@ -1574,6 +1675,12 @@ function applyLayerVisibility(id) {
 function applyLayerOpacity(id) {
     const opacity = layerState[id]?.opacity;
     if (opacity == null) return;
+    // Basemap tile layer has its own opacity state — re-apply on slider move.
+    if (id === 'esri_imagery' && window.__esriLayer) {
+        window.__esriOpacity = opacity;
+        try { window.__esriLayer.setOpacity(opacity); } catch (e) {}
+        return;
+    }
     const groups = LAYER_GROUPS[id] || [];
     const fillOpacity = Math.min(opacity, 0.95);  // cap fill alpha to keep labels visible
     for (const g of groups) {
@@ -3346,6 +3453,166 @@ async function loadFloodRisk() {
         });
 }
 
+// ========== CONSTRUCTION ZONES (Asunción centro, ordinance polygons) ==========
+// Renders the JSON in construction_zones.json as leaflet rectangles. Each zone
+// has approximate_bbox + ordinance metadata. Default OFF.
+async function loadConstructionZones() {
+    try {
+        if (window.__constructionZones && window.__constructionZones.length) {
+            // Already populated by the eager bootstrap load
+        } else {
+            const r = await fetch('./data/construction_zones.json');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const d = await r.json();
+            window.__constructionZones = d.zones || [];
+        }
+        const zones = window.__constructionZones;
+        const group = LAYER_GROUPS.construction_zones[0];
+        const colorByCategory = { commercial: '#6366f1', residential: '#10b981', mixed: '#f59e0b', industrial: '#ef4444' };
+        zones.forEach(z => {
+            const bb = z.approximate_bbox;
+            if (!bb || bb.length !== 4) return;
+            const [w, s, e, n] = bb;
+            const color = colorByCategory[z.category] || '#6366f1';
+            const rect = L.rectangle([[s, w], [n, e]], {
+                color: color, weight: 1.5, fillColor: color, fillOpacity: 0.18,
+                dashArray: '3, 3', interactive: true,
+            });
+            rect.bindPopup(`
+                <h3>📋 ${escapeHtml(z.name)}</h3>
+                <div style="font-size:10px; color:var(--fg-dim); margin-bottom:6px;">${escapeHtml(z.ordinance_ref || '')}</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px 8px; font-size:11px;">
+                    <span>Altura máx:</span><strong>${z.max_height_m} m</strong>
+                    <span>Pisos máx:</span><strong>${z.max_floors}</strong>
+                    <span>COS:</span><strong>${z.max_lot_coverage_pct}%</strong>
+                    <span>FOT/COS:</span><strong>${z.max_construction_pct}%</strong>
+                    <span>Retiro frontal:</span><strong>${z.setback_front_m} m</strong>
+                    <span>Retiro lateral:</span><strong>${z.setback_side_m} m</strong>
+                    <span>Retiro posterior:</span><strong>${z.setback_back_m} m</strong>
+                </div>
+                <div style="font-size:10px; margin-top:6px;">
+                    <strong>Permitido:</strong> ${(z.allowed_use || []).slice(0, 4).join(', ')}${(z.allowed_use || []).length > 4 ? '…' : ''}
+                </div>
+                ${z.restricted_use && z.restricted_use.length ? `<div style="font-size:10px;"><strong>Restringido:</strong> ${z.restricted_use.slice(0, 3).join(', ')}</div>` : ''}
+                <div style="font-size:9px; color:var(--warn); margin-top:6px;">⚠ Datos preliminares Asunción centro. Full coverage requiere Lucía.</div>
+            `);
+            rect.addTo(group);
+        });
+        updateLayerCount('construction_zones', zones.length);
+        if (layerState.construction_zones.active) group.addTo(map);
+    } catch (e) {
+        console.warn('Construction zones load failed:', e);
+    }
+}
+
+// ========== PROPERTY RISK DOTS ==========
+// Color each property dot by net_score using property_risk_index.json (lightweight).
+// Sits alongside the risk heatmap as an alternative visualization that lets the
+// user see per-property scores at zoom >= 11.
+async function loadRiskDots() {
+    try {
+        if (!window.__riskIndex) {
+            const r = await fetch('./data/property_risk_index.json');
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const d = await r.json();
+            window.__riskIndex = d.index || {};
+        }
+        const idx = window.__riskIndex;
+        const entries = Object.entries(idx);
+        const group = LAYER_GROUPS.properties_risk_dots[0];
+
+        // 5-stop color ramp matching the legend gradient (84cc16 / facc15 / f97316 / ef4444 / 7f1d1d).
+        // We bucket net_score into 5 risk bands using observed quantiles.
+        const sortedNet = entries.map(([, v]) => v.net_score || 0).sort((a, b) => a - b);
+        const pct = (p) => sortedNet[Math.max(0, Math.floor(sortedNet.length * p))] || 0;
+        const bands = [pct(0.4), pct(0.7), pct(0.9), pct(0.97)];
+        const colors = ['#84cc16', '#facc15', '#f97316', '#ef4444', '#7f1d1d'];
+        const colorFor = (net) => {
+            for (let i = 0; i < bands.length; i++) {
+                if (net <= bands[i]) return colors[i];
+            }
+            return colors[colors.length - 1];
+        };
+
+        let drawn = 0;
+        const max = 5000;
+        const slice = entries.slice(0, max);
+        slice.forEach(([id, v]) => {
+            if (typeof v.lat !== 'number' || typeof v.lon !== 'number') return;
+            const color = colorFor(v.net_score || 0);
+            const marker = L.circleMarker([v.lat, v.lon], {
+                radius: 3.5, color: color, fillColor: color,
+                fillOpacity: 0.75, weight: 0.5, opacity: 0.85,
+                interactive: true,
+            });
+            const sevColor = color;
+            const sign = (v.net_score || 0) > 0 ? '+' : '';
+            marker.bindPopup(`
+                <h3>📍 Property risk</h3>
+                <div class="row"><span class="k">ID</span><span class="v" style="font-size:10px;">${id}</span></div>
+                <div class="row"><span class="k">Depto</span><span class="v">${v.depto || '—'}</span></div>
+                <div class="row"><span class="k">Risk score</span><span class="v" style="color:${sevColor}; font-weight:700;">${v.risk_score || 0}</span></div>
+                <div class="row"><span class="k">Pro score</span><span class="v" style="color:#10b981;">${v.pro_score || 0}</span></div>
+                <div class="row"><span class="k">Net</span><span class="v" style="color:${sevColor}; font-weight:700;">${sign}${v.net_score || 0}</span></div>
+                <div style="font-size:10px; color:var(--fg-dim); margin-top:4px;">
+                    Flags: ${Object.entries(v.risks_summary || {}).filter(([, x]) => x).map(([k]) => k).join(', ') || 'none'}
+                </div>
+                <div style="font-size:10px; color:var(--fg-dim);">
+                    Pros: ${Object.entries(v.pros_summary || {}).filter(([, x]) => x).map(([k]) => k).join(', ') || 'none'}
+                </div>
+            `, { maxWidth: 260 });
+            marker.addTo(group);
+            drawn++;
+        });
+        updateLayerCount('properties_risk_dots', drawn);
+        if (layerState.properties_risk_dots.active) group.addTo(map);
+    } catch (e) {
+        console.warn('Risk dots load failed:', e);
+    }
+}
+
+// ========== ESRI IMAGERY TOGGLE (basemap control surface) ==========
+// The Leaflet L.control.layers widget already toggles Esri, but we also want the
+// sidebar slider + active state to drive it. This function makes that wiring
+// idempotent and exposes a single entry point.
+window.toggleEsriImagery = function() {
+    if (!window.__esriLayer) return;
+    const want = layerState.esri_imagery && layerState.esri_imagery.active;
+    const has = map.hasLayer(window.__esriLayer);
+    if (want && !has) window.__esriLayer.addTo(map);
+    if (!want && has) map.removeLayer(window.__esriLayer);
+};
+
+// ========== HILLSHADE BLEND-MODE TOGGLE ==========
+// Applies mix-blend-mode on the .hillshade-national and .hillshade-priority
+// overlay panes. Default = 'multiply' (darker relief, less washing).
+const HILLSHADE_BLEND_MODES = ['multiply', 'overlay', 'soft-light'];
+let _hillshadeBlendIndex = 0;  // default multiply
+function applyHillshadeBlendMode(mode) {
+    const css = `multiply, overlay, soft-light`.includes(mode) ? mode : 'multiply';
+    const style = document.createElement('style');
+    style.id = 'hillshade-blend-style';
+    style.textContent = `
+        .leaflet-overlay-pane img.hillshade-national,
+        .leaflet-overlay-pane img.hillshade-priority {
+            mix-blend-mode: ${css} !important;
+            filter: brightness(1.02);
+        }
+    `;
+    const old = document.getElementById('hillshade-blend-style');
+    if (old) old.remove();
+    document.head.appendChild(style);
+    const legendSpan = document.getElementById('legendHillshadeBlend');
+    if (legendSpan) legendSpan.textContent = css;
+}
+// Initial application
+applyHillshadeBlendMode('multiply');
+window.cycleHillshadeBlendMode = function() {
+    _hillshadeBlendIndex = (_hillshadeBlendIndex + 1) % HILLSHADE_BLEND_MODES.length;
+    applyHillshadeBlendMode(HILLSHADE_BLEND_MODES[_hillshadeBlendIndex]);
+    if (window.showToast) window.showToast(`Hillshade blend: ${HILLSHADE_BLEND_MODES[_hillshadeBlendIndex]}`, 'info', 1500);
+};
+
 // ========== FAIR-PRICE MODEL (ML) ==========
 if (typeof window["fairPriceModel"] === "undefined") { var fairPriceModel = null; }
 if (typeof window['loadFairPriceModel'] === 'undefined') {
@@ -4726,6 +4993,20 @@ window.showDueDiligence = async function(listing) {
 
 
 // ========== BOOTSTRAP ==========
+// Expose core registry/loader/preset APIs on window for the Playwright
+// validator and external automation. Functions defined inside the bootstrap
+// IIFE are mirrored to window from inside that IIFE (see end of file).
+window.layerState = layerState;
+window.LAYER_GROUPS = LAYER_GROUPS;
+window.applyLayerVisibility = applyLayerVisibility;
+window.applyLayerOpacity = applyLayerOpacity;
+window.ensureLayerLoaded = ensureLayerLoaded;
+window.updateLayerCount = updateLayerCount;
+window.toggleEsriImagery = toggleEsriImagery;
+window.cycleHillshadeBlendMode = cycleHillshadeBlendMode;
+window.applyFilters = applyFilters;
+window.clearFilters = clearFilters;
+
 (async function bootstrap() {
     try { renderLayerGrid(); } catch (e) { console.error('[bootstrap] renderLayerGrid:', e); }
     try { loadBCP(); } catch (e) { console.error('[bootstrap] loadBCP:', e); };
@@ -4831,7 +5112,7 @@ window.showDueDiligence = async function(listing) {
         architect: {
             label: 'Arquitecto / Constructor',
             description: 'Catastro urban + hillshade + flood risk + zonas de construcción. Lucía-style analysis.',
-            layers: ['catastro_dpto', 'catastro_dist', 'catastro_urba', 'catastro_parcels', 'flood_risk', 'hillshade_national', 'departamentos_py', 'properties_sale'],
+            layers: ['catastro_dpto', 'catastro_dist', 'catastro_urba', 'catastro_parcels', 'flood_risk', 'hillshade_national', 'esri_imagery', 'construction_zones', 'departamentos_py', 'properties_sale'],
         },
         farmer: {
             label: 'Productor agrícola',
@@ -4841,36 +5122,36 @@ window.showDueDiligence = async function(listing) {
         developer: {
             label: 'Desarrollador inmobiliario',
             description: 'Urban parcels + price per ha + Catastro + risk. Análisis de inversión.',
-            layers: ['departamentos_py', 'distritos_py', 'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba', 'properties_sale', 'properties_heat_pha', 'properties_heat_risk', 'flood_risk', 'hillshade_national'],
+            layers: ['departamentos_py', 'distritos_py', 'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba', 'construction_zones', 'properties_sale', 'properties_heat_pha', 'properties_heat_risk', 'properties_risk_dots', 'flood_risk', 'hillshade_national', 'esri_imagery'],
         },
         ecologist: {
             label: 'Ecólogo / Conservacionista',
             description: 'Biodiversity GBIF + climate risk + forest loss + water. Conservation focus.',
-            layers: ['departamentos_py', 'gbif_animalia', 'gbif_plantae', 'osm_water', 'climate_risk', 'indigenous', 'properties_land', 'hillshade_national'],
+            layers: ['departamentos_py', 'gbif_animalia', 'gbif_plantae', 'osm_water', 'climate_risk', 'indigenous', 'properties_land', 'hillshade_national', 'esri_imagery'],
         },
         indigenous_advocate: {
             label: 'Abogado / DDHH',
             description: 'Indigenous territories + flood + climate + land. Monitoreo de derechos territoriales.',
-            layers: ['departamentos_py', 'indigenous', 'catastro_parcels', 'catastro_urba', 'flood_risk', 'climate_risk', 'properties_land'],
+            layers: ['departamentos_py', 'indigenous', 'catastro_parcels', 'catastro_urba', 'flood_risk', 'climate_risk', 'properties_land', 'hillshade_national'],
         },
         logistics: {
             label: 'Logística / Transporte',
             description: 'OSM roads + priority tiles + departments + properties. Ruteo y acceso.',
-            layers: ['departamentos_py', 'distritos_py', 'osm_roads', 'osm_water', 'priority_tiles', 'anchor_circles', 'properties_commercial', 'properties_land'],
+            layers: ['departamentos_py', 'distritos_py', 'osm_roads', 'osm_water', 'priority_tiles', 'anchor_circles', 'properties_commercial', 'properties_land', 'hillshade_national', 'esri_imagery'],
         },
         tourist: {
             label: 'Turista / Outdoor',
             description: 'Hillshade + water + GBIF + hillshade_priority. Lugares bonitos y únicos.',
-            layers: ['departamentos_py', 'hillshade_national', 'hillshade_priority', 'osm_water', 'gbif_animalia', 'gbif_plantae', 'indigenous', 'anchor_circles'],
+            layers: ['departamentos_py', 'hillshade_national', 'hillshade_priority', 'osm_water', 'gbif_animalia', 'gbif_plantae', 'indigenous', 'anchor_circles', 'esri_imagery'],
         },
         urban_planner: {
             label: 'Planificador urbano',
             description: 'Todo el Catastro + admin + properties + risk. Vista completa para regulación urbana.',
-            layers: ['departamentos_py', 'distritos_py', 'barrios_py', 'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba', 'flood_risk', 'climate_risk', 'hillshade_national', 'properties_sale', 'properties_rent', 'properties_heat_risk'],
+            layers: ['departamentos_py', 'distritos_py', 'barrios_py', 'catastro_dpto', 'catastro_dist', 'catastro_parcels', 'catastro_urba', 'construction_zones', 'flood_risk', 'climate_risk', 'hillshade_national', 'esri_imagery', 'properties_sale', 'properties_rent', 'properties_heat_risk', 'properties_risk_dots'],
         },
         researcher: {
             label: 'Investigador / Académico',
-            description: 'Máxima información. Todos los layers ambientales + Catastro + properties.',
+            description: 'Máxima información. Todos los layers ambientales + Catastro + properties + risk.',
             layers: '__all_on__',
         },
     };
@@ -5198,6 +5479,7 @@ window.showDueDiligence = async function(listing) {
     window.getPriorityCandidates = getPriorityCandidates;
     window.loadParaguayCityHillshade = loadParaguayCityHillshade;
     window.refreshPriorityHillshades = refreshPriorityHillshades;
+    window.refreshNationalHillshades = refreshNationalHillshades;
 })();
 </script>
 </body>
