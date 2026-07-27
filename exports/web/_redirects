@@ -17,6 +17,9 @@ http://datos.paragu-ai.com/*    https://datos.paragu-ai.com/:splat    301
 # Pricing page (architect downloads)
 /pricing  /pricing.html  301
 
+# Printable architect plan page
+/plan  /architect-plan.html  301
+
 # /properties.json → main properties geojson (legacy)
 /properties.json  /data/properties_latest.geojson  301
 

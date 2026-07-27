@@ -4,6 +4,38 @@ All notable changes to **Paraguay Geodata**.
 
 Format: [Semantic Versioning](https://semver.org/) · Date in YYYY-MM-DD.
 
+## [1.8.0] — 2026-07-27 — Architect export (Lucía handoff deliverable)
+
+### Added (paid tier — Stripe-gated)
+- **GeoJSON export** of the architect bundle (national + Asunción subsets), free for viewport/filtered/selection, **$29 one-time** for the full national dataset.
+- **DXF export** (AutoCAD R12 ASCII, readable by AutoCAD / BricsCAD / IntelliCAD / SketchUp / QGIS), **$99 one-time**.
+- **Pro yearly subscription** **$299/yr** — every format + viewport/filtered/selection auto-included.
+- **Stripe checkout Worker** (`exports/checkout-worker/`):
+  - POST `/checkout` creates a Stripe Checkout Session (test-mode prices pre-provisioned)
+  - GET `/success` verifies payment + issues HMAC-signed 1h download token
+  - GET `/download` streams from R2 or proxies from `DATASET_BASE_URL`
+  - 6 unit tests pass + 10 endpoint integration tests pass
+- **`/pricing` page** (`exports/web/pricing.html`) — 3 tiers, comparison table, FAQ, Stripe checkout button.
+- **Data builder** `scripts/build_architect_export.py` — deterministic, versioned, schema-enveloped. Outputs:
+  - `architect_export.geojson` (534 features, 3.3 MB, national)
+  - `architect_export_asuncion.geojson` (49 features, 680 KB, Asunción metro)
+- **Smoke tests** `tests/test_architect_export.py` (4 tests, all pass).
+
+### Added (free — printable plan PDF)
+- **`exports/web/architect-plan.html`** — printable plan page for architects who need a paper-ready artifact:
+  - Captures the current map view (bbox, zoom, center) from the main site and opens with those params
+  - Renders construction zones + urban zoning + flood polygons on Leaflet
+  - Sidebar lists every zone in view with full ordinance metadata (height, floors, COS/FOT, retiros, allowed use, norma)
+  - Includes scale bar (auto-computed for current zoom), north arrow, legend, layer toggles
+  - A4 landscape print stylesheet — hides UI chrome, drops fill opacity for ink savings
+- **"📐 Cómo → DWG" modal** — 4-click QGIS workflow + AutoCAD MAPIMPORT alternative for the free GeoJSON.
+
+### Notes for architects
+- **GeoJSON** opens directly in QGIS / ArcGIS / AutoCAD Map 3D.
+- **DWG/DXF**: open GeoJSON in QGIS → Exportar → Guardar como → AutoCAD DWG (CRS EPSG:32721, UTM 21S), or use DXF download directly.
+- **PDF plan**: open `architect-plan.html` from the main site, hit Ctrl+P / Cmd+P, choose "Guardar como PDF", orientación Horizontal, márgenes Mínimos. **Free, no Stripe.**
+- **Data is preliminary**: Asunción centro has 4 zones (Ord. 246/94). National coverage requires Lucía's ordinance inputs + municipal Catastro joins.
+
 ## [1.7.0] — 2026-07-11 — Wave 7-15: environmental layers + i18n + tests
 
 ### Added

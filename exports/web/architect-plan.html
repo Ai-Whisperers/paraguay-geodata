@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Plan de construcción — Paraguay Geodata</title>
+    <meta name="description" content="Plan imprimible para arquitectos y analistas de terreno. Generación PDF via Ctrl+P.">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #111827;
+            --fg-dim: #6b7280;
+            --accent: #0d9488;
+            --accent-dim: #ccfbf1;
+            --line: #e5e7eb;
+            --warn: #b45309;
+            --danger: #b91c1c;
+            --construction: #6366f1;
+            --urban: #f59e0b;
+            --flood: #06b6d4;
+            --climate: #ef4444;
+            --hillshade: #84cc16;
+        }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+        body { display: flex; flex-direction: column; }
+        header {
+            padding: 14px 22px; background: var(--bg);
+            border-bottom: 2px solid var(--accent);
+            display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center;
+        }
+        header h1 { font-size: 18px; margin: 0; font-weight: 700; color: var(--fg); }
+        header h1 .accent { color: var(--accent); }
+        header .meta { font-size: 11px; color: var(--fg-dim); margin-top: 2px; }
+        header .meta strong { color: var(--fg); }
+        header .actions { display: flex; gap: 8px; align-items: center; }
+        header button {
+            background: var(--accent); color: white; border: none;
+            padding: 9px 16px; border-radius: 4px; font-family: inherit;
+            font-size: 12px; font-weight: 600; cursor: pointer;
+        }
+        header button.secondary {
+            background: white; color: var(--accent); border: 1px solid var(--accent);
+        }
+        header button:hover { opacity: 0.92; }
+        main { flex: 1; display: grid; grid-template-columns: 280px 1fr; min-height: 0; }
+        aside { background: #f9fafb; border-right: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+        aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-dim); margin: 16px 0 6px 0; font-weight: 700; }
+        aside h2:first-child { margin-top: 0; }
+        .legend-row {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 12px; padding: 4px 0;
+        }
+        .legend-swatch {
+            width: 18px; height: 12px; border-radius: 2px;
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        .layer-toggle {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 12px; padding: 4px 0; cursor: pointer;
+        }
+        .layer-toggle input { margin: 0; }
+        .zone-card {
+            background: white; border: 1px solid var(--line);
+            border-radius: 4px; padding: 8px 10px; margin-bottom: 6px;
+            font-size: 11px;
+        }
+        .zone-card .name { font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+        .zone-card .row { display: flex; justify-content: space-between; padding: 1px 0; color: var(--fg-dim); }
+        .zone-card .row .v { font-family: monospace; color: var(--fg); }
+        #map { flex: 1; height: 100%; background: #e5e7eb; }
+        .map-frame { border: 1px solid var(--line); }
+        footer {
+            padding: 8px 22px; background: #f9fafb; border-top: 1px solid var(--line);
+            font-size: 10px; color: var(--fg-dim);
+            display: flex; justify-content: space-between; gap: 14px;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        .scale-bar {
+            position: absolute; bottom: 14px; left: 14px; z-index: 1000;
+            background: rgba(255,255,255,0.95); padding: 6px 10px;
+            border: 1px solid var(--line); border-radius: 3px;
+            font-size: 11px; font-family: monospace;
+        }
+        .scale-bar .bar { display: inline-block; height: 6px; background: var(--fg); vertical-align: middle; margin-right: 6px; }
+        .north-arrow {
+            position: absolute; top: 14px; right: 14px; z-index: 1000;
+            background: rgba(255,255,255,0.95); padding: 8px;
+            border: 1px solid var(--line); border-radius: 3px;
+            font-size: 11px; text-align: center; width: 50px;
+        }
+        .north-arrow .arrow { font-size: 18px; line-height: 1; }
+        .print-only { display: none; }
+        @media print {
+            @page { size: A4 landscape; margin: 10mm; }
+            body { background: white; }
+            header { padding: 8px 12px; border-bottom: 2px solid var(--accent); }
+            header h1 { font-size: 14px; }
+            header button { display: none; }
+            aside { background: white; border-right: 1px solid var(--line); padding: 8px; font-size: 9px; }
+            aside h2 { font-size: 9px; margin: 8px 0 3px 0; }
+            .zone-card { padding: 4px 6px; margin-bottom: 3px; font-size: 9px; }
+            .legend-row { font-size: 9px; padding: 2px 0; }
+            main { grid-template-columns: 220px 1fr; }
+            #map { background: white; }
+            .scale-bar, .north-arrow {
+                background: white; border: 1px solid #333;
+            }
+            footer { padding: 4px 10px; font-size: 8px; }
+            .print-only { display: block; }
+            .leaflet-control-zoom { display: none !important; }
+            .leaflet-control-attribution { font-size: 7px !important; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div>
+        <h1>Plan de construcción <span class="accent">· Paraguay Geodata</span></h1>
+        <div class="meta">
+            <strong id="metaBbox">bbox —</strong> · centro <strong id="metaCenter">—</strong> · zoom <strong id="metaZoom">—</strong>
+            · generado <strong id="metaGenerated">—</strong>
+        </div>
+    </div>
+    <div class="actions">
+        <button onclick="window.print()" class="secondary" title="Ctrl+P / Cmd+P">🖨 Imprimir / Guardar PDF</button>
+        <button onclick="window.close()">Cerrar</button>
+    </div>
+</header>
+
+<main>
+    <aside>
+        <h2>Leyenda (capas activas)</h2>
+        <div id="legend"></div>
+
+        <div id="viewHint" style="display:none; margin: 8px 0; padding: 10px; background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 4px; font-size: 11px; line-height: 1.5;">
+            <strong style="color: var(--accent);">📍 Vista por defecto</strong>
+            <p style="margin: 4px 0 0 0;">No capturamos bbox del mapa principal. Mostrando Asunción centro.
+            Abrí esta página desde el mapa principal con el botón <strong>🖨 Plan PDF</strong> para incluir tu vista actual.</p>
+            <p style="margin: 6px 0 0 0;"><a href="./" style="color: var(--accent);">← Ir al mapa</a></p>
+        </div>
+
+        <h2>Capas</h2>
+        <label class="layer-toggle"><input type="checkbox" id="toggleConstruction" checked> 📋 Construction zones</label>
+        <label class="layer-toggle"><input type="checkbox" id="toggleUrban" checked> 🏘 Urban zoning (Catastro)</label>
+        <label class="layer-toggle"><input type="checkbox" id="toggleFlood" checked> 💧 Flood risk</label>
+        <label class="layer-toggle"><input type="checkbox" id="toggleClimate"> 🌡 Climate risk</label>
+        <label class="layer-toggle"><input type="checkbox" id="toggleHillshade"> ⛰ Hillshade DEM</label>
+
+        <h2>Zonas en esta vista</h2>
+        <div id="zonesList"><div style="font-size:11px; color:var(--fg-dim);">Cargando…</div></div>
+
+        <h2>Cómo imprimir</h2>
+        <ol style="font-size:11px; color:var(--fg); line-height:1.6; padding-left:18px;">
+            <li>Activá/desactivá capas según necesites.</li>
+            <li>Hacé clic en <strong>🖨 Imprimir / Guardar PDF</strong>.</li>
+            <li>En el diálogo: destino <strong>Guardar como PDF</strong>, orientación <strong>Horizontal</strong>, tamaño <strong>A4</strong>.</li>
+            <li>Márgenes: <strong>Mínimos</strong>. Escala: <strong>Ajustar</strong>.</li>
+        </ol>
+
+        <h2>Para CAD (DWG/DXF)</h2>
+        <div style="font-size:11px; color:var(--fg); line-height:1.6;">
+            Descargá el GeoJSON desde la página principal y convertilo en QGIS con
+            <em>Exportar → Guardar como → AutoCAD DWG</em> (CRS EPSG:32721).
+        </div>
+
+        <h2>Advertencias</h2>
+        <div style="font-size:10px; color:var(--warn); line-height:1.5;">
+            ⚠ Datos preliminares. Zonas de construcción: cobertura Asunción centro (4 zonas, Ord. 246/94).
+            Cobertura nacional requiere Lucía + ordenanzas municipales.
+        </div>
+    </aside>
+
+    <div class="map-frame" style="position: relative;">
+        <div id="map"></div>
+        <div class="scale-bar" id="scaleBar">
+            <span class="bar" id="scaleBarWidth" style="width:50px;"></span>
+            <span id="scaleBarText">5 km</span>
+        </div>
+        <div class="north-arrow">
+            <div class="arrow">↑</div>
+            <div>N</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <span>
+        Paraguay Geodata · <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank">github.com/Ai-Whisperers/paraguay-geodata</a>
+        · Live: <a href="https://geodata.paragu-ai.com/" target="_blank">geodata.paragu-ai.com</a>
+    </span>
+    <span>
+        GeoJSON bundle pre-built · QGIS/ArcGIS/AutoCAD ready · CRS EPSG:4326
+    </span>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+
+// Parse bbox from URL (optional). Default to Asunción.
+let bbox = [-57.70, -25.40, -57.45, -25.18];
+let center = [-25.28, -57.575];
+let zoom = 12;
+let hasUserView = false;
+try {
+    if (params.get('bbox')) {
+        const parts = params.get('bbox').split(',').map(parseFloat);
+        if (parts.length === 4 && parts.every(Number.isFinite)) {
+            bbox = parts;
+            hasUserView = true;
+        }
+    }
+    if (params.get('center')) {
+        const parts = params.get('center').split(',').map(parseFloat);
+        if (parts.length === 2 && parts.every(Number.isFinite)) center = parts;
+    }
+    if (params.get('zoom')) {
+        const z = parseInt(params.get('zoom'), 10);
+        if (Number.isFinite(z)) zoom = z;
+    }
+} catch (e) {}
+
+// If user opened this page directly (no bbox in URL), show the "default view" hint.
+if (!hasUserView) {
+    const hint = document.getElementById('viewHint');
+    if (hint) hint.style.display = 'block';
+}
+
+// Fit map to bbox if provided, otherwise use center+zoom
+const map = L.map('map', { zoomControl: true, attributionControl: true }).fitBounds(
+    [[bbox[1], bbox[0]], [bbox[3], bbox[2]]]
+);
+
+// Basemap layers
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '© OpenStreetMap'
+}).addTo(map);
+const esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 19, attribution: 'Esri'
+});
+L.control.layers({ 'OpenStreetMap': osm, 'Esri Satellite': esri }, {}).addTo(map);
+
+// Layer groups
+const constructionLayer = L.layerGroup().addTo(map);
+const urbanLayer = L.layerGroup().addTo(map);
+const floodLayer = L.layerGroup().addTo(map);
+const climateLayer = L.layerGroup();
+const hillshadeLayer = L.layerGroup();
+
+// Construction zones
+function constructionStyle(zone) {
+    const cat = (zone.category || '').toLowerCase();
+    const color = cat === 'commercial' ? '#db2777'
+        : cat === 'residential' ? '#6366f1'
+        : cat === 'industrial' ? '#9ca3af'
+        : '#10b981';
+    return {
+        color, weight: 3, fillColor: color, fillOpacity: 0.30, dashArray: '6 3'
+    };
+}
+
+function popupForZone(zone) {
+    const rows = [
+        ['Altura máx', `${zone.max_height_m ?? '?'} m`],
+        ['Pisos máx', zone.max_floors ?? '?'],
+        ['COS', `${zone.max_lot_coverage_pct ?? '?'}%`],
+        ['FOT', `${zone.max_construction_pct ?? '?'}%`],
+        ['Retiros (F/L/B m)', `${zone.setback_front_m ?? '-'} / ${zone.setback_side_m ?? '-'} / ${zone.setback_back_m ?? '-'}`],
+        ['Permitido', (zone.allowed_use || []).join(', ') || '—'],
+        ['Restringido', (zone.restricted_use || []).join(', ') || '—'],
+        ['Norma', zone.ordinance_ref || '—'],
+    ];
+    return `<div style="font-size:11px; line-height:1.5;">
+        <div style="font-weight:700; color:#6366f1; margin-bottom:4px;">${zone.name}</div>
+        ${rows.map(([k, v]) => `<div style="display:flex; justify-content:space-between; gap:10px;"><span style="color:#6b7280;">${k}</span><span style="font-family:monospace;">${v}</span></div>`).join('')}
+    </div>`;
+}
+
+async function loadConstructionZones() {
+    try {
+        const r = await fetch('./data/construction_zones.json');
+        if (!r.ok) return;
+        const d = await r.json();
+        const visibleZones = [];
+        for (const z of (d.zones || [])) {
+            const bb = z.approximate_bbox;
+            if (!bb) continue;
+            const poly = L.rectangle([[bb[1], bb[0]], [bb[3], bb[2]]], constructionStyle(z));
+            poly.bindPopup(popupForZone(z));
+            constructionLayer.addLayer(poly);
+            visibleZones.push(z);
+        }
+        renderZonesList(visibleZones);
+        renderLegend();
+    } catch (e) { console.warn('construction_zones load failed', e); }
+}
+
+function renderZonesList(zones) {
+    const list = document.getElementById('zonesList');
+    if (zones.length === 0) {
+        list.innerHTML = '<div style="font-size:11px; color:var(--fg-dim);">Ninguna zona visible en esta vista. Ampliá el zoom en Asunción centro.</div>';
+        return;
+    }
+    list.innerHTML = zones.map(z => `
+        <div class="zone-card">
+            <div class="name">${z.name}</div>
+            <div class="row"><span>Altura</span><span class="v">${z.max_height_m ?? '?'} m</span></div>
+            <div class="row"><span>Pisos</span><span class="v">${z.max_floors ?? '?'}</span></div>
+            <div class="row"><span>COS / FOT</span><span class="v">${z.max_lot_coverage_pct ?? '?'}% / ${z.max_construction_pct ?? '?'}%</span></div>
+            <div class="row"><span>Norma</span><span class="v" style="font-size:9px;">${z.ordinance_ref || '—'}</span></div>
+        </div>
+    `).join('');
+}
+
+async function loadUrbanZoning() {
+    try {
+        const r = await fetch('./data/admin/catastro_urba.geojson');
+        if (!r.ok) return;
+        const gj = JSON.parse(await r.text());
+        const layer = L.geoJSON(gj, {
+            style: { color: '#f59e0b', weight: 1.2, fillColor: '#fbbf24', fillOpacity: 0.08 },
+            onEachFeature: (feat, lyr) => {
+                const p = feat.properties || {};
+                lyr.bindPopup(`<div style="font-size:11px;">
+                    <div style="font-weight:700; color:#f59e0b; margin-bottom:4px;">${p.distrito || 'Urbanización'}</div>
+                    <div><strong>Situación:</strong> ${p.situacion || '—'}</div>
+                    <div><strong>Estado:</strong> ${p.estado || '—'}</div>
+                    <div><strong>Área:</strong> ${p.area ? p.area.toLocaleString() + ' ha' : '—'}</div>
+                </div>`);
+            }
+        });
+        urbanLayer.addLayer(layer);
+        renderLegend();
+    } catch (e) { console.warn('urban_zoning load failed', e); }
+}
+
+async function loadFloodRisk() {
+    try {
+        const r = await fetch('./data/flood_risk.geojson');
+        if (!r.ok) return;
+        const gj = JSON.parse(await r.text());
+        const layer = L.geoJSON(gj, {
+            style: { color: '#0891b2', weight: 1.5, fillColor: '#06b6d4', fillOpacity: 0.30 },
+            onEachFeature: (feat, lyr) => {
+                const p = feat.properties || {};
+                lyr.bindPopup(`<div style="font-size:11px;"><strong style="color:#0891b2;">Zona inundable</strong><br>${p.name || p.zone || JSON.stringify(p)}</div>`);
+            }
+        });
+        floodLayer.addLayer(layer);
+        renderLegend();
+    } catch (e) { console.warn('flood_risk load failed', e); }
+}
+
+function renderLegend() {
+    const legend = document.getElementById('legend');
+    const items = [];
+    if (map.hasLayer(constructionLayer)) items.push(['Construction zones', '#6366f1', 'dash']);
+    if (map.hasLayer(urbanLayer)) items.push(['Urban zoning (Catastro)', '#f59e0b', 'solid']);
+    if (map.hasLayer(floodLayer)) items.push(['Flood risk', '#06b6d4', 'solid']);
+    if (map.hasLayer(climateLayer)) items.push(['Climate risk', '#ef4444', 'solid']);
+    if (map.hasLayer(hillshadeLayer)) items.push(['Hillshade DEM', '#84cc16', 'solid']);
+    legend.innerHTML = items.map(([label, color, dash]) => `
+        <div class="legend-row">
+            <span class="legend-swatch" style="background:${color}; ${dash === 'dash' ? 'background: repeating-linear-gradient(90deg, ' + color + ' 0 4px, transparent 4px 6px);' : ''}"></span>
+            <span>${label}</span>
+        </div>
+    `).join('');
+}
+
+function bindToggle(id, layer) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', () => {
+        if (el.checked) map.addLayer(layer);
+        else map.removeLayer(layer);
+        renderLegend();
+    });
+}
+
+bindToggle('toggleConstruction', constructionLayer);
+bindToggle('toggleUrban', urbanLayer);
+bindToggle('toggleFlood', floodLayer);
+bindToggle('toggleClimate', climateLayer);
+bindToggle('toggleHillshade', hillshadeLayer);
+
+// Scale bar — compute distance for a fixed screen pixel length
+function updateScaleBar() {
+    const c = map.getCenter();
+    const y = c.lat;
+    const halfPx = 50; // pixels
+    const metersPerPixel = 156543.03 * Math.cos(y * Math.PI / 180) / Math.pow(2, map.getZoom());
+    const dist = metersPerPixel * (halfPx * 2);  // full bar width = 100 px
+    // Round to a nice number for the label
+    const niceDist = niceRound(dist);
+    const ratio = niceDist / dist;
+    const pxWidth = Math.round(100 * ratio);
+    document.getElementById('scaleBarWidth').style.width = pxWidth + 'px';
+    let label;
+    if (niceDist < 1000) label = `${Math.round(niceDist)} m`;
+    else if (niceDist < 10000) label = `${(niceDist/1000).toFixed(1)} km`;
+    else label = `${Math.round(niceDist/1000)} km`;
+    document.getElementById('scaleBarText').textContent = label;
+}
+function niceRound(meters) {
+    const exp = Math.floor(Math.log10(Math.max(meters, 1)));
+    const base = Math.pow(10, exp);
+    const m = meters / base;
+    let nice;
+    if (m < 2) nice = 2;
+    else if (m < 5) nice = 5;
+    else nice = 10;
+    return nice * base;
+}
+map.on('zoomend', updateScaleBar);
+updateScaleBar();
+
+// Header meta
+function fmtCoord(v) { return v.toFixed(5); }
+function fmtBbox(b) { return `W ${fmtCoord(b[0])}  S ${fmtCoord(b[1])}  E ${fmtCoord(b[2])}  N ${fmtCoord(b[3])}`; }
+const c = map.getCenter();
+document.getElementById('metaBbox').textContent = fmtBbox(bbox);
+document.getElementById('metaCenter').textContent = `${fmtCoord(c.lat)}, ${fmtCoord(c.lng)}`;
+document.getElementById('metaZoom').textContent = map.getZoom();
+document.getElementById('metaGenerated').textContent = new Date().toISOString().slice(0, 19).replace('T', ' ') + ' UTC';
+
+// Boot
+loadConstructionZones();
+loadUrbanZoning();
+loadFloodRisk();
+
+// Update meta on map move
+map.on('moveend', () => {
+    const c2 = map.getCenter();
+    const b = map.getBounds();
+    const nb = [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
+    document.getElementById('metaBbox').textContent = fmtBbox(nb);
+    document.getElementById('metaCenter').textContent = `${fmtCoord(c2.lat)}, ${fmtCoord(c2.lng)}`;
+    document.getElementById('metaZoom').textContent = map.getZoom();
+});
+</script>
+</body>
+</html>

@@ -76,19 +76,22 @@ def test_asuncion_bundle_valid() -> None:
 
 
 def test_bundle_is_deterministic() -> None:
-    """Run the builder twice and confirm the bundle bytes are identical."""
-    a = (WEB_DATA / "architect_export.geojson").read_bytes()
+    """Run the builder twice and confirm the FEATURES (sans timestamp) are identical."""
+    a = json.loads((WEB_DATA / "architect_export.geojson").read_text(encoding="utf-8"))
     _run_builder()
-    b = (WEB_DATA / "architect_export.geojson").read_bytes()
+    b = json.loads((WEB_DATA / "architect_export.geojson").read_text(encoding="utf-8"))
+    # Strip generated_at (timestamp) — features themselves must be deterministic.
+    a.pop("generated_at", None)
+    b.pop("generated_at", None)
     assert a == b, "bundle output is non-deterministic across runs"
-    print("✓ bundle output is deterministic across runs")
+    print("✓ bundle output is deterministic across runs (features stable)")
 
 
 def main() -> int:
     _run_builder()
     _validate(WEB_DATA / "architect_export.geojson", expected_total_min=400)
     _validate(WEB_DATA / "architect_export_asuncion.geojson", expected_total_min=30)
-    _test_determinism()
+    test_bundle_is_deterministic()
     print("\n✓ ALL SMOKE TESTS PASSED")
     return 0
 

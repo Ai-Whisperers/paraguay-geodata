@@ -63,11 +63,27 @@ After successful payment, Stripe redirects to the worker at
 | File | Purpose |
 |---|---|
 | `exports/web/index.html` | Frontend: GeoJSON + DXF export functions + download menu UI + CSS |
+| `exports/web/architect-plan.html` | **Printable plan PDF page** — captures current map view bbox/zoom/center, renders construction zones + urban zoning + flood polygons on Leaflet, includes scale bar, north arrow, legend, layer toggles. Free (no Stripe gate). Architects hit Ctrl+P / Cmd+P → "Guardar como PDF" → A4 landscape → márgenes Mínimos. |
 | `exports/checkout-worker/src/worker.js` | Cloudflare Worker: Stripe checkout, success redirect, signed download |
 | `exports/checkout-worker/wrangler.toml` | Worker config (route, R2, KV bindings) |
 | `exports/checkout-worker/package.json` | Wrangler + Stripe npm |
 | `exports/checkout-worker/test/handler.test.mjs` | HMAC sign/verify + catalog unit tests (6 tests, all pass) |
 | `exports/checkout-worker/.env.example` | Required env vars + initial test-mode Stripe price IDs |
+| `scripts/build_architect_export.py` | Builder for the consolidated GeoJSON bundles (national + Asunción) |
+| `tests/test_architect_export.py` | Smoke tests for the builder (4 tests, all pass) |
+
+### Printable plan PDF vs paid export — why both?
+
+- **Free printable plan PDF** (`architect-plan.html`): for the architect who needs
+  a *visual artifact* for a client meeting or planning office — same data, paper-ready,
+  A4 landscape, scale bar + north arrow + legend. No Stripe, no checkout, opens in
+  any browser.
+- **Paid raw exports** (GeoJSON/DXF, $29–$99): for the architect who needs to
+  *import the data into QGIS/AutoCAD* and work with it offline in their CAD tool of
+  choice. That's a different value (data ownership, machine-readable, reprojectable).
+
+They complement each other — the printable PDF is the "show the client what we
+see" artifact; the paid export is the "give me the data so I can build from it" artifact.
 
 ## Stripe test-mode artifacts (already created)
 
