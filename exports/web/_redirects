@@ -14,6 +14,9 @@ http://datos.paragu-ai.com/*    https://datos.paragu-ai.com/:splat    301
 # Friendly URL: /catalog → survey doc
 /catalog  /docs/research/PROPERTY_HOUSING_DATA_SOURCES.md  301
 
+# Pricing page (architect downloads)
+/pricing  /pricing.html  301
+
 # /properties.json → main properties geojson (legacy)
 /properties.json  /data/properties_latest.geojson  301
 

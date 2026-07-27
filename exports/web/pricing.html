@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precios — Paraguay Geodata</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #0e1322; --bg-elev: #1a2138; --bg-elev-2: #232c44;
+    --fg: #e4e7ef; --fg-dim: #98a2b8; --line: #2a3245;
+    --accent: #06b6d4; --accent-2: #10b981; --warn: #f59e0b;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.55; }
+  header { padding: 18px 32px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+  header h1 { margin: 0; font-size: 18px; color: var(--accent); }
+  header nav a { color: var(--fg-dim); text-decoration: none; margin-left: 12px; font-size: 13px; }
+  header nav a:hover { color: var(--accent); }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 24px; }
+  h2 { margin-top: 36px; color: var(--accent); font-size: 22px; }
+  .lede { color: var(--fg-dim); font-size: 16px; max-width: 720px; }
+  .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 24px; }
+  .tier { background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .tier.featured { border-color: var(--accent); }
+  .tier h3 { margin: 0 0 8px; font-size: 15px; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; }
+  .tier .price { font-size: 28px; font-weight: 700; color: var(--fg); margin: 4px 0; }
+  .tier .price small { font-size: 13px; color: var(--fg-dim); font-weight: 400; }
+  .tier .scope { color: var(--fg-dim); font-size: 13px; margin-bottom: 12px; }
+  .tier ul { padding-left: 18px; margin: 8px 0; font-size: 13px; color: var(--fg-dim); }
+  .tier ul li { margin-bottom: 4px; }
+  .tier .cta { display: inline-block; margin-top: 12px; padding: 8px 14px; background: var(--accent); color: var(--bg); border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 600; }
+  .tier .cta:hover { background: var(--accent-2); }
+  .tier .cta.secondary { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+  .faq { background: var(--bg-elev); padding: 16px 20px; border-radius: var(--radius); margin: 16px 0; border-left: 3px solid var(--accent); }
+  .faq h4 { margin: 0 0 6px; color: var(--accent); font-size: 14px; }
+  .faq p { margin: 0; color: var(--fg-dim); font-size: 13px; }
+  footer { text-align: center; padding: 24px; color: var(--fg-dim); font-size: 12px; border-top: 1px solid var(--line); margin-top: 48px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Paraguay Geodata — Precios</h1>
+  <nav style="margin-left:auto">
+    <a href="/">← Mapa</a>
+    <a href="/docs/">Docs</a>
+  </nav>
+</header>
+<main>
+  <p class="lede">
+    Exportá los datos del mapa a tu herramienta GIS o CAD. Los alcances cortos (lo que estás viendo, filtros activos, polígono dibujado) son gratis. La descarga nacional completa se compra una vez, o te suscribís al plan Pro para recibir actualizaciones mensuales.
+  </p>
+
+  <h2>🆓 Gratis — para probar y trabajar puntual</h2>
+  <div class="tier-grid">
+    <div class="tier">
+      <h3>GeoJSON</h3>
+      <div class="price">$0</div>
+      <div class="scope">Viewport · filtros · selección</div>
+      <ul>
+        <li>Lo que ves en pantalla</li>
+        <li>Lo que pasa los filtros activos</li>
+        <li>Lo que cae adentro de un polígono dibujado</li>
+        <li>Lee en QGIS, ArcGIS, Mapbox, Leaflet</li>
+      </ul>
+      <a href="/" class="cta secondary">Probar en el mapa →</a>
+    </div>
+    <div class="tier">
+      <h3>DXF (CAD)</h3>
+      <div class="price">$0</div>
+      <div class="scope">Viewport · filtros · selección</div>
+      <ul>
+        <li>AutoCAD lee DXF nativamente (Save-As → DWG en 1 click)</li>
+        <li>BricsCAD · IntelliCAD · SketchUp · QGIS</li>
+        <li>Puntos con atributos extendidos (título, precio, área, ciudad)</li>
+        <li>Coordenadas en metros desde el centroide del set</li>
+      </ul>
+      <a href="/" class="cta secondary">Probar en el mapa →</a>
+    </div>
+  </div>
+
+  <h2>💼 Pago único — para un proyecto puntual</h2>
+  <div class="tier-grid">
+    <div class="tier featured">
+      <h3>GeoJSON — todo Paraguay</h3>
+      <div class="price">$29 <small>USD, una vez</small></div>
+      <div class="scope">~11.000 listings · PII scrubbed</div>
+      <ul>
+        <li>Catastro + OSM + GBIF + climate risk + INBIO + Indigenous territories</li>
+        <li>Snapshot al día de la compra</li>
+        <li>Para QGIS / ArcGIS / pipelines de datos</li>
+      </ul>
+      <a href="/?paid=geojson_all" class="cta" data-checkout="geojson_all">Comprar GeoJSON nacional →</a>
+    </div>
+    <div class="tier featured">
+      <h3>DXF — todo Paraguay</h3>
+      <div class="price">$99 <small>USD, una vez</small></div>
+      <div class="scope">~11.000 puntos CAD · extensible a DWG</li>
+      <ul>
+        <li>Mismo set de datos, formato CAD</li>
+        <li>Coordenadas proyectadas (UTM-aware, metros)</li>
+        <li>Para AutoCAD · Revit · SketchUp · Rhino</li>
+      </ul>
+      <a href="/?paid=dxf_all" class="cta" data-checkout="dxf_all">Comprar DXF nacional →</a>
+    </div>
+  </div>
+
+  <h2>🔄 Plan Pro — para uso continuo</h2>
+  <div class="tier-grid">
+    <div class="tier">
+      <h3>Geodata Pro</h3>
+      <div class="price">$299 <small>USD/año</small></div>
+      <div class="scope">GeoJSON + DXF, refrescado cada mes</div>
+      <ul>
+        <li>12 descargas al año (mensual, automática)</li>
+        <li>Ambos formatos incluidos</li>
+        <li>Acceso anticipado a capas nuevas</li>
+        <li>Link privado de descarga vía email</li>
+      </ul>
+      <a href="/?paid=sub_yearly" class="cta" data-checkout="sub_yearly">Suscribirme al Pro →</a>
+    </div>
+  </div>
+
+  <h2>❓ Preguntas frecuentes</h2>
+
+  <div class="faq">
+    <h4>¿Por qué DXF y no DWG?</h4>
+    <p>DWG es un formato binario propietario. DXF es su equivalente en texto plano — todos los CAD lo leen nativamente, y AutoCAD ofrece "Save-As → DWG" en un click. Es la única forma práctica de emitir datos CAD desde el navegador sin requerir software de servidor.</p>
+  </div>
+  <div class="faq">
+    <h4>¿Qué pasa con los datos PII (teléfonos, emails de agentes)?</h4>
+    <p>Todos los exports — gratis y pagos — salen con PII ya removida en el pipeline. Solo datos públicos (precio, superficie, dirección, fuente del aviso).</p>
+  </div>
+  <div class="faq">
+    <h4>¿Puedo pagar en guaraníes?</h4>
+    <p>Stripe acepta tarjetas internacionales (USD). Si necesitás factura en PYG o transferencia bancaria local, contactanos a <a href="mailto:erebus@ai-whisperers.org" style="color:var(--accent)">erebus@ai-whisperers.org</a>.</p>
+  </div>
+  <div class="faq">
+    <h4>¿Hay descuento por volumen (5+ proyectos)?</h4>
+    <p>Sí — el plan Pro incluye 12 descargas al año. Para más, escribinos y armamos un plan a medida.</p>
+  </div>
+</main>
+<footer>
+  Paraguay Geodata · MIT licensed code · CC0 data · Powered by Ai-Whisperers
+</footer>
+
+<script>
+// Buy buttons: open the Worker checkout for the matching product.
+const WORKER_URL = 'https://geodata-checkout.paragu-ai.workers.dev';
+document.querySelectorAll('a[data-checkout]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const product = a.getAttribute('data-checkout');
+    // Try POST /checkout so Stripe API call is server-side (avoids leaking price IDs)
+    fetch(WORKER_URL + '/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product }),
+    })
+      .then(r => r.ok ? r.json() : Promise.reject(r))
+      .then(data => { if (data.url) window.location.href = data.url; })
+      .catch(err => {
+        // Fallback: open the success URL with a synthetic session so the user lands on Stripe
+        // (this only happens if Worker is offline — Stripe dashboard link in footer of Worker)
+        window.open(WORKER_URL + '/?product=' + encodeURIComponent(product), '_blank');
+      });
+  });
+});
+
+// If the user landed on /pricing via ?paid=<product>, open checkout directly
+const params = new URLSearchParams(location.search);
+if (params.get('paid')) {
+  const product = params.get('paid');
+  const btn = document.querySelector(`a[data-checkout="${product}"]`);
+  if (btn) btn.click();
+}
+</script>
+</body>
+</html>

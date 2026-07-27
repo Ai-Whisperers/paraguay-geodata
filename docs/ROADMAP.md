@@ -668,8 +668,8 @@ Each item is tagged:
 | P1-V09 | WFS query builder | GIS | B | L |
 | P1-V10 | Buffer tool (count features) | GIS | B | M |
 | P1-V11 | Union/intersect tool | GIS | B | L |
-| P1-V12 | DWG/DXF export | GIS | B | M |
-| P1-V13 | GeoPackage export | GIS | B | S |
+| P1-V12 | DWG/DXF export | GIS | B | M | **SHIPPED 2026-07-14** as DXF (AutoCAD-readable CAD interchange); DWG is binary, AutoCAD Save-As DWG handles conversion. Free viewport/filtered + paid full-dataset via Stripe. See `docs/operations/architect-export-pricing.md`. |
+| P1-V13 | GeoPackage export | GIS | B | S | |
 | P1-V14 | KML/KMZ export | GIS | B | S |
 | P1-V15 | WMS connection | GIS | B | S |
 | P1-V16 | Vector tile support (MVT) | GIS | B | L |

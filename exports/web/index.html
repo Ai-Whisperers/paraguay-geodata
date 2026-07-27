@@ -499,6 +499,44 @@
             min-height: 36px;
         }
         .map-controls button:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+        /* Architect download menu (popup dropdown) */
+        .dl-menu {
+            display: none;
+            z-index: 1001;
+            background: rgba(14, 19, 34, 0.95);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            padding: 4px;
+            min-width: 240px;
+            backdrop-filter: blur(4px);
+        }
+        .dl-menu.open { display: flex; flex-direction: column; gap: 2px; }
+        .dl-menu button {
+            font-size: 12px;
+            padding: 8px 12px;
+            background: var(--bg-elev-2);
+            color: var(--fg);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+            transition: all .12s;
+            min-height: 36px;
+            font-family: inherit;
+        }
+        .dl-menu button:hover { background: var(--accent); color: var(--bg); }
+        .dl-menu .dl-pricing-link {
+            font-size: 11px;
+            color: var(--accent);
+            padding: 6px 12px;
+            text-decoration: none;
+            border-top: 1px solid var(--line);
+            margin-top: 2px;
+            display: block;
+        }
+        .dl-menu .dl-pricing-link:hover { text-decoration: underline; }
         /* Ensure leaflet-control-zoom is visible at top-left (Leaflet CSS only loads z=1000
            if stylesheet is loaded — the link was added above) */
         .leaflet-popup-content h3 { margin: 0 0 6px 0; font-size: 13px; color: var(--accent); }
@@ -799,7 +837,7 @@
         @media print {
             aside, .leaflet-control, .sidebar-toggle, #filterSheetToggle,
             .modal, button, #sidebarToggle, #btnSaved, #btnCompare, #btnMeasure,
-            #btnKML, #btnCSV, .legend, .layer-actions { display: none !important; }
+            #btnKML, #btnCSV, #btnDownloadMenu, .dl-menu, .legend, .layer-actions { display: none !important; }
             body, html, #map { background: white !important; color: black !important; height: 100vh !important; }
             .leaflet-tile-pane { filter: grayscale(100%) contrast(1.1) !important; }
             .leaflet-popup-content-wrapper { box-shadow: none !important; border: 1px solid #999 !important; }
@@ -860,6 +898,68 @@
             </div>
             <div style="margin-top:8px; padding-top:8px; border-top:1px solid var(--line); font-size:10px; color:var(--warn);">
                 ⚠ Datos preliminares. Source ordinances from Lucía + municipal Catastro.
+            </div>
+        </div>
+
+        <!-- 📐 Architect export panel — visible to all, designed for the architect preset. -->
+        <div id="architectExportSection" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <h2 style="margin:0; font-size:14px;">📐 Architect export</h2>
+                <span style="font-size:10px; color:var(--fg-dim);">offline-ready</span>
+            </div>
+            <div style="font-size:11px; color:var(--fg-dim); margin-bottom:8px; line-height:1.5;">
+                Bundle of construction zones + urban zoning + flood + climate + hillshade.
+                Open in QGIS / ArcGIS / AutoCAD Map 3D, or save as DWG with one click.
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px;">
+                <button type="button" id="btnArchitectGeojsonAsu" class="architect-export-btn"
+                    style="background:var(--accent-dim); border:1px solid var(--accent); color:var(--accent); padding:8px 10px; border-radius:4px; font-size:11px; font-weight:600; cursor:pointer;">
+                    ⬇ Asunción GeoJSON
+                </button>
+                <button type="button" id="btnArchitectGeojsonFull" class="architect-export-btn"
+                    style="background:var(--bg-elev-2); border:1px solid var(--line); color:var(--fg); padding:8px 10px; border-radius:4px; font-size:11px; cursor:pointer;">
+                    ⬇ Nacional GeoJSON
+                </button>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
+                <button type="button" id="btnArchitectPlanPdf"
+                    style="background:var(--bg-elev-2); border:1px solid var(--line); color:var(--fg); padding:8px 10px; border-radius:4px; font-size:11px; cursor:pointer;">
+                    🖨 Plan PDF (vista actual)
+                </button>
+                <button type="button" id="btnArchitectDwgGuide"
+                    style="background:var(--bg-elev-2); border:1px solid var(--line); color:var(--fg); padding:8px 10px; border-radius:4px; font-size:11px; cursor:pointer;">
+                    📐 Cómo → DWG
+                </button>
+            </div>
+
+            <div style="margin-top:8px; padding-top:8px; border-top:1px solid var(--line); font-size:10px; color:var(--fg-dim); line-height:1.5;">
+                <strong>GeoJSON</strong> ≈ 0.7&nbsp;MB (Asunción) / 3.3&nbsp;MB (nacional).
+                <strong>Plan PDF</strong> genera una página imprimible del mapa actual (Ctrl+P → Guardar como PDF).
+            </div>
+        </div>
+
+        <div id="architectDwgGuideModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:10000; align-items:center; justify-content:center;">
+            <div style="background:var(--bg-elev); border:1px solid var(--accent); border-radius:8px; max-width:640px; max-height:80vh; overflow-y:auto; padding:24px; margin:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h2 style="margin:0; font-size:16px; color:var(--accent);">📐 De GeoJSON a DWG (4 clics)</h2>
+                    <button type="button" id="btnArchitectDwgGuideClose" aria-label="Cerrar" style="background:none; border:none; color:var(--fg); font-size:18px; cursor:pointer;">×</button>
+                </div>
+                <ol style="font-size:12px; line-height:1.7; color:var(--fg); padding-left:18px;">
+                    <li>Abrí QGIS Desktop (gratis: <a href="https://qgis.org" target="_blank" style="color:var(--accent);">qgis.org</a>).</li>
+                    <li><strong>Capa → Añadir capa → Añadir capa vectorial…</strong> → elegí <code>architect_export_asuncion.geojson</code>.</li>
+                    <li>Hacé clic derecho sobre la capa → <strong>Exportar → Guardar objetos como…</strong></li>
+                    <li>Formato: <strong>AutoCAD DWG</strong> (DXF si tu AutoCAD es muy viejo). CRS: <strong>EPSG:32721</strong> (UTM 21S — el que usan los catastros en Paraguay).</li>
+                </ol>
+                <div style="margin-top:12px; padding:10px; background:var(--bg); border-radius:4px; font-size:11px; color:var(--fg-dim); line-height:1.5;">
+                    💡 <strong>Tip</strong>: en AutoCAD, los polígonos llegan como <em>hatch boundaries</em>. Para que se vean como zonas, ejecutá <code>BPOLY</code> dentro del polígono. Si necesitás las ordenanzas como texto dentro del DWG, exportá también el CSV de zonas (próximamente).
+                </div>
+                <div style="margin-top:12px; padding:10px; background:var(--bg); border-radius:4px; font-size:11px; color:var(--fg-dim); line-height:1.5;">
+                    🟢 <strong>Alternativa sin QGIS</strong>: en AutoCAD Map 3D o Civil 3D, <code>MAPIMPORT</code> → formato GeoJSON → seleccionar archivo. Funciona en AutoCAD 2018+.
+                </div>
+                <div style="margin-top:12px; padding:10px; background:var(--warn); color:var(--bg); border-radius:4px; font-size:11px; line-height:1.5;">
+                    ⚠ Datos preliminares. Para Asunción centro hay 4 zonas (Ord. 246/94). Cobertura nacional depende de Lucía + ordenanzas municipales.
+                </div>
             </div>
         </div>
 
@@ -4559,6 +4659,339 @@ window.exportKML = function() {
     URL.revokeObjectURL(url);
 };
 
+// ========== ARCHITECT EXPORT (offline-ready bundles for Lucía / architects) ==========
+// The static bundles are pre-built by scripts/build_architect_export.py. We just
+// trigger downloads and surface context about them. Plan PDF is generated
+// client-side by opening architect-plan.html?bbox=…&zoom=…
+function _downloadArchitectBundle(fileUrl, filename) {
+    const a = document.createElement('a');
+    a.href = fileUrl;
+    a.download = filename;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    if (typeof showToast === 'function') {
+        showToast(`⬇ Descargado ${filename}`, 'success');
+    }
+}
+
+window.exportArchitectAsuncion = function() {
+    _downloadArchitectBundle('./data/architect_export_asuncion.geojson', 'paraguay-architect-asuncion.geojson');
+};
+
+window.exportArchitectFull = function() {
+    _downloadArchitectBundle('./data/architect_export.geojson', 'paraguay-architect-nacional.geojson');
+};
+
+window.openArchitectPlanPdf = function() {
+    // Capture current map view to pass to the print page.
+    let bboxParam = '';
+    let centerParam = '';
+    let zoomParam = '';
+    try {
+        if (typeof map !== 'undefined' && map) {
+            const c = map.getCenter();
+            const b = map.getBounds();
+            const w = b.getWest(), s = b.getSouth(), e = b.getEast(), n = b.getNorth();
+            bboxParam = `bbox=${w.toFixed(5)},${s.toFixed(5)},${e.toFixed(5)},${n.toFixed(5)}`;
+            centerParam = `center=${c.lat.toFixed(5)},${c.lng.toFixed(5)}`;
+            zoomParam = `zoom=${map.getZoom()}`;
+        }
+    } catch (e) {
+        console.warn('[architect-export] could not capture map state', e);
+    }
+    const url = `./architect-plan.html?${bboxParam}&${centerParam}&${zoomParam}`;
+    window.open(url, '_blank');
+};
+
+window.showArchitectDwgGuide = function() {
+    const modal = document.getElementById('architectDwgGuideModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+};
+
+window.hideArchitectDwgGuide = function() {
+    const modal = document.getElementById('architectDwgGuideModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+};
+
+// Wire buttons once DOM is ready (script tag is at end of body, so this fires
+// immediately, but defer to next tick in case the page is still bootstrapping).
+(function wireArchitectExportButtons() {
+    const pairs = [
+        ['btnArchitectGeojsonAsu', 'exportArchitectAsuncion'],
+        ['btnArchitectGeojsonFull', 'exportArchitectFull'],
+        ['btnArchitectPlanPdf', 'openArchitectPlanPdf'],
+        ['btnArchitectDwgGuide', 'showArchitectDwgGuide'],
+        ['btnArchitectDwgGuideClose', 'hideArchitectDwgGuide'],
+    ];
+    function wire() {
+        pairs.forEach(([id, fnName]) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('click', () => {
+                if (typeof window[fnName] === 'function') window[fnName]();
+            });
+        });
+        // Close modal on backdrop click
+        const modal = document.getElementById('architectDwgGuideModal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) window.hideArchitectDwgGuide();
+            });
+        }
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') window.hideArchitectDwgGuide();
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', wire);
+    } else {
+        wire();
+    }
+})();
+
+// ========== GEOJSON EXPORT (free: viewport + filtered + selection; paid: full dataset) ==========
+// Three free scopes + one paid scope:
+//   - viewport: only features visible in the current map bounds (free)
+//   - filtered: respect active filters (free)
+//   - selection: only user-drawn polygon (free)
+//   - all: full national dataset (paid — gated via Stripe checkout)
+window.__exportGetFiltered = function() {
+    if (!window.__properties) return [];
+    const f = activeFilters || {};
+    const hasFilters = Object.keys(f).length > 0;
+    if (!hasFilters) return window.__properties;
+    return window.__properties.filter(feat => {
+        const p = feat.properties || {};
+        const price = p.price_usd || 0;
+        if (price < (f.minPrice || 0) || price > (f.maxPrice || Infinity)) return false;
+        if (f.type && p.property_type !== f.type) return false;
+        if (f.listing && p.listing_type !== f.listing) return false;
+        if (f.beds && (p.bedrooms || 0) < f.beds) return false;
+        if (f.minArea && (p.area_ha || 0) < f.minArea) return false;
+        return true;
+    });
+};
+
+window.__exportInViewport = function() {
+    if (!window.__map || !window.__properties) return [];
+    const b = window.__map.getBounds();
+    if (!b) return [];
+    return window.__properties.filter(feat => {
+        const c = feat.geometry?.coordinates;
+        if (!c) return false;
+        const [lon, lat] = c;
+        return b.contains([lat, lon]);
+    });
+};
+
+window.__exportInSelection = function() {
+    if (!window.__selectionPolygon || !window.__properties) return [];
+    const ring = window.__selectionPolygon;  // [[lat,lon], ...]
+    if (!ring || ring.length < 3) return [];
+    // Ray-casting point-in-polygon
+    const pointInPoly = (lat, lon) => {
+        let inside = false;
+        for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+            const [yi, xi] = ring[i];
+            const [yj, xj] = ring[j];
+            const intersect = ((yi > lat) !== (yj > lat)) &&
+                (lon < (xj - xi) * (lat - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+        }
+        return inside;
+    };
+    return window.__properties.filter(feat => {
+        const c = feat.geometry?.coordinates;
+        if (!c) return false;
+        const [lon, lat] = c;
+        return pointInPoly(lat, lon);
+    });
+};
+
+window.__downloadBlob = function(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+
+window.exportGeoJSON = async function(opts) {
+    opts = opts || {};
+    const scope = opts.scope || 'filtered';
+    let rows;
+    let label;
+    if (scope === 'viewport') {
+        rows = window.__exportInViewport();
+        label = 'viewport';
+    } else if (scope === 'selection') {
+        rows = window.__exportInSelection();
+        label = 'selection';
+    } else if (scope === 'all') {
+        // Paid: redirect to Stripe checkout. Worker handles dataset fetch + sign.
+        return window.__startPaidCheckout('geojson_all');
+    } else {
+        rows = window.__exportGetFiltered();
+        label = 'filtered';
+    }
+    if (!rows || rows.length === 0) {
+        return showToast('No features to export in the selected scope.', 'error');
+    }
+    const fc = { type: 'FeatureCollection', features: rows };
+    const json = JSON.stringify(fc, null, 0);
+    const blob = new Blob([json], { type: 'application/geo+json' });
+    const stamp = new Date().toISOString().slice(0, 10);
+    window.__downloadBlob(blob, `paraguay-properties-${label}-${rows.length}-${stamp}.geojson`);
+    showToast(`Downloaded ${rows.length.toLocaleString()} features (GeoJSON · ${label})`, 'success');
+};
+
+// ========== DXF EXPORT (AutoCAD-readable CAD interchange) ==========
+// We emit DXF (text-based CAD interchange) — universally readable by AutoCAD / BricsCAD /
+// IntelliCAD / SketchUp / QGIS / every architect's tool. DWG is the same data in a binary
+// container; AutoCAD itself reads DXF natively and offers one-click Save-As DWG.
+window.exportDXF = async function(opts) {
+    opts = opts || {};
+    const scope = opts.scope || 'filtered';
+    let rows;
+    let label;
+    if (scope === 'viewport') {
+        rows = window.__exportInViewport();
+        label = 'viewport';
+    } else if (scope === 'selection') {
+        rows = window.__exportInSelection();
+        label = 'selection';
+    } else if (scope === 'all') {
+        return window.__startPaidCheckout('dxf_all');
+    } else {
+        rows = window.__exportGetFiltered();
+        label = 'filtered';
+    }
+    if (!rows || rows.length === 0) {
+        return showToast('No features to export in the selected scope.', 'error');
+    }
+    const dxf = window.__buildDXF(rows);
+    const blob = new Blob([dxf], { type: 'application/dxf' });
+    const stamp = new Date().toISOString().slice(0, 10);
+    window.__downloadBlob(blob, `paraguay-properties-${label}-${rows.length}-${stamp}.dxf`);
+    showToast(`Downloaded ${rows.length.toLocaleString()} features (DXF · ${label}) — open in AutoCAD`, 'success');
+};
+
+// Minimal DXF (AutoCAD R12 ASCII) writer — emits POINTs with extended data so AutoCAD
+// can read title/price/area/city as entity attributes. Lat/lon → local plane
+// (equirectangular) at the dataset centroid so distances are approximately correct.
+window.__buildDXF = function(rows) {
+    let sumLon = 0, sumLat = 0, n = 0;
+    for (const f of rows) {
+        const c = f.geometry && f.geometry.coordinates;
+        if (!c) continue;
+        sumLon += c[0]; sumLat += c[1]; n++;
+    }
+    const cx = n ? sumLon / n : -57.5;
+    const cy = n ? sumLat / n : -25.3;
+    const cosLat = Math.cos(cy * Math.PI / 180);
+    const mPerDegLat = 111320;
+    const mPerDegLon = 111320 * cosLat;
+
+    const L = [];
+    const push = (...s) => { L.push(...s); };
+    push('  0', 'SECTION', '  2', 'HEADER');
+    push('  9', '$ACADVER', '  1', 'AC1009');
+    push('  9', '$INSUNITS', ' 70', '6');  // 6 = meters
+    push('  0', 'ENDSEC');
+    push('  0', 'SECTION', '  2', 'TABLES');
+    push('  0', 'TABLE', '  2', 'LAYER');
+    push('  0', 'LAYER', '  2', 'PROPERTIES', ' 70', '0', ' 62', '7', '  6', 'CONTINUOUS');
+    push('  0', 'ENDTAB');
+    push('  0', 'ENDSEC');
+    push('  0', 'SECTION', '  2', 'ENTITIES');
+    for (const f of rows) {
+        const c = f.geometry && f.geometry.coordinates;
+        if (!c) continue;
+        const p = f.properties || {};
+        const lon = c[0], lat = c[1];
+        const x = (lon - cx) * mPerDegLon;
+        const y = (lat - cy) * mPerDegLat;
+        const title = (p.title || p.source_id || 'Property').replace(/[\x00-\x1f\n\r]/g, ' ').slice(0, 255);
+        push('  0', 'POINT', '  8', 'PROPERTIES');
+        push(' 10', x.toFixed(3), ' 20', y.toFixed(3), ' 30', '0.0');
+        push('1001', 'PARAGUAY_GEODATA', '1000', title);
+        if (p.price_usd) push('1000', 'USD ' + Math.round(p.price_usd).toLocaleString());
+        if (p.area_ha)  push('1000', p.area_ha + ' ha');
+        if (p.city)     push('1000', p.city);
+        if (p.source_url) push('1000', p.source_url);
+    }
+    push('  0', 'ENDSEC', '  0', 'EOF');
+    return L.join('\n');
+};
+
+// ========== STRIPE GATED DOWNLOAD ==========
+// Full-dataset GeoJSON / DXF is gated. Free preview: viewport/filtered/selection.
+// Paid: $29 one-time dataset export OR $99/year subscription.
+// Worker URL: deployed at https://geodata-checkout.paragu-ai.workers.dev
+// (see docs/operations/architect-export-pricing.md for full deploy steps).
+window.__STRIPE_CHECKOUT_URL = window.__STRIPE_CHECKOUT_URL || 'https://geodata-checkout.paragu-ai.workers.dev';
+window.__startPaidCheckout = async function(product) {
+    if (!window.__STRIPE_CHECKOUT_URL) {
+        return showToast('Checkout is not configured yet — contact erebus@ai-whisperers.org', 'error');
+    }
+    showToast('Opening secure checkout...', 'info');
+    const url = window.__STRIPE_CHECKOUT_URL + '?product=' + encodeURIComponent(product);
+    window.open(url, '_blank', 'noopener,noreferrer');
+};
+
+// ========== DOWNLOAD MENU UI ==========
+window.__buildDownloadMenu = function() {
+    const menu = document.createElement('div');
+    menu.className = 'dl-menu';
+    menu.innerHTML = [
+        '<button data-action="geojson-viewport" title="Free — features currently visible on the map">⬇ GeoJSON · viewport</button>',
+        '<button data-action="geojson-filtered" title="Free — respect active filters">⬇ GeoJSON · filtered</button>',
+        '<button data-action="geojson-all"      title="Paid — entire national dataset">⬇ GeoJSON · all · $29</button>',
+        '<button data-action="dxf-viewport"     title="Free — AutoCAD-readable CAD export">⬇ DXF · viewport</button>',
+        '<button data-action="dxf-filtered"     title="Free — AutoCAD-readable CAD export">⬇ DXF · filtered</button>',
+        '<button data-action="dxf-all"          title="Paid — full dataset, DXF format">⬇ DXF · all · $99</button>',
+        '<a href="/pricing" target="_blank" rel="noopener" class="dl-pricing-link">View pricing →</a>'
+    ].join('');
+    menu.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        const a = btn.dataset.action;
+        if (a === 'geojson-viewport') return window.exportGeoJSON({scope: 'viewport'});
+        if (a === 'geojson-filtered') return window.exportGeoJSON({scope: 'filtered'});
+        if (a === 'geojson-all')      return window.__startPaidCheckout('geojson_all');
+        if (a === 'dxf-viewport')     return window.exportDXF({scope: 'viewport'});
+        if (a === 'dxf-filtered')     return window.exportDXF({scope: 'filtered'});
+        if (a === 'dxf-all')          return window.__startPaidCheckout('dxf_all');
+    });
+    document.body.appendChild(menu);
+    window.__dlMenu = menu;
+    return menu;
+};
+
+window.toggleDownloadMenu = function(anchorEl) {
+    const m = window.__dlMenu || window.__buildDownloadMenu();
+    if (!anchorEl) return;
+    const r = anchorEl.getBoundingClientRect();
+    m.style.position = 'fixed';
+    m.style.top = (r.bottom + 6) + 'px';
+    m.style.left = (r.right - 240) + 'px';
+    m.classList.toggle('open');
+};
+document.addEventListener('click', (e) => {
+    if (!window.__dlMenu) return;
+    if (e.target.closest('.dl-menu')) return;
+    if (e.target.closest('#btnDownloadMenu')) return;
+    window.__dlMenu.classList.remove('open');
+});
+
 // ========== OGC COMPLIANCE ==========
 // Print WMS / WFS endpoints for advanced users
 window.getWFSEndpoints = function() {
@@ -4977,6 +5410,7 @@ window.showDueDiligence = async function(listing) {
         <button onclick="window.toggleMeasure()" id="btnMeasure" aria-label="Measure distance" title="Measure distance">📏 Measure</button>
         <button onclick="window.exportCSV()" id="btnCSV" aria-label="Download CSV" title="Download CSV (filtered)">⬇ CSV</button>
         <button onclick="window.exportKML()" id="btnKML" aria-label="Download KML" title="Download KML">⬇ KML</button>
+        <button onclick="window.toggleDownloadMenu(this)" id="btnDownloadMenu" aria-label="Download GeoJSON / DXF" title="Download GeoJSON / DXF (architect CAD formats)">⬇ Architect</button>
     `;
     mapDiv.appendChild(ctrls);
     console.log('[map-controls] injected ' + ctrls.children.length + ' buttons');

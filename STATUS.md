@@ -100,6 +100,11 @@ A free, open, viewer for Paraguay real-estate + cadastral + environmental data. 
 | Geolocation | ✓ | One-click find me |
 | URL hash sync | ✓ | ?lat=&lon=&z=&layers= |
 | CSV export (filtered) | ✓ | 16 columns, current snapshot |
+| GeoJSON export (free) | ✓ | viewport / filtered / selection — browser-side blob |
+| DXF export (free) | ✓ | viewport / filtered / selection — AutoCAD-readable CAD format |
+| GeoJSON export (paid) | ✓ | Stripe-gated full national dataset, $29 one-time |
+| DXF export (paid) | ✓ | Stripe-gated full national dataset, $99 one-time |
+| Pro subscription | ✓ | $299/year, monthly refreshed download |
 | Filter by price/type/beds/area | ✓ | Live filter, re-cluster + rebuild heatmap on apply |
 | Fair-price ML | ⚠️ | R² ≈ 0.017; UI decoration only |
 | Yield calculator | ✓ | Gross/net yield, payback years |

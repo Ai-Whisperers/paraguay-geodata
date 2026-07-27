@@ -1,0 +1,20 @@
+name = "geodata-checkout"
+main = "src/worker.js"
+compatibility_date = "2026-07-14"
+
+# Secrets (set via `wrangler secret put STRIPE_SECRET_KEY`)
+# - STRIPE_SECRET_KEY
+# - DOWNLOAD_TOKEN_SIGNING_KEY (HMAC key, ≥ 32 bytes random)
+
+# Routes (after first deploy, custom domain is geodata-checkout.paragu-ai.workers.dev)
+# workers.dev is auto-provided; custom domain configured separately.
+
+# R2 bucket binding (set up via `wrangler r2 bucket create geodata-exports`)
+# [[r2_buckets]]
+# binding = "EXPORTS"
+# bucket_name = "geodata-exports"
+
+# KV namespace for download-token bookkeeping (1-token-per-session, 1h TTL)
+# [[kv_namespaces]]
+# binding = "TOKENS"
+# id = "REPLACE_WITH_KV_ID"
