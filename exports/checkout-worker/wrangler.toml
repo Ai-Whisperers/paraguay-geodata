@@ -1,20 +1,26 @@
 name = "geodata-checkout"
 main = "src/worker.js"
 compatibility_date = "2026-07-14"
+account_id = "9eb1832f3e42a1dbd6ba854f8d6a1cb2"
+workers_dev = true
+preview_urls = true
+
+[vars]
+STRIPE_PRICE_GEOJSON_ONE_TIME = "price_1TxwVCKHq6GxbJ56JeS6bliT"
+STRIPE_PRICE_DXF_ONE_TIME = "price_1TxwVUKHq6GxbJ56CF3h2bcP"
+STRIPE_PRICE_SUB_YEARLY = "price_1TxwVUKHq6GxbJ56KxMar2Yc"
+DATASET_BASE_URL = "https://geodata.paragu-ai.com/data"
 
 # Secrets (set via `wrangler secret put STRIPE_SECRET_KEY`)
 # - STRIPE_SECRET_KEY
 # - DOWNLOAD_TOKEN_SIGNING_KEY (HMAC key, ≥ 32 bytes random)
 
-# Routes (after first deploy, custom domain is geodata-checkout.paragu-ai.workers.dev)
-# workers.dev is auto-provided; custom domain configured separately.
+# The canonical hostname is geodata-checkout.<account>.workers.dev.
+# Do not invent a DNS-style workers.dev hostname such as
+# geodata-checkout.paragu-ai.workers.dev; workers.dev subdomains are account-owned.
 
-# R2 bucket binding (set up via `wrangler r2 bucket create geodata-exports`)
+# Optional R2 bucket binding. DATASET_BASE_URL is the production fallback until
+# the dedicated geodata-exports bucket is provisioned and populated.
 # [[r2_buckets]]
 # binding = "EXPORTS"
 # bucket_name = "geodata-exports"
-
-# KV namespace for download-token bookkeeping (1-token-per-session, 1h TTL)
-# [[kv_namespaces]]
-# binding = "TOKENS"
-# id = "REPLACE_WITH_KV_ID"

@@ -1,9 +1,14 @@
 # Architect Map Download — Paid Offering
 
-**Shipped:** 2026-07-14
+**Shipped:** 2026-07-28 (test mode)
 **Repo:** `Ai-Whisperers/paraguay-geodata`
 **Worker:** `exports/checkout-worker/` (Cloudflare Worker)
 **Live:** https://geodata.paragu-ai.com/
+**Checkout:** https://geodata-checkout.weissvanderpol-ivan.workers.dev
+
+The full paid flow is deployed in Stripe **test mode**. Checkout sessions and signed
+fulfillment work end-to-end; commercial launch still requires live-mode price IDs
+and a live Stripe secret.
 
 ## Why this exists
 
@@ -33,7 +38,7 @@ formats are required to win the architect segment:
 
 The free tiers ship immediately on click — no auth, no friction. The paid
 tiers gate behind a Stripe Checkout session hosted at
-`https://geodata-checkout.paragu-ai.workers.dev`.
+`https://geodata-checkout.weissvanderpol-ivan.workers.dev`.
 
 ## UX flow
 
@@ -56,7 +61,9 @@ After successful payment, Stripe redirects to the worker at
 
 1. Verifies `payment_status === 'paid'` against Stripe
 2. Issues an HMAC-signed download token (1-hour TTL)
-3. Redirects to `/download?token=...&product=...` which streams the dataset
+3. Redirects to `/download?token=...&product=...`, which streams the purchased
+   GeoJSON/DXF artifact. Pro subscriptions receive a signed JSON manifest with
+   the current GeoJSON + DXF download links.
 
 ## Files
 
@@ -67,10 +74,14 @@ After successful payment, Stripe redirects to the worker at
 | `exports/checkout-worker/src/worker.js` | Cloudflare Worker: Stripe checkout, success redirect, signed download |
 | `exports/checkout-worker/wrangler.toml` | Worker config (route, R2, KV bindings) |
 | `exports/checkout-worker/package.json` | Wrangler + Stripe npm |
-| `exports/checkout-worker/test/handler.test.mjs` | HMAC sign/verify + catalog unit tests (6 tests, all pass) |
+| `exports/checkout-worker/test/handler.test.mjs` | HMAC sign/verify + catalog unit tests |
+| `exports/checkout-worker/test/worker.integration.test.mjs` | Real worker router/readiness/fail-closed integration tests |
+| `exports/checkout-worker/test/frontend-checkout.test.mjs` | Static checkout wiring and redirect-loop regression tests |
 | `exports/checkout-worker/.env.example` | Required env vars + initial test-mode Stripe price IDs |
 | `scripts/build_architect_export.py` | Builder for the consolidated GeoJSON bundles (national + Asunción) |
-| `tests/test_architect_export.py` | Smoke tests for the builder (4 tests, all pass) |
+| `scripts/build_paid_dxf_export.py` | Deterministic AutoCAD R12 paid national DXF artifact builder |
+| `tests/test_architect_export.py` | Smoke tests for the architect bundle builder |
+| `tests/test_paid_dxf_export.py` | DXF builder regression tests |
 
 ### Printable plan PDF vs paid export — why both?
 
@@ -108,8 +119,8 @@ cd exports/checkout-worker
 # 1. Install deps (wrangler + stripe)
 npm install
 
-# 2. Run unit tests
-node test/handler.test.mjs     # 6 tests, expect ALL TESTS PASS
+# 2. Run unit + integration + frontend contract tests
+npm test
 
 # 3. Set secrets
 wrangler secret put STRIPE_SECRET_KEY
@@ -117,7 +128,10 @@ wrangler secret put DOWNLOAD_TOKEN_SIGNING_KEY
 # Optional: publish the dataset to R2 or a Pages deploy, then
 #   wrangler secret put DATASET_BASE_URL
 
-# 4. Create R2 bucket for the artifacts
+# 4. Build the paid DXF artifact and create R2 bucket for the artifacts
+cd ../..
+python3 -m scripts.build_paid_dxf_export
+cd exports/checkout-worker
 wrangler r2 bucket create geodata-exports
 # Upload the full national artifacts:
 wrangler r2 object put geodata-exports/properties_latest.geojson \
@@ -128,9 +142,9 @@ wrangler r2 object put geodata-exports/properties_latest.dxf \
 # 5. Deploy
 wrangler deploy
 
-# 6. Configure custom domain (optional)
-# In Cloudflare dashboard → Workers → geodata-checkout → Triggers
-#   add route: geodata-checkout.paragu-ai.workers.dev/*
+# 6. The Worker is served at the account-owned hostname:
+#   https://geodata-checkout.weissvanderpol-ivan.workers.dev
+# Add an optional custom domain in Cloudflare Workers → geodata-checkout → Settings.
 ```
 
 ## Roadmap (post-launch)

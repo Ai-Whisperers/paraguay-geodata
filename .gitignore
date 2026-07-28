@@ -16,6 +16,7 @@ __pycache__/
 # Local
 .env
 .env.local
+node_modules/
 
 # Tiles / rasters we may eventually fetch (very large)
 *.dem.tif

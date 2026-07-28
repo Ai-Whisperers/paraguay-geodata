@@ -15,7 +15,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path("/root/paraguay-geodata")
+REPO_ROOT = Path(__file__).resolve().parents[1]
 WEB_DATA = REPO_ROOT / "exports" / "web" / "data"
 
 

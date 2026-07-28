@@ -20,8 +20,10 @@
 
 import Stripe from 'stripe';
 
+const SITE_URL = 'https://geodata.paragu-ai.com';
+
 const CORS = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': SITE_URL,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
@@ -39,18 +41,39 @@ const CATALOG = {
         priceEnv: 'STRIPE_PRICE_DXF_ONE_TIME',
         name: 'Paraguay Geodata — full national DXF (CAD) export',
         format: 'dxf',
-        // DXF is generated server-side from the GeoJSON on demand; cached in R2.
         downloadKey: 'properties_latest.dxf',
     },
     sub_yearly: {
         priceEnv: 'STRIPE_PRICE_SUB_YEARLY',
         name: 'Paraguay Geodata — Pro subscription (1 year)',
-        format: 'both',
-        downloadKey: 'subscription',
+        format: 'json',
+        downloadKey: 'subscription_manifest',
     },
 };
 
 const TOKEN_TTL_SECONDS = 3600; // 1 hour
+
+function checkoutReadiness(env) {
+    const products = Object.entries(CATALOG)
+        .filter(([, product]) => Boolean(env[product.priceEnv]))
+        .map(([id]) => id);
+    const artifactBase = Boolean(env.EXPORTS || env.DATASET_BASE_URL);
+    const artifacts = {
+        geojson_all: artifactBase,
+        dxf_all: artifactBase,
+        sub_yearly: artifactBase,
+    };
+    const stripeConfigured = Boolean(env.STRIPE_SECRET_KEY);
+    const signingConfigured = Boolean(env.DOWNLOAD_TOKEN_SIGNING_KEY);
+    const pricesConfigured = products.length === Object.keys(CATALOG).length;
+    const artifactsConfigured = Object.values(artifacts).every(Boolean);
+    return {
+        ready: stripeConfigured && signingConfigured && pricesConfigured && artifactsConfigured,
+        mode: env.STRIPE_SECRET_KEY?.startsWith('sk_live_') ? 'live' : 'test',
+        products,
+        artifacts,
+    };
+}
 
 // ----- HMAC token sign/verify -----
 async function importHmacKey(secret) {
@@ -113,24 +136,29 @@ async function handleCheckout(request, env, ctx) {
     const product = body.product;
     const productDef = CATALOG[product];
     if (!productDef) return withCors(jsonError('Unknown product', 400));
+    if (!env.STRIPE_SECRET_KEY) {
+        return withCors(jsonError('Checkout is not configured', 503));
+    }
 
     const priceId = env[productDef.priceEnv];
-    if (!priceId) return withCors(jsonError(`Price not configured for ${product}`, 500));
+    if (!priceId) return withCors(jsonError(`Price not configured for ${product}`, 503));
 
-    const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
+    const stripe = env.STRIPE_CLIENT || new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
     const origin = new URL(request.url).origin;
     const successUrl = `${origin}/success?session_id={CHECKOUT_SESSION_ID}&product=${encodeURIComponent(product)}`;
     const cancelUrl  = `${origin}/cancel`;
+    const subscription = product === 'sub_yearly';
 
     const session = await stripe.checkout.sessions.create({
-        mode: product === 'sub_yearly' ? 'subscription' : 'payment',
+        mode: subscription ? 'subscription' : 'payment',
         line_items: [{ price: priceId, quantity: 1 }],
         success_url: successUrl,
         cancel_url: cancelUrl,
         metadata: { product, download_key: productDef.downloadKey },
-        // Allow promotion codes, collect billing address for receipts.
+        customer_creation: subscription ? undefined : 'always',
+        invoice_creation: subscription ? undefined : { enabled: true },
         allow_promotion_codes: true,
-        billing_address_collection: 'auto',
+        billing_address_collection: 'required',
     });
 
     return withCors(jsonResponse({ url: session.url, id: session.id }));
@@ -147,10 +175,17 @@ async function handleSuccess(request, env) {
         return new Response('Invalid success link', { status: 400 });
     }
 
-    const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
+    const stripe = env.STRIPE_CLIENT || new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
     const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const sessionProduct = session.metadata?.product;
+    if (sessionProduct !== product || !CATALOG[sessionProduct]) {
+        return new Response('Checkout product mismatch', { status: 400 });
+    }
     if (session.payment_status !== 'paid' && session.status !== 'complete') {
         return new Response('Payment not confirmed', { status: 402 });
+    }
+    if (!env.DOWNLOAD_TOKEN_SIGNING_KEY) {
+        return new Response('Download delivery is not configured', { status: 503 });
     }
 
     const exp = Math.floor(Date.now() / 1000) + TOKEN_TTL_SECONDS;
@@ -179,6 +214,28 @@ async function handleDownload(request, env, ctx) {
     const product = payload.product;
     const productDef = CATALOG[product];
     if (!productDef) return withCors(jsonError('Unknown product', 400));
+
+    if (product === 'sub_yearly') {
+        const baseUrl = env.DATASET_BASE_URL || `${SITE_URL}/data`;
+        const bundle = {
+            generated_at: new Date().toISOString(),
+            expires_at: new Date(payload.exp * 1000).toISOString(),
+            customer: payload.email || null,
+            files: {
+                geojson: `${baseUrl}/properties_latest.geojson`,
+                dxf: `${baseUrl}/properties_latest.dxf`,
+            },
+        };
+        return new Response(JSON.stringify(bundle, null, 2), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Content-Disposition': 'attachment; filename="paraguay-geodata-pro-downloads.json"',
+                'Cache-Control': 'no-store',
+                ...CORS,
+            },
+        });
+    }
 
     // Resolve the artifact. If R2 binding is configured, fetch from there; else
     // proxy from env.DATASET_BASE_URL (Cloudflare R2 public bucket or Pages deploy).
@@ -235,8 +292,15 @@ export default {
             if (path === '/checkout' || path === '/api/checkout') return await handleCheckout(request, env, ctx);
             if (path === '/success'  || path === '/api/success')  return await handleSuccess(request, env);
             if (path === '/download' || path === '/api/download') return await handleDownload(request, env, ctx);
+            if (path === '/cancel') {
+                return Response.redirect(`${SITE_URL}/pricing?checkout=cancelled`, 303);
+            }
             if (path === '/' || path === '/health') {
-                return withCors(jsonResponse({ ok: true, service: 'geodata-checkout' }));
+                return withCors(jsonResponse({
+                    ok: true,
+                    service: 'geodata-checkout',
+                    ...checkoutReadiness(env),
+                }));
             }
             return withCors(jsonError('Not found', 404));
         } catch (err) {

@@ -159,23 +159,30 @@
 
 <script>
 // Buy buttons: open the Worker checkout for the matching product.
-const WORKER_URL = 'https://geodata-checkout.paragu-ai.workers.dev';
+const WORKER_URL = 'https://geodata-checkout.weissvanderpol-ivan.workers.dev';
 document.querySelectorAll('a[data-checkout]').forEach(a => {
   a.addEventListener('click', (e) => {
     e.preventDefault();
     const product = a.getAttribute('data-checkout');
-    // Try POST /checkout so Stripe API call is server-side (avoids leaking price IDs)
+    const originalText = a.textContent;
+    a.setAttribute('aria-disabled', 'true');
+    a.textContent = 'Abriendo Stripe…';
     fetch(WORKER_URL + '/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ product }),
     })
-      .then(r => r.ok ? r.json() : Promise.reject(r))
-      .then(data => { if (data.url) window.location.href = data.url; })
+      .then(async r => {
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok || !data.url) throw new Error(data.error || 'Checkout unavailable');
+        return data;
+      })
+      .then(data => { window.location.assign(data.url); })
       .catch(err => {
-        // Fallback: open the success URL with a synthetic session so the user lands on Stripe
-        // (this only happens if Worker is offline — Stripe dashboard link in footer of Worker)
-        window.open(WORKER_URL + '/?product=' + encodeURIComponent(product), '_blank');
+        console.error('[checkout]', err);
+        a.textContent = 'Checkout no disponible — reintentar';
+        a.removeAttribute('aria-disabled');
+        setTimeout(() => { a.textContent = originalText; }, 4000);
       });
   });
 });

@@ -102,9 +102,9 @@ A free, open, viewer for Paraguay real-estate + cadastral + environmental data. 
 | CSV export (filtered) | ✓ | 16 columns, current snapshot |
 | GeoJSON export (free) | ✓ | viewport / filtered / selection — browser-side blob |
 | DXF export (free) | ✓ | viewport / filtered / selection — AutoCAD-readable CAD format |
-| GeoJSON export (paid) | ✓ | Stripe-gated full national dataset, $29 one-time |
-| DXF export (paid) | ✓ | Stripe-gated full national dataset, $99 one-time |
-| Pro subscription | ✓ | $299/year, monthly refreshed download |
+| GeoJSON export (paid) | ✓ test mode | Stripe Checkout live, full national artifact downloadable after paid-session verification; $29 test price |
+| DXF export (paid) | ✓ test mode | Stripe Checkout live, 3.08 MB AutoCAD R12 artifact; $99 test price |
+| Pro subscription | ✓ test mode | Stripe subscription Checkout live; signed manifest delivers current GeoJSON + DXF links; $299/year test price |
 | Filter by price/type/beds/area | ✓ | Live filter, re-cluster + rebuild heatmap on apply |
 | Fair-price ML | ⚠️ | R² ≈ 0.017; UI decoration only |
 | Yield calculator | ✓ | Gross/net yield, payback years |
@@ -124,6 +124,7 @@ A free, open, viewer for Paraguay real-estate + cadastral + environmental data. 
 
 ## Known issues / what's NOT done
 
+- **Paid checkout is test mode** — the Worker, checkout sessions, signed fulfillment, GeoJSON/DXF artifacts, and Pages wiring are live. Switch Stripe to live prices + live secret only after commercial approval.
 - **No auto-refresh** — data is whatever the last scrape produced. Will go stale.
 - **No user accounts / cloud sync** — saved listings are localStorage only.
 - **GN (Guaraní)** — falls back to ES (no GN translations yet).

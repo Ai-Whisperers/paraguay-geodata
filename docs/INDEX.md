@@ -46,6 +46,7 @@ Map of every doc in this repo. Read order for a new agent:
 | `properties-pipeline.md` | Listings scrape + dedup + cross-ref + deploy | ✅ |
 | `price-model.md` | Hedonic kriging → $/ha raster per departamento | ✅ |
 | `data-inventory.md` | **Master catalog** — every layer the map can show, with phase assignment | ✅ |
+| `architect-export-pricing.md` | Paid GeoJSON/DXF product tiers, Stripe checkout Worker, artifact build + deploy runbook | ✅ |
 | `api-key-checklist.md` | API key registration table for all upstream data providers (TBD Phase 1) | ⏳ |
 
 ## docs/ethics/

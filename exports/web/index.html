@@ -4934,17 +4934,28 @@ window.__buildDXF = function(rows) {
 
 // ========== STRIPE GATED DOWNLOAD ==========
 // Full-dataset GeoJSON / DXF is gated. Free preview: viewport/filtered/selection.
-// Paid: $29 one-time dataset export OR $99/year subscription.
-// Worker URL: deployed at https://geodata-checkout.paragu-ai.workers.dev
-// (see docs/operations/architect-export-pricing.md for full deploy steps).
-window.__STRIPE_CHECKOUT_URL = window.__STRIPE_CHECKOUT_URL || 'https://geodata-checkout.paragu-ai.workers.dev';
+// Paid: $29 GeoJSON / $99 DXF one-time OR $299/year subscription.
+window.__STRIPE_CHECKOUT_URL = window.__STRIPE_CHECKOUT_URL || 'https://geodata-checkout.weissvanderpol-ivan.workers.dev';
 window.__startPaidCheckout = async function(product) {
     if (!window.__STRIPE_CHECKOUT_URL) {
         return showToast('Checkout is not configured yet — contact erebus@ai-whisperers.org', 'error');
     }
-    showToast('Opening secure checkout...', 'info');
-    const url = window.__STRIPE_CHECKOUT_URL + '?product=' + encodeURIComponent(product);
-    window.open(url, '_blank', 'noopener,noreferrer');
+    showToast('Opening secure Stripe checkout...', 'info');
+    try {
+        const response = await fetch(window.__STRIPE_CHECKOUT_URL + '/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ product }),
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.url) {
+            throw new Error(payload.error || 'Checkout unavailable');
+        }
+        window.location.assign(payload.url);
+    } catch (error) {
+        console.error('[checkout]', error);
+        showToast('No se pudo abrir el checkout. Probá otra vez o escribinos.', 'error');
+    }
 };
 
 // ========== DOWNLOAD MENU UI ==========

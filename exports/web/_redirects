@@ -14,11 +14,12 @@ http://datos.paragu-ai.com/*    https://datos.paragu-ai.com/:splat    301
 # Friendly URL: /catalog → survey doc
 /catalog  /docs/research/PROPERTY_HOUSING_DATA_SOURCES.md  301
 
-# Pricing page (architect downloads)
-/pricing  /pricing.html  301
+# Pricing and architect-plan files are served extensionless by Cloudflare Pages.
+# Do not redirect /pricing to /pricing.html: Pages redirects the .html URL back
+# to /pricing, which creates an infinite redirect loop.
 
-# Printable architect plan page
-/plan  /architect-plan.html  301
+# Friendly alias for the printable architect plan page
+/plan  /architect-plan  301
 
 # /properties.json → main properties geojson (legacy)
 /properties.json  /data/properties_latest.geojson  301
