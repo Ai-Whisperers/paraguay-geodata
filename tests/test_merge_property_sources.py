@@ -208,11 +208,11 @@ def test_published_properties_minimum_schema(data_root, live_only):
     """Every published feature must carry the consumer-required fields that
     index.html popups + heatmaps + filters depend on.
 
-    Skips if properties_latest.geojson isn't built yet.
+    Skips if canonical_properties.geojson isn't built yet.
     """
-    f = data_root / "properties_latest.geojson"
+    f = data_root / "canonical_properties.geojson"
     if not f.exists() or f.stat().st_size < 1_000_000:
-        pytest.skip("properties_latest.geojson not published")
+        pytest.skip("canonical_properties.geojson not built yet")
 
     import json
     d = json.load(open(f))

@@ -128,6 +128,27 @@ def test_choose_area_flags_conflict():
     assert "area_conflict" in flags
 
 
+def test_choose_area_recovers_from_m2_title_when_ha_is_round_placeholder():
+    """The 60 m² city lot bug: published area_ha is a round number (1.0)
+    that the scraper set by mistake; the title has the real area in m²."""
+    p = {"area_ha": 1.0, "area_sqm": None, "title": "Terreno 360 m² en Limpio"}
+    flags: list[str] = []
+    ha, sqm, src = cp.choose_area(p, flags)
+    assert ha == 0.036
+    assert sqm == 360
+    assert src == "inferred"
+    assert "area_recovered_from_title_m2" in flags
+
+
+def test_is_round_ha_detects_placeholders():
+    assert cp._is_round_ha(1.0)
+    assert cp._is_round_ha(5.0)
+    assert cp._is_round_ha(100.0)
+    assert not cp._is_round_ha(1.5)  # not round
+    assert not cp._is_round_ha(0.036)  # < 1 ha
+    assert not cp._is_round_ha(0.5)  # < 1 ha
+
+
 def test_choose_currency_pyg_only():
     p = {"price_usd": None, "price_pyg": 75_000_000}
     flags: list[str] = []

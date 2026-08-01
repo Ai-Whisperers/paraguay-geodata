@@ -291,6 +291,15 @@ def infer_area_ha(title: str | None) -> float | None:
     return round(val, 4)
 
 
+def _is_round_ha(ha: float) -> bool:
+    """A 'round' area_ha like 1.0, 5.0, 10.0, 100.0 — almost certainly a
+    placeholder or scraper error.  Used to detect cases where the published
+    area_ha was extracted from a title fragment ("1 ha", "5 ha") that the
+    scraper misread, when the real area is in m².
+    """
+    return abs(ha - round(ha)) < 0.001 and ha >= 1.0
+
+
 def choose_area(p: dict, flags: list[str]) -> tuple[float | None, float | None, str]:
     """Decide the final `area_ha` and `area_sqm` for a property.
 
@@ -321,6 +330,20 @@ def choose_area(p: dict, flags: list[str]) -> tuple[float | None, float | None, 
     if ha is None and inferred is not None:
         flags.append("area_inferred_from_title")
         return inferred, inferred * 10000, "inferred"
+
+    # NEW: if published area_ha is suspiciously round AND the title mentions
+    # a specific m² figure that disagrees by >2x, trust the title.  This
+    # catches "Terreno 360 m²" + scraper-set area_ha=1.0 (the 60 m² city lot
+    # bug).  We compare the LARGER/SMALLER ratio so the gate is symmetric.
+    if (ha is not None and _is_round_ha(ha) and inferred is not None
+            and max(ha, inferred) / max(min(ha, inferred), 1e-6) > 2.0):
+        # Title-based inferred area disagrees wildly from the round
+        # published value → the scraper misread the title.  Prefer title.
+        if inferred < ha:  # title is smaller (m² not ha)
+            flags.append("area_recovered_from_title_m2")
+            return inferred, inferred * 10000, "inferred"
+        flags.append("area_published_round_but_title_larger")
+        return ha, ha * 10000, "published"
 
     if ha is not None and (sqm is None or sqm <= 0):
         return ha, ha * 10000, "published"

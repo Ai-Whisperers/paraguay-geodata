@@ -399,18 +399,52 @@ def slug_to_depto(slug: str) -> str:
 
 
 def _extract_area_ha(html: str) -> float | None:
-    # hectares first
-    m = re.search(r'([\d,.]+)\s*(?:has?|hectares?)', html, re.I)
+    """Extract the terrain area in hectares from an InfoCasas detail page.
+
+    The site includes area as a structured JSON entry like
+    `{"field":"m2Terrain","value":"525 m2","text":"M\u00b2 del terreno"}`
+    — that's the *primary* area.  Fall back to a narrowed regex scan only
+    if the structured entry isn't found.
+
+    The historical regex-scan path was buggy: it could match the literal
+    characters "1HA" inside base64-encoded image fragments and return 1.0 ha
+    for what was actually a 525 m² listing.  See tests.
+    """
+    # 1. Look for {"field":"m2Terrain","value":"<N> m2"} or similar
+    for pat in (
+        r'"field"\s*:\s*"m2Terrain"\s*,\s*"value"\s*:\s*"([\d,.]+)\s*m2?"',
+        r'"field"\s*:\s*"m2Cubiertos"\s*,\s*"value"\s*:\s*"([\d,.]+)\s*m2?"',
+    ):
+        m = re.search(pat, html)
+        if m:
+            try:
+                m2 = float(m.group(1).replace(",", "").replace(".", "").replace(",", ".") if "," in m.group(1) and "." in m.group(1) else m.group(1).replace(",", ""))
+                return m2 / 10000.0
+            except ValueError:
+                pass
+
+    # 2. Narrowed regex: only look in the title/og:description zone (the
+    # first 30K chars), NOT the entire page (avoids base64 false matches).
+    head = html[:30_000]
+    # Hectares first
+    m = re.search(r'([\d,.]+)\s*(?:has?|hectares?)', head, re.I)
     if m:
         try:
-            return float(m.group(1).replace(",", ""))
+            return float(m.group(1).replace(",", "").replace(".", "").replace(",", ".") if "," in m.group(1) and "." in m.group(1) else m.group(1).replace(",", ""))
         except ValueError:
             pass
     # m² → ha
-    m = re.search(r'([\d,.]+)\s*(?:m2|m²)', html, re.I)
+    m = re.search(r'([\d,.]+)\s*(?:m2|m²)', head, re.I)
     if m:
         try:
-            m2 = float(m.group(1).replace(",", ""))
+            raw = m.group(1)
+            if "," in raw and "." in raw:
+                raw = raw.replace(",", "")
+            elif "," in raw and re.match(r"^\d{1,3},\d{3}$", raw):
+                raw = raw.replace(",", "")
+            elif "," in raw:
+                raw = raw.replace(",", ".")
+            m2 = float(raw)
             return m2 / 10000.0
         except ValueError:
             pass
