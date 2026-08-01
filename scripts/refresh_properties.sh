@@ -25,6 +25,7 @@ log "fetching properties"
 python3 -m tools.fetch_properties --portal infocasas  --output-dir "$WORK/infocasas"  || log "WARN infocasas fetch failed"
 python3 -m tools.fetch_tulugar    --output-dir "$WORK/tulugar"                          || log "WARN tulugar fetch failed"
 python3 -m tools.fetch_clasipar_sitemap --output-dir "$WORK/clasipar"                 || log "WARN clasipar fetch failed"
+python3 -m tools.fetch_clasipar_public --output-dir "$WORK/clasipar_v2"               || log "WARN clasipar public fetch failed"
 
 # 2. Merge per-source snapshots into the canonical artifact.
 log "merging"
@@ -58,6 +59,23 @@ cp "$ROOT/data/properties/canonical_properties.geojson" \
    "$ROOT/exports/web/data/properties_latest.geojson"
 cp "$ROOT/data/properties/facets.json" \
    "$ROOT/exports/web/data/facets.json"
+python3 -m tools.build_data_freshness
+
+# 7. Phase C artifacts (cheap, no network).
+log "fair-price + image-dedup (mock) + inbio strip"
+python3 -m tools.build_fair_price_model_v2 || log "WARN fair-price v2 failed"
+python3 -m tools.image_dedup --mock --max-rows 100 || log "WARN image_dedup mock failed"
+python3 -m scripts.build_inbio_zafra_strip || log "WARN inbio strip failed"
+
+# 8. Refresh the deployed viewer (overwrite the small artifacts).
+[ -f "$ROOT/data/properties/fair_price_model_v2.json" ] && \
+    cp "$ROOT/data/properties/fair_price_model_v2.json" \
+       "$ROOT/exports/web/data/ml/fair_price_model_v2.json"
+[ -f "$ROOT/data/properties/image_clusters.json" ] && \
+    cp "$ROOT/data/properties/image_clusters.json" \
+       "$ROOT/exports/web/data/image_clusters.json"
+[ -f "$ROOT/exports/web/data/inbio_zafra_strip.json" ] || true
+
 "$ROOT/exports/web/wrangler-pages-deploy.sh"
 
 log "done"

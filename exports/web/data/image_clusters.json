@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-08-01T12:05:58.635763Z",
+  "input_rows": 10754,
+  "fetched": 100,
+  "clustered": 8,
+  "clusters": [
+    {
+      "cluster_id": "img-001a818fab",
+      "size": 4,
+      "properties": [
+        {
+          "source": "infocasas",
+          "source_id": "191434481",
+          "source_url": "https://www.infocasas.com.py/vendo-7-hectareas-en-pedro-juan-caballero/191434481",
+          "title": "Vendo 7 hectáreas en Pedro Juan Caballero",
+          "cluster_id": "infocasas-0002e7657e"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193355572",
+          "source_url": "https://www.infocasas.com.py/vendo-terreno-en-chacoi-villa-hayes/193355572",
+          "title": "VENDO TERRENO EN CHACOI VILLA HAYES",
+          "cluster_id": "infocasas-0af1bbe64d"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193660511",
+          "source_url": "https://www.infocasas.com.py/estancia-de-10019-hectareas-en-caaguazu-ja/193660511",
+          "title": "ESTANCIA DE 10.019 HECTAREAS EN CAAGUAZU      J.A.",
+          "cluster_id": "infocasas-368c05bdd9"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193498841",
+          "source_url": "https://www.infocasas.com.py/vendo-hermosa-propiedad-en-barrio-machio-lambare/193498841",
+          "title": "Vendo hermosa propiedad en Barrio Machio Lambaré",
+          "cluster_id": "infocasas-89e07112b7"
+        }
+      ]
+    },
+    {
+      "cluster_id": "img-d68446d02a",
+      "size": 4,
+      "properties": [
+        {
+          "source": "infocasas",
+          "source_id": "193790375",
+          "source_url": "https://www.infocasas.com.py/campo-de-1918-hectareas-en-venta/193790375",
+          "title": "CAMPO DE 1918 HECTAREAS EN VENTA",
+          "cluster_id": "infocasas-00b089d468"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "192742134",
+          "source_url": "https://www.infocasas.com.py/vendo-departamento-de-2-dormitorios-ubicado-a-pasos-del-shopping-mariscal/192742134",
+          "title": "Vendo departamento de 2 dormitorios ubicado a pasos del Shopping Mariscal",
+          "cluster_id": "infocasas-00b2b641bd"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193061216",
+          "source_url": "https://www.infocasas.com.py/venta-de-quinta-en-paraguari-paraguari/193061216",
+          "title": "Venta De Quinta En Paraguarí, Paraguarí",
+          "cluster_id": "infocasas-a6b7d63349"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "192900242",
+          "source_url": "https://www.infocasas.com.py/departamento-en-venta-de-2-dormitorios-y-cochera-incluida-en-asuncion/192900242",
+          "title": "Departamento en venta de 2 dormitorios y cochera incluida en Asunción",
+          "cluster_id": "infocasas-0194e5a1fd"
+        }
+      ]
+    }
+  ],
+  "no_image": [
+    "192478187",
+    "193158322",
+    "193742274",
+    "193098636",
+    "192416012",
+    "193316557",
+    "192634405",
+    "192405484",
+    "193388802",
+    "192968530",
+    "193462492"
+  ]
+}

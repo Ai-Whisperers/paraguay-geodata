@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-08-01T12:05:58.715717Z",
+  "zafras": [],
+  "top_per_crop_latest_zafra": {},
+  "deptos": [],
+  "note": "no INBIO series data — run scripts/build_inbio_series.py first"
+}

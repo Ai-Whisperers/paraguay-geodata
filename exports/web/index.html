@@ -880,6 +880,7 @@
                 <h2 style="margin:0; font-size:14px;">📊 Insights (live)</h2>
                 <button onclick="window.refreshInsights()" style="background:none; border:none; color:var(--accent); cursor:pointer; font-size:11px;" aria-label="Refresh insights" title="Refresh insights">↻</button>
             </div>
+            <div id="qualitySummary" style="margin-bottom:8px;"></div>
             <div id="marketSignals" style="font-size:11px; line-height:1.5; color:var(--fg);">
                 <div style="color:var(--fg-dim);">Loading…</div>
             </div>
@@ -1036,6 +1037,24 @@
             <label style="font-size:11px;">Min area (ha)
                 <input type="number" id="filterArea" placeholder="0" step="0.1" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
             </label>
+            <label style="font-size:11px;">Depto
+                <select id="filterDepto" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                    <option value="">All deptos</option>
+                </select>
+            </label>
+            <label style="font-size:11px;">Source
+                <select id="filterSource" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                    <option value="">All sources</option>
+                </select>
+            </label>
+            <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
+                <input type="checkbox" id="filterHideFlagged" style="margin:0;">
+                <span>Hide data-quality flagged</span>
+            </label>
+            <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
+                <input type="checkbox" id="filterHasImages" style="margin:0;">
+                <span>With images only</span>
+            </label>
         </div>
         <div style="display:flex; gap:8px; margin-top:12px;">
             <button onclick="applyFilters()" style="flex:1; padding:10px; background:var(--accent); color:var(--bg); border:none; border-radius:6px; font-weight:600;">Apply</button>
@@ -1105,6 +1124,24 @@
                 </label>
                 <label style="font-size:11px;">Min area (ha)
                     <input type="number" id="filterArea" placeholder="0" step="0.1" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                </label>
+                <label style="font-size:11px;">Depto
+                    <select id="filterDepto" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                        <option value="">All deptos</option>
+                    </select>
+                </label>
+                <label style="font-size:11px;">Source
+                    <select id="filterSource" style="width:100%; padding:6px; background:var(--bg-elev-2); color:var(--fg); border:1px solid var(--line); border-radius:4px;">
+                        <option value="">All sources</option>
+                    </select>
+                </label>
+                <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
+                    <input type="checkbox" id="filterHideFlagged" style="margin:0;">
+                    <span>Hide data-quality flagged</span>
+                </label>
+                <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
+                    <input type="checkbox" id="filterHasImages" style="margin:0;">
+                    <span>With images only</span>
                 </label>
             </div>
             <div style="display:flex; gap:8px; margin-top:12px;">
@@ -2485,6 +2522,61 @@ async function loadProperties() {
         })();
 // Save for clustering
         window.__properties = features;
+        populateFacetsFromArtifacts(features);
+
+// === FACETS-DRIVEN DROPDOWNS ===
+// Populates the Depto and Source selects from data/facets.json (canonical
+// 17 PY deptos + per-source counts) and the new "hide-flagged" /
+// "with-images" toggles.  Falls back to scanning window.__properties if the
+// facets artifact is missing.
+async function populateFacetsFromArtifacts(features) {
+    try {
+        let facets = null;
+        try {
+            const r = await fetch('./data/facets.json');
+            if (r.ok) facets = await r.json();
+        } catch (_) {}
+
+        const deptoSel = document.getElementById('filterDepto');
+        const sourceSel = document.getElementById('filterSource');
+        if (!deptoSel || !sourceSel) return;
+
+        // Build canonical lists, ranked by count (already sorted by build_facets.py).
+        const deptos = facets?.facets?.depto
+            ? facets.facets.depto.filter(d => d.value && d.value !== '?').map(d => d.value)
+            : Array.from(new Set(features.map(f => (f.properties || {}).state_province).filter(Boolean)))
+                .sort();
+        const sources = facets?.facets?.source
+            ? facets.facets.source.filter(s => s.value && s.value !== '?').map(s => s.value)
+            : Array.from(new Set(features.map(f => (f.properties || {}).source).filter(Boolean)))
+                .sort();
+
+        // Replace existing options (keep "All …" at index 0).
+        deptoSel.innerHTML = '<option value="">All deptos</option>' +
+            deptos.map(d => `<option value="${d}">${d}</option>`).join('');
+        sourceSel.innerHTML = '<option value="">All sources</option>' +
+            sources.map(s => `<option value="${s}">${s}</option>`).join('');
+
+        // Surface the quality summary in the Insights panel (top of sidebar).
+        if (facets?.quality) {
+            const q = facets.quality;
+            const insights = document.getElementById('qualitySummary');
+            if (insights) {
+                const flaggedPct = q.total ? Math.round(q.flagged / q.total * 100) : 0;
+                insights.innerHTML = `
+                    <div style="font-size:11px; line-height:1.7; padding:8px; background:var(--bg-elev-2); border-radius:4px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>${q.total.toLocaleString()} listings</span>
+                            <span style="color:${flaggedPct > 30 ? 'var(--warn)' : 'inherit'}">${q.flagged.toLocaleString()} flagged (${flaggedPct}%)</span>
+                        </div>
+                        ${q.median_days != null ? `<div style="margin-top:4px; color:var(--fg-dim);">Median age: ${q.median_days}d</div>` : ''}
+                    </div>`;
+            }
+        }
+    } catch (err) {
+        console.warn('[facets] populate failed:', err);
+    }
+}
 
 const propertyLayers = {
     sale: LAYER_GROUPS.properties_sale[0],
@@ -3190,6 +3282,50 @@ function buildPropertyPopup(p, lon, lat) {
         }
     }
 
+    // Cross-source duplicates: same cluster_id, different source.
+    let duplicatesHtml = '';
+    if (p.cluster_id && window.__properties) {
+        const dupes = window.__properties.filter(other => {
+            const op = other.properties || {};
+            return op.cluster_id && op.cluster_id === p.cluster_id && op.source !== p.source;
+        }).slice(0, 4);
+        if (dupes.length > 0) {
+            duplicatesHtml = `
+                <div style="margin-top:6px; padding:6px; background:var(--bg-elev-2); border-radius:4px; font-size:10px;">
+                    <div style="font-weight:600; margin-bottom:4px;">Also listed on ${dupes.length} other source${dupes.length===1?'':'s'}:</div>
+                    ${dupes.map(d => {
+                        const dp = d.properties || {};
+                        return `<div style="display:flex; justify-content:space-between; gap:4px; padding:2px 0;">
+                            <span>${dp.source}</span>
+                            <a href="${dp.source_url}" target="_blank" rel="noopener" style="color:var(--accent);">${dp.price_usd ? '$' + Math.round(dp.price_usd).toLocaleString() : '—'} →</a>
+                        </div>`;
+                    }).join('')}
+                </div>
+            `;
+        }
+    }
+
+    // Quality flags: surface data caveats so users know what to trust.
+    let qualityHtml = '';
+    if (p.quality_flags && p.quality_flags.length > 0) {
+        qualityHtml = `
+            <div style="margin-top:6px; padding:6px; background:rgba(245, 158, 11, 0.10); border:1px solid rgba(245, 158, 11, 0.30); border-radius:4px; font-size:10px; color:var(--warn);">
+                <div style="font-weight:600; margin-bottom:2px;">⚠ Data quality flags:</div>
+                <div>${p.quality_flags.join(' · ')}</div>
+            </div>
+        `;
+    }
+
+    // Canonical features: rendered as chips if present.
+    let featuresHtml = '';
+    if (p.canonical_features && p.canonical_features.length > 0) {
+        featuresHtml = `
+            <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:4px;">
+                ${p.canonical_features.map(f => `<span style="font-size:10px; padding:2px 6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:10px;">${f}</span>`).join('')}
+            </div>
+        `;
+    }
+
     return `
         <h3 style="max-width:280px;">${(p.title || p.source_id || 'Property').slice(0, 80)}</h3>
         ${galleryHtml}
@@ -3203,6 +3339,9 @@ function buildPropertyPopup(p, lon, lat) {
         ${constructionZoneHtml}
         ${fairPriceHtml}
         ${comparablesHtml}
+        ${duplicatesHtml}
+        ${qualityHtml}
+        ${featuresHtml}
         <div style="margin-top:6px; font-size:10px; color:var(--fg-dim);">Source: ${p.source || '?'}${p.source_platform && p.source_platform !== p.source ? ' via ' + p.source_platform : ''} · scraped ${(p.scraped_at_utc || '').substring(0, 10) || '?'}</div>
         <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
             <a href="${p.source_url}" target="_blank" rel="noopener" style="color:var(--accent); font-weight:600;">Open listing →</a>
@@ -4173,8 +4312,10 @@ function applyFilters() {
     const city = ((document.getElementById('filterCity') || {}).value || '').toLowerCase();
     const source = (document.getElementById('filterSource') || {}).value || '';
     const sort = (document.getElementById('filterSort') || {}).value || '';
+    const hideFlagged = !!(document.getElementById('filterHideFlagged') || {}).checked;
+    const hasImages   = !!(document.getElementById('filterHasImages') || {}).checked;
 
-    activeFilters = { minPrice, maxPrice, type, listing, beds, minArea, depto, city, source, sort };
+    activeFilters = { minPrice, maxPrice, type, listing, beds, minArea, depto, city, source, sort, hideFlagged, hasImages };
 
     // Apply filter to property markers
     if (!window.__properties) return;
@@ -4190,6 +4331,8 @@ function applyFilters() {
         if (depto && p.state_province !== depto) return false;
         if (city && !(p.city || '').toLowerCase().includes(city)) return false;
         if (source && p.source !== source) return false;
+        if (hideFlagged && p.quality_flags && p.quality_flags.length > 0) return false;
+        if (hasImages && (!p.images || p.images.length === 0)) return false;
         return true;
     });
 
@@ -4437,6 +4580,8 @@ function clearFilters() {
     const fc = document.getElementById('filterCity'); if (fc) fc.value = '';
     const fs = document.getElementById('filterSource'); if (fs) fs.value = '';
     const fsort = document.getElementById('filterSort'); if (fsort) fsort.value = '';
+    const fhf = document.getElementById('filterHideFlagged'); if (fhf) fhf.checked = false;
+    const fhi = document.getElementById('filterHasImages');   if (fhi) fhi.checked = false;
     document.getElementById('filterResultCount').textContent = '';
     activeFilters = {};
     // Restore unfiltered set if we kept a backup
