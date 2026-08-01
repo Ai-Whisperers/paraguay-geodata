@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T12:40:12.784889Z",
+  "generated_at": "2026-08-01T12:46:33.621755Z",
   "summary": {
     "median_days": 0,
     "p25": 0,
@@ -14,7 +14,7 @@
     },
     "Alto Paraná": {
       "median_days": 0,
-      "n": 53,
+      "n": 61,
       "stale_pct": 0.0
     },
     "Amambay": {
@@ -33,18 +33,18 @@
       "stale_pct": 0.0
     },
     "Canindeyú": {
-      "median_days": null,
-      "n": 1,
+      "median_days": 0,
+      "n": 4,
       "stale_pct": 0.0
     },
     "Central": {
       "median_days": 0,
-      "n": 675,
+      "n": 682,
       "stale_pct": 0.0
     },
     "Cordillera": {
       "median_days": 0,
-      "n": 137,
+      "n": 139,
       "stale_pct": 0.0
     },
     "Itapúa": {
@@ -57,14 +57,19 @@
       "n": 1,
       "stale_pct": 0.0
     },
+    "Paraguarí": {
+      "median_days": null,
+      "n": 1,
+      "stale_pct": 0.0
+    },
     "Presidente Hayes": {
       "median_days": 0,
-      "n": 7,
+      "n": 14,
       "stale_pct": 0.0
     },
     "Unknown": {
       "median_days": 21,
-      "n": 677,
+      "n": 649,
       "stale_pct": 0.0
     },
     "Ñeembucú": {

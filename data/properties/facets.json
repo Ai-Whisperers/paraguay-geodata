@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T12:40:12.572285Z",
+  "generated_at": "2026-08-01T12:46:33.408571Z",
   "feature_count": 2678,
   "facets": {
     "depto": [
@@ -8,20 +8,24 @@
         "count": 1096
       },
       {
-        "value": "?",
-        "count": 677
+        "value": "Central",
+        "count": 682
       },
       {
-        "value": "Central",
-        "count": 675
+        "value": "?",
+        "count": 649
       },
       {
         "value": "Cordillera",
-        "count": 137
+        "count": 139
       },
       {
         "value": "Alto Paraná",
-        "count": 53
+        "count": 61
+      },
+      {
+        "value": "Presidente Hayes",
+        "count": 14
       },
       {
         "value": "Caaguazú",
@@ -32,20 +36,16 @@
         "count": 10
       },
       {
-        "value": "Presidente Hayes",
-        "count": 7
-      },
-      {
         "value": "Itapúa",
         "count": 6
       },
       {
-        "value": "Alto Paraguay",
-        "count": 2
+        "value": "Canindeyú",
+        "count": 4
       },
       {
-        "value": "Canindeyú",
-        "count": 1
+        "value": "Alto Paraguay",
+        "count": 2
       },
       {
         "value": "Amambay",
@@ -53,6 +53,10 @@
       },
       {
         "value": "Misiones",
+        "count": 1
+      },
+      {
+        "value": "Paraguarí",
         "count": 1
       }
     ],

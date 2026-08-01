@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-08-01T12:40:14.519373Z",
+  "generated_at": "2026-08-01T12:46:35.172322Z",
   "input_rows": 2678,
   "per_depto": {
     "_unknown_": {
-      "n_train": 242,
-      "r2": 0.17,
-      "mae_usd": 231689.99,
-      "intercept": 180863.32763844857,
+      "n_train": 214,
+      "r2": 0.001,
+      "mae_usd": 116168.52,
+      "intercept": 127556.79147794918,
       "coefficients": {
-        "area_ha": -0.7968208831321257,
-        "bedrooms": 187875.92023579078,
-        "bathrooms": 627585.3067160834,
-        "parking_spaces": -644096.2418396851
+        "area_ha": -1.1927065835388875,
+        "bedrooms": 19147.9639809744,
+        "bathrooms": 19147.9639809744,
+        "parking_spaces": 0.0
       }
     },
     "Central": {
-      "n_train": 597,
-      "r2": 0.024,
-      "mae_usd": 430299.01,
-      "intercept": 412802.54537179857,
+      "n_train": 604,
+      "r2": 0.023,
+      "mae_usd": 432407.33,
+      "intercept": 419536.70579152775,
       "coefficients": {
-        "area_ha": 10212.153895161955,
-        "bedrooms": -195720.54125375676,
-        "bathrooms": 177735.58607889782,
-        "parking_spaces": -436.8666383257643
+        "area_ha": 3269.7526903994444,
+        "bedrooms": -198365.9324687356,
+        "bathrooms": 178742.51769237668,
+        "parking_spaces": -444.9681029170364
       }
     },
     "Asunción": {
@@ -39,15 +39,15 @@
       }
     },
     "Cordillera": {
-      "n_train": 128,
-      "r2": 0.296,
-      "mae_usd": 118762.05,
-      "intercept": 123011.64806450348,
+      "n_train": 130,
+      "r2": 0.409,
+      "mae_usd": 128529.24,
+      "intercept": 134510.55833118252,
       "coefficients": {
-        "area_ha": 4512.37472084471,
-        "bedrooms": -17968.4604452546,
-        "bathrooms": 72794.43355600028,
-        "parking_spaces": 30777.768064647436
+        "area_ha": 2746.908320443105,
+        "bedrooms": -19683.70479161406,
+        "bathrooms": 72979.08671650672,
+        "parking_spaces": 29028.534464977947
       }
     },
     "Itapúa": {
@@ -80,29 +80,35 @@
         "parking_spaces": 0.0
       }
     },
+    "Canindeyú": {
+      "n_train": 4,
+      "r2": null,
+      "mae_usd": null,
+      "note": "too_few_rows_for_per_depto_model"
+    },
     "Alto Paraná": {
-      "n_train": 50,
-      "r2": 0.326,
-      "mae_usd": 141859.08,
-      "intercept": 95705.5145482669,
+      "n_train": 58,
+      "r2": 0.226,
+      "mae_usd": 177859.26,
+      "intercept": 120059.3774036846,
       "coefficients": {
-        "area_ha": 19080.433856108863,
-        "bedrooms": 35120.50839053474,
-        "bathrooms": -11454.532567275859,
-        "parking_spaces": 40260.06791471203
+        "area_ha": 23989.92387445889,
+        "bedrooms": 60998.9674546509,
+        "bathrooms": -41437.61468122589,
+        "parking_spaces": 41537.13828110994
       }
     },
     "Presidente Hayes": {
-      "n_train": 7,
-      "r2": null,
-      "mae_usd": null,
-      "note": "too_few_rows_for_per_depto_model"
-    },
-    "Canindeyú": {
-      "n_train": 1,
-      "r2": null,
-      "mae_usd": null,
-      "note": "too_few_rows_for_per_depto_model"
+      "n_train": 14,
+      "r2": 0.017,
+      "mae_usd": 2146752.33,
+      "intercept": 1882684.1090184979,
+      "coefficients": {
+        "area_ha": 118.49651390052112,
+        "bedrooms": -4976.536081907733,
+        "bathrooms": -671586.7985246121,
+        "parking_spaces": 0.0
+      }
     },
     "Alto Paraguay": {
       "n_train": 2,
@@ -122,16 +128,22 @@
       "mae_usd": null,
       "note": "too_few_rows_for_per_depto_model"
     },
+    "Paraguarí": {
+      "n_train": 1,
+      "r2": null,
+      "mae_usd": null,
+      "note": "too_few_rows_for_per_depto_model"
+    },
     "_global_": {
       "n_train": 1897,
       "r2": 0.025,
       "mae_usd": 430410.13,
-      "intercept": 335944.7189814531,
+      "intercept": 335944.7189814533,
       "coefficients": {
-        "area_ha": 28.177720047737385,
-        "bedrooms": -245045.36672964724,
-        "bathrooms": 286017.01035415434,
-        "parking_spaces": -281.1475194922952
+        "area_ha": 28.17772004773737,
+        "bedrooms": -245045.36672964832,
+        "bathrooms": 286017.0103541553,
+        "parking_spaces": -281.14751949229486
       }
     }
   },

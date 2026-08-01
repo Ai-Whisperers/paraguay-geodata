@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T12:40:12.375945Z",
+  "generated_at": "2026-08-01T12:46:33.225007Z",
   "source_file": "/root/paraguay-geodata/exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
   "feature_count": 2678,
@@ -11,18 +11,19 @@
       "commercial": 217
     },
     "depto": {
-      "Central": 675,
+      "Central": 682,
       "Asunción": 1096,
-      "Cordillera": 137,
+      "Cordillera": 139,
       "Itapúa": 6,
       "Caaguazú": 12,
       "Ñeembucú": 10,
-      "Alto Paraná": 53,
-      "Presidente Hayes": 7,
-      "Canindeyú": 1,
+      "Canindeyú": 4,
+      "Alto Paraná": 61,
+      "Presidente Hayes": 14,
       "Alto Paraguay": 2,
       "Amambay": 1,
-      "Misiones": 1
+      "Misiones": 1,
+      "Paraguarí": 1
     },
     "currency": {
       "?": 640,

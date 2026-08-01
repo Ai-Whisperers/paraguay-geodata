@@ -18,15 +18,21 @@ CITY_TO_DEPTO: dict[str, str] = {
     "San Antonio": "Central", "Itauguá": "Central", "Areguá": "Central",
     "Ypané": "Central", "Villa Elisa": "Central", "Guarambaré": "Central",
     "Itá": "Central", "J. Augusto Saldívar": "Central", "Ypacaraí": "Central",
-    "Villeta": "Central",
+    "Villeta": "Central", "Julián Augusto Saldívar": "Central",
+    "Nueva Italia": "Central",
     # Cordillera
     "Caacupé": "Cordillera", "San Bernardino": "Cordillera", "Piribebuy": "Cordillera",
     "Eusebio Ayala": "Cordillera", "Tobatí": "Cordillera", "Atyrá": "Cordillera",
-    "Altos": "Cordillera", "Arroyos y Esteros": "Cordillera",
+    "Altos": "Cordillera", "Arroyos y Esteros": "Cordillera", "Caapucú": "Cordillera",
+    "Tacuaras": "Cordillera",
     # Alto Paraná
     "Ciudad del Este": "Alto Paraná", "Presidente Franco": "Alto Paraná",
     "Hernandarias": "Alto Paraná", "Minga Guazú": "Alto Paraná",
     "Santa Rita": "Alto Paraná", "Itaipulandia": "Alto Paraná",
+    "Los Cedrales": "Alto Paraná", "Doctor Juan León Mallorquín": "Alto Paraná",
+    "Tavapy": "Alto Paraná", "Mbaracayú": "Alto Paraná",
+    "Juan Emilio O'Leary": "Alto Paraná",
+    "Arquitecto Tomás Romero Pereira": "Alto Paraná",
     # Itapúa
     "Encarnación": "Itapúa", "Hohenau": "Itapúa", "Obligado": "Itapúa",
     "Bella Vista": "Itapúa", "Cambyretá": "Itapúa", "Capitán Miranda": "Itapúa",
@@ -36,15 +42,16 @@ CITY_TO_DEPTO: dict[str, str] = {
     "Santa María": "Misiones", "San Miguel": "Misiones",
     # Paraguarí
     "Paraguarí": "Paraguarí", "Carapeguá": "Paraguarí", "Yaguarón": "Paraguarí",
-    "Pirayú": "Paraguarí", "Acahay": "Paraguarí",
+    "Pirayú": "Paraguarí", "Acahay": "Paraguarí", "Ypejhú": "Paraguarí",
     # Caaguazú
-    "Coronel Oviedo": "Caaguazú", "Caaguazú": "Caaguazú", "Juan Eulogio Estigarribia": "Caaguazú",
-    "Repatriación": "Caaguazú",
+    "Coronel Oviedo": "Caaguazú", "Caaguazú": "Caaguazú",
+    "Juan Eulogio Estigarribia": "Caaguazú", "Repatriación": "Caaguazú",
+    "José Falcón": "Presidente Hayes",
     # Caazapá
     "Caazapá": "Caazapá", "San Juan Nepomuceno": "Caazapá", "Yuty": "Caazapá",
     # Guairá
     "Villarrica": "Guairá", "Iturbe": "Guairá", "Borja": "Guairá",
-    "Mbocayaty": "Guairá",
+    "Mbocayaty": "Guairá", "Yasy Cañy": "Canindeyú",
     # San Pedro
     "San Pedro de Ycuamandiyú": "San Pedro", "Santa Rosa del Aguaray": "San Pedro",
     "Chore": "San Pedro", "Lima": "San Pedro", "San Estanislao": "San Pedro",
@@ -56,11 +63,13 @@ CITY_TO_DEPTO: dict[str, str] = {
     # Canindeyú
     "Saltos del Guairá": "Canindeyú", "Curuguaty": "Canindeyú",
     "La Paloma": "Canindeyú", "Villa Ygatimí": "Canindeyú",
+    "Katueté": "Canindeyú", "Salto del Guairá": "Canindeyú",
     # Ñeembucú
     "Pilar": "Ñeembucú", "Alberdi": "Ñeembucú", "Humaitá": "Ñeembucú",
     # Presidente Hayes
     "Villa Hayes": "Presidente Hayes", "Pozo Colorado": "Presidente Hayes",
     "Benjamin Aceval": "Presidente Hayes", "Nanawa": "Presidente Hayes",
+    "Remansito": "Presidente Hayes", "Benjamín Aceval": "Presidente Hayes",
     # Boquerón
     "Filadelfia": "Boquerón", "Loma Plata": "Boquerón", "Mariscal Estigarribia": "Boquerón",
     # Alto Paraguay
