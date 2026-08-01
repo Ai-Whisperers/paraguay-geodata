@@ -1,7 +1,7 @@
 // Service Worker — Paraguay Geodata PWA
 // Cache-first for static assets, stale-while-revalidate for data
 // Robust against CSP-blocked fetches, offline mode
-const CACHE_NAME = 'paraguay-geodata-v9';  // bumped 2026-08-01 — canonical 17-depto facets + filter UI (depto/source/hide-flagged/has-images) + cross-source dedupe popups + quality flags panel
+const CACHE_NAME = 'paraguay-geodata-v10';  // bumped 2026-08-01 — secondary-insights (days-on-market + mortgage) widgets + canonical 17-depto facets + filter UI (depto/source/hide-flagged/has-images) + cross-source dedupe popups + quality flags panel
 
 // On-install: precache critical same-origin assets only
 // CDN assets (Leaflet, Inter font) are cached on first fetch, not on install

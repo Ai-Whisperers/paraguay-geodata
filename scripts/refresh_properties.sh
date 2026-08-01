@@ -62,10 +62,12 @@ cp "$ROOT/data/properties/facets.json" \
 python3 -m tools.build_data_freshness
 
 # 7. Phase C artifacts (cheap, no network).
-log "fair-price + image-dedup (mock) + inbio strip"
+log "fair-price + image-dedup (mock) + inbio strip + days-on-market + mortgage"
 python3 -m tools.build_fair_price_model_v2 || log "WARN fair-price v2 failed"
 python3 -m tools.image_dedup --mock --max-rows 100 || log "WARN image_dedup mock failed"
 python3 -m scripts.build_inbio_zafra_strip || log "WARN inbio strip failed"
+python3 -m tools.build_days_on_market || log "WARN days-on-market failed"
+python3 -m tools.build_mortgage_reference || log "WARN mortgage_reference failed"
 
 # 8. Refresh the deployed viewer (overwrite the small artifacts).
 [ -f "$ROOT/data/properties/fair_price_model_v2.json" ] && \
@@ -74,7 +76,8 @@ python3 -m scripts.build_inbio_zafra_strip || log "WARN inbio strip failed"
 [ -f "$ROOT/data/properties/image_clusters.json" ] && \
     cp "$ROOT/data/properties/image_clusters.json" \
        "$ROOT/exports/web/data/image_clusters.json"
-[ -f "$ROOT/exports/web/data/inbio_zafra_strip.json" ] || true
+[ -f "$ROOT/exports/web/data/days_on_market.json" ] || true
+[ -f "$ROOT/exports/web/data/mortgage_reference.json" ] || true
 
 "$ROOT/exports/web/wrangler-pages-deploy.sh"
 

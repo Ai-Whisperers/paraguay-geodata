@@ -884,6 +884,7 @@
             <div id="marketSignals" style="font-size:11px; line-height:1.5; color:var(--fg);">
                 <div style="color:var(--fg-dim);">Loading…</div>
             </div>
+            <div id="secondaryInsights"></div>
         </div>
 
         <div id="constructionZonesSection" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px;">
@@ -4192,6 +4193,52 @@ window.refreshInsights = function() {
 };
 
 
+// ========== DAYS-ON-MARKET + MORTGAGE WIDGETS ==========
+// Load days_on_market.json + mortgage_reference.json and render two
+// compact panels below the main market-signals block.
+async function loadSecondaryInsights() {
+    try {
+        const [domResp, mortResp] = await Promise.allSettled([
+            fetch('./data/days_on_market.json').then(r => r.ok ? r.json() : null),
+            fetch('./data/mortgage_reference.json').then(r => r.ok ? r.json() : null),
+        ]);
+        const dom = domResp.status === 'fulfilled' ? domResp.value : null;
+        const mort = mortResp.status === 'fulfilled' ? mortResp.value : null;
+        const host = document.getElementById('secondaryInsights');
+        if (!host) return;
+        let html = '';
+        if (dom && dom.summary && dom.summary.median_days != null) {
+            const s = dom.summary;
+            html += `
+                <div style="margin-top:8px; padding:8px; background:var(--bg-elev-2); border-radius:4px; font-size:11px;">
+                    <div style="font-weight:600;">🕒 Days on market</div>
+                    <div>Median: <strong>${s.median_days}d</strong>
+                        <span style="color:var(--fg-dim)"> (P25 ${s.p25}d / P75 ${s.p75}d)</span>
+                    </div>
+                    <div style="color:var(--fg-dim); margin-top:2px;">${s.n_listings.toLocaleString()} listings, ${dom.stale_listings.length} stale > 30d</div>
+                </div>`;
+        }
+        if (mort && mort.scenarios && mort.scenarios.length) {
+            const m15 = mort.scenarios.find(s => s.years === 15);
+            if (m15) {
+                html += `
+                    <div style="margin-top:8px; padding:8px; background:var(--bg-elev-2); border-radius:4px; font-size:11px;">
+                        <div style="font-weight:600;">💰 Mortgage @ ${mort.scenarios[0].rate_pct}% (15 yr, 70% LTV)</div>
+                        <div>Median list: <strong>$${mort.median_us_listing_price.toLocaleString()}</strong></div>
+                        <div>Monthly: <strong>$${m15.monthly_usd.toLocaleString()}</strong>
+                            <span style="color:var(--fg-dim)"> (loan $${m15.loan_usd.toLocaleString()})</span>
+                        </div>
+                    </div>`;
+            }
+        }
+        if (html) host.innerHTML = html;
+    } catch (err) {
+        console.warn('[secondary-insights] failed:', err);
+    }
+}
+window.loadSecondaryInsights = loadSecondaryInsights;
+
+
 
 window.shareMapView = function() {
     const center = map.getCenter();
@@ -5625,6 +5672,8 @@ window.clearFilters = clearFilters;
     try { loadINBIO(); } catch (e) { console.error('[bootstrap] loadINBIO:', e); };
     // Properties on top of everything (the user's primary content)
     try { await loadProperties(); } catch (e) { console.error('[bootstrap] loadProperties:', e); };
+    // Days-on-market + mortgage reference cards
+    try { await loadSecondaryInsights(); } catch (e) { console.error('[bootstrap] loadSecondaryInsights:', e); };
 
     try { applyI18n(); } catch (e) { console.error('[bootstrap] applyI18n:', e); };
     try { addLangSwitcher(); } catch (e) { console.error('[bootstrap] addLangSwitcher:', e); };

@@ -1,0 +1,508 @@
+{
+  "generated_at": "2026-08-01T12:07:49.300260Z",
+  "summary": {
+    "median_days": 21,
+    "p25": 21,
+    "p75": 21,
+    "n_listings": 10754
+  },
+  "by_depto": {
+    "Alto Paraguay": {
+      "median_days": 21,
+      "n": 13,
+      "stale_pct": 0.0
+    },
+    "Alto Paraná": {
+      "median_days": 21,
+      "n": 508,
+      "stale_pct": 0.0
+    },
+    "Amambay": {
+      "median_days": 21,
+      "n": 15,
+      "stale_pct": 0.0
+    },
+    "Asunción": {
+      "median_days": 21,
+      "n": 2771,
+      "stale_pct": 0.0
+    },
+    "Boquerón": {
+      "median_days": 21,
+      "n": 120,
+      "stale_pct": 0.0
+    },
+    "Caaguazú": {
+      "median_days": 21,
+      "n": 84,
+      "stale_pct": 0.0
+    },
+    "Caazapá": {
+      "median_days": 21,
+      "n": 36,
+      "stale_pct": 0.0
+    },
+    "Canindeyú": {
+      "median_days": 21,
+      "n": 30,
+      "stale_pct": 0.0
+    },
+    "Central": {
+      "median_days": 21,
+      "n": 4425,
+      "stale_pct": 0.0
+    },
+    "Concepción": {
+      "median_days": 21,
+      "n": 21,
+      "stale_pct": 0.0
+    },
+    "Cordillera": {
+      "median_days": 21,
+      "n": 620,
+      "stale_pct": 0.0
+    },
+    "Guairá": {
+      "median_days": 21,
+      "n": 38,
+      "stale_pct": 0.0
+    },
+    "Itapúa": {
+      "median_days": 21,
+      "n": 1337,
+      "stale_pct": 0.0
+    },
+    "Misiones": {
+      "median_days": 21,
+      "n": 71,
+      "stale_pct": 0.0
+    },
+    "Paraguarí": {
+      "median_days": 21,
+      "n": 115,
+      "stale_pct": 0.0
+    },
+    "Presidente Hayes": {
+      "median_days": 21,
+      "n": 127,
+      "stale_pct": 0.0
+    },
+    "San Pedro": {
+      "median_days": 21,
+      "n": 39,
+      "stale_pct": 0.0
+    },
+    "Unknown": {
+      "median_days": 21,
+      "n": 364,
+      "stale_pct": 0.0
+    },
+    "Ñeembucú": {
+      "median_days": 21,
+      "n": 20,
+      "stale_pct": 0.0
+    }
+  },
+  "stale_listings": [
+    {
+      "id": "ic_16f48a0ada69",
+      "title": "Vendo 7 hectáreas en Pedro Juan Caballero",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-7-hectareas-en-pedro-juan-caballero/191434481"
+    },
+    {
+      "id": "ic_65ea62fb732a",
+      "title": "VENDO TERRENO EN CHACOI VILLA HAYES",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-terreno-en-chacoi-villa-hayes/193355572"
+    },
+    {
+      "id": "ic_19586464a83d",
+      "title": "ESTANCIA DE 10.019 HECTAREAS EN CAAGUAZU      J.A.",
+      "depto": "Caaguazú",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/estancia-de-10019-hectareas-en-caaguazu-ja/193660511"
+    },
+    {
+      "id": "ic_8ca9dbff14ac",
+      "title": "Vendo hermosa propiedad en Barrio Machio Lambaré",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-hermosa-propiedad-en-barrio-machio-lambare/193498841"
+    },
+    {
+      "id": "ic_b845353b82a3",
+      "title": "CAMPO DE 1918 HECTAREAS EN VENTA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/campo-de-1918-hectareas-en-venta/193790375"
+    },
+    {
+      "id": "ic_1056baf43c53",
+      "title": "Vendo departamento de 2 dormitorios ubicado a pasos del Shopping Mariscal",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-departamento-de-2-dormitorios-ubicado-a-pasos-del-shopping-mariscal/192742134"
+    },
+    {
+      "id": "ic_4d7c1c6ff2fb",
+      "title": "Venta De Quinta En Paraguarí, Paraguarí",
+      "depto": "Paraguarí",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/venta-de-quinta-en-paraguari-paraguari/193061216"
+    },
+    {
+      "id": "ic_e2d6fd4a33bb",
+      "title": "Departamento en venta de 2 dormitorios y cochera incluida en Asunción",
+      "depto": "Asunción",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/departamento-en-venta-de-2-dormitorios-y-cochera-incluida-en-asuncion/192900242"
+    },
+    {
+      "id": "ic_ff546d533ca7",
+      "title": "En venta detapartamento un Dormitorio con todos los amenities",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/en-venta-detapartamento-un-dormitorio-con-todos-los-amenities/192942699"
+    },
+    {
+      "id": "ic_ef10a5c7e3b3",
+      "title": "4 Terrenos Sobre Ruta 1 Entre Yaguaron Y Paraguari",
+      "depto": "Paraguarí",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/4-terrenos-sobre-ruta-1-entre-yaguaron-y-paraguari/193446571"
+    },
+    {
+      "id": "ic_84fc32f3b6a8",
+      "title": "Hermosa Granja Avicola en Villeta con 2 Galpones para producción de carne",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/hermosa-granja-avicola-en-villeta-con-2-galpones-para-produccion-de-carne/193886673"
+    },
+    {
+      "id": "ic_5c0ce1dce393",
+      "title": "Departamentos En Ciudad del ESTE  - Proyecto En Pozo Para Inversion",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/departamentos-en-ciudad-del-este-proyecto-en-pozo-para-inversion/193884380"
+    },
+    {
+      "id": "ic_4cd7719beb5f",
+      "title": "Propiedad Industrial Estratégica en Villa Hayes: Fábrica y Terreno en Venta",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/propiedad-industrial-estrategica-en-villa-hayes-fabrica-y-terreno-en-venta/193773076"
+    },
+    {
+      "id": "ic_fc81e7d4d389",
+      "title": "INVERSIÓN EN MOLAS LÓPEZ | ÚLTIMO 2 DORMITORIOS CON COCHERA INCLUIDA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/inversion-en-molas-lopez-ultimo-2-dormitorios-con-cochera-incluida/192314349"
+    },
+    {
+      "id": "ic_a5eb4eef9d5d",
+      "title": "OPORTUNIDAD DE INVERSION ! VENDO CASA EN BARRIO HERRERA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/oportunidad-de-inversion-vendo-casa-en-barrio-herrera/193718365"
+    },
+    {
+      "id": "ic_5f267e3b951d",
+      "title": "Venta Estancia en Agua Dulce Bahía Negra Chaco Pyo",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/venta-estancia-en-agua-dulce-bahia-negra-chaco-pyo/193889722"
+    },
+    {
+      "id": "ic_858c41b84a91",
+      "title": "Ayres Del Norte Condominio Cerrado - al contado o en 130 cuotas de 383,00 usd",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/ayres-del-norte-condominio-cerrado-al-contado-o-en-130-cuotas-de-38300-usd/193734005"
+    },
+    {
+      "id": "ic_fd812e2f5fc1",
+      "title": "EN VENTA CASA EN ENCARNACION",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/en-venta-casa-en-encarnacion/192728670"
+    },
+    {
+      "id": "ic_61f8c412b178",
+      "title": "HERMOSO TERRENO EN VENTA EN EL BARRIO SAN JOSE - CDE",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/hermoso-terreno-en-venta-en-el-barrio-san-jose-cde/192566837"
+    },
+    {
+      "id": "ic_6931fe67f8ca",
+      "title": "En venta campo de 399 Hectáreas en San Pedro ",
+      "depto": "San Pedro",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/en-venta-campo-de-399-hectareas-en-san-pedro/192478187"
+    },
+    {
+      "id": "ic_94d5e58daad1",
+      "title": "Vendo Casa Con 2 Bungalò En La Colonia Alemana S.H.Y",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-casa-con-2-bungalo-en-la-colonia-alemana-shy/192960844"
+    },
+    {
+      "id": "ic_7c9351fe82fd",
+      "title": "Terreno de 2,2 Hectáreas en Corpus Christi - A 200m del Asfalto - Canindeyú",
+      "depto": "Canindeyú",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/terreno-de-22-hectareas-en-corpus-christi-a-200m-del-asfalto-canindeyu/193482586"
+    },
+    {
+      "id": "ic_c20c34bdf11c",
+      "title": "Vendo excelente esquina en Capitan Miranda (a 50 mts de PY06)",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-excelente-esquina-en-capitan-miranda-a-50-mts-de-py06/193860860"
+    },
+    {
+      "id": "ic_73d55c520500",
+      "title": "Estáncia Campo venta Fuerte Olimpo Paraguay ",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/estancia-campo-venta-fuerte-olimpo-paraguay/193158322"
+    },
+    {
+      "id": "ic_4def9f67d676",
+      "title": "Colinas del Lago",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/colinas-del-lago/192962075"
+    },
+    {
+      "id": "ic_a67d925243ba",
+      "title": "Campo De 28 Hectáreas En Sapucai Con Casa Renovada, Arroyo Y Vistas A Los Cerros",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/campo-de-28-hectareas-en-sapucai-con-casa-renovada-arroyo-y-vistas-a-los-cerros/193852636"
+    },
+    {
+      "id": "ic_5bfcd934c94d",
+      "title": "INVERSIONISTAS!! 84 TERRENOS EN SANTANÍ EN VENTAS TODOS JUNTOS",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/inversionistas-84-terrenos-en-santani-en-ventas-todos-juntos/193958193"
+    },
+    {
+      "id": "ic_135d8eb5466c",
+      "title": "VENDO LOTES EN LA CIUDAD DE ITAUGUA ",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-lotes-en-la-ciudad-de-itaugua/193742274"
+    },
+    {
+      "id": "ic_f46b4cac995c",
+      "title": "EN VENTA DUPLEX EN LUQUE - JARDIN DE ORO, CERCA DE PLAZA MADERO",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/en-venta-duplex-en-luque-jardin-de-oro-cerca-de-plaza-madero/193945333"
+    },
+    {
+      "id": "ic_95142a5cc812",
+      "title": "Casa a la venta en San Bernardino a pasos del Hotel Los Alpes",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/casa-a-la-venta-en-san-bernardino-a-pasos-del-hotel-los-alpes/193968099"
+    },
+    {
+      "id": "ic_f00c3bb84efa",
+      "title": "CAMPO EN VENTA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/campo-en-venta/193399559"
+    },
+    {
+      "id": "ic_97920afca910",
+      "title": "Posibilidades Infinitas: Terreno Premium en Las Lomas",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/posibilidades-infinitas-terreno-premium-en-las-lomas/193887952"
+    },
+    {
+      "id": "ic_a95cf599c7e9",
+      "title": "VENDO CONFINAMIENTO GANADERO EN CONCEPCIÓN",
+      "depto": "Concepción",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-confinamiento-ganadero-en-concepcion/191828286"
+    },
+    {
+      "id": "ic_cc3684d4da3c",
+      "title": "Casa en venta en Mariscal Estigarribia, a pasos de casa rica los Laureles",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/casa-en-venta-en-mariscal-estigarribia-a-pasos-de-casa-rica-los-laureles/193723309"
+    },
+    {
+      "id": "ic_458be4c2652b",
+      "title": "Oportunidad de inversión en Yaguarón",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/oportunidad-de-inversion-en-yaguaron/193403038"
+    },
+    {
+      "id": "ic_817f546c4eee",
+      "title": "Lote Exclusivo de 571 m2 en Barrio Náutico El Delta - Nueva Asunción",
+      "depto": "Asunción",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/lote-exclusivo-de-571-m2-en-barrio-nautico-el-delta-nueva-asuncion/193800781"
+    },
+    {
+      "id": "ic_f423999c2cd1",
+      "title": "Vendo amplio Terreno 6.156 m2 frente a la ruta zona Santani ruta 8",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-amplio-terreno-6156-m2-frente-a-la-ruta-zona-santani-ruta-8/193467472"
+    },
+    {
+      "id": "ic_4548f43643aa",
+      "title": "VENTA CASA QUINTA LIMPIO",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/venta-casa-quinta-limpio/193929241"
+    },
+    {
+      "id": "ic_e5f1298709bd",
+      "title": "VENDO HERMOSA CASA CON DEPOSITO EN SAN JUAN BAUTISTA MISIONES",
+      "depto": "Misiones",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-hermosa-casa-con-deposito-en-san-juan-bautista-misiones/193331323"
+    },
+    {
+      "id": "ic_e96e9bd32444",
+      "title": "VENDO ESTANCIA EN FORTIN FLORIDA BAHIA NEGRA CHACO",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-estancia-en-fortin-florida-bahia-negra-chaco/190899013"
+    },
+    {
+      "id": "ic_e97eaa7d6371",
+      "title": "Venta Dpto de un dormitorio con cochera y amenities (entrega inmedita)",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/venta-dpto-de-un-dormitorio-con-cochera-y-amenities-entrega-inmedita/193105801"
+    },
+    {
+      "id": "ic_7139562c46f9",
+      "title": "Vendo Hermoso Terreno De 933 m2 En Barrio Cristobal Colon de San Bernardino",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-hermoso-terreno-de-933-m2-en-barrio-cristobal-colon-de-san-bernardino/193444073"
+    },
+    {
+      "id": "ic_1189bdd92b5c",
+      "title": "Vendo hermosa propiedad en Obligado, Itapúa",
+      "depto": "Itapúa",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-hermosa-propiedad-en-obligado-itapua/193861654"
+    },
+    {
+      "id": "ic_19f387b1e004",
+      "title": "VENDO CASA EN CAMBYRETA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-casa-en-cambyreta/193554457"
+    },
+    {
+      "id": "ic_8d29abc82e5f",
+      "title": "GRAN INVERSION . TERRENO EN VENTA EN CIUDAD DEL ESTE",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/gran-inversion-terreno-en-venta-en-ciudad-del-este/193771960"
+    },
+    {
+      "id": "ic_e12f8e99b356",
+      "title": "OPORTUNIDAD ÚNICA EN PIRAYU - Vendo Terreno Amplio con Arroyo Propio",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/oportunidad-unica-en-pirayu-vendo-terreno-amplio-con-arroyo-propio/193967567"
+    },
+    {
+      "id": "ic_8fd65c53e9a5",
+      "title": "Casa - Venta - Villarrica, Paraguay",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/casa-venta-villarrica-paraguay/192788294"
+    },
+    {
+      "id": "ic_a51272d844eb",
+      "title": "ESTANCIA  EN VENTA COLONIA INDEPENDENCIA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/estancia-en-venta-colonia-independencia/192980283"
+    },
+    {
+      "id": "ic_912dda4c0db9",
+      "title": "CASA EN VENTA - VILLARRICA",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/casa-en-venta-villarrica/193354598"
+    },
+    {
+      "id": "ic_0f38a658cb0e",
+      "title": "VENDO CASA EN VILLARRICA - ZONA POTRERO",
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-casa-en-villarrica-zona-potrero/192836513"
+    }
+  ]
+}

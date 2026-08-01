@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-08-01T12:07:49.762107Z",
+  "median_us_listing_price": 107256,
+  "ltv": 0.7,
+  "scenarios": [
+    {
+      "loan_usd": 75079,
+      "years": 10,
+      "rate_pct": 11.5,
+      "monthly_usd": 1055.58,
+      "total_paid_usd": 126669,
+      "interest_usd": 51590,
+      "interest_to_principal_pct": 68.7
+    },
+    {
+      "loan_usd": 75079,
+      "years": 15,
+      "rate_pct": 11.5,
+      "monthly_usd": 877.07,
+      "total_paid_usd": 157872,
+      "interest_usd": 82793,
+      "interest_to_principal_pct": 110.3
+    },
+    {
+      "loan_usd": 75079,
+      "years": 20,
+      "rate_pct": 11.5,
+      "monthly_usd": 800.66,
+      "total_paid_usd": 192160,
+      "interest_usd": 117081,
+      "interest_to_principal_pct": 155.9
+    },
+    {
+      "loan_usd": 75079,
+      "years": 25,
+      "rate_pct": 11.5,
+      "monthly_usd": 763.15,
+      "total_paid_usd": 228946,
+      "interest_usd": 153867,
+      "interest_to_principal_pct": 204.9
+    },
+    {
+      "loan_usd": 75079,
+      "years": 30,
+      "rate_pct": 11.5,
+      "monthly_usd": 743.5,
+      "total_paid_usd": 267660,
+      "interest_usd": 192581,
+      "interest_to_principal_pct": 256.5
+    }
+  ]
+}
