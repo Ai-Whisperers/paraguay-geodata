@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-01T14:20:33.113871Z",
+  "generated_at": "2026-08-01T14:24:30.652782Z",
   "input_rows": 2678,
   "per_depto": {
     "_unknown_": {
       "n_train": 214,
       "r2": 0.001,
       "mae_usd": 116168.52,
-      "intercept": 127556.79147794918,
+      "intercept": 127556.77957393457,
       "coefficients": {
-        "area_ha": -1.1927065835388875,
-        "bedrooms": 19147.9639809744,
-        "bathrooms": 19147.9639809744,
+        "area_ha": -1.1926897359719852,
+        "bedrooms": 19147.967945761382,
+        "bathrooms": 19147.96794576138,
         "parking_spaces": 0.0
       }
     },
@@ -137,13 +137,13 @@
     "_global_": {
       "n_train": 1897,
       "r2": 0.025,
-      "mae_usd": 430410.13,
-      "intercept": 335944.7189814533,
+      "mae_usd": 430410.12,
+      "intercept": 335944.7362504429,
       "coefficients": {
-        "area_ha": 28.17772004773737,
-        "bedrooms": -245045.36672964832,
-        "bathrooms": 286017.0103541553,
-        "parking_spaces": -281.14751949229486
+        "area_ha": 28.177765953494923,
+        "bedrooms": -245045.3686246699,
+        "bathrooms": 286017.00832631305,
+        "parking_spaces": -281.1475373609518
       }
     }
   },
