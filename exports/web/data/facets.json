@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-01T15:40:26.385122Z",
-  "feature_count": 3000,
+  "generated_at": "2026-08-01T15:48:11.121102Z",
+  "feature_count": 3169,
   "facets": {
     "depto": [
       {
-        "value": "Asunción",
-        "count": 1096
+        "value": "?",
+        "count": 1140
       },
       {
-        "value": "?",
-        "count": 971
+        "value": "Asunción",
+        "count": 1096
       },
       {
         "value": "Central",
@@ -63,7 +63,7 @@
     "property_type": [
       {
         "value": "?",
-        "count": 962
+        "count": 1131
       },
       {
         "value": "apartment",
@@ -89,7 +89,7 @@
       },
       {
         "value": "?",
-        "count": 962
+        "count": 1131
       },
       {
         "value": "PYG",
@@ -103,25 +103,26 @@
       },
       {
         "value": "infocasas",
-        "count": 962
+        "count": 1131
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-01T15:24:55.030111+00:00",
+    "max": "2026-08-01T15:35:35.164011+00:00",
     "median_days": 0
   },
   "quality": {
-    "total": 3000,
-    "clean": 1970,
-    "flagged": 1030,
+    "total": 3169,
+    "clean": 1955,
+    "flagged": 1214,
     "by_flag": {
-      "null_property_type": 962,
-      "missing_price": 417,
-      "missing_area": 73,
-      "area_conflict": 34
+      "null_property_type": 1131,
+      "missing_price": 414,
+      "missing_area": 79,
+      "area_conflict": 34,
+      "area_recovered_from_title_m2": 15
     }
   }
 }

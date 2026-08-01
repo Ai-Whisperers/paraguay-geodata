@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-01T15:40:28.634952Z",
-  "input_rows": 3000,
+  "generated_at": "2026-08-01T15:48:12.951673Z",
+  "input_rows": 3169,
   "per_depto": {
     "_unknown_": {
-      "n_train": 554,
+      "n_train": 726,
       "r2": 0.001,
-      "mae_usd": 13426835.76,
-      "intercept": 9565345.82064635,
+      "mae_usd": 10418600.11,
+      "intercept": 7401282.204746003,
       "coefficients": {
-        "area_ha": -16.604927593978758,
-        "bedrooms": -2879240.364421528,
-        "bathrooms": -3250547.970800657,
+        "area_ha": -15.817159547112613,
+        "bedrooms": -1696740.6870501689,
+        "bathrooms": -2759766.2272317065,
         "parking_spaces": 0.0
       }
     },
@@ -135,19 +135,19 @@
       "note": "too_few_rows_for_per_depto_model"
     },
     "_global_": {
-      "n_train": 2203,
+      "n_train": 2375,
       "r2": 0.0,
-      "mae_usd": 3574267.41,
-      "intercept": 2898129.1269284426,
+      "mae_usd": 3521578.23,
+      "intercept": 2849634.208491707,
       "coefficients": {
-        "area_ha": -5.132664990483843,
-        "bedrooms": -623660.9515217684,
-        "bathrooms": 63496.78415301595,
-        "parking_spaces": -2871.3854234448104
+        "area_ha": -5.422869313681904,
+        "bedrooms": -538991.7126326655,
+        "bathrooms": -6914.751924721546,
+        "parking_spaces": -2838.7497371045174
       }
     }
   },
-  "skipped_quality_or_unusable": 797,
+  "skipped_quality_or_unusable": 794,
   "feature_columns": [
     "area_ha",
     "bedrooms",
