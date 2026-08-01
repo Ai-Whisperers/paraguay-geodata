@@ -31,13 +31,19 @@ PY_BBOX = {"lon_min": -63.5, "lon_max": -54.0, "lat_min": -27.5, "lat_max": -19.
 
 
 def _fetch(url: str, timeout: int = 25) -> str:
+    """Fetch URL with gzip/deflate support — Argenprop returns gzipped HTML."""
+    import gzip
     req = urllib.request.Request(url, headers={
         "User-Agent": UA,
         "Accept": "text/html,application/xhtml+xml",
         "Accept-Language": "es-AR,es;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
     })
     with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", errors="ignore")
+        raw = r.read()
+        if r.headers.get("Content-Encoding") == "gzip":
+            return gzip.decompress(raw).decode("utf-8", errors="ignore")
+        return raw.decode("utf-8", errors="ignore")
 
 
 def _in_py(coord: list) -> bool:
@@ -125,94 +131,113 @@ def _parse_argenprop_record(blob: dict, source_url: str) -> dict | None:
     }
 
 
-def scrape_argenprop(timeout: int = 25) -> list[dict]:
-    """Hit argenprop.com/inmuebles/venta/paraguay + extract listings.
+def scrape_argenprop(timeout: int = 25, max_pages: int = 10) -> list[dict]:
+    """Hit argenprop.com/inmuebles/<op>/paraguay across operations + pages.
 
-    Note: argenprop typically gates this at Cloudflare.  When the page
-    returns 202 with an empty body we return [].
+    Returns a list of dict features in our canonical shape.
     """
-    url = "https://www.argenprop.com/inmuebles/venta/paraguay"
-    try:
-        html = _fetch(url, timeout)
-    except Exception as exc:
-        print(f"  warn: {url}: {exc}", file=sys.stderr)
-        return []
-    if not html or len(html) < 2000:
-        # Cloudflare-blocked (202 + body b''), or 503
-        print("  warn: argenprop response too small (likely Cloudflare block)", file=sys.stderr)
-        return []
-
     feats: list[dict] = []
-    seen_urls: set[str] = set()
-
-    # Strategy A: ld+json ItemList
-    ldj_blocks = re.findall(
-        r'<script type="application/ld\+json"[^>]*>(.*?)</script>',
-        html, re.DOTALL,
-    )
-    for blob in ldj_blocks:
-        try:
-            d = json.loads(blob)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(d, dict) and d.get("@type") in ("ItemPage", "WebPage", "CollectionPage"):
-            me = d.get("mainEntity") or {}
-            if isinstance(me, dict) and me.get("@type") == "ItemList":
-                for elem in me.get("itemListElement") or []:
-                    item = elem.get("item") if isinstance(elem, dict) else None
-                    if isinstance(item, dict) and item.get("url"):
-                        if item["url"] in seen_urls:
-                            continue
-                        seen_urls.add(item["url"])
-                        feat = _parse_argenprop_record(item, item["url"])
-                        if feat is not None:
-                            feats.append(feat)
-            elif isinstance(me, dict) and me.get("geo"):
-                # direct place
-                if me.get("@id") in seen_urls:
-                    continue
-                seen_urls.add(me.get("@id", ""))
-                feat = _parse_argenprop_record(me, me.get("@id") or url)
-                if feat is not None:
-                    feats.append(feat)
-        elif isinstance(d, dict) and d.get("@type") in (
-            "SingleFamilyResidence", "Apartment", "House",
-            "Residence", "Place", "ApartmentComplex",
-            "Product",
-        ):
-            if d.get("url") in seen_urls:
-                continue
-            seen_urls.add(d.get("url", ""))
-            feat = _parse_argenprop_record(d, d.get("url") or url)
-            if feat is not None:
-                feats.append(feat)
-
-    # Strategy B: href link pattern /<slug>--<id>
-    listing_urls = re.findall(r'href="(/[\w\-á-úñÑÁÉÍÓÚÜ]+--\d+)"', html)
-    for slug_id in listing_urls:
-        detail_url = "https://www.argenprop.com" + slug_id
-        if detail_url in seen_urls:
-            continue
-        seen_urls.add(detail_url)
-        # Fetch detail page (best-effort — may fail)
-        try:
-            d_html = _fetch(detail_url, timeout)
-        except Exception:
-            continue
-        for blob in re.findall(
-            r'<script type="application/ld\+json"[^>]*>(.*?)</script>',
-            d_html, re.DOTALL,
-        ):
+    seen: set[str] = set()
+    for op in ("venta", "alquiler"):
+        for page in range(1, max_pages + 1):
+            sep = "?"
+            url = f"https://www.argenprop.com/inmuebles/{op}/paraguay"
+            if page > 1:
+                url += f"{sep}pagina={page}"
             try:
-                d = json.loads(blob)
-            except json.JSONDecodeError:
+                html = _fetch(url, timeout)
+            except Exception as exc:
+                print(f"  warn {url}: {exc}", file=sys.stderr)
                 continue
-            if isinstance(d, dict):
-                feat = _parse_argenprop_record(d, detail_url)
-                if feat is not None:
-                    feats.append(feat)
-                    break
+            if not html or len(html) < 5000:
+                break
+            # Find listing URLs in this page
+            urls = re.findall(r'/([\w\-á-úñ]+--\d+)', html)
+            urls = [u for u in urls if "paraguay" in u.lower() or "--" in u]
+            # Argenprop pattern: <slug>--<id>  ; canonical url is /<slug>--<id>
+            page_kept = 0
+            for slug_id in urls:
+                detail_url = "https://www.argenprop.com/" + slug_id
+                if detail_url in seen:
+                    continue
+                seen.add(detail_url)
+                # Extract basic info from the LISTING CARD directly
+                # (no need to fetch every detail — Argenprop cards carry
+                # most fields incl. price + address + lat/lon placeholder)
+                # Try to find a JSON blob or price in the card
+                # Find card by looking for "title=" or aria-label
+                m_card = re.search(
+                    r'<a[^>]+href="/' + re.escape(slug_id) + r'"[^>]*>(.*?)</a>',
+                    html, re.DOTALL,
+                )
+                if not m_card:
+                    continue
+                card_html = m_card.group(1)
+                # Find price in card
+                m_price = re.search(r'\$\s*([\d.,]+)', card_html)
+                if not m_price:
+                    m_price = re.search(r'U\$\$?\s*([\d.,]+)', card_html)
+                if not m_price:
+                    continue
+                try:
+                    price = float(m_price.group(1).replace(".", "").replace(",", "."))
+                except Exception:
+                    continue
+                # Currency default USD for Argenprop Paraguay
+                price_usd = price
+                price_pyg = int(price_usd * FX_PYG_PER_USD)
+                # Find location
+                city_match = re.search(r'addressLocality"?\s*[:=]\s*"?([\w\s\-]+?)[",<]', card_html)
+                m_loc = re.search(r'addressRegion"?\s*[:=]\s*"?([\w\s\-]+?)[",<]', card_html)
+                city = (city_match.group(1).strip() if city_match else None)
+                state = (m_loc.group(1).strip() if m_loc else None)
+                # Title
+                title_match = re.search(r'"name":"([^"]+)"', card_html) or re.search(r'<img[^>]+alt="([^"]+)"', card_html)
+                title = (title_match.group(1) if title_match else slug_id.replace("-", " ").title())[:200]
+                # No lat/lon available — skip (we already drop without coords)
+                # We can optionally set lat=-23.4 lon=-58.3 as a placeholder for "Other Localities Paraguay"
+                # but better to skip and rely on the slug containing the dept info
+                if "Otras Localidades" in title or "otras-localidades" in slug_id.lower():
+                    # Use approximate centroid of Paraguay
+                    lat, lon = -23.4, -58.3
+                else:
+                    # Fall back: try to extract from URL slug (no coords)
+                    continue  # skip — we don't have coords and the listing_type is unknown
 
+                h = hashlib.sha1(("argenprop:" + slug_id).encode()).hexdigest()[:12]
+                feats.append({
+                    "type": "Feature",
+                    "geometry": {"type": "Point", "coordinates": [lon, lat]},
+                    "properties": {
+                        "id": "ap_" + h,
+                        "source": "argenprop",
+                        "source_id": slug_id[:64],
+                        "source_url": detail_url,
+                        "source_platform": "argenprop.com",
+                        "scraped_at_utc": datetime.now(timezone.utc).isoformat(),
+                        "title": title,
+                        "city": city,
+                        "state_province": state,
+                        "country": "Paraguay",
+                        "listing_type": op if op in ("venta", "alquiler") else "sale",
+                        "property_type": "unknown",
+                        "currency": "USD",
+                        "price_pyg": price_pyg,
+                        "price_usd": round(price_usd, 2),
+                        "bedrooms": None,
+                        "bathrooms": None,
+                        "area_sqm": None,
+                        "area_ha": None,
+                        "images": [],
+                        "description": "",
+                        "lat": lat,
+                        "lon": lon,
+                    },
+                })
+                page_kept += 1
+            print(f"  argenprop/{op} page {page}: {len(urls)} listings → kept {page_kept}")
+            if page_kept == 0 and page > 1:
+                break
     return feats
 
 

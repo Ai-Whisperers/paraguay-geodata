@@ -563,6 +563,10 @@ def main(argv: list[str]) -> int:
                         help="Optional bbox filter: 'W,S,E,N' (will filter results).")
     parser.add_argument("--dept", default="",
                         help="infocasas dept slug (e.g. 'asuncion', 'central', 'alto-parana').")
+    parser.add_argument("--write-public", action="store_true",
+                        help="Overwrite exports/web/data/properties_latest.geojson "
+                             "(off by default to prevent per-dept runs clobbering "
+                             "the merged canonical artifact)")
     args = parser.parse_args(argv)
 
     check_ethics_gate(args.portal)
@@ -634,13 +638,19 @@ def main(argv: list[str]) -> int:
     raw_path.write_text(json.dumps({"raw_records": all_records}, indent=2))
     print(f"\n[fetch] raw snapshot: {raw_path} ({raw_path.stat().st_size} bytes)")
 
-    # Write public-stripped snapshot for the viewer
-    geo = to_geojson(all_records)
-    pub_path = REPO_ROOT / "exports" / "web" / "data" / "properties_latest.geojson"
-    pub_path.parent.mkdir(parents=True, exist_ok=True)
-    pub_path.write_text(json.dumps(geo, indent=2))
-    print(f"[fetch] public snapshot: {pub_path} ({pub_path.stat().st_size} bytes)")
-    print(f"[fetch] features in viewer: {len(geo['features'])}")
+    # Write public-stripped snapshot for the viewer.  We make this
+    # OPT-IN via --write-public, because partial per-dept runs overwrite
+    # the canonical artifact (which has data merged across sources) and
+    # leave the viewer showing only one departo's listings.
+    if os.environ.get("WRITE_PUBLIC") == "1" or getattr(args, "write_public", False):
+        geo = to_geojson(all_records)
+        pub_path = REPO_ROOT / "exports" / "web" / "data" / "properties_latest.geojson"
+        pub_path.parent.mkdir(parents=True, exist_ok=True)
+        pub_path.write_text(json.dumps(geo, indent=2))
+        print(f"[fetch] public snapshot: {pub_path} ({pub_path.stat().st_size} bytes)")
+        print(f"[fetch] features in viewer: {len(geo['features'])}")
+    else:
+        print(f"[fetch] raw snapshot only (use --write-public or WRITE_PUBLIC=1 to overwrite exports/ web artifact)")
     return 0
 
 

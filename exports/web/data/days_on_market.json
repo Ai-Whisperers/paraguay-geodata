@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-01T15:16:28.137306Z",
+  "generated_at": "2026-08-01T15:33:22.085961Z",
   "summary": {
     "median_days": 0,
     "p25": 0,
     "p75": 0,
-    "n_listings": 2865
+    "n_listings": 3000
   },
   "by_depto": {
     "Alto Paraguay": {
@@ -69,7 +69,7 @@
     },
     "Unknown": {
       "median_days": 21,
-      "n": 836,
+      "n": 971,
       "stale_pct": 0.0
     },
     "Ñeembucú": {
@@ -150,14 +150,6 @@
       "freshness_days": 21,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/en-carmelo-peralta-sobre-la-nueva-costanera-del-rio-py-26x99-en-esquina/193475793"
-    },
-    {
-      "id": "ic_2dfb820e170c",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/en-venta-propiedad-en-el-chaco-alto-paraguay/191645603"
     },
     {
       "id": "ic_2fb4331557f4",
@@ -272,14 +264,6 @@
       "source_url": "https://www.infocasas.com.py/vendo-propiedad-de-5-hectareas-en-carmelo-peralta-alto-paraguay-clcs7667902/193265591"
     },
     {
-      "id": "ic_1aa06f648b87",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/venta-5562-hs-para-la-ganaderia-bahia-negra-fuerte-olimpo-alto-paraguay/193480620"
-    },
-    {
       "id": "ic_a5fbceca1aa7",
       "title": null,
       "depto": "Unknown",
@@ -302,14 +286,6 @@
       "freshness_days": 21,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-fuerte-olimpo/192062611"
-    },
-    {
-      "id": "ic_d7d2d76caa9b",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/vendo-7mil-hectareas-en-fuerte-olimpo-/192746066"
     },
     {
       "id": "ic_429fc9a1a63e",
@@ -352,14 +328,6 @@
       "source_url": "https://www.infocasas.com.py/venta-estancia-en-agua-dulce-bahia-negra-chaco-pyo/193889722"
     },
     {
-      "id": "ic_ff3d48d5d111",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/venta-estancia-7686-ha-zona-puerto-guarani-fuerte-olimpo/193887758"
-    },
-    {
       "id": "ic_1497c8507eb0",
       "title": null,
       "depto": "Unknown",
@@ -376,20 +344,132 @@
       "source_url": "https://www.infocasas.com.py/vendo-estancia-de-22500-has-por-el-camino-bioceanico/193026381"
     },
     {
-      "id": "ic_51e4f29749f8",
+      "id": "ic_f63caabce2be",
       "title": null,
       "depto": "Unknown",
       "freshness_days": 21,
       "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/departamento-en-pozo-terrazas-del-lago/193267383"
+      "source_url": "https://www.infocasas.com.py/oportunidad-unica-en-zona-centro-ciudad-del-este/193396907"
     },
     {
-      "id": "ic_abb7e0511a50",
+      "id": "ic_06516dec5170",
       "title": null,
       "depto": "Unknown",
       "freshness_days": 21,
       "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/en-venta-propiedad-de-20-hectareas-en-minga-guazu/193770901"
+      "source_url": "https://www.infocasas.com.py/piso-40-inverti-seguro-en-ciudad-del-este/193253321"
+    },
+    {
+      "id": "ic_1dfb759e7dcc",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/departamentos-exclusivos-en-pozo-en-ciudad-del-este-la-vista-al-lago-de-la-republica/191211916"
+    },
+    {
+      "id": "ic_7440386e0189",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-terreno-de-360-m2-km-7-acaray/193858385"
+    },
+    {
+      "id": "ic_13e9cc25d3fd",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/duplex-en-altura/193497670"
+    },
+    {
+      "id": "ic_5abf01401d49",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/departamentos-en-venta-1-dormitorio-estandar-en-ciudad-del-este-edificio-inizio-2/193768711"
+    },
+    {
+      "id": "ic_7dece54243e2",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-terreno-km-14-acaray-sobre-calle-que-conecta-km-14-con-km-16-por-220-millones/193609620"
+    },
+    {
+      "id": "ic_38d7deeb69d0",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/inversion-km-20-monday-ciudad-del-este-5-lotes-a-70-ms-de-la-ruta-lindero-a-colegio-maria-auxiliadora/193650850"
+    },
+    {
+      "id": "ic_dd3c55dfe23d",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/exclusiva-casa-duplex-en-venta-tu-oasis-de-lujo-en-condominio-cerrado/193638795"
+    },
+    {
+      "id": "ic_0add9c685729",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/exclusiva-casa-en-hernandarias/193558631"
+    },
+    {
+      "id": "ic_ebb57338c14e",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-a-estrenar-departamento-de-2-dormitorios-entrega-inmediata-oprtunidad-/193762857"
+    },
+    {
+      "id": "ic_200d9ff5319c",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-departamento-terrazas-del-lago-3/192577767"
+    },
+    {
+      "id": "ic_26e98101b124",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/inversion-exclusiva-departamento-loft-de-lujo-con-balcon-en-pozo-rentabilidad-garantizada-y-alta-valorizacion/192908670"
+    },
+    {
+      "id": "ic_f5394a229f3b",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/oportunidad-unica-terreno-de-3312-m2-en-venta-en-la-prospera-minga-guazu/186326309"
+    },
+    {
+      "id": "ic_6b07057c7673",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/vendo-oficina-a-estrenar/193304647"
+    },
+    {
+      "id": "ic_bf6dfe12fd19",
+      "title": null,
+      "depto": "Unknown",
+      "freshness_days": 21,
+      "source": "infocasas",
+      "source_url": "https://www.infocasas.com.py/terreno-en-venta-hernandarias-titulado-costa-del-lago-846-m2/193938568"
     },
     {
       "id": "ic_f190c39fe060",
@@ -398,86 +478,6 @@
       "freshness_days": 21,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-terreno-en-hernandarias-urb-costa-del-lago/192589252"
-    },
-    {
-      "id": "ic_d4e502ba3b0e",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/en-venta-propiedad-de-20-ha-en-minga-guazu/193316031"
-    },
-    {
-      "id": "ic_61f8c412b178",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/hermoso-terreno-en-venta-en-el-barrio-san-jose-cde/192566837"
-    },
-    {
-      "id": "ic_8d29abc82e5f",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/gran-inversion-terreno-en-venta-en-ciudad-del-este/193771960"
-    },
-    {
-      "id": "ic_d1fe6753e141",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/oportunidad-en-hernandarias-area-6/193911592"
-    },
-    {
-      "id": "ic_b3dea6ee4f9d",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/insignia-11-ciudad-del-este/193911309"
-    },
-    {
-      "id": "ic_5c0ce1dce393",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/departamentos-en-ciudad-del-este-proyecto-en-pozo-para-inversion/193884380"
-    },
-    {
-      "id": "ic_3adec31d86ff",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/zuba-31-y-32/193199353"
-    },
-    {
-      "id": "ic_2a274d1bf9c2",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/se-vende-terreno-imponente-en-pedro-juan-caballero/193543194"
-    },
-    {
-      "id": "ic_6dce8bb1efc6",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/vendo-495-ha-a-30-km-de-pedro-juan-caballero-municipio-de-cerro-cora/191767167"
-    },
-    {
-      "id": "ic_394b68656003",
-      "title": null,
-      "depto": "Unknown",
-      "freshness_days": 21,
-      "source": "infocasas",
-      "source_url": "https://www.infocasas.com.py/en-venta-3-terrenos-juntos-en-pjc/192694321"
     }
   ]
 }

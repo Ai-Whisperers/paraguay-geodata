@@ -1,0 +1,2184 @@
+{
+"type": "FeatureCollection",
+"features": [
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2673192,
+-25.3637485
+]
+},
+"properties": {
+"id": "ic_876af45e0d9f",
+"source": "infocasas",
+"source_id": "193908226",
+"source_url": "https://www.infocasas.com.py/casa-amoblada-en-puerta-del-lago-san-bernardino/193908226",
+"scraped_at_utc": "2026-08-01T15:28:26.009428+00:00",
+"title": "CASA AMOBLADA EN PUERTA DEL LAGO SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 2,
+"price_pyg": 750000000,
+"price_usd": 100000.0,
+"area_ha": 0.048,
+"$/ha": 2083333.3333333333,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.29457119976024,
+-25.30110609985854
+]
+},
+"properties": {
+"id": "ic_50ec7ed3707d",
+"source": "infocasas",
+"source_id": "193981722",
+"source_url": "https://www.infocasas.com.py/vendo-casa-quinta-en-san-bernardino/193981722",
+"scraped_at_utc": "2026-08-01T15:28:28.768319+00:00",
+"title": "VENDO CASA QUINTA EN SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 3,
+"price_pyg": 1635000000,
+"price_usd": 218000,
+"area_ha": 0.0363,
+"$/ha": 6005509.641873279,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2932674,
+-25.2927809
+]
+},
+"properties": {
+"id": "ic_10c1d0dcae67",
+"source": "infocasas",
+"source_id": "193782975",
+"source_url": "https://www.infocasas.com.py/vendo-casa-amoblada-en-san-bernardino/193782975",
+"scraped_at_utc": "2026-08-01T15:28:31.494074+00:00",
+"title": "VENDO CASA AMOBLADA EN SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 4125000000,
+"price_usd": 550000,
+"area_ha": 10.537,
+"$/ha": 52197.02002467495,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2974741,
+-25.0883505
+]
+},
+"properties": {
+"id": "ic_34bcd3af84f8",
+"source": "infocasas",
+"source_id": "193948950",
+"source_url": "https://www.infocasas.com.py/vendo-casa-quinta-sobre-ruta-py03-emboscada/193948950",
+"scraped_at_utc": "2026-08-01T15:28:31.502494+00:00",
+"title": "VENDO CASA QUINTA SOBRE RUTA PY03 EMBOSCADA",
+"address": null,
+"depto": null,
+"bedrooms": 2,
+"price_pyg": 820000000,
+"price_usd": 109333.33333333333,
+"area_ha": 0.0016591999999999998,
+"$/ha": 65895210.54323369,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.3524744,
+-25.1219887
+]
+},
+"properties": {
+"id": "ic_8bf5bfacd7ea",
+"source": "infocasas",
+"source_id": "192866980",
+"source_url": "https://www.infocasas.com.py/terreno-rural-emboscada-p-proyecto-industrial-turistico-/192866980",
+"scraped_at_utc": "2026-08-01T15:28:31.514581+00:00",
+"title": "Terreno Rural  - Emboscada, p/ proyecto industrial, turístico ",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 3366510000,
+"price_usd": 448868,
+"area_ha": 0.012824799999999999,
+"$/ha": 35000000.0,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2626372,
+-25.2967471
+]
+},
+"properties": {
+"id": "ic_793cec9e19ea",
+"source": "infocasas",
+"source_id": "193974309",
+"source_url": "https://www.infocasas.com.py/villa-de-lujo-en-aqua-village-con-piscina-infinity-5-dormitorios-y-financiacion-privada/193974309",
+"scraped_at_utc": "2026-08-01T15:28:31.524477+00:00",
+"title": "Villa de Lujo en Aqua Village con Piscina Infinity, 5 Dormitorios y Financiación Privada",
+"address": null,
+"depto": null,
+"bedrooms": 5,
+"price_pyg": 4477500000,
+"price_usd": 597000,
+"area_ha": 0.0562,
+"$/ha": 10622775.800711744,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.265400583738476,
+-25.297527567774363
+]
+},
+"properties": {
+"id": "ic_1319862c7a9b",
+"source": "infocasas",
+"source_id": "194013320",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-en-san-bernardino-altos/194013320",
+"scraped_at_utc": "2026-08-01T15:28:31.536479+00:00",
+"title": "VENDO TERRENO EN SAN BERNARDINO ALTOS",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 1050000000,
+"price_usd": 140000,
+"area_ha": 0.0762,
+"$/ha": 1837270.341207349,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_09b979a1230b",
+"source": "infocasas",
+"source_id": "193951227",
+"source_url": "https://www.infocasas.com.py/terreno-en-venta-en-san-bernardino-colonia-heriberta-matiauda-fraccion-ciervo-cua/193951227",
+"scraped_at_utc": "2026-08-01T15:28:31.548286+00:00",
+"title": "Terreno en Venta en San Bernardino - Colonia Heriberta Matiauda- Fraccion Ciervo Cua",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 820000000,
+"price_usd": 109333.33333333333,
+"area_ha": 0.000265,
+"$/ha": 412578616.3522013,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_387e12994427",
+"source": "infocasas",
+"source_id": "193838949",
+"source_url": "https://www.infocasas.com.py/vendo-exclusiva-casa-en-san-bernardino/193838949",
+"scraped_at_utc": "2026-08-01T15:28:31.557337+00:00",
+"title": "VENDO EXCLUSIVA CASA EN SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 2,
+"price_pyg": 2775000000,
+"price_usd": 370000,
+"area_ha": 0.0655,
+"$/ha": 5648854.9618320605,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.27682050000001,
+-25.3507788
+]
+},
+"properties": {
+"id": "ic_ecd295b7b661",
+"source": "infocasas",
+"source_id": "193582765",
+"source_url": "https://www.infocasas.com.py/en-venta-residencia-estilo-contemporaneo-sobre-lago-ypacarai/193582765",
+"scraped_at_utc": "2026-08-01T15:28:31.568288+00:00",
+"title": "En Venta Residencia Estilo Contemporaneo Sobre Lago Ypacaraí",
+"address": null,
+"depto": "Central",
+"bedrooms": 3,
+"price_pyg": 5137500000,
+"price_usd": 685000,
+"area_ha": 0.08,
+"$/ha": 8562500.0,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.1492272,
+-25.3888102
+]
+},
+"properties": {
+"id": "ic_7a75b37e2dbf",
+"source": "infocasas",
+"source_id": "194043763",
+"source_url": "https://www.infocasas.com.py/propiedad-con-salon-de-eventos-en-caacupe-adler467/194043763",
+"scraped_at_utc": "2026-08-01T15:28:34.652050+00:00",
+"title": "Propiedad con salón de eventos en Caacupé  adler467",
+"address": null,
+"depto": null,
+"bedrooms": 1,
+"price_pyg": 2100000000,
+"price_usd": 280000,
+"area_ha": 0.0003541,
+"$/ha": 790737079.9209263,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2492898,
+-25.2617324
+]
+},
+"properties": {
+"id": "ic_5bdc115f53db",
+"source": "infocasas",
+"source_id": "191624075",
+"source_url": "https://www.infocasas.com.py/residencia-a-estrenar-con-vista-al-lago-en-la-suiza/191624075",
+"scraped_at_utc": "2026-08-01T15:28:37.895326+00:00",
+"title": "RESIDENCIA A ESTRENAR CON VISTA AL LAGO EN LA SUIZA",
+"address": null,
+"depto": null,
+"bedrooms": 3,
+"price_pyg": 2917500000,
+"price_usd": 389000,
+"area_ha": 0.07,
+"$/ha": 5557142.857142856,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2746692,
+-25.3454196
+]
+},
+"properties": {
+"id": "ic_d1218d7953f9",
+"source": "infocasas",
+"source_id": "194055888",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-en-san-bernardino-de-calle-a-calle/194055888",
+"scraped_at_utc": "2026-08-01T15:28:40.819355+00:00",
+"title": "Vendo Terreno en San Bernardino de calle a calle",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 350000000,
+"price_usd": 46666.666666666664,
+"area_ha": 0.07,
+"$/ha": 666666.6666666665,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2784987,
+-25.3275191
+]
+},
+"properties": {
+"id": "ic_95142a5cc812",
+"source": "infocasas",
+"source_id": "193968099",
+"source_url": "https://www.infocasas.com.py/casa-a-la-venta-en-san-bernardino-a-pasos-del-hotel-los-alpes/193968099",
+"scraped_at_utc": "2026-08-01T15:28:43.730610+00:00",
+"title": "Casa a la venta en San Bernardino a pasos del Hotel Los Alpes",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 1875000000,
+"price_usd": 250000,
+"area_ha": 0.06,
+"$/ha": 4166666.666666667,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_ee6cd0152403",
+"source": "infocasas",
+"source_id": "193877261",
+"source_url": "https://www.infocasas.com.py/coqueta-casa-en-san-bernardino/193877261",
+"scraped_at_utc": "2026-08-01T15:28:46.635987+00:00",
+"title": "COQUETA CASA EN SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 650000000,
+"price_usd": 86666.66666666667,
+"area_ha": 0.051,
+"$/ha": 1699346.4052287585,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.0865449,
+-25.2751974
+]
+},
+"properties": {
+"id": "ic_d81a41c748c7",
+"source": "infocasas",
+"source_id": "193861746",
+"source_url": "https://www.infocasas.com.py/hermoso-terreno-amurallado-en-tobati/193861746",
+"scraped_at_utc": "2026-08-01T15:28:49.630039+00:00",
+"title": "Hermoso terreno amurallado en Tobati",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 320000000,
+"price_usd": 42666.666666666664,
+"area_ha": 0.0837,
+"$/ha": 509757.06889685383,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2936455,
+-25.3022652
+]
+},
+"properties": {
+"id": "ic_8388806a8183",
+"source": "infocasas",
+"source_id": "192999657",
+"source_url": "https://www.infocasas.com.py/vendo-casa-en-sambernardino/192999657",
+"scraped_at_utc": "2026-08-01T15:28:52.620069+00:00",
+"title": "VENDO  CASA EN SAMBERNARDINO",
+"address": null,
+"depto": null,
+"bedrooms": 3,
+"price_pyg": 1800000000,
+"price_usd": 240000,
+"area_ha": 0.00024009999999999998,
+"$/ha": 999583506.8721367,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.30094078632377,
+-25.3015893042733
+]
+},
+"properties": {
+"id": "ic_b2bea1b7f7f6",
+"source": "infocasas",
+"source_id": "193435074",
+"source_url": "https://www.infocasas.com.py/amplia-residencia-en-venta-san-bernardino/193435074",
+"scraped_at_utc": "2026-08-01T15:28:56.667034+00:00",
+"title": "Amplia Residencia en Venta San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 2242500000,
+"price_usd": 299000,
+"area_ha": 0.06,
+"$/ha": 4983333.333333334,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.1583345,
+-25.279723
+]
+},
+"properties": {
+"id": "ic_491ddbfbe595",
+"source": "infocasas",
+"source_id": "193439703",
+"source_url": "https://www.infocasas.com.py/en-venta-terreno-en-atyra-/193439703",
+"scraped_at_utc": "2026-08-01T15:29:00.035643+00:00",
+"title": "EN VENTA TERRENO EN ATYRA ",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 150000000,
+"price_usd": 20000.0,
+"area_ha": 0.0844,
+"$/ha": 236966.82464454975,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.26460456848145,
+-25.29425795138728
+]
+},
+"properties": {
+"id": "ic_b85f6fb7a69d",
+"source": "infocasas",
+"source_id": "193316983",
+"source_url": "https://www.infocasas.com.py/terreno-venta-san-bernardino-paraguay/193316983",
+"scraped_at_utc": "2026-08-01T15:29:06.306593+00:00",
+"title": "Terreno - Venta - San Bernardino, Paraguay",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 37500000000,
+"price_usd": 5000000,
+"area_ha": 0.027,
+"$/ha": 185185185.1851852,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.284774780273445,
+-25.320717429322467
+]
+},
+"properties": {
+"id": "ic_620b2924d05c",
+"source": "infocasas",
+"source_id": "192797903",
+"source_url": "https://www.infocasas.com.py/lotes-en-venta-en-highlands/192797903",
+"scraped_at_utc": "2026-08-01T15:29:09.484149+00:00",
+"title": "Lotes en venta en Highlands",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 701250000,
+"price_usd": 93500,
+"area_ha": 0.036,
+"$/ha": 2597222.2222222225,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.140119895127995,
+-25.387025309239153
+]
+},
+"properties": {
+"id": "ic_20773a863063",
+"source": "infocasas",
+"source_id": "193972552",
+"source_url": "https://www.infocasas.com.py/en-venta-terreno-en-caacupe-hermosa-vista/193972552",
+"scraped_at_utc": "2026-08-01T15:29:12.425214+00:00",
+"title": "EN VENTA TERRENO EN CAACUPE. HERMOSA VISTA",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 450000000,
+"price_usd": 60000.0,
+"area_ha": 0.000252,
+"$/ha": 238095238.0952381,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_e7868576cfeb",
+"source": "infocasas",
+"source_id": "194010423",
+"source_url": "https://www.infocasas.com.py/terreno-de-6-ha-sobre-ruta-luque-san-ber/194010423",
+"scraped_at_utc": "2026-08-01T15:29:15.778512+00:00",
+"title": "Terreno de 6 Ha sobre Ruta Luque - San Ber",
+"address": null,
+"depto": "Central",
+"bedrooms": null,
+"price_pyg": 24750000000,
+"price_usd": 3300000,
+"area_ha": 0.006805200000000001,
+"$/ha": 484923293.95168394,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.33977138314149,
+-25.222516249851267
+]
+},
+"properties": {
+"id": "ic_1f112d66a581",
+"source": "infocasas",
+"source_id": "192899496",
+"source_url": "https://www.infocasas.com.py/vendo-lotes-a-metros-de-la-ruta-luque-sanber/192899496",
+"scraped_at_utc": "2026-08-01T15:29:18.562753+00:00",
+"title": "Vendo Lotes A Metros De La Ruta Luque - Sanber",
+"address": null,
+"depto": "Central",
+"bedrooms": null,
+"price_pyg": 233000000,
+"price_usd": 31066.666666666668,
+"area_ha": 0.00010729999999999999,
+"$/ha": 289530910.22056544,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.305996417999275,
+-25.294897094375266
+]
+},
+"properties": {
+"id": "ic_7336579ca975",
+"source": "infocasas",
+"source_id": "193035312",
+"source_url": "https://www.infocasas.com.py/departamento-2-dorm-en-sanber-con-financiacion/193035312",
+"scraped_at_utc": "2026-08-01T15:29:21.505475+00:00",
+"title": "Departamento 2 Dorm En Sanber Con Financiación",
+"address": null,
+"depto": null,
+"bedrooms": 2,
+"price_pyg": 947782500,
+"price_usd": 126371,
+"area_ha": 0.00955,
+"$/ha": 13232565.445026178,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_0f81a0687d7c",
+"source": "infocasas",
+"source_id": "193219654",
+"source_url": "https://www.infocasas.com.py/san-bernardino-moderna-casa-con-piscina-y-quincho/193219654",
+"scraped_at_utc": "2026-08-01T15:29:24.623557+00:00",
+"title": "San Bernardino: Moderna Casa Con Piscina Y Quincho",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 5,
+"price_pyg": 1050000000,
+"price_usd": 140000,
+"area_ha": 0.0626,
+"$/ha": 2236421.7252396164,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2859467,
+-25.319285
+]
+},
+"properties": {
+"id": "ic_188ab1f5099f",
+"source": "infocasas",
+"source_id": "193132635",
+"source_url": "https://www.infocasas.com.py/terreno-en-venta-de-700-m2-en-barrio-cerrado-en-san-bernardino/193132635",
+"scraped_at_utc": "2026-08-01T15:29:27.553913+00:00",
+"title": "Terreno en venta de  700 m2 en barrio cerrado en San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 215550000,
+"price_usd": 28740,
+"area_ha": 0.07,
+"$/ha": 410571.4285714285,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.269337,
+-25.2976183
+]
+},
+"properties": {
+"id": "ic_e606d0a42d7e",
+"source": "infocasas",
+"source_id": "191903505",
+"source_url": "https://www.infocasas.com.py/vendo-terrenos-en-el-condominio-aqua-village/191903505",
+"scraped_at_utc": "2026-08-01T15:29:30.753761+00:00",
+"title": "VENDO TERRENOS EN EL CONDOMINIO AQUA VILLAGE",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 967500000,
+"price_usd": 129000,
+"area_ha": 0.0592,
+"$/ha": 2179054.054054054,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.0421483,
+-25.4648258
+]
+},
+"properties": {
+"id": "ic_ee7d41b47927",
+"source": "infocasas",
+"source_id": "192233853",
+"source_url": "https://www.infocasas.com.py/vendo-casa-quinta-en-piribebuy-pirareta/192233853",
+"scraped_at_utc": "2026-08-01T15:29:34.475251+00:00",
+"title": "VENDO CASA QUINTA EN PIRIBEBUY - PIRARETA",
+"address": null,
+"depto": null,
+"bedrooms": 5,
+"price_pyg": 1725000000,
+"price_usd": 230000,
+"area_ha": 0.0003456,
+"$/ha": 665509259.2592592,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.3210932,
+-25.2921483
+]
+},
+"properties": {
+"id": "ic_d9c0ed66ccdd",
+"source": "infocasas",
+"source_id": "190658816",
+"source_url": "https://www.infocasas.com.py/vendo-hermosa-casa-a-estrenar-de-3-habitaciones-en-suite-san-bernardino/190658816",
+"scraped_at_utc": "2026-08-01T15:29:37.326680+00:00",
+"title": "Vendo Hermosa Casa A Estrenar de 3 Habitaciones en Suite. San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 3,
+"price_pyg": 1425000000,
+"price_usd": 190000,
+"area_ha": 0.09,
+"$/ha": 2111111.111111111,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.278766632080085,
+-25.3297156722515
+]
+},
+"properties": {
+"id": "ic_c0d7b88a0977",
+"source": "infocasas",
+"source_id": "192262698",
+"source_url": "https://www.infocasas.com.py/en-venta-residencia-a-estrenar-en-san-bernardino/192262698",
+"scraped_at_utc": "2026-08-01T15:29:40.041472+00:00",
+"title": "En Venta - Residencia a estrenar en San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 1875000000,
+"price_usd": 250000,
+"area_ha": 0.06,
+"$/ha": 4166666.666666667,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.29664087295532,
+-25.29568553308599
+]
+},
+"properties": {
+"id": "ic_7139562c46f9",
+"source": "infocasas",
+"source_id": "193444073",
+"source_url": "https://www.infocasas.com.py/vendo-hermoso-terreno-de-933-m2-en-barrio-cristobal-colon-de-san-bernardino/193444073",
+"scraped_at_utc": "2026-08-01T15:29:43.096471+00:00",
+"title": "Vendo Hermoso Terreno De 933 m2 En Barrio Cristobal Colon de San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 500000000,
+"price_usd": 66666.66666666667,
+"area_ha": 0.0933,
+"$/ha": 714540.9074669526,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2308426,
+-25.1786866
+]
+},
+"properties": {
+"id": "ic_d33ceeb33936",
+"source": "infocasas",
+"source_id": "193984187",
+"source_url": "https://www.infocasas.com.py/lote-de-10-terrenos-en-loma-grande-paraguay/193984187",
+"scraped_at_utc": "2026-08-01T15:29:46.341293+00:00",
+"title": "Lote de 10 terrenos en Loma Grande - Paraguay",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 1462500000,
+"price_usd": 195000,
+"area_ha": 0.00041799999999999997,
+"$/ha": 466507177.03349286,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.3132857566411,
+-25.27451860966522
+]
+},
+"properties": {
+"id": "ic_5c36d4ebfc53",
+"source": "infocasas",
+"source_id": "191715098",
+"source_url": "https://www.infocasas.com.py/terreno-en-sunset-hills-san-bernardino/191715098",
+"scraped_at_utc": "2026-08-01T15:29:49.416593+00:00",
+"title": "Terreno En Sunset Hills San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 862500000,
+"price_usd": 115000,
+"area_ha": 0.0774,
+"$/ha": 1485788.1136950904,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2691465,
+-25.2962262
+]
+},
+"properties": {
+"id": "ic_f52081ff44cc",
+"source": "infocasas",
+"source_id": "194013137",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-en-altos-condominio-aquavillage-ubicacion-privilegiada/194013137",
+"scraped_at_utc": "2026-08-01T15:29:52.654543+00:00",
+"title": "VENDO TERRENO EN ALTOS CONDOMINIO AQUAVILLAGE: UBICACIÓN PRIVILEGIADA",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 975000000,
+"price_usd": 130000,
+"area_ha": 0.0714,
+"$/ha": 1820728.2913165265,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.26220130920411,
+-25.372335699047266
+]
+},
+"properties": {
+"id": "ic_a84fe6362f8b",
+"source": "infocasas",
+"source_id": "192803777",
+"source_url": "https://www.infocasas.com.py/terreno-de-2746-m2-para-estacion-de-servicio-o-local-comercial-en-san-ber/192803777",
+"scraped_at_utc": "2026-08-01T15:29:55.658620+00:00",
+"title": "TERRENO DE 2746 M2 PARA ESTACIÓN DE SERVICIO O LOCAL COMERCIAL EN SAN BER",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 1600000000,
+"price_usd": 213333.33333333334,
+"area_ha": 0.0002746,
+"$/ha": 776887594.0762321,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.047010982063874,
+-25.435119548069373
+]
+},
+"properties": {
+"id": "ic_80b682423c7c",
+"source": "infocasas",
+"source_id": "192669061",
+"source_url": "https://www.infocasas.com.py/quinta-con-2-has-en-piribebuy/192669061",
+"scraped_at_utc": "2026-08-01T15:29:58.665303+00:00",
+"title": "Quinta Con 2 Has En Piribebuy",
+"address": null,
+"depto": null,
+"bedrooms": 13,
+"price_pyg": 1400000000,
+"price_usd": 186666.66666666666,
+"area_ha": 0.0026,
+"$/ha": 71794871.79487179,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.219063,
+-25.3552983
+]
+},
+"properties": {
+"id": "ic_09ce75efb4c4",
+"source": "infocasas",
+"source_id": "193658002",
+"source_url": "https://www.infocasas.com.py/oportunidad-terreno-en-eco-quinta-san-bernardino/193658002",
+"scraped_at_utc": "2026-08-01T15:30:02.232078+00:00",
+"title": "Oportunidad: Terreno en Eco Quinta San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 160000000,
+"price_usd": 21333.333333333332,
+"area_ha": 0.0515,
+"$/ha": 414239.48220064724,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2691465,
+-25.2962262
+]
+},
+"properties": {
+"id": "ic_f52081ff44cc",
+"source": "infocasas",
+"source_id": "194013137",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-en-altos-condominio-aquavillage-ubicacion-privilegiada/194013137",
+"scraped_at_utc": "2026-08-01T15:30:06.910898+00:00",
+"title": "VENDO TERRENO EN ALTOS CONDOMINIO AQUAVILLAGE: UBICACIÓN PRIVILEGIADA",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 975000000,
+"price_usd": 130000,
+"area_ha": 0.0714,
+"$/ha": 1820728.2913165265,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.26220130920411,
+-25.372335699047266
+]
+},
+"properties": {
+"id": "ic_a84fe6362f8b",
+"source": "infocasas",
+"source_id": "192803777",
+"source_url": "https://www.infocasas.com.py/terreno-de-2746-m2-para-estacion-de-servicio-o-local-comercial-en-san-ber/192803777",
+"scraped_at_utc": "2026-08-01T15:30:06.928906+00:00",
+"title": "TERRENO DE 2746 M2 PARA ESTACIÓN DE SERVICIO O LOCAL COMERCIAL EN SAN BER",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 1600000000,
+"price_usd": 213333.33333333334,
+"area_ha": 0.0002746,
+"$/ha": 776887594.0762321,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.047010982063874,
+-25.435119548069373
+]
+},
+"properties": {
+"id": "ic_80b682423c7c",
+"source": "infocasas",
+"source_id": "192669061",
+"source_url": "https://www.infocasas.com.py/quinta-con-2-has-en-piribebuy/192669061",
+"scraped_at_utc": "2026-08-01T15:30:06.941673+00:00",
+"title": "Quinta Con 2 Has En Piribebuy",
+"address": null,
+"depto": null,
+"bedrooms": 13,
+"price_pyg": 1400000000,
+"price_usd": 186666.66666666666,
+"area_ha": 0.0026,
+"$/ha": 71794871.79487179,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.279955360776064,
+-25.330372970610558
+]
+},
+"properties": {
+"id": "ic_3ce9291a006a",
+"source": "infocasas",
+"source_id": "192797773",
+"source_url": "https://www.infocasas.com.py/en-venta-townhouses-en-highlands/192797773",
+"scraped_at_utc": "2026-08-01T15:30:10.055934+00:00",
+"title": "En venta Townhouses en Highlands",
+"address": null,
+"depto": null,
+"bedrooms": 2,
+"price_pyg": 1721250000,
+"price_usd": 229500,
+"area_ha": 0.0014944000000000001,
+"$/ha": 153573340.47109208,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.26217582218159,
+-25.345019230245608
+]
+},
+"properties": {
+"id": "ic_c296e54d6742",
+"source": "infocasas",
+"source_id": "193496335",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-de-600-m2-en-san-bernardino-zona-puerta-del-lago/193496335",
+"scraped_at_utc": "2026-08-01T15:30:13.416236+00:00",
+"title": "Vendo Terreno De 600 m2 En San Bernardino Zona Puerta Del Lago",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 200000000,
+"price_usd": 26666.666666666668,
+"area_ha": 0.06,
+"$/ha": 444444.4444444445,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2536314,
+-25.2631384
+]
+},
+"properties": {
+"id": "ic_bb95ab36bc8f",
+"source": "infocasas",
+"source_id": "193068359",
+"source_url": "https://www.infocasas.com.py/terrenos-en-venta-colinas-del-lago-altos-cordillera/193068359",
+"scraped_at_utc": "2026-08-01T15:30:16.362643+00:00",
+"title": "Terrenos En Venta - Colinas Del Lago - Altos Cordillera",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 216000000,
+"price_usd": 28800,
+"area_ha": 0.036,
+"$/ha": 800000.0000000001,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.13636883810012,
+-25.34530802647575
+]
+},
+"properties": {
+"id": "ic_d1ca1aa3a0cf",
+"source": "infocasas",
+"source_id": "192694555",
+"source_url": "https://www.infocasas.com.py/hermosa-quinta-en-venta-casa-quinta-amoblada-en-caacupe/192694555",
+"scraped_at_utc": "2026-08-01T15:30:19.412350+00:00",
+"title": "HERMOSA QUINTA EN VENTA - Casa Quinta Amoblada en Caacupé",
+"address": null,
+"depto": null,
+"bedrooms": 3,
+"price_pyg": 2625000000,
+"price_usd": 350000,
+"area_ha": 0.0008678000000000001,
+"$/ha": 403318737.0361834,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-56.8582392,
+-25.6108971
+]
+},
+"properties": {
+"id": "ic_999d3d486182",
+"source": "infocasas",
+"source_id": "193208429",
+"source_url": "https://www.infocasas.com.py/se-vende-hotel-equipado-en-la-ciudad-de-valenzuela-/193208429",
+"scraped_at_utc": "2026-08-01T15:30:22.893516+00:00",
+"title": "SE VENDE HOTEL EQUIPADO EN LA CIUDAD DE VALENZUELA ",
+"address": null,
+"depto": null,
+"bedrooms": 17,
+"price_pyg": 3375000000,
+"price_usd": 450000,
+"area_ha": 17.0,
+"$/ha": 26470.58823529412,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2536314,
+-25.2631384
+]
+},
+"properties": {
+"id": "ic_be4afd894e55",
+"source": "infocasas",
+"source_id": "192069076",
+"source_url": "https://www.infocasas.com.py/vende-terreno-en-aquabrava-altos/192069076",
+"scraped_at_utc": "2026-08-01T15:30:25.863487+00:00",
+"title": "VENDE Terreno en AQUABRAVA, Altos",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 712500000,
+"price_usd": 95000,
+"area_ha": 0.0551,
+"$/ha": 1724137.9310344825,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_dcdc0f2170c4",
+"source": "infocasas",
+"source_id": "193852069",
+"source_url": "https://www.infocasas.com.py/vendo-por-115000-us-hermosisimo-terreno-dentro-de-aqua-village-667m2/193852069",
+"scraped_at_utc": "2026-08-01T15:30:28.879683+00:00",
+"title": "VENDO por 115.000 us . HERMOSISIMO terreno DENTRO DE AQUA VILLAGE. 667m2",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 862500000,
+"price_usd": 115000,
+"area_ha": 0.0667,
+"$/ha": 1724137.9310344828,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2747721,
+-25.3054922
+]
+},
+"properties": {
+"id": "ic_3ab51482bb9a",
+"source": "infocasas",
+"source_id": "193604355",
+"source_url": "https://www.infocasas.com.py/casa-san-bernardino-4-habitaciones-con-piscina/193604355",
+"scraped_at_utc": "2026-08-01T15:30:31.867991+00:00",
+"title": "Casa San Bernardino 4 habitaciones con piscina",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 2475000000,
+"price_usd": 330000,
+"area_ha": 0.036,
+"$/ha": 9166666.666666668,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.273900844629686,
+-25.318598185927677
+]
+},
+"properties": {
+"id": "ic_8a079fe39328",
+"source": "infocasas",
+"source_id": "192682657",
+"source_url": "https://www.infocasas.com.py/atractivo-terreno-en-venta-san-bernardino/192682657",
+"scraped_at_utc": "2026-08-01T15:30:34.808344+00:00",
+"title": "ATRACTIVO TERRENO EN VENTA - SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 562500000,
+"price_usd": 75000,
+"area_ha": 0.098,
+"$/ha": 765306.1224489795,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2383167,
+-25.3548393
+]
+},
+"properties": {
+"id": "ic_a5bcec873121",
+"source": "infocasas",
+"source_id": "193284596",
+"source_url": "https://www.infocasas.com.py/en-venta-terreno-en-san-bernardino/193284596",
+"scraped_at_utc": "2026-08-01T15:30:37.651811+00:00",
+"title": "En venta terreno en San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 85000000,
+"price_usd": 11333.333333333334,
+"area_ha": 0.0384,
+"$/ha": 295138.88888888893,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2934586,
+-25.2943262
+]
+},
+"properties": {
+"id": "ic_7703874bf9eb",
+"source": "infocasas",
+"source_id": "193984433",
+"source_url": "https://www.infocasas.com.py/residencia-en-san-bernardino/193984433",
+"scraped_at_utc": "2026-08-01T15:30:40.758941+00:00",
+"title": "RESIDENCIA EN SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 7,
+"price_pyg": 2400000000,
+"price_usd": 320000.0,
+"area_ha": 0.08,
+"$/ha": 4000000.0,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2854717,
+-25.2957194
+]
+},
+"properties": {
+"id": "ic_659bcdd682c6",
+"source": "infocasas",
+"source_id": "193012820",
+"source_url": "https://www.infocasas.com.py/vendo-casa-quinta-en-la-ciudad-de-san-bernardino/193012820",
+"scraped_at_utc": "2026-08-01T15:30:44.021460+00:00",
+"title": "VENDO Casa Quinta en la ciudad de San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 16500000000,
+"price_usd": 2200000,
+"area_ha": 0.0005,
+"$/ha": 4400000000.0,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2831181,
+-25.2738408
+]
+},
+"properties": {
+"id": "ic_9bdb0d4c1395",
+"source": "infocasas",
+"source_id": "193189806",
+"source_url": "https://www.infocasas.com.py/en-venta-imponente-residencia-san-bernardino-alta-pietra/193189806",
+"scraped_at_utc": "2026-08-01T15:30:46.898052+00:00",
+"title": "En Venta Imponente Residencia San Bernardino Alta Pietra",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 1,
+"price_pyg": 6750000000,
+"price_usd": 900000,
+"area_ha": 0.000153,
+"$/ha": 5882352941.176471,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.27722487091373,
+-25.32726978794777
+]
+},
+"properties": {
+"id": "ic_c29a64706e4c",
+"source": "infocasas",
+"source_id": "192797702",
+"source_url": "https://www.infocasas.com.py/en-venta-departamentos-en-pozo-en-highlands/192797702",
+"scraped_at_utc": "2026-08-01T15:30:50.109927+00:00",
+"title": "En venta departamentos en pozo en Highlands",
+"address": null,
+"depto": null,
+"bedrooms": 1,
+"price_pyg": 1796250000,
+"price_usd": 239500,
+"area_ha": 90.0,
+"$/ha": 2661.1111111111113,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2643978,
+-25.2868527
+]
+},
+"properties": {
+"id": "ic_f7ad78ce8ba1",
+"source": "infocasas",
+"source_id": "193412190",
+"source_url": "https://www.infocasas.com.py/vendo-hermosa-casa-en-barrio-cerrado-en-altos/193412190",
+"scraped_at_utc": "2026-08-01T15:30:56.891156+00:00",
+"title": "Vendo hermosa casa en Barrio cerrado en ALTOS",
+"address": null,
+"depto": null,
+"bedrooms": 3,
+"price_pyg": 2212500000,
+"price_usd": 295000,
+"area_ha": 0.045,
+"$/ha": 6555555.555555556,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.3048587379987,
+-25.27718095007979
+]
+},
+"properties": {
+"id": "ic_a7b72bea0b02",
+"source": "infocasas",
+"source_id": "193661035",
+"source_url": "https://www.infocasas.com.py/terreno-en-venta-de-1148m2-ubicado-en-san-bernardino/193661035",
+"scraped_at_utc": "2026-08-01T15:30:59.681833+00:00",
+"title": "Terreno en venta de 1148m2 ubicado en San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 470000000,
+"price_usd": 62666.666666666664,
+"area_ha": 0.1148,
+"$/ha": 545876.887340302,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2889713044098,
+-25.284592962859072
+]
+},
+"properties": {
+"id": "ic_bb04e737d5a7",
+"source": "infocasas",
+"source_id": "192941921",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-en-sanber-a-260000-x-m2/192941921",
+"scraped_at_utc": "2026-08-01T15:31:03.013041+00:00",
+"title": "Vendo Terreno En Sanber A 260,000 X M2",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 157213000,
+"price_usd": 20961.733333333334,
+"area_ha": 0.0604,
+"$/ha": 347048.5651214128,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.27571006979515,
+-25.36556266608813
+]
+},
+"properties": {
+"id": "ic_e170bfa76d35",
+"source": "infocasas",
+"source_id": "193828054",
+"source_url": "https://www.infocasas.com.py/vendo-casa-quinta-en-puerta-del-lago-san-bernardino/193828054",
+"scraped_at_utc": "2026-08-01T15:31:06.387028+00:00",
+"title": "VENDO CASA QUINTA EN PUERTA DEL LAGO SAN BERNARDINO",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 3,
+"price_pyg": 487500000,
+"price_usd": 65000,
+"area_ha": 0.0438,
+"$/ha": 1484018.2648401826,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.3702621459961,
+-25.11710290788681
+]
+},
+"properties": {
+"id": "ic_e5c7b426c5b9",
+"source": "infocasas",
+"source_id": "191250240",
+"source_url": "https://www.infocasas.com.py/vendo-amplio-terreno-en-emboscada/191250240",
+"scraped_at_utc": "2026-08-01T15:31:09.399387+00:00",
+"title": "VENDO AMPLIO TERRENO EN EMBOSCADA",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 65000000,
+"price_usd": 8666.666666666666,
+"area_ha": 0.036,
+"$/ha": 240740.74074074073,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_d93f7967a431",
+"source": "infocasas",
+"source_id": "193289839",
+"source_url": "https://www.infocasas.com.py/hermoso-terreno-en-exclusivo-condominio-sunset-hills-san-bernardino/193289839",
+"scraped_at_utc": "2026-08-01T15:31:12.628885+00:00",
+"title": "Hermoso terreno en exclusivo Condominio Sunset Hills, San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 791250000,
+"price_usd": 105500,
+"area_ha": 0.0781,
+"$/ha": 1350832.266325224,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.1492272,
+-25.3888102
+]
+},
+"properties": {
+"id": "ic_546a00adc02d",
+"source": "infocasas",
+"source_id": "193894945",
+"source_url": "https://www.infocasas.com.py/vendo-quinta-en-caacupe-de-14-has/193894945",
+"scraped_at_utc": "2026-08-01T15:31:16.236573+00:00",
+"title": "VENDO QUINTA EN CAACUPE DE 1,4 HAS",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 2100000000,
+"price_usd": 280000,
+"area_ha": 14.0,
+"$/ha": 20000.0,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_2f5b7020a6bc",
+"source": "infocasas",
+"source_id": "193879363",
+"source_url": "https://www.infocasas.com.py/hermoso-terreno-en-altura-a-metros-de-la-ruta-san-bernardino-altos/193879363",
+"scraped_at_utc": "2026-08-01T15:31:19.316736+00:00",
+"title": "Hermoso Terreno en altura a metros de la Ruta San Bernardino - Altos",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 350000000,
+"price_usd": 46666.666666666664,
+"area_ha": 0.0001013,
+"$/ha": 460677854.5574202,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.262535,
+-25.3221161
+]
+},
+"properties": {
+"id": "ic_3627681f0bc0",
+"source": "infocasas",
+"source_id": "193949308",
+"source_url": "https://www.infocasas.com.py/amplio-terreno-en-san-bernardino-zona-anfiteatro/193949308",
+"scraped_at_utc": "2026-08-01T15:31:22.302862+00:00",
+"title": "Amplio Terreno en San Bernardino zona Anfiteatro",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 1950000000,
+"price_usd": 260000,
+"area_ha": 0.0006749,
+"$/ha": 385242258.112313,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_654f33313798",
+"source": "infocasas",
+"source_id": "193213538",
+"source_url": "https://www.infocasas.com.py/exclusivo-terreno-en-barrio-cerrado-san-bernardino/193213538",
+"scraped_at_utc": "2026-08-01T15:31:25.459898+00:00",
+"title": "Exclusivo Terreno en Barrio Cerrado San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 358380000,
+"price_usd": 47784,
+"area_ha": 6.8263,
+"$/ha": 6999.985350775677,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.29421615600587,
+-25.308338651383448
+]
+},
+"properties": {
+"id": "ic_acfe5154bdab",
+"source": "infocasas",
+"source_id": "191645555",
+"source_url": "https://www.infocasas.com.py/en-venta-residencia-con-vista-al-lago-en-san-bernardino/191645555",
+"scraped_at_utc": "2026-08-01T15:31:28.419173+00:00",
+"title": "En Venta Residencia Con Vista Al Lago En San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 6750000000,
+"price_usd": 900000,
+"area_ha": 0.0656,
+"$/ha": 13719512.19512195,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {
+"bedrooms": 6,
+"bathrooms": 4
+}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.28885153753076,
+-25.285187146799004
+]
+},
+"properties": {
+"id": "ic_658e65337ddf",
+"source": "infocasas",
+"source_id": "192407832",
+"source_url": "https://www.infocasas.com.py/vendo-terreno-en-sanber-a-260000-por-m2/192407832",
+"scraped_at_utc": "2026-08-01T15:31:31.654080+00:00",
+"title": "Vendo Terreno En Sanber A 260,000 Por M2",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 571599000,
+"price_usd": 76213.2,
+"area_ha": 0.0002195,
+"$/ha": 347212756.26423687,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.27983951568604,
+-25.3297156722515
+]
+},
+"properties": {
+"id": "ic_ec47af1ca8a7",
+"source": "infocasas",
+"source_id": "192262811",
+"source_url": "https://www.infocasas.com.py/san-bernardino-residencia-a-estrenar-en-venta/192262811",
+"scraped_at_utc": "2026-08-01T15:31:34.392052+00:00",
+"title": "San Bernardino - Residencia a estrenar en venta",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 1875000000,
+"price_usd": 250000,
+"area_ha": 0.06,
+"$/ha": 4166666.666666667,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.30174839999999,
+-25.2556669
+]
+},
+"properties": {
+"id": "ic_afaa74ddc701",
+"source": "infocasas",
+"source_id": "192270679",
+"source_url": "https://www.infocasas.com.py/san-bernardino-en-venta-terreno-arbolado-en-excelente-ubicacion/192270679",
+"scraped_at_utc": "2026-08-01T15:31:37.795525+00:00",
+"title": "SAN BERNARDINO EN VENTA TERRENO ARBOLADO EN EXCELENTE UBICACIÓN",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 350000000,
+"price_usd": 46666.666666666664,
+"area_ha": 0.0675,
+"$/ha": 691358.024691358,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.26790072843663,
+-25.361716401749554
+]
+},
+"properties": {
+"id": "ic_e3d6f5483893",
+"source": "infocasas",
+"source_id": "193439376",
+"source_url": "https://www.infocasas.com.py/vendo-casa-de-verano-en-san-bernardino/193439376",
+"scraped_at_utc": "2026-08-01T15:31:40.504714+00:00",
+"title": "Vendo casa de verano en San Bernardino",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": 4,
+"price_pyg": 1350000000,
+"price_usd": 180000,
+"area_ha": 0.0672,
+"$/ha": 2678571.4285714286,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_f70c38ca6c23",
+"source": "infocasas",
+"source_id": "193916702",
+"source_url": "https://www.infocasas.com.py/casa-con-vista-al-lago-ypacarai/193916702",
+"scraped_at_utc": "2026-08-01T15:31:43.660704+00:00",
+"title": "CASA CON VISTA AL LAGO YPACARAI",
+"address": null,
+"depto": "Central",
+"bedrooms": 4,
+"price_pyg": 5625000000,
+"price_usd": 750000,
+"area_ha": 0.00035630000000000004,
+"$/ha": 2104967723.8282344,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.1536821,
+-25.4014127
+]
+},
+"properties": {
+"id": "ic_e46a2c49064e",
+"source": "infocasas",
+"source_id": "193881384",
+"source_url": "https://www.infocasas.com.py/oportunidad-unica-35-lotes-exclusivos-en-oferta-en-el-prestigioso-barrio-santa-maria-caacupe-a-metros-del-vibrante-centro-urbano/193881384",
+"scraped_at_utc": "2026-08-01T15:31:46.562019+00:00",
+"title": "Oportunidad Única: 35 Lotes Exclusivos en Oferta en el Prestigioso Barrio Santa María, Caacupé, a Metros del Vibrante Centro Urbano.",
+"address": null,
+"depto": null,
+"bedrooms": null,
+"price_pyg": 50000000,
+"price_usd": 6666.666666666667,
+"area_ha": 0.045,
+"$/ha": 148148.14814814815,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2626372,
+-25.2967471
+]
+},
+"properties": {
+"id": "ic_3cb39bd869c2",
+"source": "infocasas",
+"source_id": "193333824",
+"source_url": "https://www.infocasas.com.py/en-venta-propiedad-de-27-hectareas-ubicado-a-metros-de-la-ruta-san-bernardinoaltos/193333824",
+"scraped_at_utc": "2026-08-01T15:31:49.455658+00:00",
+"title": "EN VENTA PROPIEDAD DE 27 HÉCTAREAS UBICADO A METROS DE LA RUTA SAN BERNARDINO/ALTOS",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 40500000000,
+"price_usd": 5400000,
+"area_ha": 0.027,
+"$/ha": 200000000.0,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.2705691,
+-25.3461531
+]
+},
+"properties": {
+"id": "ic_c1686d96f8a3",
+"source": "infocasas",
+"source_id": "193647149",
+"source_url": "https://www.infocasas.com.py/vendo-lotes-en-la-ciudad-de-san-bernardino-/193647149",
+"scraped_at_utc": "2026-08-01T15:31:52.935422+00:00",
+"title": "VENDO LOTES EN LA CIUDAD DE SAN BERNARDINO ",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 1920000000,
+"price_usd": 256000.0,
+"area_ha": 0.0005049000000000001,
+"$/ha": 507031095.2663893,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-57.27278173622882,
+-25.3577604520717
+]
+},
+"properties": {
+"id": "ic_11c015dcd4b7",
+"source": "infocasas",
+"source_id": "193829856",
+"source_url": "https://www.infocasas.com.py/vendo-amplio-terreno-en-puerta-del-lago-san-bernardino-/193829856",
+"scraped_at_utc": "2026-08-01T15:31:56.390684+00:00",
+"title": "Vendo amplio terreno en Puerta del Lago San Bernardino ",
+"address": null,
+"depto": "Cordillera",
+"bedrooms": null,
+"price_pyg": 1125000000,
+"price_usd": 150000,
+"area_ha": 0.0001677,
+"$/ha": 894454382.8264757,
+"price_band_vs_anchors": null,
+"district": null,
+"departamento": null,
+"attrs": {}
+}
+}
+],
+"feature_count": 75
+}

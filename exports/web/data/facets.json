@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-01T15:16:27.901428Z",
-  "feature_count": 2865,
+  "generated_at": "2026-08-01T15:33:21.845867Z",
+  "feature_count": 3000,
   "facets": {
     "depto": [
       {
@@ -9,7 +9,7 @@
       },
       {
         "value": "?",
-        "count": 836
+        "count": 971
       },
       {
         "value": "Central",
@@ -62,12 +62,12 @@
     ],
     "property_type": [
       {
-        "value": "apartment",
-        "count": 893
+        "value": "?",
+        "count": 962
       },
       {
-        "value": "?",
-        "count": 827
+        "value": "apartment",
+        "count": 893
       },
       {
         "value": "house",
@@ -89,7 +89,7 @@
       },
       {
         "value": "?",
-        "count": 827
+        "count": 962
       },
       {
         "value": "PYG",
@@ -103,27 +103,26 @@
       },
       {
         "value": "infocasas",
-        "count": 827
+        "count": 962
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-01T15:14:07.669291+00:00",
+    "max": "2026-08-01T15:24:55.030111+00:00",
     "median_days": 0
   },
   "quality": {
-    "total": 2865,
-    "clean": 0,
-    "flagged": 2865,
+    "total": 3000,
+    "clean": 1955,
+    "flagged": 1045,
     "by_flag": {
-      "missing_price_pyg_inferred": 1429,
-      "missing_area_ha_inferred": 1340,
-      "null_property_type": 827,
-      "area_inferred_from_title": 664,
-      "missing_price": 409,
-      "missing_area": 64
+      "null_property_type": 962,
+      "missing_price": 417,
+      "missing_area": 73,
+      "area_conflict": 34,
+      "area_recovered_from_title_m2": 15
     }
   }
 }
