@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-08-01T11:47:10.159592Z",
+  "source_file": "/tmp/properties_latest.geojson",
+  "fx_pyg_per_usd": 7500.0,
+  "feature_count": 10754,
+  "facets": {
+    "property_type": {
+      "land": 4218,
+      "apartment": 2375,
+      "house": 3102,
+      "commercial": 904
+    },
+    "depto": {
+      "Caaguazú": 84,
+      "Paraguarí": 115,
+      "Asunción": 2771,
+      "San Pedro": 39,
+      "Canindeyú": 30,
+      "Concepción": 21,
+      "Misiones": 71,
+      "Itapúa": 1337,
+      "Guairá": 38,
+      "Amambay": 15,
+      "Caazapá": 36,
+      "Alto Paraguay": 13,
+      "Boquerón": 120,
+      "Cordillera": 620,
+      "Presidente Hayes": 127,
+      "Central": 4425,
+      "Alto Paraná": 508,
+      "Ñeembucú": 20
+    },
+    "currency": {
+      "USD": 5191,
+      "PYG": 5563
+    },
+    "source": {
+      "infocasas": 444,
+      "tulugar": 10310
+    },
+    "flags": {
+      "null_property_type": 155,
+      "currency_conflict": 4747,
+      "missing_area": 43,
+      "foreign_depto_dropped": 25,
+      "missing_price": 10
+    },
+    "year_seen": {
+      "2026": 10754
+    }
+  }
+}

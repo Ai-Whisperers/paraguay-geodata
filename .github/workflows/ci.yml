@@ -29,7 +29,8 @@ jobs:
             --ignore=tests/test_deploy_smoke.py \
             --ignore=tests/test_layer_registry.py \
             --ignore=tests/test_user_features.py \
-            --ignore=tests/test_security_headers.py
+            --ignore=tests/test_security_headers.py \
+            tests/test_canonicalize_properties.py tests/test_detect_regression.py
 
   schema-and-pii:
     name: Schema + GeoJSON + PII sanity (legacy jobs)

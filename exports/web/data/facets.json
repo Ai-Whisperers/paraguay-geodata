@@ -1,0 +1,225 @@
+{
+  "generated_at": "2026-08-01T11:48:22.740850Z",
+  "feature_count": 10754,
+  "facets": {
+    "depto": [
+      {
+        "value": "Central",
+        "count": 4425
+      },
+      {
+        "value": "Asunción",
+        "count": 2771
+      },
+      {
+        "value": "Itapúa",
+        "count": 1337
+      },
+      {
+        "value": "Cordillera",
+        "count": 620
+      },
+      {
+        "value": "Alto Paraná",
+        "count": 508
+      },
+      {
+        "value": "?",
+        "count": 364
+      },
+      {
+        "value": "Presidente Hayes",
+        "count": 127
+      },
+      {
+        "value": "Boquerón",
+        "count": 120
+      },
+      {
+        "value": "Paraguarí",
+        "count": 115
+      },
+      {
+        "value": "Caaguazú",
+        "count": 84
+      },
+      {
+        "value": "Misiones",
+        "count": 71
+      },
+      {
+        "value": "San Pedro",
+        "count": 39
+      },
+      {
+        "value": "Guairá",
+        "count": 38
+      },
+      {
+        "value": "Caazapá",
+        "count": 36
+      },
+      {
+        "value": "Canindeyú",
+        "count": 30
+      },
+      {
+        "value": "Concepción",
+        "count": 21
+      },
+      {
+        "value": "Ñeembucú",
+        "count": 20
+      },
+      {
+        "value": "Amambay",
+        "count": 15
+      },
+      {
+        "value": "Alto Paraguay",
+        "count": 13
+      }
+    ],
+    "property_type": [
+      {
+        "value": "land",
+        "count": 4218
+      },
+      {
+        "value": "house",
+        "count": 3102
+      },
+      {
+        "value": "apartment",
+        "count": 2375
+      },
+      {
+        "value": "commercial",
+        "count": 904
+      },
+      {
+        "value": "?",
+        "count": 155
+      }
+    ],
+    "currency": [
+      {
+        "value": "PYG",
+        "count": 5563
+      },
+      {
+        "value": "USD",
+        "count": 5191
+      }
+    ],
+    "source": [
+      {
+        "value": "tulugar",
+        "count": 10310
+      },
+      {
+        "value": "infocasas",
+        "count": 444
+      }
+    ],
+    "features": [
+      {
+        "value": "bbqArea",
+        "count": 2682
+      },
+      {
+        "value": "pool",
+        "count": 2059
+      },
+      {
+        "value": "airConditioning",
+        "count": 2051
+      },
+      {
+        "value": "modern",
+        "count": 2037
+      },
+      {
+        "value": "garden",
+        "count": 2037
+      },
+      {
+        "value": "balcony",
+        "count": 1780
+      },
+      {
+        "value": "new",
+        "count": 1274
+      },
+      {
+        "value": "parking",
+        "count": 1242
+      },
+      {
+        "value": "gym",
+        "count": 918
+      },
+      {
+        "value": "furnished",
+        "count": 811
+      },
+      {
+        "value": "terrace",
+        "count": 736
+      },
+      {
+        "value": "bbq",
+        "count": 661
+      },
+      {
+        "value": "equippedKitchen",
+        "count": 558
+      },
+      {
+        "value": "security",
+        "count": 501
+      },
+      {
+        "value": "laundry",
+        "count": 433
+      },
+      {
+        "value": "elevator",
+        "count": 350
+      },
+      {
+        "value": "internet",
+        "count": 312
+      },
+      {
+        "value": "eventRoom",
+        "count": 167
+      },
+      {
+        "value": "builtInClosets",
+        "count": 160
+      },
+      {
+        "value": "heating",
+        "count": 20
+      }
+    ]
+  },
+  "freshness": {
+    "min": "2026-07-11T04:32:08.800582+00:00",
+    "max": "2026-07-11T05:44:33.157458+00:00",
+    "median_days": 21
+  },
+  "quality": {
+    "total": 10754,
+    "clean": 5818,
+    "flagged": 4936,
+    "by_flag": {
+      "currency_conflict": 4747,
+      "null_property_type": 155,
+      "missing_area": 43,
+      "foreign_depto_dropped": 25,
+      "missing_price": 10
+    }
+  }
+}

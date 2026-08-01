@@ -1,0 +1,44 @@
+name: CI — paraguay-geodata (canonicalize + regression)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/canonicalize_properties.py'
+      - 'tools/build_facets.py'
+      - 'tools/detect_regression.py'
+      - 'tools/fetch_*.py'
+      - 'tests/test_canonicalize_properties.py'
+      - 'tests/test_detect_regression.py'
+  pull_request:
+    branches: [main]
+
+jobs:
+  canonicalize:
+    name: Canonicalize + regression guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install project dev deps
+        run: pip install -e ".[dev]" || true
+      - name: Run canonicalizer + facet builder + regression
+        run: |
+          python3 -m pytest tests/test_canonicalize_properties.py tests/test_detect_regression.py -q --no-header --tb=short
+          # Run the canonicalizer against the last-deployed artifact
+          if [ -f exports/web/data/properties_latest.geojson ]; then
+            python3 -m tools.canonicalize_properties \
+              --input  exports/web/data/properties_latest.geojson \
+              --output data/properties
+            python3 -m tools.build_facets
+            python3 -m tools.detect_regression \
+              --current data/properties/canonical_properties.geojson \
+              --last    exports/web/data/properties_latest.geojson \
+              --max-shrink-pct 35
+          else
+            echo "no deployed artifact in this PR — skipping live diff"
+          fi

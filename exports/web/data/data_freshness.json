@@ -1,26 +1,15 @@
 {
-  "as_of_utc": "2026-07-11T15:44:21.773234+00:00",
+  "as_of_utc": "2026-08-01T11:47:10.159592Z",
+  "feature_count": 10754,
+  "median_days": 21,
   "sources": {
     "infocasas": {
       "reachable": true,
-      "last_check_utc": "2026-07-11T15:44:21.458011+00:00",
-      "listings_in_db": 444
+      "count": 444
     },
     "tulugar": {
       "reachable": true,
-      "last_check_utc": "2026-07-11T15:44:21.458045+00:00",
-      "listings_in_db": 10454
-    },
-    "catastro": {
-      "reachable": true,
-      "last_check_utc": "2026-07-11T15:44:21.458048+00:00",
-      "listings_in_db": 0
-    },
-    "gbif": {
-      "reachable": true,
-      "last_check_utc": "2026-07-11T15:44:21.458050+00:00",
-      "listings_in_db": 0
+      "count": 10310
     }
-  },
-  "pipeline_version": "1.0"
+  }
 }
