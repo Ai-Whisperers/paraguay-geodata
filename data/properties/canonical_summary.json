@@ -1,52 +1,48 @@
 {
-  "generated_at": "2026-08-01T12:05:54.587331Z",
-  "source_file": "/tmp/properties_latest.geojson",
+  "generated_at": "2026-08-01T12:40:12.375945Z",
+  "source_file": "/root/paraguay-geodata/exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
-  "feature_count": 10754,
+  "feature_count": 2678,
   "facets": {
     "property_type": {
-      "land": 4218,
-      "apartment": 2375,
-      "house": 3102,
-      "commercial": 904
+      "house": 465,
+      "apartment": 893,
+      "land": 463,
+      "commercial": 217
     },
     "depto": {
-      "Caaguazú": 84,
-      "Paraguarí": 115,
-      "Asunción": 2771,
-      "San Pedro": 39,
-      "Canindeyú": 30,
-      "Concepción": 21,
-      "Misiones": 71,
-      "Itapúa": 1337,
-      "Guairá": 38,
-      "Amambay": 15,
-      "Caazapá": 36,
-      "Alto Paraguay": 13,
-      "Boquerón": 120,
-      "Cordillera": 620,
-      "Presidente Hayes": 127,
-      "Central": 4425,
-      "Alto Paraná": 508,
-      "Ñeembucú": 20
+      "Central": 675,
+      "Asunción": 1096,
+      "Cordillera": 137,
+      "Itapúa": 6,
+      "Caaguazú": 12,
+      "Ñeembucú": 10,
+      "Alto Paraná": 53,
+      "Presidente Hayes": 7,
+      "Canindeyú": 1,
+      "Alto Paraguay": 2,
+      "Amambay": 1,
+      "Misiones": 1
     },
     "currency": {
-      "USD": 5191,
-      "PYG": 5563
+      "?": 640,
+      "PYG": 609,
+      "USD": 1429
     },
     "source": {
-      "infocasas": 444,
-      "tulugar": 10310
+      "infocasas": 640,
+      "tulugar": 2038
     },
     "flags": {
-      "null_property_type": 155,
-      "currency_conflict": 4747,
-      "missing_area": 43,
-      "foreign_depto_dropped": 25,
-      "missing_price": 10
+      "missing_price": 435,
+      "null_property_type": 640,
+      "missing_area": 36,
+      "missing_area_ha_inferred": 1340,
+      "missing_price_pyg_inferred": 1429,
+      "area_inferred_from_title": 664
     },
     "year_seen": {
-      "2026": 10754
+      "2026": 2678
     }
   }
 }

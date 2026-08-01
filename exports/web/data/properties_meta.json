@@ -1,0 +1,14 @@
+{
+  "merged_at_utc": "2026-08-01T12:37:18.032313+00:00",
+  "sources": [
+    "infocasas",
+    "tulugar",
+    "clasipar"
+  ],
+  "count": 10997,
+  "breakdown": {
+    "infocasas": 9449,
+    "tulugar": 1548
+  },
+  "pending_clasipar_detail": 445230
+}

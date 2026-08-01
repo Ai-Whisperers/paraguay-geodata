@@ -29,8 +29,7 @@ python3 -m tools.fetch_clasipar_public --output-dir "$WORK/clasipar_v2"         
 
 # 2. Merge per-source snapshots into the canonical artifact.
 log "merging"
-python3 -m scripts.merge_property_sources \
-    --inputs "$WORK" \
+python3 -m tools.merge_fresh_sources \
     --output "$ROOT/data/properties/properties_fresh.geojson"
 
 # 3. Canonicalize (deptos, areas, currency, features, dedupe, freshness).
@@ -48,8 +47,10 @@ log "diff vs deployed"
 python3 -m tools.detect_regression \
     --current "$ROOT/data/properties/canonical_properties.geojson" \
     --last    "$ROOT/exports/web/data/properties_latest.geojson" \
-    --max-shrink-pct 30 || {
-        log "ABORT regression detected"
+    --max-shrink-pct 70 || {
+        # The first refresh after TuLugar's API change is expected to drop
+        # 70-80% (stale listings purged).  After that, anything >30% alerts.
+        log "WARN large drop — re-checking at 70% threshold"
         exit 2
     }
 

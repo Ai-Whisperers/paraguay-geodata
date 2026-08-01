@@ -49,8 +49,14 @@ ROOT = Path('/root/paraguay-geodata')
 OUT_JSON = ROOT / 'data/properties/tulugar_snap.json'
 OUT_GEOJSON = ROOT / 'exports/web/data/properties_tulugar.geojson'
 
-API_BASE = 'https://tulugar.com/api/listings'
+API_BASE = 'https://tulugar.com/api/v1/listings'
 UA = 'Mozilla/5.0 (X11; Linux x86_64) Python/TuLugarFetcher'
+
+# TuLugar (Aug 2026 schema): `data[]` with each item having price/currency,
+# latitude/longitude, slug (no separate source_platform field — every listing
+# is first-party).  Older fields (source_agent, description, og_image_url)
+# have been removed.
+FX_PYG_PER_USD = 7_500.0
 
 
 def fetch_page(limit: int, offset: int) -> dict:
@@ -61,23 +67,29 @@ def fetch_page(limit: int, offset: int) -> dict:
 
 
 def to_feature(item: dict) -> dict | None:
-    loc = item.get('location')  # may be WKT or None
     lat = item.get('latitude')
     lon = item.get('longitude')
     if lat is None or lon is None:
         return None
     sid = item.get('id', '')
+    slug = item.get('slug') or sid
     listing_type = item.get('listing_type', 'sale')
     ptype = item.get('property_type', 'unknown')
-    price_pyg = item.get('price') if (item.get('currency') or '').upper() == 'PYG' else None
-    price_pyg = price_pyg or (item.get('price') if ptype != 'rent' else None) or None
 
-    # TuLugar pre-converts to USD in `price_usd`. Keep that, but also expose raw PYG when available.
-    price_usd = item.get('price_usd')
+    # Single `price` field + `currency` discriminator.
+    raw_price = item.get('price')
+    currency = (item.get('currency') or '').upper()
+    price_pyg = raw_price if currency == 'PYG' else None
+    price_usd = raw_price if currency == 'USD' else (
+        round(raw_price / FX_PYG_PER_USD, 2) if (raw_price and currency == 'PYG') else None
+    )
 
     # Build the dedupe-friendly ID
     h = hashlib.sha1(('tulugar:' + sid).encode()).hexdigest()[:12]
 
+    # New URL pattern: /propiedades/ (plural).  Keep the historical
+    # /propiedad/ pattern in mind — the site 301s to the new path, but we
+    # ship the canonical URL so crawlers don't double-redirect.
     return {
         "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [float(lon), float(lat)]},
@@ -85,23 +97,19 @@ def to_feature(item: dict) -> dict | None:
             "id": "tl_" + h,
             "source": "tulugar",
             "source_id": sid,
-            "source_url": f"https://tulugar.com/es/paraguay/propiedad/{item.get('slug', sid)}",
-            "source_platform": item.get('source_platform'),
-            "source_agent": item.get('source_agent_name'),
-            "source_agent_whatsapp": item.get('source_agent_whatsapp'),
+            "source_url": f"https://tulugar.com/es/paraguay/propiedades/{slug}",
+            "source_platform": None,
             "scraped_at_utc": datetime.now(timezone.utc).isoformat(),
             "title": item.get('title'),
-            "description": (item.get('description') or '')[:1000],
             "lat": float(lat),
             "lon": float(lon),
             "city": item.get('city'),
             "neighborhood": item.get('neighborhood'),
-            "state_province": item.get('state_province'),
+            "state_province": None,  # not exposed by v1 API; canonicalizer fills it
             "country": item.get('country'),
-            "address": item.get('address'),
             "listing_type": listing_type,
             "property_type": ptype,
-            "currency": item.get('currency'),
+            "currency": currency or None,
             "price_pyg": price_pyg,
             "price_usd": price_usd,
             "bedrooms": item.get('bedrooms'),
@@ -110,13 +118,15 @@ def to_feature(item: dict) -> dict | None:
             "lot_size_sqm": item.get('lot_size_sqm'),
             "covered_area_sqm": item.get('covered_area_sqm'),
             "parking_spaces": item.get('parking_spaces'),
-            "year_built": item.get('year_built'),
             "condition": item.get('condition'),
             "furnished": item.get('furnished'),
-            "verified": item.get('verified', False),
-            "features": item.get('features') or [],
+            "verified": bool(item.get('verified', False)),
+            "features": [],  # v1 API no longer exposes features
             "images": (item.get('images') or [])[:8],
-            "og_image_url": item.get('og_image_url'),
+            "views": item.get('views'),
+            "favorites_count": item.get('favorites_count'),
+            "created_at": item.get('created_at'),
+            "updated_at": item.get('updated_at'),
         },
     }
 
