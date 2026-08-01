@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-01T14:24:28.359424Z",
-  "source_file": "/root/paraguay-geodata/exports/web/data/properties_latest.geojson",
+  "generated_at": "2026-08-01T15:16:27.688383Z",
+  "source_file": "exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
-  "feature_count": 2678,
+  "feature_count": 2865,
   "facets": {
     "property_type": {
       "house": 465,
@@ -26,24 +26,24 @@
       "Paraguarí": 1
     },
     "currency": {
-      "?": 640,
+      "?": 827,
       "PYG": 609,
       "USD": 1429
     },
     "source": {
-      "infocasas": 640,
+      "infocasas": 827,
       "tulugar": 2038
     },
     "flags": {
-      "missing_price": 435,
-      "null_property_type": 640,
-      "missing_area": 36,
+      "missing_price": 409,
+      "null_property_type": 827,
+      "missing_area": 64,
       "missing_area_ha_inferred": 1340,
       "missing_price_pyg_inferred": 1429,
       "area_inferred_from_title": 664
     },
     "year_seen": {
-      "2026": 2678
+      "2026": 2865
     }
   }
 }

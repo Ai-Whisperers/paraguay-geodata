@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-01T14:24:28.580669Z",
-  "feature_count": 2678,
+  "generated_at": "2026-08-01T15:16:27.901428Z",
+  "feature_count": 2865,
   "facets": {
     "depto": [
       {
@@ -8,12 +8,12 @@
         "count": 1096
       },
       {
-        "value": "Central",
-        "count": 682
+        "value": "?",
+        "count": 836
       },
       {
-        "value": "?",
-        "count": 649
+        "value": "Central",
+        "count": 682
       },
       {
         "value": "Cordillera",
@@ -67,7 +67,7 @@
       },
       {
         "value": "?",
-        "count": 640
+        "count": 827
       },
       {
         "value": "house",
@@ -89,7 +89,7 @@
       },
       {
         "value": "?",
-        "count": 640
+        "count": 827
       },
       {
         "value": "PYG",
@@ -103,27 +103,27 @@
       },
       {
         "value": "infocasas",
-        "count": 640
+        "count": 827
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-01T12:35:57.330018+00:00",
+    "max": "2026-08-01T15:14:07.669291+00:00",
     "median_days": 0
   },
   "quality": {
-    "total": 2678,
+    "total": 2865,
     "clean": 0,
-    "flagged": 2678,
+    "flagged": 2865,
     "by_flag": {
       "missing_price_pyg_inferred": 1429,
       "missing_area_ha_inferred": 1340,
+      "null_property_type": 827,
       "area_inferred_from_title": 664,
-      "null_property_type": 640,
-      "missing_price": 435,
-      "missing_area": 36
+      "missing_price": 409,
+      "missing_area": 64
     }
   }
 }

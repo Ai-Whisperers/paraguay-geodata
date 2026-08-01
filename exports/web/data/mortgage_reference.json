@@ -1,51 +1,51 @@
 {
-  "generated_at": "2026-08-01T14:24:31.073700Z",
-  "median_us_listing_price": 120890,
+  "generated_at": "2026-08-01T15:16:30.262468Z",
+  "median_us_listing_price": 125667,
   "ltv": 0.7,
   "scenarios": [
     {
-      "loan_usd": 84623,
+      "loan_usd": 87967,
       "years": 10,
       "rate_pct": 11.5,
-      "monthly_usd": 1189.76,
-      "total_paid_usd": 142771,
-      "interest_usd": 58148,
+      "monthly_usd": 1236.77,
+      "total_paid_usd": 148413,
+      "interest_usd": 60446,
       "interest_to_principal_pct": 68.7
     },
     {
-      "loan_usd": 84623,
+      "loan_usd": 87967,
       "years": 15,
       "rate_pct": 11.5,
-      "monthly_usd": 988.56,
-      "total_paid_usd": 177940,
-      "interest_usd": 93317,
+      "monthly_usd": 1027.62,
+      "total_paid_usd": 184971,
+      "interest_usd": 97005,
       "interest_to_principal_pct": 110.3
     },
     {
-      "loan_usd": 84623,
+      "loan_usd": 87967,
       "years": 20,
       "rate_pct": 11.5,
-      "monthly_usd": 902.44,
-      "total_paid_usd": 216587,
-      "interest_usd": 131964,
+      "monthly_usd": 938.1,
+      "total_paid_usd": 225145,
+      "interest_usd": 137178,
       "interest_to_principal_pct": 155.9
     },
     {
-      "loan_usd": 84623,
+      "loan_usd": 87967,
       "years": 25,
       "rate_pct": 11.5,
-      "monthly_usd": 860.17,
-      "total_paid_usd": 258050,
-      "interest_usd": 173427,
+      "monthly_usd": 894.15,
+      "total_paid_usd": 268246,
+      "interest_usd": 180279,
       "interest_to_principal_pct": 204.9
     },
     {
-      "loan_usd": 84623,
+      "loan_usd": 87967,
       "years": 30,
       "rate_pct": 11.5,
-      "monthly_usd": 838.01,
-      "total_paid_usd": 301685,
-      "interest_usd": 217062,
+      "monthly_usd": 871.13,
+      "total_paid_usd": 313605,
+      "interest_usd": 225639,
       "interest_to_principal_pct": 256.5
     }
   ]

@@ -1,11 +1,11 @@
 {
-  "as_of_utc": "2026-08-01T14:24:28.359424Z",
-  "feature_count": 2678,
+  "as_of_utc": "2026-08-01T15:16:27.688383Z",
+  "feature_count": 2865,
   "median_days": 0,
   "sources": {
     "infocasas": {
       "reachable": true,
-      "count": 640
+      "count": 827
     },
     "tulugar": {
       "reachable": true,

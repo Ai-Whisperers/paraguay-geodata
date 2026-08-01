@@ -118,6 +118,44 @@ def main(argv=None):
                     continue
                 feats.append(_norm_infocasas(rec))
                 n_ic += 1
+
+    # GeoJSON FeatureCollection snapshots from additional scrapers
+    # (century21, argenprop, mercadolibre, bienesonline).  These use
+    # canonical ['features'] envelopes with proper lat/lon already inside.
+    extra_sources = {"century21", "argenprop", "mercadolibre", "bienesonline"}
+    n_extra = {}
+    n_extra_drop = {}
+    if args.infocasas_dir.exists():
+        for path in sorted(args.infocasas_dir.glob("*_2026-*.geojson")):
+            # Skip files already handled by the raw_records loop (they have
+            # 'raw_records' or 'features'-with-ic_* ids; we only consume the
+            # canonical GeoJSON envelopes now).
+            try:
+                d = json.loads(path.read_text())
+            except Exception as e:
+                continue
+            if d.get("raw_records"):
+                continue
+            if d.get("type") != "FeatureCollection":
+                continue
+            for f in d.get("features") or []:
+                p = f.get("properties") or {}
+                src = p.get("source")
+                if src not in extra_sources:
+                    continue
+                if not p.get("source_url"):
+                    continue
+                if not _in_py([
+                    p.get("lon"),
+                    p.get("lat"),
+                ]):
+                    n_extra_drop[src] = n_extra_drop.get(src, 0) + 1
+                    continue
+                feats.append(f)
+                n_extra[src] = n_extra.get(src, 0) + 1
+    for s, n in sorted(n_extra.items()):
+        d = n_extra_drop.get(s, 0)
+        print(f"  {s}:     {n:,}  (dropped {d} out-of-bounds)")
     print(f"  infocasas: {n_ic:,}  (dropped {n_ic_dropped} out-of-bounds)")
 
     # Fresh TuLugar
