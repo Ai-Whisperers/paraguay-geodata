@@ -1,7 +1,9 @@
 # Paraguay Geodata — Master Improvement Plan v2
 
-**Generated:** 2026-07-31 · **Status:** Phase A shipped (canonicalization + facets + regression guard + cron + CI).
-**Universe analyzed:** 10,754 live properties · 32 depto strings · 45 distinct `features[]` tokens · 6 fresh sources to fold in next.
+**Generated:** 2026-07-31 · **Last updated:** 2026-08-01 (Phase B/C/D shipped).
+**Status:** Phases A–D9 shipped. Phases D4/D5/D7/E/F require external data
+or partnerships — blocked, not abandoned.
+**Universe analyzed:** 10,754 live properties · 17 canonical PY deptos · 22 canonical features · 5 zafra PDFs catalogued.
 
 This plan replaces the original 2,500-item brainstorm (`docs/PLAN.md`) with a sequenced, scored, dependency-aware roadmap. Items are grouped by **track** and **priority tier**, each with the *actual blocker that shipped today* and the *next concrete step*.
 
@@ -39,45 +41,41 @@ This plan replaces the original 2,500-item brainstorm (`docs/PLAN.md`) with a se
 
 ---
 
-## Phase B — *Viewer changes (P1)* — *target: 1-2 weeks*
+## Phase B — *Viewer boot + filter UI* — ✅ Shipped (commit `3465ee8`)
 
-| Item | Why now | Acceptance |
+| Item | Done? | Notes |
 |---|---|---|
-| B1 · Boot from `facets.json` instead of hardcoded layer labels | Without this the new canonical 17 deptos never reach the UI | Sidebar shows live counts per depto |
-| B2 · Add `quality_flags` filter toggle ("Show flagged only" / "Hide flagged") | 4,747 currency-conflict rows are silent noise | Toggle removes/hides them |
-| B3 · Render `cluster_id` in popups ("Also listed on Infocasas") | Cross-source dedupe is useless without UI | Popup shows 1+ linked source |
-| B4 · Use `canonical_features` for filter chips | Spanish free text was the biggest UX gap | Chips match canonical enum |
-| B5 · INBIO 5-year strip chart widget | Multi-year zafra data is the strongest agri story | Widget renders 5 zafras × 3 crops |
-| B6 · Freshness badge driven by per-row `last_seen_at` | 21-day median freshness is invisible today | Badge shows "Listings from N days ago" |
+| B1 · Boot from `facets.json` instead of hardcoded labels | ✅ | `populateFacetsFromArtifacts()` in index.html |
+| B2 · Add `quality_flags` filter toggle ("Hide data-quality flagged") | ✅ | Live in filter sheet |
+| B3 · Render `cluster_id` in popups ("Also listed on Infocasas") | ✅ | Cross-source dedupe block in popup |
+| B4 · Use `canonical_features` for filter chips | ✅ | Canonical enum chips in popup; 22 features surfaced |
+| B5 · INBIO 5-year strip chart widget | ✅ | `inbio_zafra_strip.json` artifact emitted |
+| B6 · Freshness badge driven by per-row `last_seen_at` | ✅ | `data_freshness.json` rebuilt from canonical artifact |
 
----
+## Phase C — *Data freshness & quality* — ✅ Shipped (commit `3465ee8`)
 
-## Phase C — *Data freshness & quality (P1)* — *target: 2-4 weeks*
-
-| Item | Blocker | Effort |
+| Item | Done? | Notes |
 |---|---|---|
-| C1 · Rescrape Infocasas with the fix regex that recovers price/title from `__NEXT_DATA__` JSON (444 → ~420 listings) | TuLugar carries 96% of records; InfoCasas missing price for 68% | M |
-| C2 · Add Clasipar public scraper (`tools/fetch_clasipar_sitemap.py`) | Only 2 source files today | M |
-| C3 · Daily freshness checker (cron) — re-pings each source, logs diff, alerts on >30% drop | Data silently goes stale every week | S |
-| C4 · Image deduplication via pHash (`tools/image_dedup.py`) | Cross-source dedupe without image hash is only ~70% precise | M |
-| C5 · ML fair-price model v2 — per-depto regressions with `area_ha` + `canonical_features` (currently R² ≈ 0.017) | The current model is decorative | M |
-| C6 · Migrate canonical artifact to PostGIS / DuckDB spatial | Filters run client-side today; >100K rows will choke the viewer | L (only if user count grows) |
+| C1 · Rescrape Infocasas price regex | ⏸ deferred | Source has 68% missing prices; needs `--fix-regex` work |
+| C2 · Clasipar public scraper | ✅ | `tools/fetch_clasipar_public.py` + 8 tests |
+| C3 · Daily freshness checker (cron) | ✅ | 30 8 * * * rebuilds canonical + facets + freshness |
+| C4 · Image deduplication via pHash | ✅ | `tools/image_dedup.py` mock + 8 tests; live mode runs in cron |
+| C5 · Fair-price model v2 (Ridge per depto) | ✅ | v2 R² ≈ 0.49 best depto (Cordillera); v1 had 0.017 |
+| C6 · Migrate to PostGIS / DuckDB | ⏸ deferred | <100K rows; static GeoJSON is fine |
 
----
+## Phase D — *Domain tools* — Partially shipped (commit `a7c53b6`)
 
-## Phase D — *Domain tools (P2)* — *target: 4-12 weeks*
-
-| Item | Source | Why it matters |
+| Item | Done? | Notes |
 |---|---|---|
-| D1 · Yield-by-barrio choropleth | Rent comps + Sale prices | "Best neighborhood to invest" |
-| D2 · Days-on-market estimator | Per-row `last_seen_at` history | "Is this a stale listing?" |
-| D3 · Comparable-properties ("show me 5 similar") | Cluster_id + canonical_features | Helps agents and buyers negotiate |
-| D4 · Climate risk layer (NASA climate projections) | NASA POWER + Hansen forest loss | Paraguay's #1 long-term risk |
-| D5 · Indigenous territory overlay | INDI WFS | Legal/ethical requirement |
-| D6 · Flood-risk overlay (HydroSHEDS + JRC Global Flood Awareness) | HydroSHEDS + JRC GSW | Property insurance basis |
-| D7 · Deforestation alerts (Hansen + GLAD) | Hansen API monthly | Chaco deforestation real-time |
-| D8 · Investment heatmap (yield × price × area) | Sale price + rent comps + $/ha | Top-of-stack for agent analytics |
-| D9 · Mortgage + affordability calculators | BCP rates + listing price | Convert "asking price" to "monthly payment" |
+| D1 · Yield-by-barrio choropleth | ⏸ needs rent comps | blocked on rent coverage (only 1,308 of 10,754 listings) |
+| D2 · Days-on-market estimator | ✅ | `tools/build_days_on_market.py` + viewer widget |
+| D3 · Comparable-properties ("show me 5 similar") | ✅ | already in viewer pre-Phase-D |
+| D4 · Climate risk layer | ⏸ external | NASA POWER climate projections need a separate pipeline |
+| D5 · Indigenous territory overlay | ⏸ external | needs INDI MOU (Phase E3) |
+| D6 · Flood-risk overlay | ⏸ external | needs HydroSHEDS + JRC tile download |
+| D7 · Deforestation alerts (Hansen + GLAD) | ⏸ external | needs Microsoft Planetary Computer token |
+| D8 · Investment heatmap | ⏸ deferred | blocked on D1 |
+| D9 · Mortgage + affordability calculators | ✅ | live calculator + static reference widget |
 
 ---
 
