@@ -227,17 +227,20 @@ def _map_property_type(raw: str | None) -> str:
 
 
 def _extract_index_data(html: str) -> list[dict]:
-    """Extract the per-property records directly from the Century21 React
-    hydration blob.  The site inlines everything as
-    `window.REP_LOG_APP_PROPS = {...}` with a `propiedades: [...]` array.
-    Returns the parsed records (lists of dicts)."""
-    # Find the opening brace of REP_LOG_APP_PROPS = {
+    """Extract the per-property records from the Century21 React hydration
+    blob `window.REP_LOG_APP_PROPS = {...}`.  Multiple shapes exist:
+
+    * Per-state search pages: `propiedades: [{...}, {...}]`
+    * Universal /v/resultados: `datas: { results: [{...}, {...}], ... }`
+    * Universal with no envelope:    `datas: { id:..., calle:..., lat:..., lon:..., ... }`
+    Returns the parsed records (list of dicts).
+    """
     pat = re.compile(r'REP_LOG_APP_PROPS\s*=\s*\{')
     m = pat.search(html)
     if not m:
         return []
     blob_start = m.end() - 1
-    # Walk forward to the matching '}' using string-aware brace counter
+    # Walk forward to the matching closing brace
     depth = 0
     in_str = False
     esc = False
@@ -263,29 +266,37 @@ def _extract_index_data(html: str) -> list[dict]:
                 break
     raw = html[blob_start:blob_end]
 
-    # Locate the `propiedades: [ ... ]` array.  The exact spacing in the
-    # real payload was `propiedades: [` with a space after the colon.
+    # Strategy 1: find array bracket opener after one of the candidate
+    # keys.  Per-state pages use "propiedades: [...]"; the universal
+    # /v/resultados uses "datas: { ... results: [ ... ] }".
     arr_open = -1
-    for variant in ('propiedades:[', 'propiedades: [', 'propiedades : [',
-                    'propiedades :[', 'propiedades: ', 'propiedades:'):
+    # Try direct top-level array first
+    for variant in ('propiedades:[', 'propiedades: [', 'propiedades:\n\t\t[', 'propiedades: ['):
         i = raw.find(variant)
-        if i >= 0 and i < 100_000:
-            # the '[' of the array may be part of the variant (if it ended
-            # in '[') or may follow the colon (if it ended in ':' or ': ').
-            if variant.endswith('['):
-                arr_open = i + len(variant) - 1
+        if i >= 0:
+            j = i + len(variant)
+            if raw[j-1] == '[':
+                arr_open = j - 1
             else:
                 arr_open = raw.find('[', i)
             break
     if arr_open < 0:
-        return []  # pragma: no cover — defensive
+        # Fallback: find "results: [" by plain string search in the raw.
+        # The datas block ends at the outer closing of REP_LOG_APP_PROPS,
+        # so we just need the first literal "results:[" substring.
+        res_m = re.search(r'"results"\s*:\s*\[', raw)
+        if res_m:
+            j = res_m.end() - 1
+            arr_open = j
+    if arr_open < 0:
+        return []  # not found
 
-    # Walk to the matching `]` with bracket counter (string-aware).
+    # Walk to matching ] with bracket counter
     depth = 0
     in_str = False
     esc = False
     arr_end = arr_open
-    for i in range(arr_open, min(len(raw), arr_open + 2_000_000)):
+    for i in range(arr_open, min(len(raw), arr_open + 5_000_000)):
         c = raw[i]
         if in_str:
             if esc:
@@ -306,22 +317,19 @@ def _extract_index_data(html: str) -> list[dict]:
                 break
     array_text = raw[arr_open:arr_end + 1]
 
-    # Walk through each top-level record in the array and parse it as JSON.
-    # Records are balanced objects separated by commas at depth 1.
+    # Walk each record at depth 1 and parse as JSON
     records: list[dict] = []
-    i = 1  # skip the opening `[`
+    i = 1
     while i < len(array_text) - 1:
         c = array_text[i]
-        if c == ' ':
-            i += 1; continue
-        if c == ',':
+        if c in ' ,':
             i += 1; continue
         if c == '{':
             start = i
             depth = 0
             in_s, esc = False, False
             end = start
-            for j in range(start, min(len(array_text), start + 100_000)):
+            for j in range(start, min(len(array_text), start + 200_000)):
                 cc = array_text[j]
                 if in_s:
                     if esc: esc = False
@@ -333,8 +341,7 @@ def _extract_index_data(html: str) -> list[dict]:
                 elif cc == '}':
                     depth -= 1
                     if depth == 0:
-                        end = j + 1
-                        break
+                        end = j + 1; break
             rec_raw = array_text[start:end]
             try:
                 rec = json.loads(rec_raw)
@@ -343,7 +350,6 @@ def _extract_index_data(html: str) -> list[dict]:
                 pass
             i = end
             continue
-        # skip stray chars (whitespace, etc.)
         i += 1
     return records
 
@@ -465,11 +471,93 @@ def scrape(deptos: list[str], max_pages_per_depto: int, sleep_s: float) -> list[
     return feats
 
 
+def scrape_sitemap() -> list[dict]:
+    """Scrape all 515 PY listings from the sitemap.  Each /propiedad/<id>_<slug>
+    page inlines the record into REP_LOG_APP_PROPS.propiedades — same shape as
+    the universal page, but it returns ONE high-fidelity record per page.
+
+    Note: at 1.5s sleep per request, scraping 515 listings takes ~13 minutes.
+    That's well within budget for a daily cron.
+    """
+    feats: list[dict] = []
+    seen_ids: set[str] = set()
+    try:
+        sitemap = _fetch("https://century21.com.py/sitemap.xml")
+    except Exception as exc:
+        print(f"  warn sitemap: {exc}", file=sys.stderr)
+        return feats
+    if not sitemap:
+        return feats
+    urls = re.findall(r'<loc>([^<]+)</loc>', sitemap)
+    urls = [u for u in urls if '/propiedad/' in u]
+    print(f"  sitemap: {len(urls)} property URLs")
+    import time
+    for i, url in enumerate(urls):
+        try:
+            html = _fetch(url, timeout=15)
+        except Exception as exc:
+            print(f"  warn {url}: {exc}", file=sys.stderr)
+            continue
+        if not html or len(html) < 5000:
+            continue
+        records = _extract_index_data(html)
+        for rec in records:
+            feat = _parse_record(rec)
+            if feat is None:
+                continue
+            sid = feat["properties"]["source_id"]
+            if sid in seen_ids:
+                continue
+            seen_ids.add(sid)
+            feats.append(feat)
+        if (i + 1) % 20 == 0:
+            print(f"  progress: {i+1}/{len(urls)} → {len(feats)} unique listings")
+        time.sleep(0.7)
+    return feats
+
+
+def scrape_universal() -> list[dict]:
+    """Hit the country-scoped search pages for all listing operations.
+    Century21.com.py is a global network's Latin-American portal — the
+    *universal* /v/resultados page serves non-PY records (e.g. Costa Rica).
+    Country-scoped URLs (`/busqueda/operacion_<op>/en-pais_paraguay`)
+    constrain results to PY explicitly.
+    """
+    feats: list[dict] = []
+    seen_ids: set[str] = set()
+    for op in ("venta", "renta", "pozo", "condominio"):
+        url = f"https://century21.com.py/busqueda/operacion_{op}/en-pais_paraguay"
+        try:
+            html = _fetch(url)
+        except Exception as exc:
+            print(f"  warn {url}: {exc}", file=sys.stderr)
+            continue
+        if not html or len(html) < 5000:
+            continue
+        records = _extract_index_data(html)
+        kept = 0
+        for rec in records:
+            feat = _parse_record(rec)
+            if feat is None:
+                continue
+            sid = feat["properties"]["source_id"]
+            if sid in seen_ids:
+                continue
+            seen_ids.add(sid)
+            feats.append(feat)
+            kept += 1
+        print(f"  /{op}: {len(records)} records → kept {kept}")
+    return feats
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--mode", choices=["paginated", "universal", "sitemap"], default="paginated",
+                    help="paginated = iterate estados; universal = single GET on /v/resultados; "
+                         "sitemap = scrape every /propiedad/<id>_<slug> from the sitemap (slowest, most thorough)")
     ap.add_argument("--deptos", nargs="+",
                     default=list(DEPTO_SLUG.keys()),
-                    help="PY deptos to scrape (slug lookup)")
+                    help="PY deptos to scrape (paginated mode only)")
     ap.add_argument("--max-pages-per-depto", type=int, default=5)
     ap.add_argument("--sleep", type=float, default=0.7)
     ap.add_argument("--output-dir", type=Path,
@@ -481,7 +569,14 @@ def main(argv=None):
     if args.no_fetch:
         feats = []
     else:
-        feats = scrape(args.deptos, args.max_pages_per_depto, args.sleep)
+        if args.mode == "universal":
+            feats = scrape_universal()
+            print(f"  universal mode: {len(feats)} records")
+        elif args.mode == "sitemap":
+            feats = scrape_sitemap()
+            print(f"  sitemap mode: {len(feats)} records")
+        else:
+            feats = scrape(args.deptos, args.max_pages_per_depto, args.sleep)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     stamp = __import__("datetime").datetime.utcnow().strftime("%Y-%m-%dT%H%M")
