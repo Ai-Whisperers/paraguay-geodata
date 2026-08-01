@@ -26,15 +26,41 @@ DEFAULT_PATH = ROOT / "exports" / "web" / "data" / "properties_latest.geojson"
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
 
-def _probe(url: str, timeout: int = 10) -> int | str:
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status
-    except urllib.error.HTTPError as e:
-        return e.code
-    except Exception as e:
-        return f"ERR:{type(e).__name__}"
+def _probe(url: str, timeout: int = 10, retries: int = 2) -> int | str:
+    """Probe a URL.  Returns the HTTP status code, or 'TIMEOUT' / 'ERR:<x>'.
+
+    Retries on 429 / 5xx with linear backoff.  Returns 403 / 404 as-is —
+    that's a final verdict, not a transient error.
+    """
+    import time as _time
+    for attempt in range(retries + 1):
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.status
+        except urllib.error.HTTPError as e:
+            # 404 / 410 → final, don't retry
+            if e.code in (404, 410):
+                return e.code
+            # 403 / 429 → treat as 'unproven' (return None-like) so caller
+            # doesn't drop real rows on rate-limit
+            if e.code in (403, 429):
+                # Backoff once, then re-probe; if still 403, keep the row
+                if attempt == 0:
+                    _time.sleep(2 + attempt * 2)
+                    continue
+                return "RATELIMIT"  # distinct from 404 so dropper skips
+            # 5xx → retry with backoff
+            if 500 <= e.code < 600 and attempt < retries:
+                _time.sleep(1 + attempt * 2)
+                continue
+            return e.code
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            if attempt < retries:
+                _time.sleep(1 + attempt * 2)
+                continue
+            return f"ERR:{type(e).__name__}"
+    return "ERR:exhausted"
 
 
 def main(argv=None):
@@ -88,12 +114,18 @@ def main(argv=None):
     print(f"  non-200/3xx: {len(bad)}")
 
     # Drop stale rows + those not yet probed
+    # 404 / 410 = definitely stale, drop
+    # RATELIMIT / TIMEOUT / 5xx-out-of-retries = unverified, keep
+    # 200/3xx = live, keep
     keep: list[dict] = []
     dropped = 0
     for i, f in enumerate(feats):
-        if i in statuses and i in bad:
-            dropped += 1
-            continue
+        if i in statuses:
+            s = statuses[i]
+            if s in (404, 410):
+                dropped += 1
+                continue
+            # All other failures (RATELIMIT, TIMEOUT, ERR:*, 5xx) → keep
         keep.append(f)
     print(f"  dropped {dropped}, kept {len(keep)}")
 

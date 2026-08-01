@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T15:33:21.640263Z",
+  "generated_at": "2026-08-01T15:40:26.176576Z",
   "source_file": "exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
   "feature_count": 3000,
@@ -38,8 +38,7 @@
       "missing_price": 417,
       "null_property_type": 962,
       "missing_area": 73,
-      "area_conflict": 34,
-      "area_recovered_from_title_m2": 15
+      "area_conflict": 34
     },
     "year_seen": {
       "2026": 3000
