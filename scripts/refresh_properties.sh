@@ -26,6 +26,7 @@ python3 -m tools.fetch_properties --portal infocasas  --output-dir "$WORK/infoca
 python3 -m tools.fetch_tulugar    --output-dir "$WORK/tulugar"                          || log "WARN tulugar fetch failed"
 python3 -m tools.fetch_clasipar_sitemap --output-dir "$WORK/clasipar"                 || log "WARN clasipar fetch failed"
 python3 -m tools.fetch_clasipar_public --output-dir "$WORK/clasipar_v2"               || log "WARN clasipar public fetch failed"
+python3 -m tools.fetch_asuncion_estate --output-dir "$WORK/asuncion_estate"           || log "WARN asuncion_estate fetch failed"
 
 # 2. Merge per-source snapshots into the canonical artifact.
 log "merging"
