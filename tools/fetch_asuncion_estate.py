@@ -159,23 +159,32 @@ def _walk_catalog() -> list[tuple[str, str, str, int]]:
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
         page1_results = list(ex.map(probe, candidates))
 
-    # Now walk pagination for the combos that returned cards
+    # Now walk pagination for the combos that returned cards (also in parallel)
+    active = [(city, op, ptype) for city, op, ptype, n in page1_results if n > 0]
+
+    def probe_page(args):
+        city, op, ptype, page = args
+        url = f"https://asuncion.estate/en/{city}/{op}/{ptype}/{page}"
+        body = _fetch(url)
+        if body is None:
+            return (city, op, ptype, page, False)
+        cards = re.findall(
+            rf'href="(/en/{re.escape(city)}/[a-z-]+-\d+)"',
+            body,
+        )
+        return (city, op, ptype, page, bool(cards))
+
+    # Probe up to 5 pages per active combo in parallel
+    page_candidates = [
+        (city, op, ptype, page)
+        for city, op, ptype in active
+        for page in range(1, 6)
+    ]
     found: list[tuple[str, str, str, int]] = []
-    for city, op, ptype, n_p1 in page1_results:
-        if n_p1 == 0:
-            continue
-        for page in range(1, 6):  # safety cap (no city has > 5 pages of any type)
-            url = f"https://asuncion.estate/en/{city}/{op}/{ptype}/{page}"
-            body = _fetch(url)
-            if body is None:
-                break
-            cards = re.findall(
-                rf'href="(/en/{re.escape(city)}/[a-z-]+-\d+)"',
-                body,
-            )
-            if not cards:
-                break
-            found.append((city, op, ptype, page))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+        for city, op, ptype, page, has_cards in ex.map(probe_page, page_candidates):
+            if has_cards:
+                found.append((city, op, ptype, page))
     return found
 
 
@@ -399,11 +408,32 @@ def main(argv=None):
         body = _fetch(f"https://asuncion.estate/en/{city}/{op}/{ptype}/{page}")
         if body is None:
             continue
-        # Each card: <li class="...listing-item"> ... </li>
+        # Each card lives inside <div class="listing-style7"> ... </div>
         cards = re.findall(
-            r'<li[^>]*class="[^"]*(?:listing-item|item-content)[^"]*"[^>]*>(.*?)</li>',
+            r'<div[^>]+class="[^"]*listing-style\d[^"]*"[^>]*>(.*?)(?=<div[^>]+class="[^"]*listing-style)',
             body, re.DOTALL,
         )
+        if not cards:
+            # Fallback: split by the anchor pattern (find every listing-anchor
+            # and grab a generous context window around it).
+            anchors = list(re.finditer(
+                rf'href="(/en/{re.escape(city)}/[a-z-]+-\d+)"',
+                body,
+            ))
+            seen_ids: set[str] = set()
+            cards = []
+            for am in anchors:
+                listing_id_match = re.search(r"-(\d+)$", am.group(1))
+                if not listing_id_match:
+                    continue
+                lid = listing_id_match.group(1)
+                if lid in seen_ids:
+                    continue
+                seen_ids.add(lid)
+                # Capture 1500 chars before and after the anchor
+                start = max(0, am.start() - 1500)
+                end = min(len(body), am.end() + 1500)
+                cards.append(body[start:end])
         for c in cards:
             feat = _parse_listing_card(c, city, op, ptype)
             if feat:

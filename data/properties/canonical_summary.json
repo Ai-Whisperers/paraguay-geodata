@@ -1,48 +1,57 @@
 {
-  "generated_at": "2026-08-01T15:48:10.933994Z",
+  "generated_at": "2026-08-02T23:00:33.301922Z",
   "source_file": "exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
-  "feature_count": 3169,
+  "feature_count": 5784,
   "facets": {
     "property_type": {
-      "house": 465,
-      "apartment": 893,
-      "land": 463,
-      "commercial": 217
+      "house": 1235,
+      "apartment": 1470,
+      "land": 1178,
+      "office": 225,
+      "commercial": 520
     },
     "depto": {
-      "Central": 682,
-      "Asunción": 1096,
-      "Cordillera": 139,
-      "Itapúa": 6,
-      "Caaguazú": 12,
-      "Ñeembucú": 10,
-      "Canindeyú": 4,
-      "Alto Paraná": 61,
-      "Presidente Hayes": 14,
-      "Alto Paraguay": 2,
-      "Amambay": 1,
-      "Misiones": 1,
-      "Paraguarí": 1
+      "Asunción": 2047,
+      "Central": 1453,
+      "Alto Paraná": 285,
+      "Cordillera": 458,
+      "Itapúa": 111,
+      "Boquerón": 41,
+      "Presidente Hayes": 82,
+      "Paraguarí": 48,
+      "San Pedro": 15,
+      "Caaguazú": 24,
+      "Misiones": 13,
+      "Concepción": 8,
+      "Ñeembucú": 17,
+      "Alto Paraguay": 9,
+      "Caazapá": 2,
+      "Canindeyú": 5,
+      "Amambay": 1
     },
     "currency": {
-      "?": 1131,
-      "PYG": 609,
-      "USD": 1429
+      "?": 1156,
+      "USD": 4018,
+      "PYG": 610
     },
     "source": {
-      "infocasas": 1131,
+      "infocasas": 1156,
+      "asuncion_estate": 2590,
       "tulugar": 2038
     },
     "flags": {
-      "missing_price": 414,
-      "null_property_type": 1131,
-      "missing_area": 79,
-      "area_conflict": 34,
-      "area_recovered_from_title_m2": 15
+      "missing_price": 433,
+      "null_property_type": 1156,
+      "missing_area": 87,
+      "area_inferred_from_title": 674,
+      "area_recovered_from_title_m2": 7,
+      "area_published_round_but_title_larger": 2,
+      "missing_area_ha_inferred": 1340,
+      "missing_price_pyg_inferred": 1429
     },
     "year_seen": {
-      "2026": 3169
+      "2026": 5784
     }
   }
 }

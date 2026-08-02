@@ -1,128 +1,155 @@
 {
-  "generated_at": "2026-08-01T15:48:11.121102Z",
-  "feature_count": 3169,
+  "generated_at": "2026-08-02T23:00:34.131603Z",
+  "feature_count": 5784,
   "facets": {
     "depto": [
       {
-        "value": "?",
-        "count": 1140
-      },
-      {
         "value": "Asunción",
-        "count": 1096
+        "count": 2047
       },
       {
         "value": "Central",
-        "count": 682
+        "count": 1453
+      },
+      {
+        "value": "?",
+        "count": 1165
       },
       {
         "value": "Cordillera",
-        "count": 139
+        "count": 458
       },
       {
         "value": "Alto Paraná",
-        "count": 61
-      },
-      {
-        "value": "Presidente Hayes",
-        "count": 14
-      },
-      {
-        "value": "Caaguazú",
-        "count": 12
-      },
-      {
-        "value": "Ñeembucú",
-        "count": 10
+        "count": 285
       },
       {
         "value": "Itapúa",
-        "count": 6
+        "count": 111
       },
       {
-        "value": "Canindeyú",
-        "count": 4
+        "value": "Presidente Hayes",
+        "count": 82
+      },
+      {
+        "value": "Paraguarí",
+        "count": 48
+      },
+      {
+        "value": "Boquerón",
+        "count": 41
+      },
+      {
+        "value": "Caaguazú",
+        "count": 24
+      },
+      {
+        "value": "Ñeembucú",
+        "count": 17
+      },
+      {
+        "value": "San Pedro",
+        "count": 15
+      },
+      {
+        "value": "Misiones",
+        "count": 13
       },
       {
         "value": "Alto Paraguay",
+        "count": 9
+      },
+      {
+        "value": "Concepción",
+        "count": 8
+      },
+      {
+        "value": "Canindeyú",
+        "count": 5
+      },
+      {
+        "value": "Caazapá",
         "count": 2
       },
       {
         "value": "Amambay",
         "count": 1
-      },
-      {
-        "value": "Misiones",
-        "count": 1
-      },
-      {
-        "value": "Paraguarí",
-        "count": 1
       }
     ],
     "property_type": [
       {
-        "value": "?",
-        "count": 1131
-      },
-      {
         "value": "apartment",
-        "count": 893
+        "count": 1470
       },
       {
         "value": "house",
-        "count": 465
+        "count": 1235
       },
       {
         "value": "land",
-        "count": 463
+        "count": 1178
+      },
+      {
+        "value": "?",
+        "count": 1156
       },
       {
         "value": "commercial",
-        "count": 217
+        "count": 520
+      },
+      {
+        "value": "office",
+        "count": 225
       }
     ],
     "currency": [
       {
         "value": "USD",
-        "count": 1429
+        "count": 4018
       },
       {
         "value": "?",
-        "count": 1131
+        "count": 1156
       },
       {
         "value": "PYG",
-        "count": 609
+        "count": 610
       }
     ],
     "source": [
+      {
+        "value": "asuncion_estate",
+        "count": 2590
+      },
       {
         "value": "tulugar",
         "count": 2038
       },
       {
         "value": "infocasas",
-        "count": 1131
+        "count": 1156
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-01T15:35:35.164011+00:00",
-    "median_days": 0
+    "max": "2026-08-02T22:53:15.880985+00:00",
+    "median_days": 1
   },
   "quality": {
-    "total": 3169,
-    "clean": 1955,
-    "flagged": 1214,
+    "total": 5784,
+    "clean": 2576,
+    "flagged": 3208,
     "by_flag": {
-      "null_property_type": 1131,
-      "missing_price": 414,
-      "missing_area": 79,
-      "area_conflict": 34,
-      "area_recovered_from_title_m2": 15
+      "missing_price_pyg_inferred": 1429,
+      "missing_area_ha_inferred": 1340,
+      "null_property_type": 1156,
+      "area_inferred_from_title": 674,
+      "missing_price": 433,
+      "missing_area": 87,
+      "area_recovered_from_title_m2": 7,
+      "area_published_round_but_title_larger": 2
     }
   }
 }

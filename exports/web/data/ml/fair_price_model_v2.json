@@ -1,117 +1,183 @@
 {
-  "generated_at": "2026-08-01T15:48:12.951673Z",
-  "input_rows": 3169,
+  "generated_at": "2026-08-02T23:00:37.140790Z",
+  "input_rows": 5784,
   "per_depto": {
     "_unknown_": {
-      "n_train": 726,
-      "r2": 0.001,
-      "mae_usd": 10418600.11,
-      "intercept": 7401282.204746003,
+      "n_train": 732,
+      "r2": 0.0,
+      "mae_usd": 10334750.7,
+      "intercept": 7320201.455330247,
       "coefficients": {
-        "area_ha": -15.817159547112613,
-        "bedrooms": -1696740.6870501689,
-        "bathrooms": -2759766.2272317065,
+        "area_ha": -15.642979847293262,
+        "bedrooms": -1676204.3919798064,
+        "bathrooms": -2729494.049961493,
         "parking_spaces": 0.0
       }
     },
-    "Central": {
-      "n_train": 604,
-      "r2": 0.022,
-      "mae_usd": 433559.46,
-      "intercept": 425629.98698124225,
+    "Asunción": {
+      "n_train": 1293,
+      "r2": 0.924,
+      "mae_usd": 198779.23,
+      "intercept": 23453.03909190354,
       "coefficients": {
-        "area_ha": 3645.8744176885675,
-        "bedrooms": -199956.60033785112,
-        "bathrooms": 178845.84555571826,
-        "parking_spaces": -452.886785755985
+        "area_ha": 6424542.338323578,
+        "bedrooms": -65888.57001563373,
+        "bathrooms": 119404.74010438086,
+        "parking_spaces": 23.79272477598198
       }
     },
-    "Asunción": {
-      "n_train": 835,
-      "r2": 0.769,
-      "mae_usd": 272421.92,
-      "intercept": -7091.550958048727,
+    "Central": {
+      "n_train": 974,
+      "r2": 0.0,
+      "mae_usd": 3393107.98,
+      "intercept": 2540018.8339814437,
       "coefficients": {
-        "area_ha": 6465196.970097639,
-        "bedrooms": -304115.52153889264,
-        "bathrooms": 397040.0477548018,
-        "parking_spaces": 12.705675346132871
+        "area_ha": -1427.864312210353,
+        "bedrooms": -474982.5164439818,
+        "bathrooms": 94506.15445931385,
+        "parking_spaces": -3641.591894119335
+      }
+    },
+    "Alto Paraná": {
+      "n_train": 213,
+      "r2": 0.007,
+      "mae_usd": 8625951.75,
+      "intercept": 5566169.840639925,
+      "coefficients": {
+        "area_ha": -168299.18108808898,
+        "bedrooms": -3625518.13930443,
+        "bathrooms": 3336754.300409947,
+        "parking_spaces": -544224.4588409513
       }
     },
     "Cordillera": {
-      "n_train": 103,
-      "r2": 0.366,
-      "mae_usd": 160442.54,
-      "intercept": 146765.60349027673,
+      "n_train": 381,
+      "r2": 0.114,
+      "mae_usd": 209119.79,
+      "intercept": 166232.00559067645,
       "coefficients": {
-        "area_ha": 2622.6852894218546,
-        "bedrooms": -21156.56679320617,
-        "bathrooms": 73281.35711910808,
-        "parking_spaces": 26785.265221481015
+        "area_ha": 3158.1487093543656,
+        "bedrooms": 75654.12546811659,
+        "bathrooms": -16629.09664672554,
+        "parking_spaces": 14720.215075753194
       }
     },
     "Itapúa": {
-      "n_train": 6,
+      "n_train": 103,
+      "r2": 0.008,
+      "mae_usd": 15585291.32,
+      "intercept": 13911370.183253309,
+      "coefficients": {
+        "area_ha": -185335.01554814808,
+        "bedrooms": -515143.22277934465,
+        "bathrooms": -4828957.4755313955,
+        "parking_spaces": -2830129.183479827
+      }
+    },
+    "Boquerón": {
+      "n_train": 28,
+      "r2": 0.139,
+      "mae_usd": 822459.91,
+      "intercept": 1018577.7665426112,
+      "coefficients": {
+        "area_ha": 128.85225832342718,
+        "bedrooms": 437540.26678638574,
+        "bathrooms": -676640.0239229664,
+        "parking_spaces": 0.0
+      }
+    },
+    "Presidente Hayes": {
+      "n_train": 82,
+      "r2": 0.098,
+      "mae_usd": 118429902.93,
+      "intercept": 38674813.55648339,
+      "coefficients": {
+        "area_ha": -8691.59629265288,
+        "bedrooms": -293459478.4945748,
+        "bathrooms": 377485554.75422615,
+        "parking_spaces": 0.0
+      }
+    },
+    "Paraguarí": {
+      "n_train": 48,
+      "r2": 0.024,
+      "mae_usd": 12135045.76,
+      "intercept": 6194251.674905277,
+      "coefficients": {
+        "area_ha": -26304.256746682106,
+        "bedrooms": 7449219.607848252,
+        "bathrooms": -8987132.174346074,
+        "parking_spaces": 0.0
+      }
+    },
+    "San Pedro": {
+      "n_train": 15,
+      "r2": 0.033,
+      "mae_usd": 1962706.55,
+      "intercept": 1862201.253128475,
+      "coefficients": {
+        "area_ha": -5343.8077649040915,
+        "bedrooms": 0.0,
+        "bathrooms": -791492.2128081026,
+        "parking_spaces": 0.0
+      }
+    },
+    "Caaguazú": {
+      "n_train": 23,
+      "r2": 0.967,
+      "mae_usd": 275263.81,
+      "intercept": 119140.94204947981,
+      "coefficients": {
+        "area_ha": 11870.60798302594,
+        "bedrooms": 39571.04794647849,
+        "bathrooms": -82555.66883334432,
+        "parking_spaces": 63136.48486611448
+      }
+    },
+    "Misiones": {
+      "n_train": 13,
+      "r2": 0.056,
+      "mae_usd": 284785.59,
+      "intercept": 377943.98176493845,
+      "coefficients": {
+        "area_ha": -168828.66368746303,
+        "bedrooms": 12754.340042279924,
+        "bathrooms": -94713.01683974963,
+        "parking_spaces": 0.0
+      }
+    },
+    "Concepción": {
+      "n_train": 8,
       "r2": null,
       "mae_usd": null,
       "note": "too_few_rows_for_per_depto_model"
     },
-    "Caaguazú": {
-      "n_train": 12,
-      "r2": 0.695,
-      "mae_usd": 195046.95,
-      "intercept": 165567.38552000883,
-      "coefficients": {
-        "area_ha": 11615.50002358005,
-        "bedrooms": -26595.782772939714,
-        "bathrooms": -13297.891386469857,
-        "parking_spaces": 60605.18128767699
-      }
-    },
     "Ñeembucú": {
-      "n_train": 10,
-      "r2": 0.0,
-      "mae_usd": 0.0,
-      "intercept": 93333.32999999999,
+      "n_train": 17,
+      "r2": 0.388,
+      "mae_usd": 855219.2,
+      "intercept": 687474.1980601379,
       "coefficients": {
-        "area_ha": 1.0097419586828951e-27,
+        "area_ha": 2909.1701456715787,
         "bedrooms": 0.0,
         "bathrooms": 0.0,
         "parking_spaces": 0.0
       }
     },
-    "Canindeyú": {
-      "n_train": 4,
+    "Alto Paraguay": {
+      "n_train": 9,
       "r2": null,
       "mae_usd": null,
       "note": "too_few_rows_for_per_depto_model"
     },
-    "Alto Paraná": {
-      "n_train": 56,
-      "r2": 0.243,
-      "mae_usd": 177256.83,
-      "intercept": 78861.84988894571,
-      "coefficients": {
-        "area_ha": 20329.991839411246,
-        "bedrooms": 51863.712044915665,
-        "bathrooms": 33344.60541972808,
-        "parking_spaces": 34046.883127436515
-      }
-    },
-    "Presidente Hayes": {
-      "n_train": 14,
-      "r2": 0.985,
-      "mae_usd": 424961.65,
-      "intercept": 418300.5521086303,
-      "coefficients": {
-        "area_ha": 155930.72134219363,
-        "bedrooms": 158285.94908373358,
-        "bathrooms": -169334.36504142554,
-        "parking_spaces": 0.0
-      }
-    },
-    "Alto Paraguay": {
+    "Caazapá": {
       "n_train": 2,
+      "r2": null,
+      "mae_usd": null,
+      "note": "too_few_rows_for_per_depto_model"
+    },
+    "Canindeyú": {
+      "n_train": 5,
       "r2": null,
       "mae_usd": null,
       "note": "too_few_rows_for_per_depto_model"
@@ -122,32 +188,20 @@
       "mae_usd": null,
       "note": "too_few_rows_for_per_depto_model"
     },
-    "Misiones": {
-      "n_train": 1,
-      "r2": null,
-      "mae_usd": null,
-      "note": "too_few_rows_for_per_depto_model"
-    },
-    "Paraguarí": {
-      "n_train": 1,
-      "r2": null,
-      "mae_usd": null,
-      "note": "too_few_rows_for_per_depto_model"
-    },
     "_global_": {
-      "n_train": 2375,
-      "r2": 0.0,
-      "mae_usd": 3521578.23,
-      "intercept": 2849634.208491707,
+      "n_train": 3947,
+      "r2": 0.001,
+      "mae_usd": 6252421.07,
+      "intercept": 4760955.274344312,
       "coefficients": {
-        "area_ha": -5.422869313681904,
-        "bedrooms": -538991.7126326655,
-        "bathrooms": -6914.751924721546,
-        "parking_spaces": -2838.7497371045174
+        "area_ha": -7.012347075645277,
+        "bedrooms": -1474251.5232930698,
+        "bathrooms": 713319.8766701808,
+        "parking_spaces": -5596.832812385866
       }
     }
   },
-  "skipped_quality_or_unusable": 794,
+  "skipped_quality_or_unusable": 1837,
   "feature_columns": [
     "area_ha",
     "bedrooms",
