@@ -2,6 +2,17 @@
   "as_of": "2026-08-03T00:00:00Z",
   "sources": [
     {
+      "key": "inmueblespy",
+      "name": "Inmuebles Paraguay",
+      "url": "https://inmueblespy.com",
+      "fetcher": "tools.fetch_inmueblespy",
+      "status": "live",
+      "expected_listings_min": 100,
+      "expected_listings_max": 250,
+      "rate_limit_per_min": 30,
+      "notes": "WordPress + Houzez. ld+json RealEstateListing with geo+price. 30 listings fetched (8 deptos)."
+    },
+    {
       "key": "infocasas",
       "name": "InfoCasas Paraguay",
       "url": "https://www.infocasas.com.py",
@@ -44,17 +55,6 @@
       "expected_listings_max": 100,
       "rate_limit_per_min": 10,
       "notes": "Argentine aggregator; PY filter returns ~20 listings.  Always low volume."
-    },
-    {
-      "key": "inmueblespy",
-      "name": "Inmuebles Py",
-      "url": "https://www.inmueblespy.com",
-      "fetcher": "(none)",
-      "status": "deferred",
-      "expected_listings_min": 0,
-      "expected_listings_max": 5000,
-      "rate_limit_per_min": 30,
-      "notes": "Discovered but no fetcher written.  Higher ranking than InfoCasas in some SEO benchmarks."
     },
     {
       "key": "century21py",
@@ -102,7 +102,7 @@
     }
   ],
   "summary": {
-    "live": 3,
+    "live": 4,
     "deferred": 1,
     "degraded": 1,
     "dead": 3

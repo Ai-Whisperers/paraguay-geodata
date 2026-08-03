@@ -1277,7 +1277,8 @@
 <script src="site.js"></script>
 <script src="tabs.js"></script>
 <script src="map-cartography.js"></script>
-<script src="widgets.v3.js"></script>
+<script src="utils.js"></script>
+  <script src="widgets.js"></script>
 <script>
 // Build lang switcher on home page
 (function () {
@@ -4175,27 +4176,6 @@ function updateSavedCount() {
 try { updateSavedCount(); } catch (e) { /* noop */ }
 
 // ========== TOAST NOTIFICATIONS ==========
-function showToast(msg, type, duration) {
-    type = type || 'info';
-    duration = duration || 3000;
-    let toast = document.getElementById('pyToast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'pyToast';
-        toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--bg-elev); color:var(--fg); padding:10px 18px; border:1px solid var(--line); border-radius:6px; z-index:99999; font-size:13px; box-shadow:0 4px 12px rgba(0,0,0,0.5); transition:opacity 0.2s, transform 0.2s; opacity:0; pointer-events:none; max-width:90vw;';
-        document.body.appendChild(toast);
-    }
-    toast.textContent = msg;
-    const borderColor = type === 'error' ? 'var(--err)' : type === 'success' ? 'var(--accent)' : 'var(--fg-dim)';
-    toast.style.borderLeft = '4px solid ' + borderColor;
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-    if (toast._timeout) clearTimeout(toast._timeout);
-    toast._timeout = setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(-50%) translateY(10px)';
-    }, duration);
-}
 window.showToast = showToast;
 
 window.renderSignals = function() {
@@ -4708,13 +4688,6 @@ setTimeout(() => {
         console.log('[paraguay-geodata] loading banner hidden by timeout');
     }
 }, 8000);
-function loaderComplete() {
-    bootstrapDone++;
-    if (bootstrapDone >= TOTAL_BOOTSTRAP_LOADERS) {
-        const banner = document.getElementById('loading') || document.getElementById('loadingBanner');
-        if (banner) banner.style.display = 'none';
-    }
-}
 // Wrap each loader to fire loaderComplete() at end
 const _origFunctions = {};
 ['loadBCP','loadClimate','loadINBIOWidget','loadInsights','loadFairPriceModel','loadTileFabric','loadDepartamentos','loadDistritos','loadBarrios','loadCatastroDpto','loadCatastroDist','loadCatastroParcels','loadCatastroUrba','loadINBIO','loadProperties','loadGBIF','loadOSMRoads','loadOSMBuildings','loadOSMWater'].forEach(name => {
@@ -4738,37 +4711,6 @@ if ('serviceWorker' in navigator) {
 }
 
 
-function fetchDataFreshness() {
-    fetch('./data/data_freshness.json')
-        .then(r => r.ok ? r.json() : null)
-        .then(fresh => {
-            if (!fresh || !fresh.as_of_utc) return;
-            const dt = new Date(fresh.as_of_utc);
-            const age_hours = (Date.now() - dt.getTime()) / 3.6e6;
-            const ageText = age_hours < 24 ? Math.round(age_hours) + 'h ago' :
-                            age_hours < 168 ? Math.round(age_hours/24) + 'd ago' :
-                            Math.round(age_hours/168) + 'w ago';
-            const dateEl = document.getElementById('freshnessDate');
-            if (dateEl) dateEl.textContent = ageText + ' (' + fresh.as_of_utc.substring(0,10) + ')';
-            const badge = document.getElementById('freshnessBadge');
-            if (badge && age_hours > 168) {
-                badge.style.background = 'rgba(239, 68, 68, 0.15)';
-                const dot = badge.querySelector('span');
-                if (dot) dot.style.background = 'var(--err)';
-            }
-            // Also update stat meta text
-            const lastCommitEl = document.getElementById('lastCommit');
-            if (lastCommitEl && fresh.sources) {
-                const reachable = Object.values(fresh.sources).filter(s => s.reachable).length;
-                const total = Object.keys(fresh.sources).length;
-                lastCommitEl.textContent = `${reachable}/${total} sources`;
-            }
-        })
-        .catch(() => {
-            const dateEl = document.getElementById('freshnessDate');
-            if (dateEl) dateEl.textContent = 'unknown';
-        });
-}
 
 
 // ========== COORD DISPLAY ==========
@@ -4797,14 +4739,6 @@ window.addCoordDisplay = function() {
     });
 };
 
-function coordToDMS(coord, type) {
-    const abs = Math.abs(coord);
-    const deg = Math.floor(abs);
-    const min = Math.floor((abs - deg) * 60);
-    const sec = ((abs - deg) * 60 - min) * 60;
-    const dir = type === 'lat' ? (coord >= 0 ? 'N' : 'S') : (coord >= 0 ? 'E' : 'W');
-    return `${deg}°${min.toString().padStart(2, '0')}'${sec.toFixed(2)}"${dir}`;
-}
 
 // ========== MEASURE TOOL ==========
 let measureActive = false;
@@ -4854,10 +4788,6 @@ function onMeasureClick(e) {
     }
 }
 
-function formatDistance(meters) {
-    if (meters < 1000) return `${Math.round(meters)} m`;
-    return `${(meters / 1000).toFixed(2)} km`;
-}
 
 // ========== KML EXPORT ==========
 window.exportKML = function() {

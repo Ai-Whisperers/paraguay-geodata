@@ -1,6 +1,6 @@
 {
-  "as_of_utc": "2026-08-03T17:10:37.114651Z",
-  "feature_count": 5784,
+  "as_of_utc": "2026-08-03T19:16:37.902355Z",
+  "feature_count": 5814,
   "median_days": 2,
   "sources": {
     "asuncion_estate": {
@@ -10,6 +10,10 @@
     "infocasas": {
       "reachable": true,
       "count": 1156
+    },
+    "inmueblespy": {
+      "reachable": true,
+      "count": 30
     },
     "tulugar": {
       "reachable": true,

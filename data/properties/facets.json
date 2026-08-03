@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-03T17:10:38.584920Z",
-  "feature_count": 5784,
+  "generated_at": "2026-08-03T19:16:38.765353Z",
+  "feature_count": 5814,
   "facets": {
     "depto": [
       {
         "value": "Asunción",
-        "count": 2047
+        "count": 2049
       },
       {
         "value": "Central",
-        "count": 1453
+        "count": 1464
       },
       {
         "value": "?",
@@ -17,11 +17,11 @@
       },
       {
         "value": "Cordillera",
-        "count": 458
+        "count": 464
       },
       {
         "value": "Alto Paraná",
-        "count": 285
+        "count": 287
       },
       {
         "value": "Itapúa",
@@ -33,7 +33,7 @@
       },
       {
         "value": "Paraguarí",
-        "count": 48
+        "count": 50
       },
       {
         "value": "Boquerón",
@@ -49,7 +49,7 @@
       },
       {
         "value": "San Pedro",
-        "count": 15
+        "count": 16
       },
       {
         "value": "Misiones",
@@ -68,26 +68,30 @@
         "count": 5
       },
       {
-        "value": "Caazapá",
-        "count": 2
+        "value": "Amambay",
+        "count": 4
       },
       {
-        "value": "Amambay",
-        "count": 1
+        "value": "Guairá",
+        "count": 3
+      },
+      {
+        "value": "Caazapá",
+        "count": 2
       }
     ],
     "property_type": [
       {
         "value": "apartment",
-        "count": 1470
+        "count": 1471
       },
       {
         "value": "house",
-        "count": 1235
+        "count": 1238
       },
       {
         "value": "land",
-        "count": 1178
+        "count": 1190
       },
       {
         "value": "?",
@@ -100,12 +104,16 @@
       {
         "value": "office",
         "count": 225
+      },
+      {
+        "value": "unknown",
+        "count": 14
       }
     ],
     "currency": [
       {
         "value": "USD",
-        "count": 4018
+        "count": 4046
       },
       {
         "value": "?",
@@ -113,7 +121,7 @@
       },
       {
         "value": "PYG",
-        "count": 610
+        "count": 612
       }
     ],
     "source": [
@@ -128,24 +136,31 @@
       {
         "value": "infocasas",
         "count": 1156
+      },
+      {
+        "value": "inmueblespy",
+        "count": 30
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-02T22:53:15.880985+00:00",
+    "max": "2026-08-03T19:13:40.996767+00:00",
     "median_days": 2
   },
   "quality": {
-    "total": 5784,
-    "clean": 4550,
-    "flagged": 1234,
+    "total": 5814,
+    "clean": 2604,
+    "flagged": 3210,
     "by_flag": {
+      "missing_price_pyg_inferred": 1429,
+      "missing_area_ha_inferred": 1340,
       "null_property_type": 1156,
-      "missing_price": 433,
+      "area_inferred_from_title": 674,
+      "missing_price": 435,
       "missing_area": 87,
-      "area_conflict": 34,
+      "area_recovered_from_title_m2": 7,
       "area_published_round_but_title_larger": 2
     }
   }

@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-03T17:32:17Z",
+  "as_of": "2026-08-03T19:16:39Z",
   "service": "paraguay-geodata",
   "version": "2026-08-03",
   "deployed_at": "2026-08-03T12:00:00Z",
@@ -8,12 +8,19 @@
     "sources": {
       "infocasas": 1156,
       "asuncion_estate": 2590,
+      "inmueblespy": 30,
       "tulugar": 2038
     },
-    "n_sources": 3,
+    "n_sources": 4,
     "freshness_median_hours": 24
   },
   "deploys": [
+    {
+      "sha": "757b14f",
+      "subject": "feat: PMTiles vector tiles + status page + bulletin + R2 mirror + monitoring hooks",
+      "date": "2026-08-03 14:36:16 -0300",
+      "author": "Erebus"
+    },
     {
       "sha": "67198e4",
       "subject": "refactor: 30-issue Roast cleanup — kill dead code, ship CI + DR + runbook",
@@ -37,59 +44,53 @@
       "subject": "feat: 40-role UX overhaul — i18n, tabs, compare, saved, API, privacy, sitemap",
       "date": "2026-08-03 13:43:14 -0300",
       "author": "Erebus"
-    },
-    {
-      "sha": "03c9cbe",
-      "subject": "docs: 40-role adversarial audit of the live site (~2,000 findings)",
-      "date": "2026-08-03 12:23:25 -0300",
-      "author": "Erebus"
     }
   ],
   "new_listings": [
     {
-      "id": "ae_1d2023fe9578",
-      "source": "asuncion_estate",
-      "city": "Land",
-      "state_province": "Canindeyú",
-      "price_usd": 52054.79,
-      "area_sqm": 1080,
-      "scraped_at": "2026-08-02T22:53:15.880985+00:00"
+      "id": "ip_1db205fb30f1",
+      "source": "inmueblespy",
+      "city": "Itá",
+      "state_province": "Central",
+      "price_usd": 950000.0,
+      "area_sqm": 360.0,
+      "scraped_at": "2026-08-03T19:13:40.996767+00:00"
     },
     {
-      "id": "ae_de6e4e5ec194",
-      "source": "asuncion_estate",
-      "city": "Land",
-      "state_province": "Caazapá",
-      "price_usd": 109589.04,
-      "area_sqm": 320000,
-      "scraped_at": "2026-08-02T22:53:12.319318+00:00"
+      "id": "ip_8b612e457484",
+      "source": "inmueblespy",
+      "city": "Asunción",
+      "state_province": "Asunción",
+      "price_usd": null,
+      "area_sqm": 350.0,
+      "scraped_at": "2026-08-03T19:13:37.790959+00:00"
     },
     {
-      "id": "ae_49ba98879c04",
-      "source": "asuncion_estate",
-      "city": "Land",
-      "state_province": "Caazapá",
-      "price_usd": 10000000,
-      "area_sqm": 22330000,
-      "scraped_at": "2026-08-02T22:53:12.319247+00:00"
+      "id": "ip_98acef67c755",
+      "source": "inmueblespy",
+      "city": "Nueva Colombia",
+      "state_province": "Cordillera",
+      "price_usd": 550000000.0,
+      "area_sqm": 26000.0,
+      "scraped_at": "2026-08-03T19:13:34.584050+00:00"
     },
     {
-      "id": "ae_8db76b8effbb",
-      "source": "asuncion_estate",
-      "city": "Land",
-      "state_province": "Alto Paraguay",
-      "price_usd": 1725000,
-      "area_sqm": 34982,
-      "scraped_at": "2026-08-02T22:53:08.645613+00:00"
+      "id": "ip_706a1ca06753",
+      "source": "inmueblespy",
+      "city": "Nueva Colombia",
+      "state_province": "Cordillera",
+      "price_usd": 1900000000.0,
+      "area_sqm": 550.0,
+      "scraped_at": "2026-08-03T19:13:31.571564+00:00"
     },
     {
-      "id": "ae_eb4916a306f1",
-      "source": "asuncion_estate",
-      "city": "Land",
-      "state_province": "Alto Paraguay",
-      "price_usd": 32000000,
-      "area_sqm": 20057,
-      "scraped_at": "2026-08-02T22:53:08.645571+00:00"
+      "id": "ip_cee6cf69759f",
+      "source": "inmueblespy",
+      "city": "Nueva Colombia",
+      "state_province": "Cordillera",
+      "price_usd": 60500000.0,
+      "area_sqm": 150.0,
+      "scraped_at": "2026-08-03T19:13:28.217941+00:00"
     }
   ],
   "subscribe_url": "https://geodata.paragu-ai.com/changelog.xml"

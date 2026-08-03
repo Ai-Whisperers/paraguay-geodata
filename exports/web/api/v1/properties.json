@@ -1,19 +1,20 @@
 {
-  "total": 5784,
+  "total": 5814,
   "sources": {
     "infocasas": 1156,
     "asuncion_estate": 2590,
+    "inmueblespy": 30,
     "tulugar": 2038
   },
   "facets": {
     "depto": [
       {
         "value": "Asunción",
-        "count": 2047
+        "count": 2049
       },
       {
         "value": "Central",
-        "count": 1453
+        "count": 1464
       },
       {
         "value": "?",
@@ -21,11 +22,11 @@
       },
       {
         "value": "Cordillera",
-        "count": 458
+        "count": 464
       },
       {
         "value": "Alto Paraná",
-        "count": 285
+        "count": 287
       },
       {
         "value": "Itapúa",
@@ -37,7 +38,7 @@
       },
       {
         "value": "Paraguarí",
-        "count": 48
+        "count": 50
       },
       {
         "value": "Boquerón",
@@ -53,7 +54,7 @@
       },
       {
         "value": "San Pedro",
-        "count": 15
+        "count": 16
       },
       {
         "value": "Misiones",
@@ -72,26 +73,30 @@
         "count": 5
       },
       {
-        "value": "Caazapá",
-        "count": 2
+        "value": "Amambay",
+        "count": 4
       },
       {
-        "value": "Amambay",
-        "count": 1
+        "value": "Guairá",
+        "count": 3
+      },
+      {
+        "value": "Caazapá",
+        "count": 2
       }
     ],
     "property_type": [
       {
         "value": "apartment",
-        "count": 1470
+        "count": 1471
       },
       {
         "value": "house",
-        "count": 1235
+        "count": 1238
       },
       {
         "value": "land",
-        "count": 1178
+        "count": 1190
       },
       {
         "value": "?",
@@ -104,12 +109,16 @@
       {
         "value": "office",
         "count": 225
+      },
+      {
+        "value": "unknown",
+        "count": 14
       }
     ],
     "currency": [
       {
         "value": "USD",
-        "count": 4018
+        "count": 4046
       },
       {
         "value": "?",
@@ -117,7 +126,7 @@
       },
       {
         "value": "PYG",
-        "count": 610
+        "count": 612
       }
     ],
     "source": [
@@ -132,6 +141,10 @@
       {
         "value": "infocasas",
         "count": 1156
+      },
+      {
+        "value": "inmueblespy",
+        "count": 30
       }
     ],
     "features": []
