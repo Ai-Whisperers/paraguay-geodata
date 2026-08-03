@@ -52,7 +52,10 @@ data-freshness:  ## Rebuild data_freshness.json.
 days-on-market:  ## Rebuild days_on_market.json.
 	$(PY) -m tools.build_days_on_market
 
-build-all: canonicalize merge facets data-freshness days-on-market  ## Rebuild all derived artifacts.
+pmtiles:  ## Convert canonical_properties.geojson → .pmtiles (411 KB vs 11 MB raw).
+	$(PY) -m tools.build_pmtiles
+
+build-all: canonicalize merge facets data-freshness days-on-market pmtiles  ## Rebuild all derived artifacts.
 
 scrub:  ## Apply PII scrub to a single file (use carefully).
 	$(PY) -m tools.scrub_pii $(INPUT) $(OUTPUT)

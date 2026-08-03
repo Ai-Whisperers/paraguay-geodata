@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status — Paraguay Geodata</title>
+<meta name="description" content="Live health, fresh data, and recent deploys for the Paraguay Geodata platform.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3E🇵🇾%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://geodata.paragu-ai.com/status">
+<style>
+  :root {
+    --bg: #0d1117; --fg: #e6edf3; --ok: #3fb950; --warn: #d29922; --err: #f85149;
+    --dim: #7d8590; --line: #30363d; --card: #161b22;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; line-height: 1.5; }
+  header { padding: 24px 32px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  header h1 { margin: 0; font-size: 22px; font-weight: 600; }
+  header a { color: var(--fg); text-decoration: none; opacity: 0.7; }
+  header a:hover { opacity: 1; }
+  main { max-width: 1080px; margin: 0 auto; padding: 32px; }
+  .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .dot.ok { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+  .dot.warn { background: var(--warn); }
+  .dot.err { background: var(--err); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+  .card h3 { margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--dim); }
+  .card .value { font-size: 28px; font-weight: 600; margin: 0; }
+  .card .sub { color: var(--dim); font-size: 13px; margin: 4px 0 0 0; }
+  table { width: 100%; border-collapse: collapse; }
+  table th, table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+  table th { color: var(--dim); font-weight: 500; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+  table td.bullet { font-family: ui-monospace, "SF Mono", Monaco, monospace; font-size: 12px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; background: var(--line); color: var(--fg); }
+  .badge.ok { background: rgba(63, 185, 80, 0.2); color: var(--ok); }
+  .badge.warn { background: rgba(210, 153, 34, 0.2); color: var(--warn); }
+  .pill-box { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { background: var(--line); padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+  footer { padding: 32px; text-align: center; color: var(--dim); font-size: 13px; border-top: 1px solid var(--line); margin-top: 48px; }
+  footer a { color: var(--dim); }
+  .loading { color: var(--dim); font-style: italic; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="dot" id="status-dot"></span>Paraguay Geodata — Status</h1>
+  <a href="/">← back to map</a>
+</header>
+
+<main>
+  <section class="grid">
+    <div class="card">
+      <h3>Total listings</h3>
+      <p class="value" id="total-listings" data-test="total">—</p>
+      <p class="sub">across 3 source portals</p>
+    </div>
+    <div class="card">
+      <h3>Freshness (median)</h3>
+      <p class="value" id="freshness" data-test="freshness">—</p>
+      <p class="sub">time since last successful fetch</p>
+    </div>
+    <div class="card">
+      <h3>Last deploy</h3>
+      <p class="value" id="last-deploy" data-test="last-deploy">—</p>
+      <p class="sub" id="last-deploy-sub">—</p>
+    </div>
+    <div class="card">
+      <h3>Service</h3>
+      <p class="value" id="service-status">—</p>
+      <p class="sub" id="service-version">—</p>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom: 24px;">
+    <h3>Sources</h3>
+    <table id="sources-table">
+      <thead><tr><th>Source</th><th>Listings</th><th>Status</th></tr></thead>
+      <tbody class="loading">loading…</tbody>
+    </table>
+  </section>
+
+  <section class="card" style="margin-bottom: 24px;">
+    <h3>Data layers</h3>
+    <div class="pill-box" id="layers">loading…</div>
+  </section>
+
+  <section class="card" style="margin-bottom: 24px;">
+    <h3>Recent deploys</h3>
+    <table id="deploys-table">
+      <thead><tr><th>Date</th><th>Commit</th><th>Title</th></tr></thead>
+      <tbody class="loading">loading…</tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h3>Recent incidents</h3>
+    <p id="incidents">No incidents in the past 30 days.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Real-time health feed: <a href="/healthz.json">/healthz.json</a> · <a href="/changelog">changelog</a> · <a href="/roadmap">roadmap</a></p>
+  <p>Last refresh: <span id="last-refresh">unknown</span> · CC0 license · <a href="https://github.com/Ai-Whisperers/paraguay-geodata">source on GitHub</a></p>
+</footer>
+
+<script>
+async function load() {
+  const [healthz, summary, changelog] = await Promise.all([
+    fetch('/healthz.json').then((r) => r.json()).catch(() => null),
+    fetch('/api/v1/properties.json').then((r) => r.json()).catch(() => null),
+    fetch('/changelog.xml').then((r) => r.text()).catch(() => null),
+  ]);
+
+  if (!healthz) {
+    document.getElementById('status-dot').className = 'dot warn';
+    document.getElementById('service-status').textContent = 'unknown';
+    return;
+  }
+
+  // Service status
+  const dot = document.getElementById('status-dot');
+  if (healthz.status === 'ok') {
+    dot.className = 'dot ok';
+  } else if (healthz.status === 'degraded') {
+    dot.className = 'dot warn';
+  } else {
+    dot.className = 'dot err';
+  }
+  document.getElementById('service-status').textContent = healthz.status;
+  document.getElementById('service-version').textContent = `version ${healthz.version || 'unversioned'}`;
+
+  // Freshness
+  document.getElementById('last-deploy').textContent = new Date(healthz.deployed_at).toLocaleString();
+  document.getElementById('last-deploy-sub').textContent = `UTC: ${healthz.deployed_at}`;
+
+  if (summary) {
+    document.getElementById('total-listings').textContent = summary.total.toLocaleString();
+
+    const sources = summary.sources || {};
+    const tbody = document.querySelector('#sources-table tbody');
+    tbody.innerHTML = Object.entries(sources)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => `
+        <tr>
+          <td><strong>${name}</strong></td>
+          <td>${count.toLocaleString()}</td>
+          <td><span class="badge ok">live</span></td>
+        </tr>
+      `).join('');
+  }
+
+  // Freshness median
+  const f = healthz.data?.properties?.freshness_median_hours;
+  document.getElementById('freshness').textContent = f ? `${f}h` : '—';
+  document.getElementById('freshness').nextElementSibling.textContent = `last refresh: ${(healthz.data?.properties?.last_refresh || '?').slice(0, 19)}`;
+
+  // Layers
+  const layers = healthz.data?.layers || {};
+  document.getElementById('layers').innerHTML = Object.entries(layers)
+    .map(([name, on]) => `<span class="pill">${on ? '✓' : '✗'} ${name}</span>`)
+    .join(' ');
+
+  // Languages
+  const langs = healthz.data?.languages || [];
+  document.getElementById('layers').innerHTML += `<br/><span style="margin-top:8px;display:inline-block">Languages: ${langs.map((l) => `<span class="pill">${l}</span>`).join(' ')}</span>`;
+
+  // Deploys (parse changelog.xml)
+  if (changelog) {
+    const items = Array.from(changelog.matchAll(/<item>([\s\S]*?)<\/item>/g)).slice(0, 10);
+    const tbody = document.querySelector('#deploys-table tbody');
+    tbody.innerHTML = items.map((m) => {
+      const block = m[1];
+      const title = (block.match(/<title>(.*?)<\/title>/) || [])[1] || '?';
+      const link = (block.match(/<link>(.*?)<\/link>/) || [])[1] || '#';
+      const date = (block.match(/<pubDate>(.*?)<\/pubDate>/) || [])[1] || '?';
+      return `<tr>
+        <td>${date.slice(0, 10)}</td>
+        <td class="bullet"><a href="${link}" target="_blank">${link.split('/').slice(-1)[0]}</a></td>
+        <td>${title}</td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="3">no recent deploys</td></tr>';
+  }
+
+  document.getElementById('last-refresh').textContent = new Date().toLocaleString();
+}
+
+load().catch((e) => {
+  console.error('status page load failed:', e);
+  document.getElementById('status-dot').className = 'dot err';
+  document.getElementById('service-status').textContent = 'unknown';
+  document.getElementById('last-refresh').textContent = new Date().toLocaleString();
+});
+</script>
+</body>
+</html>

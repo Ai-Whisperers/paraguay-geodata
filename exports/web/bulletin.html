@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bulletin — Paraguay Geodata</title>
+<style>
+  body {
+    background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif; margin: 0; padding: 32px; line-height: 1.6;
+  }
+  main { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 8px 0; }
+  h2 { font-size: 18px; margin: 32px 0 8px 0; border-bottom: 1px solid #30363d; padding-bottom: 4px; }
+  .meta { color: #7d8590; font-size: 13px; }
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .pill { display: inline-block; background: #161b22; border: 1px solid #30363d;
+           padding: 4px 10px; border-radius: 12px; font-size: 13px; margin-right: 8px; }
+  pre { background: #161b22; padding: 12px; border-radius: 6px; overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>📬 Paraguay Geodata Bulletin</h1>
+  <p class="meta">As of 2026-08-03T17:32:17Z · v2026-08-03 ·
+    <a href="/bulletin.json">JSON</a> · <a href="/changelog.xml">RSS</a></p>
+
+  <h2>Numbers</h2>
+  <p>
+    <span class="pill">5,784 listings</span>
+    <span class="pill">3 sources</span>
+    <span class="pill">freshness 24h</span>
+  </p>
+
+  <h2>Recent deploys</h2>
+  <ul>
+    <li><code>67198e4</code> — refactor: 30-issue Roast cleanup — kill dead code, ship CI + DR + runbook <span class='meta'>(Erebus)</span></li><li><code>5466117</code> — docs: ROAST — repo audit with ~500 findings, prioritized for tech-debt work <span class='meta'>(Erebus)</span></li><li><code>8c7e686</code> — fix: deploy canonical properties_latest.geojson (11 MB, 5,784 features) fix: _redirects no longer loops on .html (CF Pages handles extensionless natively) <span class='meta'>(Erebus)</span></li><li><code>f354484</code> — feat: 40-role UX overhaul — i18n, tabs, compare, saved, API, privacy, sitemap <span class='meta'>(Erebus)</span></li><li><code>03c9cbe</code> — docs: 40-role adversarial audit of the live site (~2,000 findings) <span class='meta'>(Erebus)</span></li>
+  </ul>
+
+  <h2>Latest listings</h2>
+  <ul>
+    <li><code>ae_1d2023fe9578</code> · Land, Canindeyú · $52054.79 · 1080 m²</li><li><code>ae_de6e4e5ec194</code> · Land, Caazapá · $109589.04 · 320000 m²</li><li><code>ae_49ba98879c04</code> · Land, Caazapá · $10000000 · 22330000 m²</li><li><code>ae_8db76b8effbb</code> · Land, Alto Paraguay · $1725000 · 34982 m²</li><li><code>ae_eb4916a306f1</code> · Land, Alto Paraguay · $32000000 · 20057 m²</li>
+  </ul>
+
+  <h2>Subscribe</h2>
+  <p>Use the <a href="/changelog.xml">RSS feed</a> or the <a href="/bulletin.json">JSON feed</a>.</p>
+  <pre>GET https://geodata.paragu-ai.com/bulletin.json</pre>
+</main>
+</body>
+</html>

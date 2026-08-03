@@ -272,3 +272,50 @@
     window.addEventListener('storage', updateSavedCount);
 
 })();
+
+// === Web Vitals observer (anonymized) ===
+// Pulls in web-vitals from CDN, observes LCP/CLS/INP/FCP/TTFB, and
+// surfaces them via console.log or Sentry breadcrumb (if Sentry is loaded).
+// Self-contained: no bundler.
+(function () {
+  if (typeof window === "undefined") return;
+  if (window.self !== window.top) return;
+  if (window.__WV_INITIALIZED__) return;
+  window.__WV_INITIALIZED__ = true;
+
+  const ready = (cb) => {
+    if (document.readyState !== "loading") cb();
+    else document.addEventListener("DOMContentLoaded", cb);
+  };
+
+  ready(() => {
+    const s = document.createElement("script");
+    s.src = "https://unpkg.com/web-vitals@4/dist/web-vitals.attribution.iife.js";
+    s.crossOrigin = "anonymous";
+    s.onload = () => {
+      if (typeof webVitals === "undefined") return;
+      const reporter = (metric) => {
+        const data = {
+          name: metric.name,
+          id: metric.id,
+          value: metric.value,
+          rating: metric.rating,
+          delta: metric.delta,
+          navigationType: metric.navigationType,
+          url: location.href,
+        };
+        if (window.Sentry && window.Sentry.addBreadcrumb) {
+          window.Sentry.addBreadcrumb({ category: "vitals", data: data });
+        } else {
+          console.log("[vitals]", data);
+        }
+      };
+      webVitals.onLCP(reporter);
+      webVitals.onCLS(reporter);
+      webVitals.onINP(reporter);
+      webVitals.onFCP(reporter);
+      webVitals.onTTFB(reporter);
+    };
+    document.head.appendChild(s);
+  });
+})();

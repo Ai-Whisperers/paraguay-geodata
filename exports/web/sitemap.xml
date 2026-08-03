@@ -100,4 +100,11 @@
         <lastmod>2026-08-03</lastmod>
         <priority>0.7</priority>
     </url>
+  <url><loc>https://geodata.paragu-ai.com/status</loc><priority>0.6</priority></url>
+  <url><loc>https://geodata.paragu-ai.com/bulletin</loc><priority>0.6</priority></url>
+  <url><loc>https://geodata.paragu-ai.com/bulletin.json</loc><priority>0.5</priority></url>
+  <url><loc>https://geodata.paragu-ai.com/healthz.json</loc><priority>0.3</priority></url>
+  <url><loc>https://geodata.paragu-ai.com/data/properties.pmtiles</loc><priority>0.5</priority></url>
+  <url><loc>https://geodata.paragu-ai.com/data/properties.mbtiles</loc><priority>0.4</priority></url>
+  <url><loc>https://geodata.paragu-ai.com/api/v1/delete/README.md</loc><priority>0.3</priority></url>
 </urlset>

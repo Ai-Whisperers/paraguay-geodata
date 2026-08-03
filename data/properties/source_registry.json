@@ -1,0 +1,116 @@
+{
+  "as_of": "2026-08-03T00:00:00Z",
+  "sources": [
+    {
+      "key": "infocasas",
+      "name": "InfoCasas Paraguay",
+      "url": "https://www.infocasas.com.py",
+      "fetcher": "tools.fetch_properties",
+      "status": "live",
+      "expected_listings_min": 1000,
+      "expected_listings_max": 5000,
+      "rate_limit_per_min": 30,
+      "notes": "HTML scrape.  Was rate-limited in 2026-07; back to 30 req/min."
+    },
+    {
+      "key": "tulugar",
+      "name": "TuLugar",
+      "url": "https://tulugar.com.py",
+      "fetcher": "tools.fetch_tulugar",
+      "status": "live",
+      "expected_listings_min": 1500,
+      "expected_listings_max": 5000,
+      "rate_limit_per_min": 60,
+      "notes": "JSON API.  Returns +4000 properties with cross-source dedup IDs."
+    },
+    {
+      "key": "asuncion_estate",
+      "name": "Asunción.Estate",
+      "url": "https://asuncion.estate",
+      "fetcher": "tools.fetch_asuncion_estate",
+      "status": "live",
+      "expected_listings_min": 2000,
+      "expected_listings_max": 4000,
+      "rate_limit_per_min": 30,
+      "notes": "Largest contributor (2,590 listings).  jQuery-rendered, detail pages have ld+json."
+    },
+    {
+      "key": "argenprop",
+      "name": "Argenprop (PY-only)",
+      "url": "https://www.argenprop.com",
+      "fetcher": "tools.fetch_argenprop",
+      "status": "live",
+      "expected_listings_min": 0,
+      "expected_listings_max": 100,
+      "rate_limit_per_min": 10,
+      "notes": "Argentine aggregator; PY filter returns ~20 listings.  Always low volume."
+    },
+    {
+      "key": "inmueblespy",
+      "name": "Inmuebles Py",
+      "url": "https://www.inmueblespy.com",
+      "fetcher": "(none)",
+      "status": "deferred",
+      "expected_listings_min": 0,
+      "expected_listings_max": 5000,
+      "rate_limit_per_min": 30,
+      "notes": "Discovered but no fetcher written.  Higher ranking than InfoCasas in some SEO benchmarks."
+    },
+    {
+      "key": "century21py",
+      "name": "Century 21 Paraguay",
+      "url": "https://www.century21.com.py",
+      "fetcher": "tools.fetch_century21 (REMOVED)",
+      "status": "dead",
+      "expected_listings_min": 0,
+      "expected_listings_max": 0,
+      "rate_limit_per_min": 0,
+      "notes": "Cloudflare blocks sustained scraping at concurrency > 10.  Removed."
+    },
+    {
+      "key": "bienesonline",
+      "name": "Bienes Online",
+      "url": "https://www.bienesonline.com.py",
+      "fetcher": "tools.fetch_bienesonline (REMOVED)",
+      "status": "dead",
+      "expected_listings_min": 0,
+      "expected_listings_max": 0,
+      "rate_limit_per_min": 0,
+      "notes": "jQuery SPA, requires Playwright.  Removed."
+    },
+    {
+      "key": "mercadolibre_inmuebles",
+      "name": "MercadoLibre Inmuebles",
+      "url": "https://inmuebles.mercadolibre.com.py",
+      "fetcher": "tools.fetch_ml_inmuebles (REMOVED)",
+      "status": "dead",
+      "expected_listings_min": 0,
+      "expected_listings_max": 0,
+      "rate_limit_per_min": 0,
+      "notes": "Catalog endpoint gated.  Removed."
+    },
+    {
+      "key": "clasipar",
+      "name": "Clasipar",
+      "url": "https://www.clasipar.com.py",
+      "fetcher": "tools.fetch_clasipar_public (DEGRADED)",
+      "status": "degraded",
+      "expected_listings_min": 0,
+      "expected_listings_max": 0,
+      "rate_limit_per_min": 0,
+      "notes": "HTTP intermittently reachable but consistently times out at 30+ s.  Sitemap inventory built but cards not parseable."
+    }
+  ],
+  "summary": {
+    "live": 3,
+    "deferred": 1,
+    "degraded": 1,
+    "dead": 3
+  },
+  "next_actions": [
+    "Wire fetch_argenprop into the cron (currently not invoked).",
+    "Build tools/fetch_inmueblespy.py — estimated 1,500 listings/month.",
+    "Investigate Clasipar with a different UA + headless fallback.",
+    "Rebuild century21 with proxy rotation (could be 500+ listings)."
+  ]
+}

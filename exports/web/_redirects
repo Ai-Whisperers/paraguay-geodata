@@ -28,5 +28,9 @@ http://datos.paragu-ai.com/*    https://datos.paragu-ai.com/:splat    301
 # terms, changelog, roadmap, listing) are served extensionless by
 # Cloudflare Pages automatically — no custom redirect needed.
 
+
 # 404 page (SPA fallback for everything else)
 /*  /404.html  404
+
+# Note: /status, /bulletin, /bulletin.json, /pmtiles, /healthz are served
+# extensionless by Cloudflare Pages automatically — no custom redirect needed.

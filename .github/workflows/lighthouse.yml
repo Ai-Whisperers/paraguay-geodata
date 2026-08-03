@@ -1,0 +1,54 @@
+name: lighthouse
+
+on:
+  push:
+    branches: [main, feat/**]
+  workflow_dispatch:
+  schedule:
+    # Daily at 06:00 UTC — produces a Lighthouse score trend.
+    - cron: "0 6 * * *"
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --break-system-packages pmtiles || true
+
+      - name: Build canonical + pmtiles (no deploy)
+        run: |
+          python3 -m tools.canonicalize_properties \
+            --input exports/web/data/properties_latest.geojson \
+            --output data/properties
+          python3 -m tools.merge_fresh_sources || true
+          python3 -m tools.build_facets
+          python3 -m tools.build_data_freshness
+          python3 -m tools.build_days_on_market
+          python3 -m tools.build_pmtiles --no-pmtiles || true
+          python3 -m tools.build_bulletin || true
+
+      - name: Deploy preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          cd exports/web
+          npx --yes wrangler@latest pages deploy . --project-name paraguay-geodata --branch main --commit-dirty=true
+
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://geodata.paragu-ai.com/
+            https://geodata.paragu-ai.com/mapa
+            https://geodata.paragu-ai.com/use-cases
+            https://geodata.paragu-ai.com/compare
+          budgetPath: ./lighthouse-budget.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

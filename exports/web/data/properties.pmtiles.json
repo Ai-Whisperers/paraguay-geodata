@@ -1,0 +1,20 @@
+{
+  "name": "properties",
+  "format": "pbf",
+  "generator": "tippecanoe + pmtiles",
+  "minzoom": 6,
+  "maxzoom": 16,
+  "bounds": [
+    -63.5,
+    -27.5,
+    -54.0,
+    -19.0
+  ],
+  "center": [
+    -58.5,
+    -23.5,
+    6
+  ],
+  "feature_count": 5784,
+  "attribution": "<a href='https://github.com/Ai-Whisperers/paraguay-geodata'>Ai-Whisperers</a> · CC0"
+}
