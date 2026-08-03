@@ -1268,26 +1268,19 @@
     </details>
 </div>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin=""></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin=""></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin="" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin="" defer></script>
 <link rel="stylesheet" href="site.css">
-<script src="i18n.js"></script>
-<script src="site.js"></script>
-<script src="tabs.js"></script>
-<script src="map-cartography.js"></script>
-<script src="utils.js"></script>
-  <script src="widgets.js"></script>
-<script>
-// Build lang switcher on home page
-(function () {
-    var slot = document.getElementById('lang-slot');
-    if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) {
-        window.PY_I18N.buildLangSwitcher('#lang-slot');
-    }
-})();
-</script>
+<script src="i18n.js" defer></script>
+<script src="site.js" defer></script>
+<script src="tabs.js" defer></script>
+<script src="map-cartography.js" defer></script>
+<script src="utils.js" defer></script>
+  <script src="widgets.js" defer></script>
+<script src="monitoring.js" defer></script>
+<script src="lang-switcher.js" defer></script>
 <script src="index.js" defer></script>
 </body>
 </html>

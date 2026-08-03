@@ -282,10 +282,12 @@ def _parse_detail(detail_url: str, html: str) -> dict | None:
     prop_type = terms["property_type"]
     if not prop_type:
         slug = detail_url.rstrip("/").rsplit("/", 1)[-1].lower()
-        # Strip common prefixes
-        for prefix in ("en-venta-", "en-alquiler-", "vendo-", "vendo-",
+        # Strip common Spanish action prefixes.  We avoid bare articles
+        # (en-, de-, el-, la-) because they collide with content words.
+        for prefix in ("en-venta-", "en-alquiler-", "vendo-",
                        "alquilo-", "se-vende-", "se-alquila-", "disponible-",
-                       "en-", "de-", "el-", "la-"):
+                       "venta-de-", "alquiler-de-", "oportunidad-",
+                       "hermoso-", "hermosa-", "amplio-", "amplia-"):
             if slug.startswith(prefix):
                 slug = slug[len(prefix):]
         for k, v in PROPERTY_TYPE_HINTS.items():
@@ -295,9 +297,9 @@ def _parse_detail(detail_url: str, html: str) -> dict | None:
     if not prop_type:
         # Try ld+json.name and description
         for text in (ld.get("name", ""), ld.get("description", "")):
-            t = text.lower()
+            lc_text = text.lower()
             for k, v in PROPERTY_TYPE_HINTS.items():
-                if k in t:
+                if k in lc_text:
                     prop_type = v
                     break
             if prop_type:

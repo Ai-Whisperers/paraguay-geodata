@@ -122,7 +122,7 @@ def main(argv=None):
     # GeoJSON FeatureCollection snapshots from additional scrapers
     # (century21, argenprop, mercadolibre, bienesonline).  These use
     # canonical ['features'] envelopes with proper lat/lon already inside.
-    extra_sources = {"century21", "argenprop", "mercadolibre", "bienesonline", "asuncion_estate", "inmueblespy"}
+    extra_sources = {"argenprop", "asuncion_estate", "inmueblespy"}
     n_extra = {}
     n_extra_drop = {}
     if args.infocasas_dir.exists():

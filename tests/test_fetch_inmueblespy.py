@@ -69,6 +69,45 @@ def test_parse_detail_extracts_geo_and_price():
     assert p["listing_type"] == "sale"
 
 
+def test_parse_detail_strips_venta_prefix():
+    """`en-venta-casa-...` → property_type == house after stripping en-venta-."""
+    html = """
+    <script type="application/ld+json">
+    {"@type": "RealEstateListing",
+     "name": "Casa en venta",
+     "geo": {"latitude": -25.28, "longitude": -57.63},
+     "offers": {"price": "100000", "priceCurrency": "USD"}}
+    </script>
+    """
+    feat = fip._parse_detail(
+        "https://inmueblespy.com/inmueble/en-venta-casa-en-asuncion-2025/",
+        html,
+    )
+    assert feat is not None
+    # The slug is "en-venta-casa-en-asuncion-2025", stripped to "casa-en-asuncion-2025"
+    # PROPERTY_TYPE_HINTS: "casa" → "house"
+    assert feat["properties"]["property_type"] == "house"
+
+
+def test_parse_detail_property_type_from_text():
+    """When the slug is generic, fall back to ld+json.name."""
+    html = """
+    <script type="application/ld+json">
+    {"@type": "RealEstateListing",
+     "name": "Departamento en Pocitos",
+     "description": "",
+     "geo": {"latitude": -25.28, "longitude": -57.63},
+     "offers": {"price": "100000", "priceCurrency": "USD"}}
+    </script>
+    """
+    feat = fip._parse_detail(
+        "https://inmueblespy.com/inmueble/generic-slug-2025/",
+        html,
+    )
+    assert feat is not None
+    assert feat["properties"]["property_type"] == "apartment"
+
+
 def test_parse_detail_drops_out_of_bounds():
     html = """
     <script type="application/ld+json">

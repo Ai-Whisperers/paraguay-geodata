@@ -80,6 +80,7 @@ python3 -m tools.build_data_freshness
 python3 -m tools.build_days_on_market
 python3 -m tools.build_bulletin
 python3 -m tools.build_pmtiles
+python3 -m tools.build_api_summary
 
 # 9. CF Pages deploy.
 "$ROOT/exports/web/wrangler-pages-deploy.sh"

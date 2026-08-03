@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-03T19:42:22Z",
+  "as_of": "2026-08-03T20:52:55Z",
   "service": "paraguay-geodata",
   "version": "2026-08-03",
   "deployed_at": "2026-08-03T12:00:00Z",
@@ -8,13 +8,19 @@
     "sources": {
       "infocasas": 1156,
       "asuncion_estate": 2590,
-      "inmueblespy": 30,
+      "inmueblespy": 60,
       "tulugar": 2038
     },
     "n_sources": 4,
     "freshness_median_hours": 24
   },
   "deploys": [
+    {
+      "sha": "1099f9b",
+      "subject": "feat: 3 follow-ups — full 60-list fetch, esbuild bundle, taxonomy cleanup",
+      "date": "2026-08-03 16:43:45 -0300",
+      "author": "Erebus"
+    },
     {
       "sha": "14f4919",
       "subject": "feat: A+B+C+D — wire argenprop, cache-prune, drop widgets.v3.js, add inmueblespy",
@@ -37,12 +43,6 @@
       "sha": "5466117",
       "subject": "docs: ROAST — repo audit with ~500 findings, prioritized for tech-debt work",
       "date": "2026-08-03 13:59:54 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "8c7e686",
-      "subject": "fix: deploy canonical properties_latest.geojson (11 MB, 5,784 features) fix: _redirects no longer loops on .html (CF Pages handles extensionless natively)",
-      "date": "2026-08-03 13:48:36 -0300",
       "author": "Erebus"
     }
   ],
