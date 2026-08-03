@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Contacto — Paraguay Geodata</title>
+    <meta name="description" content="Contactanos: soporte, partnerships, prensa, reporte de datos incorrectos,赞助.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/contact.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" class="active" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <article class="prose">
+            <h1>Contacto</h1>
+            <p>Elegí el canal que mejor matchee tu pregunta — respondemos en horario laboral PY (UTC-3/UTC-4).</p>
+
+            <h2>Soporte general</h2>
+            <p>Para preguntas sobre el sitio, datos, planes o bugs: <a href="mailto:erebus@ai-whisperers.org">erebus@ai-whisperers.org</a>.</p>
+            <p>O usá el botón 💬 abajo a la derecha en cualquier página.</p>
+
+            <h2>Reportar dato incorrecto</h2>
+            <p>Si encontrás un precio, área o coordenada que parece mal, mandanos el ID del listing (visible en el popup o en la URL — <code>/listing/&lt;id&gt;</code>).</p>
+
+            <h2>Partnerships / prensa</h2>
+            <p>Para integraciones, datos corporativos, entrevistas o menciones en medios: <a href="mailto:partnerships@ai-whisperers.org">partnerships@ai-whisperers.org</a>.</p>
+
+            <h2>Reportar vulnerabilidad de seguridad</h2>
+            <p>Por favor <strong>no</strong> abras un issue público en GitHub. Mandanos a <a href="mailto:security@ai-whisperers.org">security@ai-whisperers.org</a>. Respondemos en 48h. Ver <a href="security.txt">/security.txt</a>.</p>
+
+            <h2>Reportes legales</h2>
+            <p>DMCA, takedown requests, GDPR / LGPD: <a href="mailto:legal@ai-whisperers.org">legal@ai-whisperers.org</a>.</p>
+
+            <h2>Contribuir al código</h2>
+            <p>Toda contribución es bienvenida. Andá a <a href="https://github.com/Ai-Whisperers/paraguay-geodata/issues">github.com/Ai-Whisperers/paraguay-geodata/issues</a> para abrir un issue, o directo mandanos un PR.</p>
+
+            <h2>Otros canales</h2>
+            <ul>
+                <li><a href="https://github.com/Ai-Whisperers/paraguay-geodata/discussions">Discussions en GitHub</a></li>
+                <li>RSS: <a href="changelog.xml">/changelog.xml</a></li>
+                <li>Status: <a href="healthz">/healthz</a></li>
+            </ul>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+    </script>
+</body>
+</html>

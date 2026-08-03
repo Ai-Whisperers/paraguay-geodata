@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Roadmap — Paraguay Geodata</title>
+    <meta name="description" content="Qué sigue: prioridades de Paraguay Geodata — investors, architects, farmers, government.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/roadmap.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="roadmap.html" class="active">Roadmap</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <article class="prose">
+            <h1>Roadmap</h1>
+            <p>Qué viene y por qué. Por orden de prioridad y de impacto.</p>
+
+            <h2>🚀 Q3 2026 — En curso</h2>
+            <ul>
+                <li><strong>Property panel v2</strong> — popup mejorado con precio/m², días en mercado, comparables. (Aug 2026)</li>
+                <li><strong>API autenticada</strong> — para planes Pro, con auth tokens y rate limiting. (Sep 2026)</li>
+                <li><strong>Email alerts</strong> — "avisame cuando baje el precio" con Mensajería de PY. (Sep 2026)</li>
+                <li><strong>MapBiomas Paraguay</strong> — deforestación histórica superpuesta. (Sep 2026)</li>
+                <li><strong>NASA FIRMS</strong> — fuegos activos últimas 24h. (Sep 2026)</li>
+            </ul>
+
+            <h2>📦 Q4 2026 — Próximo</h2>
+            <ul>
+                <li><strong>Contornos</strong> — 1m, 5m, 10m sobre el DEM. (Oct 2026)</li>
+                <li><strong>Recorrido 3D</strong> — Cesium viewer para lotes. (Oct 2026)</li>
+                <li><strong>Comparables</strong> — auto-suggest "casas similares en este barrio". (Nov 2026)</li>
+                <li><strong>Notary directory</strong> — abogados y escribanos por depto. (Nov 2026)</li>
+                <li><strong>Ciudadano</strong> — comparador con municipios vecinos. (Dic 2026)</li>
+            </ul>
+
+            <h2>🔭 2027 — Visión</h2>
+            <ul>
+                <li><strong>Multi-país</strong> — modelo similar para Argentina, Uruguay, Bolivia.</li>
+                <li><strong>AI undertraining</strong> — modelo propio para predecir tendencias.</li>
+                <li><strong>Suscripción para equipos</strong> — admin, SSO, billing portal.</li>
+                <li><strong>Data marketplace</strong> — datasets de terceros a través de Paraguay Geodata.</li>
+            </ul>
+
+            <h2>📊 Producto</h2>
+            <h3>¿Decidís en función de votos?</h3>
+            <p>Solemos mirar las consultas por WhatsApp, los issues de GitHub, las búsquedas más frecuentes en /faq, y las respuestas a encuestas inline. El feedback widget (💬) en cada página va directo al equipo.</p>
+
+            <h3>¿Cómo participo?</h3>
+            <ul>
+                <li><a href="contact.html">Mandanos un mensaje</a></li>
+                <li>Abrí <a href="https://github.com/Ai-Whisperers/paraguay-geodata/issues">un issue en GitHub</a></li>
+                <li>Discuss en <a href="https://github.com/Ai-Whisperers/paraguay-geodata/discussions">GitHub Discussions</a></li>
+            </ul>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+# AI bots (GPTBot, Claude, etc.) — allow for citation, no crawl delay
+User-agent: GPTBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Aggressive bots — slow down
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 10
+
+# Block obviously bad bots
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://geodata.paragu-ai.com/sitemap.xml
+
+# Host preference
+Host: https://geodata.paragu-ai.com

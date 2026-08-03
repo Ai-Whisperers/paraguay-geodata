@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Términos — Paraguay Geodata</title>
+    <meta name="description" content="Términos de uso: lo que podés hacer con los datos, lo que no, garantía, jurisdicción.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/terms.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <article class="prose">
+            <h1>Términos de uso</h1>
+            <p><em>Última actualización: 2026-08-03.</em></p>
+
+            <h2>Lo que podés hacer</h2>
+            <ul>
+                <li>Ver el sitio en cualquier dispositivo, para uso personal o comercial.</li>
+                <li>Descargar el GeoJSON público (<code>/data/properties_latest.geojson</code>) y usarlo en tu propio proyecto, fork, dashboard, app.</li>
+                <li>Forkear el código (MIT) y desplegar tu propia versión.</li>
+                <li>Citar Paraguay Geodata como fuente en trabajos académicos, periodísticos o comerciales.</li>
+            </ul>
+
+            <h2>Lo que no podés hacer</h2>
+            <ul>
+                <li>Scrapear el sitio agresivamente (hay rate-limiting; respetá las pausas).</li>
+                <li>Vender los datos <em>crudos</em> sin agregar valor. Los datos son CC0 (gratis para todos) pero por favor, citá la fuente.</li>
+                <li>Redistribuir los datos identificando erróneamente la fuente original.</li>
+                <li>Usar el sitio para acosar a titulares de avisos (los datos están anonimizados, pero contactanos si pasa algo).</li>
+            </ul>
+
+            <h2>Garantía</h2>
+            <p>El sitio se ofrece "tal cual". No garantizamos exactitud, completitud, ni disponibilidad continua de los datos. Las propiedades son scrapeos de portales públicos y pueden contener errores.</p>
+            <p>Hacemos nuestro mejor esfuerzo para:</p>
+            <ul>
+                <li>Remover listings ya no disponibles (reaper).</li>
+                <li>Filtrar listings fuera de Paraguay (bbox check).</li>
+                <li>Anonimizar teléfonos y emails de agentes.</li>
+            </ul>
+
+            <h2>Jurisdicción</h2>
+            <p>El sitio se opera desde servidores Cloudflare (US / EU). Para litigios aplica la ley de la República del Paraguay.</p>
+
+            <h2>Reportar problemas</h2>
+            <ul>
+                <li>Datos incorrectos → <a href="mailto:legal@ai-whisperers.org">legal@ai-whisperers.org</a></li>
+                <li>Vulnerabilidades → <a href="mailto:security@ai-whisperers.org">security@ai-whisperers.org</a></li>
+                <li>Otros → <a href="contact.html">/contact</a></li>
+            </ul>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+    </script>
+</body>
+</html>

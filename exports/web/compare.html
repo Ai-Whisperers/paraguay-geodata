@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Comparar propiedades — Paraguay Geodata</title>
+    <meta name="i18n-title" content="compare.title">
+    <meta name="description" content="Compará hasta 4 propiedades de Paraguay lado a lado: precio, área, habitaciones, baños, fuente y precio por m².">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/compare.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" class="active" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <h1 style="font-size:28px;margin:0 0 16px;" data-i18n="compare.title">Comparar propiedades</h1>
+        <p style="color:var(--fg-dim);margin:0 0 24px;" id="compare-help" data-i18n="compare.empty">Elegí hasta 4 propiedades y hacé clic en "Comparar" para verlas una al lado de la otra.</p>
+
+        <div id="compare-table-container"></div>
+
+        <section style="margin-top:48px;">
+            <h2 style="font-size:18px;margin:0 0 8px;">Cómo agregar propiedades</h2>
+            <ol style="color:var(--fg-dim);font-size:13px;line-height:1.7;">
+                <li>Andá al <a href="./">mapa nacional</a> y hacé clic en cualquier punto rojo.</li>
+                <li>Hacé clic en el botón "Comparar" del popup.</li>
+                <li>Volvé a esta página para ver el listado lado a lado.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+
+        var FX = 7300;  // PYG per USD
+
+        function escapeHtml(s) {
+            if (s == null) return '';
+            return String(s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+        function fmtUSD(v) { return v ? '$' + Math.round(v).toLocaleString('en-US') : '—'; }
+        function fmtPYG(v) { return v ? '₲ ' + Math.round(v).toLocaleString('es-PY') : '—'; }
+        function fmtNum(v, suffix) { return v ? v.toLocaleString('en-US') + (suffix || '') : '—'; }
+
+        function render() {
+            var ids = window.PY.compare.get();
+            var container = document.getElementById('compare-table-container');
+            if (!ids || ids.length === 0) {
+                container.innerHTML = '<div class="saved-empty"><div class="icon">⚖️</div><p data-i18n="compare.empty">Elegí hasta 4 propiedades y hacé clic en "Comparar" para verlas una al lado de la otra.</p></div>';
+                return;
+            }
+
+            fetch('./data/properties_latest.geojson')
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (d) {
+                    if (!d || !d.features) { container.textContent = 'Error cargando propiedades.'; return; }
+                    var byId = {};
+                    d.features.forEach(function (f) { byId[f.properties.id] = f; });
+                    var props = ids.map(function (i) { return byId[i]; }).filter(Boolean);
+                    if (props.length === 0) {
+                        container.innerHTML = '<div class="saved-empty"><div class="icon">🗑️</div>Las propiedades ya no están disponibles.</div>';
+                        return;
+                    }
+
+                    var headers = ['common.cancel', 'compare.table.title', 'compare.table.price', 'compare.table.area', 'compare.table.beds', 'compare.table.baths', 'compare.table.city', 'compare.table.source', 'compare.table.pricePerSqm'];
+                    // Build rows
+                    var lang = window.PY_I18N ? window.PY_I18N.getLang() : 'es';
+                    function t(k) {
+                        var i = window.PY_I18N.i18n;
+                        return (i[lang] && i[lang][k]) || i.es[k] || k;
+                    }
+
+                    // Compute "winner" per row
+                    var prices = props.map(function (p) { return p.properties.price_pyg; });
+                    var areas = props.map(function (p) { return p.properties.area_sqm; });
+                    var beds = props.map(function (p) { return p.properties.bedrooms; });
+                    var baths = props.map(function (p) { return p.properties.bathrooms; });
+                    var pps = props.map(function (p) {
+                        if (p.properties.price_pyg && p.properties.area_sqm) {
+                            return Math.round(p.properties.price_pyg / p.properties.area_sqm);
+                        }
+                        return null;
+                    });
+                    var minPriceIdx = prices.indexOf(Math.min.apply(null, prices.filter(function (v) { return v; })));
+                    var maxAreaIdx = areas.indexOf(Math.max.apply(null, areas.filter(function (v) { return v; })));
+                    var minPpsIdx = pps.indexOf(Math.min.apply(null, pps.filter(function (v) { return v; })));
+
+                    var html = '<div style="overflow-x:auto;"><table class="compare-table">';
+                    // Header
+                    html += '<thead><tr><th></th>';
+                    props.forEach(function (p) { html += '<th>' + escapeHtml((p.properties.title || '').slice(0, 60)) + '</th>'; });
+                    html += '</tr></thead><tbody>';
+
+                    function row(labelKey, getter, fmt, opts) {
+                        opts = opts || {};
+                        var idxes = opts.winners || [];
+                        html += '<tr><th>' + escapeHtml(t(labelKey)) + '</th>';
+                        props.forEach(function (p, i) {
+                            var v = getter(p);
+                            var cls = (idxes.indexOf(i) >= 0) ? ' class="num winner"' : ' class="num"';
+                            var marker = (idxes.indexOf(i) >= 0) ? '<span class="winner-marker">best</span>' : '';
+                            html += '<td' + cls + '>' + fmt(v) + marker + '</td>';
+                        });
+                        html += '</tr>';
+                    }
+
+                    var winners = [];
+                    if (minPriceIdx >= 0) winners.push(minPriceIdx);
+                    if (maxAreaIdx >= 0) winners.push(maxAreaIdx);
+                    if (minPpsIdx >= 0) winners.push(minPpsIdx);
+
+                    row('compare.table.title', function (p) { return (p.properties.title || '').slice(0, 60); }, escapeHtml, {});
+                    row('compare.table.price', function (p) { return p.properties.price_pyg; }, fmtPYG, { winners: minPriceIdx >= 0 ? [minPriceIdx] : [] });
+                    row('compare.table.area', function (p) { return p.properties.area_sqm; }, function (v) { return v ? fmtNum(v, ' m²') : '—'; }, { winners: maxAreaIdx >= 0 ? [maxAreaIdx] : [] });
+                    row('compare.table.beds', function (p) { return p.properties.bedrooms; }, function (v) { return v ? v + ' ' + t('listing.beds') : '—'; }, {});
+                    row('compare.table.baths', function (p) { return p.properties.bathrooms; }, function (v) { return v ? v + ' ' + t('listing.baths') : '—'; }, {});
+                    row('compare.table.city', function (p) { return (p.properties.city || '') + ' · ' + (p.properties.state_province || ''); }, escapeHtml, {});
+                    row('compare.table.source', function (p) { return p.properties.source; }, escapeHtml, {});
+                    row('compare.table.pricePerSqm', function (p) {
+                        if (p.properties.price_pyg && p.properties.area_sqm) return Math.round(p.properties.price_pyg / p.properties.area_sqm);
+                        return null;
+                    }, fmtPYG, { winners: minPpsIdx >= 0 ? [minPpsIdx] : [] });
+
+                    html += '</tbody></table></div>';
+                    html += '<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">';
+                    props.forEach(function (p) {
+                        html += '<a class="btn btn-secondary btn-sm" target="_blank" rel="noopener" href="' + escapeHtml(p.properties.source_url) + '">' + t('listing.openSource') + ' →</a>';
+                    });
+                    html += '<button class="btn btn-danger btn-sm" onclick="if(confirm(\'¿Vaciar comparativa?\')){window.PY.compare.clear();render();}">Limpiar</button>';
+                    html += '</div>';
+
+                    container.innerHTML = html;
+                });
+        }
+
+        window.render = render;
+        document.addEventListener('i18n-changed', render);
+        render();
+    </script>
+</body>
+</html>

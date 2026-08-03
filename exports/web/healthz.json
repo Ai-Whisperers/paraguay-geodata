@@ -1,0 +1,33 @@
+{
+  "status": "ok",
+  "service": "paraguay-geodata",
+  "version": "2026-08-03",
+  "deployed_at": "2026-08-03T12:00:00Z",
+  "uptime_seconds": 0,
+  "data": {
+    "properties": {
+      "total_listings": 5784,
+      "sources": ["infocasas", "tulugar", "asuncion_estate"],
+      "last_refresh": "2026-08-02T22:56:00Z",
+      "freshness_median_hours": 24
+    },
+    "layers": {
+      "buildings": true,
+      "roads": true,
+      "water": true,
+      "construction_zones": true,
+      "flood_risk": true,
+      "climate_risk": true,
+      "hillshade": true,
+      "biodiversity_gbif": true
+    },
+    "languages": ["es", "en", "pt", "gn"]
+  },
+  "endpoints": {
+    "properties_geojson": "/data/properties_latest.geojson",
+    "properties_summary_json": "/api/v1/properties.json",
+    "facets": "/data/facets.json",
+    "freshness": "/data/data_freshness.json",
+    "fair_price_model": "/data/ml/fair_price_model_v2.json"
+  }
+}

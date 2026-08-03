@@ -24,5 +24,17 @@ http://datos.paragu-ai.com/*    https://datos.paragu-ai.com/:splat    301
 # /properties.json → main properties geojson (legacy)
 /properties.json  /data/properties_latest.geojson  301
 
+# Friendly URLs for new pages
+/use-cases  /use-cases.html  301
+/compare     /compare.html     301
+/saved       /saved.html       301
+/faq         /faq.html         301
+/contact     /contact.html     301
+/privacy     /privacy.html     301
+/terms       /terms.html       301
+/changelog   /changelog.html   301
+/roadmap     /roadmap.html     301
+/listing     /listing.html     301
+
 # 404 page (SPA fallback for everything else)
 /*  /404.html  404

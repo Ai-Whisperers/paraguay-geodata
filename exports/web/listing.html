@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Propiedad — Paraguay Geodata</title>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/listing.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <nav class="breadcrumb">
+            <a href="./">Nacional</a><span class="sep">›</span>
+            <span id="bc-city">—</span><span class="sep">›</span>
+            <span>Propiedad</span>
+        </nav>
+        <div id="listing-detail">Cargando…</div>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+
+        var lang = (new URLSearchParams(location.search).get('lang')) ||
+                   (window.PY_I18N && window.PY_I18N.getLang()) || 'es';
+        var i = window.PY_I18N.i18n;
+        function t(k) { return (i[lang] && i[lang][k]) || i.es[k] || k; }
+
+        function escapeHtml(s) {
+            if (s == null) return '';
+            return String(s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+        function fmtUSD(v) { return v ? '$' + Math.round(v).toLocaleString('en-US') : '—'; }
+        function fmtPYG(v) { return v ? '₲ ' + Math.round(v).toLocaleString('es-PY') : '—'; }
+
+        function renderListing(p) {
+            var pp = p.properties;
+            var coords = p.geometry && p.geometry.coordinates;
+            var lat = coords ? coords[1] : null;
+            var lon = coords ? coords[0] : null;
+
+            // Update page title
+            document.title = (pp.title || 'Propiedad') + ' — Paraguay Geodata';
+
+            // Update breadcrumb city
+            document.getElementById('bc-city').textContent = (pp.city || pp.state_province || '—');
+
+            // Update canonical + JSON-LD
+            var can = document.querySelector('link[rel="canonical"]');
+            if (can) can.href = 'https://geodata.paragu-ai.com/listing.html?id=' + encodeURIComponent(pp.id);
+
+            // Render
+            var html = '';
+            html += '<h1 style="font-size:24px;margin:0 0 16px;">' + escapeHtml((pp.title || 'Propiedad').slice(0, 140)) + '</h1>';
+            html += '<div class="row" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px;">';
+            html += '<div>';
+            html += '<div style="font-size:36px;font-weight:700;color:var(--accent);">' +
+                    (pp.price_usd ? fmtUSD(pp.price_usd) : (pp.price_pyg ? fmtPYG(pp.price_pyg) : '—')) + '</div>';
+            if (pp.price_usd && pp.price_pyg) {
+                html += '<div style="color:var(--fg-dim);font-size:13px;">≈ ' + fmtPYG(pp.price_pyg) + '</div>';
+            }
+            html += '</div>';
+            html += '<div style="text-align:right;">';
+            html += '<button class="btn save-btn" onclick="toggleSave(\'' + escapeHtml(pp.id) + '\', this)">' +
+                    (window.PY.saved.has(pp.id) ? '★ ' + t('listing.saved') : '☆ ' + t('listing.save')) + '</button> ';
+            html += '<button class="btn btn-secondary" onclick="addCompare(\'' + escapeHtml(pp.id) + '\')">' + t('listing.compare') + '</button> ';
+            html += '<button class="btn btn-secondary" onclick="shareListing()">' + t('listing.share') + '</button>';
+            html += '</div></div>';
+
+            html += '<div style="background:var(--bg-elev);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:16px;">';
+            html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;">';
+            if (pp.bedrooms != null) html += kv(t('listing.beds'), pp.bedrooms);
+            if (pp.bathrooms != null) html += kv(t('listing.baths'), pp.bathrooms);
+            if (pp.area_sqm != null) html += kv(t('listing.area'), pp.area_sqm + ' m²');
+            if (lat != null) html += kv('Coordenadas', lat.toFixed(4) + ', ' + lon.toFixed(4));
+            html += kv(t('listing.source'), pp.source || '—');
+            html += kv('Listing ID', pp.id);
+            html += '</div></div>';
+
+            if (pp.description) {
+                html += '<div style="background:var(--bg-elev);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:16px;">';
+                html += '<h3 style="margin:0 0 8px;font-size:14px;">Descripción</h3>';
+                html += '<div style="white-space:pre-wrap;color:var(--fg-dim);font-size:13px;line-height:1.6;">' + escapeHtml(pp.description.slice(0, 4000)) + '</div>';
+                html += '</div>';
+            }
+
+            // Actions
+            html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+            html += '<a class="btn" target="_blank" rel="noopener" href="' + escapeHtml(pp.source_url) + '">' + t('listing.openSource') + ' ↗</a>';
+            if (lat != null) {
+                html += '<a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=' + lat + '&mlon=' + lon + '#map=18/' + lat + '/' + lon + '">OSM ↗</a>';
+                html += '<a class="btn btn-secondary" target="_blank" rel="noopener" href="https://www.google.com/maps?q=' + lat + ',' + lon + '">Google Maps ↗</a>';
+            }
+            html += '</div>';
+
+            // Provenance
+            html += '<div style="background:var(--bg-elev);border:1px solid var(--line);border-radius:8px;padding:16px;font-size:12px;color:var(--fg-dim);">';
+            html += '<strong>Provenance:</strong> scraped ' + escapeHtml(pp.scraped_at_utc || '—') + ' from <code>' + escapeHtml(pp.source || '—') + '</code>.<br>';
+            html += '<strong>Disclaimer:</strong> Paraguay Geodata no verifica ni garantiza la exactitud de los datos; viene directamente del portal fuente. Verificá siempre en el aviso original.';
+            html += '</div>';
+
+            // Image gallery (if any)
+            if (pp.images && pp.images.length) {
+                html += '<h3 style="margin:24px 0 12px;font-size:16px;">Fotos</h3>';
+                html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
+                pp.images.slice(0, 12).forEach(function (img) {
+                    html += '<img src="' + escapeHtml(img) + '" alt="Foto de la propiedad" loading="lazy" style="width:100%;height:200px;object-fit:cover;border-radius:6px;border:1px solid var(--line);">';
+                });
+                html += '</div>';
+            }
+
+            document.getElementById('listing-detail').innerHTML = html;
+
+            // Inject JSON-LD for SEO
+            var ld = {
+                "@context": "https://schema.org",
+                "@type": "Residence",
+                "name": pp.title || 'Property',
+                "url": pp.source_url,
+                "description": (pp.description || '').slice(0, 200),
+                "geo": lat != null ? { "@type": "GeoCoordinates", "latitude": lat, "longitude": lon } : undefined,
+                "address": (pp.city || pp.state_province) ? {
+                    "@type": "PostalAddress",
+                    "addressLocality": pp.city,
+                    "addressRegion": pp.state_province,
+                    "addressCountry": "PY"
+                } : undefined,
+                "image": pp.images && pp.images.length ? pp.images : undefined,
+                "numberOfBedrooms": pp.bedrooms || undefined,
+                "numberOfBathroomsTotal": pp.bathrooms || undefined,
+                "floorSize": pp.area_sqm ? { "@type": "QuantitativeValue", "value": pp.area_sqm, "unitCode": "MTK" } : undefined,
+                "offers": pp.price_usd ? { "@type": "Offer", "price": pp.price_usd, "priceCurrency": "USD" } :
+                           pp.price_pyg ? { "@type": "Offer", "price": pp.price_pyg, "priceCurrency": "PYG" } : undefined,
+            };
+            var s = document.createElement('script');
+            s.type = 'application/ld+json';
+            s.textContent = JSON.stringify(ld);
+            document.head.appendChild(s);
+        }
+
+        function kv(k, v) {
+            return '<div><div style="color:var(--fg-dim);font-size:11px;text-transform:uppercase;letter-spacing:.04em;">' +
+                   escapeHtml(k) + '</div><div style="font-size:14px;margin-top:2px;">' + escapeHtml(v) + '</div></div>';
+        }
+
+        window.toggleSave = function (id, btn) {
+            var added = window.PY.saved.toggle(id);
+            btn.textContent = added ? '★ ' + t('listing.saved') : '☆ ' + t('listing.save');
+            document.dispatchEvent(new Event('PY:saved-changed'));
+        };
+        window.addCompare = function (id) {
+            if (window.PY.compare.toggle(id)) window.location.href = 'compare.html';
+        };
+        window.shareListing = function () {
+            navigator.clipboard.writeText(location.href).then(function () {
+                window.PY.notify(t('listing.linkCopied'), 'good');
+            });
+        };
+
+        // Find by ?id=
+        var qs = new URLSearchParams(location.search);
+        var id = qs.get('id');
+        if (!id) {
+            document.getElementById('listing-detail').innerHTML = '<div class="saved-empty"><div class="icon">🔍</div>Necesitás un <code>?id=</code> en la URL.</div>';
+        } else {
+            fetch('./data/properties_latest.geojson')
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (d) {
+                    if (!d || !d.features) {
+                        document.getElementById('listing-detail').innerHTML = '<div class="saved-empty">No se pudo cargar el dataset.</div>';
+                        return;
+                    }
+                    var feat = null;
+                    for (var i = 0; i < d.features.length; i++) {
+                        if (d.features[i].properties.id === id) { feat = d.features[i]; break; }
+                    }
+                    if (!feat) {
+                        document.getElementById('listing-detail').innerHTML =
+                            '<div class="saved-empty"><div class="icon">🗑️</div>Esta propiedad ya no está en el dataset actual.</div>';
+                        return;
+                    }
+                    renderListing(feat);
+                })
+                .catch(function () {
+                    document.getElementById('listing-detail').innerHTML = '<div class="saved-empty">Error de red.</div>';
+                });
+        }
+    </script>
+</body>
+</html>

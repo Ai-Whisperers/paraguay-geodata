@@ -1,0 +1,155 @@
+{
+  "generated_at": "2026-08-02T23:00:34.131603Z",
+  "feature_count": 5784,
+  "facets": {
+    "depto": [
+      {
+        "value": "Asunción",
+        "count": 2047
+      },
+      {
+        "value": "Central",
+        "count": 1453
+      },
+      {
+        "value": "?",
+        "count": 1165
+      },
+      {
+        "value": "Cordillera",
+        "count": 458
+      },
+      {
+        "value": "Alto Paraná",
+        "count": 285
+      },
+      {
+        "value": "Itapúa",
+        "count": 111
+      },
+      {
+        "value": "Presidente Hayes",
+        "count": 82
+      },
+      {
+        "value": "Paraguarí",
+        "count": 48
+      },
+      {
+        "value": "Boquerón",
+        "count": 41
+      },
+      {
+        "value": "Caaguazú",
+        "count": 24
+      },
+      {
+        "value": "Ñeembucú",
+        "count": 17
+      },
+      {
+        "value": "San Pedro",
+        "count": 15
+      },
+      {
+        "value": "Misiones",
+        "count": 13
+      },
+      {
+        "value": "Alto Paraguay",
+        "count": 9
+      },
+      {
+        "value": "Concepción",
+        "count": 8
+      },
+      {
+        "value": "Canindeyú",
+        "count": 5
+      },
+      {
+        "value": "Caazapá",
+        "count": 2
+      },
+      {
+        "value": "Amambay",
+        "count": 1
+      }
+    ],
+    "property_type": [
+      {
+        "value": "apartment",
+        "count": 1470
+      },
+      {
+        "value": "house",
+        "count": 1235
+      },
+      {
+        "value": "land",
+        "count": 1178
+      },
+      {
+        "value": "?",
+        "count": 1156
+      },
+      {
+        "value": "commercial",
+        "count": 520
+      },
+      {
+        "value": "office",
+        "count": 225
+      }
+    ],
+    "currency": [
+      {
+        "value": "USD",
+        "count": 4018
+      },
+      {
+        "value": "?",
+        "count": 1156
+      },
+      {
+        "value": "PYG",
+        "count": 610
+      }
+    ],
+    "source": [
+      {
+        "value": "asuncion_estate",
+        "count": 2590
+      },
+      {
+        "value": "tulugar",
+        "count": 2038
+      },
+      {
+        "value": "infocasas",
+        "count": 1156
+      }
+    ],
+    "features": []
+  },
+  "freshness": {
+    "min": "2026-07-11T03:17:00.691897+00:00",
+    "max": "2026-08-02T22:53:15.880985+00:00",
+    "median_days": 1
+  },
+  "quality": {
+    "total": 5784,
+    "clean": 2576,
+    "flagged": 3208,
+    "by_flag": {
+      "missing_price_pyg_inferred": 1429,
+      "missing_area_ha_inferred": 1340,
+      "null_property_type": 1156,
+      "area_inferred_from_title": 674,
+      "missing_price": 433,
+      "missing_area": 87,
+      "area_recovered_from_title_m2": 7,
+      "area_published_round_but_title_larger": 2
+    }
+  }
+}

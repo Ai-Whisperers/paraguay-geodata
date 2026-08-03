@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Privacidad — Paraguay Geodata</title>
+    <meta name="description" content="Política de privacidad: qué datos recopilamos (ninguno), qué cookies usamos (2), tus derechos.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/privacy.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <article class="prose">
+            <h1>Política de privacidad</h1>
+            <p><em>Última actualización: 2026-08-03.</em></p>
+            <p>Paraguay Geodata es un sitio público de datos abiertos. No requiere login, no rastrea usuarios y no vende información personal — porque no la recopilamos.</p>
+
+            <h2>Qué datos NO recopilamos</h2>
+            <ul>
+                <li>No tenemos cuentas de usuario (no hay qué email/nombre).</li>
+                <li>No usamos Google Analytics, Plausible, ni Matomo en producción.</li>
+                <li>No tenemos pixels de Facebook, TikTok, ni LinkedIn.</li>
+                <li>No vendemos información a terceros.</li>
+                <li>Los servers de Cloudflare pueden registrar IPs para rate-limiting y DDoS protection. Esos logs son infraestructura de Cloudflare, no nuestros.</li>
+            </ul>
+
+            <h2>Qué cookies usamos</h2>
+            <p>Usamos <code>localStorage</code> del navegador (no son cookies transmitidas, pero el mismo principio aplica):</p>
+            <ul>
+                <li><code>paraguay-geodata.lang</code> — tu idioma preferido (es / en / pt / gn).</li>
+                <li><code>py.saved</code> — los IDs de las propiedades que marcaste con ★.</li>
+                <li><code>py.compare</code> — los IDs de las propiedades que agregaste a la comparativa.</li>
+                <li><code>py.cookieChoice</code> — si aceptaste o rechazaste cookies (sólo necesario).</li>
+                <li><code>py.onboarded</code> — si ya viste el tour inicial.</li>
+            </ul>
+            <p>Todo esto queda en tu navegador. Lo podés borrar con <code>localStorage.clear()</code> en la consola, o desde las herramientas de DevTools.</p>
+
+            <h2>Datos que mostramos</h2>
+            <p>Las propiedades que mostramos vienen de scrapers públicos (InfoCasas, TuLugar, Asunción.estate). <strong>Removemos teléfonos y emails de agentes</strong> antes de publicar — sólo mostramos precio, superficie, dirección pública, fuente del aviso.</p>
+
+            <h2>Si sos titular de un aviso y querés que lo saquemos</h2>
+            <p>Mandanos a <a href="mailto:legal@ai-whisperers.org">legal@ai-whisperers.org</a> con:</p>
+            <ul>
+                <li>La URL del aviso.</li>
+                <li>Tu nombre y rol (titular / inmobiliaria autorizada).</li>
+                <li>Cualquier prueba de titularidad.</li>
+            </ul>
+            <p>Respondemos en 5 días hábiles y eliminamos el listing del dataset público.</p>
+
+            <h2>Para visitantes de Brasil / Argentina / UE</h2>
+            <p>Aplicamos las mismas reglas a todos los visitantes. Si estás cubierto por LGPD (Brasil), tenés derecho a:</p>
+            <ul>
+                <li><strong>Acceso</strong>: pedinos una copia de los datos públicos que mostramos de tu propiedad.</li>
+                <li><strong>Corrección</strong>: si un dato es incorrecto, lo corregimos en 5 días.</li>
+                <li><strong>Eliminación</strong>: lo retiramos del dataset público.</li>
+            </ul>
+            <p>Si estás cubierto por GDPR (UE), tenés derechos equivalentes. <a href="mailto:legal@ai-whisperers.org">Contactanos</a>.</p>
+
+            <h2>Cambios a esta política</h2>
+            <p>Si cambiamos algo importante, lo publicamos acá con fecha. La historia de cambios está en <a href="changelog.html">/changelog</a>.</p>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+    </script>
+</body>
+</html>

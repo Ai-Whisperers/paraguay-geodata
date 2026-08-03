@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Tus propiedades guardadas — Paraguay Geodata</title>
+    <meta name="i18n-title" content="saved.title">
+    <meta name="description" content="Tus propiedades guardadas. Marcá con ★ en el mapa y aparecen acá.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/saved.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html" class="active">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <h1 style="font-size:28px;margin:0 0 16px;" data-i18n="saved.title">Tus propiedades guardadas</h1>
+        <p style="color:var(--fg-dim);margin:0 0 24px;">Las propiedades se guardan en tu navegador (localStorage). No se envía a ningún servidor.</p>
+
+        <div id="saved-list"></div>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+
+        function escapeHtml(s) {
+            if (s == null) return '';
+            return String(s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+        function fmtUSD(v) { return v ? '$' + Math.round(v).toLocaleString('en-US') : '—'; }
+        function fmtPYG(v) { return v ? '₲ ' + Math.round(v).toLocaleString('es-PY') : '—'; }
+
+        function render() {
+            var ids = window.PY.saved.get();
+            var list = document.getElementById('saved-list');
+            if (!ids || ids.length === 0) {
+                list.innerHTML = '<div class="saved-empty"><div class="icon">⭐</div><p data-i18n="saved.empty">Aún no guardaste ninguna propiedad. Hacé clic en ★ en cualquier listing.</p></div>';
+                document.querySelectorAll('[data-saved-count]').forEach(function (b) { b.textContent = '0'; });
+                return;
+            }
+            fetch('./data/properties_latest.geojson')
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (d) {
+                    if (!d || !d.features) { list.textContent = 'Error.'; return; }
+                    var byId = {};
+                    d.features.forEach(function (f) { byId[f.properties.id] = f; });
+                    var props = ids.map(function (i) { return byId[i]; }).filter(Boolean);
+
+                    var html = '';
+                    if (props.length === 0) {
+                        html += '<div class="saved-empty"><div class="icon">🗑️</div>Las propiedades guardadas ya no están en el dataset actual.</div>';
+                    } else {
+                        props.forEach(function (p) {
+                            var pp = p.properties;
+                            html += '<div class="listing-card" id="card-' + escapeHtml(pp.id) + '">' +
+                                '<div class="row1">' +
+                                  '<div class="title">' + escapeHtml((pp.title || '').slice(0, 100)) + '</div>' +
+                                  '<button class="save-btn saved" aria-label="Quitar" onclick="removeSaved(\'' + escapeHtml(pp.id) + '\')">★</button>' +
+                                '</div>' +
+                                '<div class="price">' + (pp.price_usd ? fmtUSD(pp.price_usd) : fmtPYG(pp.price_pyg)) + '</div>' +
+                                '<div class="price-secondary">' + (pp.price_usd ? fmtPYG(pp.price_pyg) : '') + '</div>' +
+                                '<div class="row2">' +
+                                  '<span>📍 ' + escapeHtml((pp.city || '—') + ' · ' + (pp.state_province || '')) + '</span>' +
+                                  (pp.bedrooms ? '<span>🛏 ' + pp.bedrooms + '</span>' : '') +
+                                  (pp.bathrooms ? '<span>🚿 ' + pp.bathrooms + '</span>' : '') +
+                                  (pp.area_sqm ? '<span>📐 ' + pp.area_sqm + ' m²</span>' : '') +
+                                  '<span>🏷 ' + escapeHtml(pp.source || '') + '</span>' +
+                                '</div>' +
+                                '<div class="row4">' +
+                                  '<a class="btn btn-sm" target="_blank" rel="noopener" href="' + escapeHtml(pp.source_url) + '">Ver aviso →</a>' +
+                                  '<button class="btn btn-secondary btn-sm" onclick="addToCompare(\'' + escapeHtml(pp.id) + '\')">Comparar</button>' +
+                                '</div>' +
+                                '</div>';
+                        });
+                    }
+
+                    html += '<div style="margin-top:16px;"><button class="btn btn-danger btn-sm" onclick="if(confirm(\'¿Borrar todas?\')){window.PY.saved.clear();render();}">Borrar todas</button></div>';
+                    list.innerHTML = html;
+                });
+        }
+
+        window.render = render;
+        window.removeSaved = function (id) {
+            window.PY.saved.remove(id);
+            document.dispatchEvent(new Event('PY:saved-changed'));
+            render();
+        };
+        window.addToCompare = function (id) {
+            if (window.PY.compare.toggle(id)) window.location.href = 'compare.html';
+        };
+        document.addEventListener('i18n-changed', render);
+        render();
+    </script>
+</body>
+</html>

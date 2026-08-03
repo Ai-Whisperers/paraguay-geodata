@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a14">
+    <title>Casos de uso — Paraguay Geodata</title>
+    <meta name="description" content="Para quién es Paraguay Geodata: inversores, arquitectos, agrónomos, gobierno. Cuatro workflows reales con datos en vivo.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://geodata.paragu-ai.com/use-cases.html">
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <header class="site-header">
+        <h1><a href="./" style="color:inherit;text-decoration:none;">Paraguay <span class="accent">Geodata</span></a></h1>
+        <nav class="primary">
+            <a href="./" data-i18n="nav.home">Nacional</a>
+            <a href="datos.html" data-i18n="nav.data">Datos</a>
+            <a href="mapa.html" data-i18n="nav.viewer">Visor por tile</a>
+            <a href="use-cases.html" class="active" data-i18n="nav.useCases">Casos de uso</a>
+            <a href="compare.html" data-i18n="nav.compare">Comparar</a>
+            <a href="saved.html">★ (<span data-saved-count>0</span>)</a>
+            <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+            <a href="contact.html" data-i18n="nav.contact">Contacto</a>
+            <a href="changelog.html" data-i18n="nav.changelog">Cambios</a>
+            <a href="https://github.com/Ai-Whisperers/paraguay-geodata" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+        <span id="lang-slot"></span>
+    </header>
+
+    <main id="main">
+        <h1 style="font-size:32px;margin:0 0 16px;">Para quién es Paraguay Geodata</h1>
+        <p style="color:var(--fg-dim);margin:0 0 24px;font-size:15px;max-width:760px;">Cuatro perfiles reales que ya usan los datos. Cada uno tiene su propio flujo y su propio subset de capas.</p>
+
+        <div class="card-grid" style="grid-template-columns:repeat(2,1fr);">
+            <article class="card">
+                <h3>📈 Inversores inmobiliarios</h3>
+                <p><strong>Lo que ven:</strong> las 5,784 propiedades en venta y alquiler, con precio en USD + PYG, días en el mercado y fuente original. <strong>Lo que filtran:</strong> ciudad, fuente, rango de precio, habitaciones. <strong>Lo que exportan:</strong> GeoJSON filtrado por viewport (gratis) o nacional ($29).</p>
+                <a class="cta" href="./">Abrir mapa →</a>
+            </article>
+            <article class="card">
+                <h3>📐 Arquitectos / ingenieros</h3>
+                <p><strong>Lo que ven:</strong> zonas de construcción, loteos, riesgo de inundación, clima, hillshade DEM. <strong>Lo que exportan:</strong> bundle GeoJSON nacional con todo (3.3 MB) o DXF para AutoCAD ($99). <strong>Lo que imprimen:</strong> plan PDF A4 con escala gráfica + norte + leyenda.</p>
+                <a class="cta" href="architect-plan.html">Abrir plan →</a>
+            </article>
+            <article class="card">
+                <h3>🌾 Agrónomos / productores</h3>
+                <p><strong>Lo que ven:</strong> INBIO zafra por distrito, NASA POWER temperatura y lluvia diaria, GBIF biodiversidad. <strong>Lo que descargan:</strong> GeoJSON de zafra, snapshot anual por departamento.</p>
+                <a class="cta" href="datos.html">Abrir datos agrícolas →</a>
+            </article>
+            <article class="card">
+                <h3>🏛️ Gobierno / planificadores</h3>
+                <p><strong>Lo que ven:</strong> catastro nacional, fiscalidad inmobilaria, riesgo climático, sectores indígenas (INBIO), infraestructura MOPC. <strong>Lo que usan:</strong> briefs automáticos, mapas temáticos para licitaciones, comparativos anuales.</p>
+                <a class="cta" href="datos.html">Abrir datos públicos →</a>
+            </article>
+        </div>
+
+        <section style="margin-top:48px;">
+            <h2 style="font-size:22px;margin:0 0 16px;">Workflows reales</h2>
+            <article class="prose">
+                <h3>Inversor: encontrar el mejor listing</h3>
+                <ol>
+                    <li>Abrí <a href="./">el mapa nacional</a>.</li>
+                    <li>Aplicá filtro: ciudad = "Asunción", fuente = "asuncion_estate" (la que tiene coords reales).</li>
+                    <li>Hacé clic en cualquier punto. Mirá precio/m² vs mediana de la zona.</li>
+                    <li>Click ★ para guardar o "Comparar" para ver 2-4 side by side.</li>
+                </ol>
+                <h3>Arquitecto: preparar un plan para un lote</h3>
+                <ol>
+                    <li>En <a href="architect-plan.html">/architect-plan</a> activá las capas que necesitás (construcción, riesgo, hillshade).</li>
+                    <li>Hacé zoom a tu zona de trabajo.</li>
+                    <li>"🖨 Imprimir / Guardar PDF" → A4 horizontal con escala + norte.</li>
+                    <li>Para CAD: <a href="pricing.html">comprá el bundle DXF nacional</a> ($99) → cargalo en AutoCAD.</li>
+                </ol>
+                <h3>Agrónomo: comparar zafras</h3>
+                <ol>
+                    <li>Andá a <a href="datos.html">datos.html</a> → sección "Agricultura".</li>
+                    <li>Activá la capa INBIO zafra. El color es el rendimiento por departamento.</li>
+                    <li>Para análisis: descargá <code>data/inbio_zafra_strip.json</code> directamente.</li>
+                </ol>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span><span data-i18n="common.license">Código MIT · Datos CC0</span></span>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="common.privacy">Privacidad</a>
+        <span>·</span>
+        <a href="terms.html" data-i18n="common.terms">Términos</a>
+        <span>·</span>
+        <a href="https://github.com/Ai-Whisperers/paraguay-geodata" data-i18n="nav.github">GitHub</a>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="site.js"></script>
+    <script>
+        (function () {
+            var slot = document.getElementById('lang-slot');
+            if (slot && window.PY_I18N && window.PY_I18N.buildLangSwitcher) window.PY_I18N.buildLangSwitcher('#lang-slot');
+        })();
+    </script>
+</body>
+</html>
