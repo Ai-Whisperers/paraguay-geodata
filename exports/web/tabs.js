@@ -141,11 +141,15 @@
         });
 
         // Climate: identify climate risk / flood risk / hillshade by heading text
+        // Skip if el is already inside a tabpanel (avoids HierarchyRequestError)
+        // Skip ALL divs already inside a tabpanel (avoid HierarchyRequestError)
         var allDivs = aside.querySelectorAll('div[id]');
         allDivs.forEach(function (el) {
-            if (el.id.match(/climate/i)) climatePanel.appendChild(el);
-            else if (el.id.match(/flood/i)) climatePanel.appendChild(el);
-            else if (el.id.match(/hillshade/i)) climatePanel.appendChild(el);
+            // Only move elements that are still direct children of <aside>
+            if (!aside.contains(el) || el.parentElement !== aside) return;
+            if (climatePanel && el.id.match(/climate/i)) climatePanel.appendChild(el);
+            else if (climatePanel && el.id.match(/flood/i)) climatePanel.appendChild(el);
+            else if (climatePanel && el.id.match(/hillshade/i)) climatePanel.appendChild(el);
         });
 
         // Properties: every other section that was originally in <aside>

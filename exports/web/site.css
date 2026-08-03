@@ -100,7 +100,8 @@ header.site-header nav.primary a.active { background: var(--bg-elev-2); color: v
 }
 
 /* ===== Main layout ===== */
-main {
+/* Content pages only (NOT the home page map).  Home uses .home-main class for its grid+map. */
+main:not(.home-main) {
     max-width: 1200px; margin: 0 auto; padding: 24px 16px;
 }
 

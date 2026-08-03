@@ -491,14 +491,25 @@ function getLang() {
     return 'es';
 }
 
-// Build a language switcher <select> and append to the given parent
+// Build a language switcher <select> and append to the given parent.
+// Accepts either a CSS selector string OR a DOM Element.
 function buildLangSwitcher(parentSel) {
-    var parent = document.querySelector(parentSel);
+    var parent = (parentSel && parentSel.nodeType === 1)
+        ? parentSel
+        : document.querySelector(parentSel);
     if (!parent) return;
     var sel = document.createElement('select');
     sel.id = 'lang-switcher';
     sel.setAttribute('aria-label', getI18n('common.language', getLang()));
-    sel.style.cssText = 'background:var(--bg-elev); color:var(--fg); border:1px solid var(--line); padding:4px 8px; border-radius:4px; font-size:12px; cursor:pointer; margin-left:8px;';
+    // Style with individual properties (avoids CSS var parse errors in style.cssText)
+    sel.style.background = 'var(--bg-elev)';
+    sel.style.color = 'var(--fg)';
+    sel.style.border = '1px solid var(--line)';
+    sel.style.padding = '4px 8px';
+    sel.style.borderRadius = '4px';
+    sel.style.fontSize = '12px';
+    sel.style.cursor = 'pointer';
+    sel.style.marginLeft = '8px';
     ['es', 'en', 'pt', 'gn'].forEach(function (l) {
         var opt = document.createElement('option');
         opt.value = l;
