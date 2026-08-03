@@ -8,6 +8,9 @@ This folder groups the working documents for the Paraguay Geodata platform.
   Replaces `PLAN.md` / `ROADMAP.md` as the single source of truth.
 - [`PROPERTY_RISK_ANALYSIS.md`](PROPERTY_RISK_ANALYSIS.md) — Property-level
   risk + pro scoring; v2 with depto normalization.
+- [`UX_AUDIT_40_ROLES.md`](UX_AUDIT_40_ROLES.md) — **40-role adversarial
+  audit of the live site, ~2,000 findings.** Use this to prioritize
+  the next quarter of UX work.
 - [`MIGRATION_FROM_LQV.md`](MIGRATION_FROM_LQV.md) — How the national fork
   came out of the La Quebrada Viva (LQV) project.
 - [`LUCIA_HANDOFF.md`](LUCIA_HANDOFF.md) — Architect export handoff notes.
