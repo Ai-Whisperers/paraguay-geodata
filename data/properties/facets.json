@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02T23:00:34.131603Z",
+  "generated_at": "2026-08-03T17:10:38.584920Z",
   "feature_count": 5784,
   "facets": {
     "depto": [
@@ -135,20 +135,17 @@
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
     "max": "2026-08-02T22:53:15.880985+00:00",
-    "median_days": 1
+    "median_days": 2
   },
   "quality": {
     "total": 5784,
-    "clean": 2576,
-    "flagged": 3208,
+    "clean": 4550,
+    "flagged": 1234,
     "by_flag": {
-      "missing_price_pyg_inferred": 1429,
-      "missing_area_ha_inferred": 1340,
       "null_property_type": 1156,
-      "area_inferred_from_title": 674,
       "missing_price": 433,
       "missing_area": 87,
-      "area_recovered_from_title_m2": 7,
+      "area_conflict": 34,
       "area_published_round_but_title_larger": 2
     }
   }

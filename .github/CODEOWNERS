@@ -1,0 +1,14 @@
+# CODEOWNERS — pull requests touching these paths need review.
+# Used by GitHub to auto-assign reviewers and (if enabled) enforce approval.
+
+# Default: repo owner
+*      @Ai-Whisperers/paraguay-geodata-maintainers
+
+# Sensitive areas — any change must be reviewed by an owner.
+# (Used as a hint; not enforced unless branch protection is enabled.)
+/tools/scrub_pii.py        @Ai-Whisperers/paraguay-geodata-maintainers
+/tools/canonicalize_properties.py  @Ai-Whisperers/paraguay-geodata-maintainers
+/exports/web/_headers     @Ai-Whisperers/paraguay-geodata-maintainers
+/exports/web/_redirects   @Ai-Whisperers/paraguay-geodata-maintainers
+/tools/llm/               @Ai-Whisperers/paraguay-geodata-maintainers
+/.github/                 @Ai-Whisperers/paraguay-geodata-maintainers

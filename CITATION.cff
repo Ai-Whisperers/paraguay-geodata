@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+title: Paraguay Geodata
+message: >-
+  If you use this dataset in academic work, please cite it as below.
+  The CC0 license explicitly grants permission for any use; the citation
+  request is for academic traceability.
+type: dataset
+authors:
+  - name: Ai-Whisperers
+    email: ivan@ai-whisperers.org
+license: CC0-1.0
+license-url: https://creativecommons.org/publicdomain/zero/1.0/
+url: https://geodata.paragu-ai.com/
+repository-code: https://github.com/Ai-Whisperers/paraguay-geodata
+date-released: 2026-08-03
+version: 0.1.0
+keywords:
+  - Paraguay
+  - real-estate
+  - geojson
+  - open-data
+  - mapper
+  - cadastre
+  - agriculture
+  - biodiversity
+abstract: >-
+  A free, open national viewer for Paraguay real-estate and geographic
+  data. 5,784 properties scraped from 3 public sources (InfoCasas, TuLugar,
+  Asunción.estate); 16 cities; 17 PY deptos; full price+USR+PYG, area,
+  bedrooms, bathrooms, lots, and Pro-tier risk indices.
+references:
+  - type: dataset
+    title: Properties canonical (CC0)
+    url: https://geodata.paragu-ai.com/data/properties_latest.geojson
+    license: CC0-1.0
+  - type: software
+    title: Source code (MIT)
+    url: https://github.com/Ai-Whisperers/paraguay-geodata
+    license: MIT
+  - type: documentation
+    title: 40-role UX audit
+    url: https://github.com/Ai-Whisperers/paraguay-geodata/blob/main/docs/UX_AUDIT_40_ROLES.md
+  - type: documentation
+    title: Repo audit (The Roast)
+    url: https://github.com/Ai-Whisperers/paraguay-geodata/blob/main/docs/ROAST_2026-08-03.md

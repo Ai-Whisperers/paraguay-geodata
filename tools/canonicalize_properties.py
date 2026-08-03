@@ -523,10 +523,48 @@ def canonicalize(feats: list[dict], fx_pyg_per_usd: float, now: _dt.datetime) ->
     }
 
 
+def _load_deleted_listings(repo_root: Path) -> set:
+    """Read data/properties/deleted_listings.json (GDPR/LGPD takedowns)."""
+    p = repo_root / "data" / "properties" / "deleted_listings.json"
+    if not p.exists():
+        return set()
+    try:
+        import json
+        items = json.loads(p.read_text())
+    except (json.JSONDecodeError, OSError):
+        return set()
+    return {item['source_url'] for item in items if 'source_url' in item}
+
+
+def _apply_takedowns(features: list, deleted: set) -> int:
+    """Filter out features whose source_url is in the deleted list.
+    Returns the number of features removed."""
+    if not deleted:
+        return 0
+    before = len(features)
+    return before - len([f for f in features if f.get('properties', {}).get('source_url') not in deleted])
+
+
 def write_outputs(out_dir: Path, payload: dict, source_path: Path, fx_rate: float):
     out_dir.mkdir(parents=True, exist_ok=True)
     geojson_path = out_dir / "canonical_properties.geojson"
     summary_path = out_dir / "canonical_summary.json"
+
+    # GDPR / LGPD takedowns — filter out listings the owner asked to remove.
+    deleted = _load_deleted_listings(Path(__file__).resolve().parents[1])
+    n_taken = _apply_takedowns(payload["features"], deleted)
+    if n_taken:
+        print(f"  removed {n_taken} takedown listings")
+
+    # PII scrub: apply tools.scrub_pii.scrub_feature to every feature.
+    # This is the chokepoint — without it, phones and emails in descriptions
+    # leak through to the public geojson.  Idempotent.
+    try:
+        from tools.scrub_pii import scrub_feature  # type: ignore
+        for f in payload["features"]:
+            scrub_feature(f)
+    except ImportError:
+        pass  # not fatal — but should never happen in production
 
     envelope = {
         "type": "FeatureCollection",

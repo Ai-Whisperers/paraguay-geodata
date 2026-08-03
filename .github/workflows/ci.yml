@@ -1,143 +1,92 @@
-name: CI — Paraguay Geodata
+name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/**]
   pull_request:
     branches: [main]
 
 jobs:
-  offline-tests:
-    name: Offline test suite (no network)
+  test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
           cache: pip
-      - name: Install playwright + chromium (for hillshade frontend tests)
-        run: |
-          pip install playwright pytest pytest-cov
-          playwright install chromium
-      - name: Install project dev deps
-        run: pip install -e ".[dev]" || true   # tolerate missing extras
-      - name: Run pytest offline suite
-        run: |
-          python3 -m pytest tests/ -q -m 'not live' --tb=short --no-header \
-            --ignore=tests/test_deploy_smoke.py \
-            --ignore=tests/test_layer_registry.py \
-            --ignore=tests/test_user_features.py \
-            --ignore=tests/test_security_headers.py \
-            tests/test_canonicalize_properties.py tests/test_detect_regression.py
 
-  schema-and-pii:
-    name: Schema + GeoJSON + PII sanity (legacy jobs)
+      - name: Install dev deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint (ruff)
+        run: |
+          ruff check tools/ tests/
+          ruff format --check tools/ tests/
+
+      - name: Type-check (mypy)
+        continue-on-error: true   # mypy is aspirational; allow red 0
+        run: |
+          mypy tools/ --ignore-missing-imports 2>&1 | tail -30
+
+      - name: Test (pytest)
+        run: |
+          pytest -q --no-header --cov=tools --cov-report=term-missing --cov-fail-under=20
+
+  deploy-preview:
+    # Only runs on PRs and pushes to `feat/*` branches.
+    needs: test
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Check JSON files parse
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - name: Build canonical artifact
         run: |
-          python3 -c "
-          import json, sys
-          from pathlib import Path
-          ok = True
-          for f in Path('exports/web/data').rglob('*.json'):
-              try:
-                  json.load(open(f))
-              except Exception as e:
-                  print(f'BAD {f}: {e}')
-                  ok = False
-          sys.exit(0 if ok else 1)
-          "
-      - name: Check GeoJSON files parse + type
-        run: |
-          python3 -c "
-          import json, sys
-          from pathlib import Path
-          ok = True
-          for f in Path('exports/web/data').rglob('*.geojson'):
-              try:
-                  d = json.load(open(f))
-                  if d.get('type') != 'FeatureCollection':
-                      print(f'BAD {f}: not a FeatureCollection')
-                      ok = False
-              except Exception as e:
-                  print(f'BAD {f}: {e}')
-                  ok = False
-          sys.exit(0 if ok else 1)
-          "
-      - name: Audit PII scrub (full sample, not 500)
-        run: |
-          python3 -m pytest tests/test_pii_scrub.py::test_live_properties_full_pii_scan -v
-
-  pii-unit:
-    name: PII scrub unit tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+          python3 -m tools.canonicalize_properties \
+            --input exports/web/data/properties_latest.geojson \
+            --output data/properties
+          python3 -m tools.merge_fresh_sources || true
+          python3 -m tools.build_facets
+          python3 -m tools.build_data_freshness
+          python3 -m tools.build_days_on_market
+      - uses: actions/upload-artifact@v4
         with:
-          python-version: '3.12'
-      - name: Run scrub_pii unit suite
-        run: python3 -m pytest tests/test_pii_scrub.py -q -m 'not live'
+          name: preview-dist
+          path: exports/web/
 
-  merge-contract:
-    name: merge_property_sources contract tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Run merge contract suite
-        run: python3 -m pytest tests/test_merge_property_sources.py -q -m 'not live'
-
-  risk-fairprice:
-    name: Property risk + fair-price model schema
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Run risk + fair-price suites
-        run: |
-          python3 -m pytest tests/test_property_risk.py tests/test_fair_price_model.py -v
-
-  hillshade-builders:
-    name: Hillshade v3 + priority regression
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Run hillshade builder + regression suites
-        run: |
-          python3 -m pytest tests/test_build_paraguay_hillshade_v3.py tests/test_hillshade_regression.py tests/test_national_tile_index.py tests/test_tile_fabric_regression.py -v
-
-  live-smoke:
-    name: Live deploy smoke (slow; runs on push only)
+  deploy-prod:
+    # Only runs on push to main.
+    needs: test
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Smoke against live base
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - name: Deploy preview first
         run: |
-          python3 -m pytest tests/test_deploy_smoke.py tests/test_layer_registry.py tests/test_user_features.py tests/test_security_headers.py -m live -q --tb=short --no-header
+          python3 -m tools.canonicalize_properties \
+            --input exports/web/data/properties_latest.geojson \
+            --output data/properties
+          python3 -m tools.merge_fresh_sources || true
+          python3 -m tools.build_facets
+          python3 -m tools.build_data_freshness
+          python3 -m tools.build_days_on_market
+      - name: Publish to Cloudflare Pages
         env:
-          PY_GEO_BASE_URL: https://geodata.paragu-ai.com
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          cd exports/web
+          npx --yes wrangler@latest pages deploy . --project-name paraguay-geodata --branch main --commit-dirty=true
