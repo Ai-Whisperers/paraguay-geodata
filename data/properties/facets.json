@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-03T19:16:38.765353Z",
-  "feature_count": 5814,
+  "generated_at": "2026-08-03T19:42:21.263077Z",
+  "feature_count": 5844,
   "facets": {
     "depto": [
       {
         "value": "Asunción",
-        "count": 2049
+        "count": 2061
       },
       {
         "value": "Central",
-        "count": 1464
+        "count": 1473
       },
       {
         "value": "?",
@@ -17,23 +17,23 @@
       },
       {
         "value": "Cordillera",
-        "count": 464
+        "count": 467
       },
       {
         "value": "Alto Paraná",
-        "count": 287
+        "count": 288
       },
       {
         "value": "Itapúa",
-        "count": 111
+        "count": 112
       },
       {
         "value": "Presidente Hayes",
-        "count": 82
+        "count": 83
       },
       {
         "value": "Paraguarí",
-        "count": 50
+        "count": 51
       },
       {
         "value": "Boquerón",
@@ -53,7 +53,7 @@
       },
       {
         "value": "Misiones",
-        "count": 13
+        "count": 14
       },
       {
         "value": "Alto Paraguay",
@@ -68,12 +68,12 @@
         "count": 5
       },
       {
-        "value": "Amambay",
+        "value": "Guairá",
         "count": 4
       },
       {
-        "value": "Guairá",
-        "count": 3
+        "value": "Amambay",
+        "count": 4
       },
       {
         "value": "Caazapá",
@@ -83,15 +83,15 @@
     "property_type": [
       {
         "value": "apartment",
-        "count": 1471
+        "count": 1479
       },
       {
         "value": "house",
-        "count": 1238
+        "count": 1247
       },
       {
         "value": "land",
-        "count": 1190
+        "count": 1202
       },
       {
         "value": "?",
@@ -107,13 +107,13 @@
       },
       {
         "value": "unknown",
-        "count": 14
+        "count": 15
       }
     ],
     "currency": [
       {
         "value": "USD",
-        "count": 4046
+        "count": 4062
       },
       {
         "value": "?",
@@ -121,7 +121,7 @@
       },
       {
         "value": "PYG",
-        "count": 612
+        "count": 626
       }
     ],
     "source": [
@@ -139,26 +139,26 @@
       },
       {
         "value": "inmueblespy",
-        "count": 30
+        "count": 60
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-03T19:13:40.996767+00:00",
+    "max": "2026-08-03T19:41:58.899864+00:00",
     "median_days": 2
   },
   "quality": {
-    "total": 5814,
-    "clean": 2604,
-    "flagged": 3210,
+    "total": 5844,
+    "clean": 2607,
+    "flagged": 3237,
     "by_flag": {
       "missing_price_pyg_inferred": 1429,
       "missing_area_ha_inferred": 1340,
-      "null_property_type": 1156,
+      "null_property_type": 1171,
       "area_inferred_from_title": 674,
-      "missing_price": 435,
+      "missing_price": 449,
       "missing_area": 87,
       "area_recovered_from_title_m2": 7,
       "area_published_round_but_title_larger": 2

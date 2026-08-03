@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-03T19:16:39.646497Z",
+  "generated_at": "2026-08-03T19:42:22.164916Z",
   "summary": {
     "median_days": 2,
     "p25": 0,
     "p75": 2,
-    "n_listings": 5814
+    "n_listings": 5844
   },
   "by_depto": {
     "Alto Paraguay": {
@@ -14,7 +14,7 @@
     },
     "Alto Paraná": {
       "median_days": 0,
-      "n": 287,
+      "n": 288,
       "stale_pct": 0.0
     },
     "Amambay": {
@@ -24,7 +24,7 @@
     },
     "Asunción": {
       "median_days": 2,
-      "n": 2049,
+      "n": 2061,
       "stale_pct": 0.0
     },
     "Boquerón": {
@@ -49,7 +49,7 @@
     },
     "Central": {
       "median_days": 0,
-      "n": 1464,
+      "n": 1473,
       "stale_pct": 0.0
     },
     "Concepción": {
@@ -59,32 +59,32 @@
     },
     "Cordillera": {
       "median_days": 0,
-      "n": 464,
+      "n": 467,
       "stale_pct": 0.0
     },
     "Guairá": {
       "median_days": 0,
-      "n": 3,
+      "n": 4,
       "stale_pct": 0.0
     },
     "Itapúa": {
       "median_days": 0,
-      "n": 111,
+      "n": 112,
       "stale_pct": 0.0
     },
     "Misiones": {
       "median_days": 0,
-      "n": 13,
+      "n": 14,
       "stale_pct": 0.0
     },
     "Paraguarí": {
       "median_days": 0,
-      "n": 50,
+      "n": 51,
       "stale_pct": 0.0
     },
     "Presidente Hayes": {
       "median_days": 0,
-      "n": 82,
+      "n": 83,
       "stale_pct": 0.0
     },
     "San Pedro": {

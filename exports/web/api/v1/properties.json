@@ -1,20 +1,20 @@
 {
-  "total": 5814,
+  "total": 5844,
   "sources": {
     "infocasas": 1156,
     "asuncion_estate": 2590,
-    "inmueblespy": 30,
+    "inmueblespy": 60,
     "tulugar": 2038
   },
   "facets": {
     "depto": [
       {
         "value": "Asunción",
-        "count": 2049
+        "count": 2061
       },
       {
         "value": "Central",
-        "count": 1464
+        "count": 1473
       },
       {
         "value": "?",
@@ -22,23 +22,23 @@
       },
       {
         "value": "Cordillera",
-        "count": 464
+        "count": 467
       },
       {
         "value": "Alto Paraná",
-        "count": 287
+        "count": 288
       },
       {
         "value": "Itapúa",
-        "count": 111
+        "count": 112
       },
       {
         "value": "Presidente Hayes",
-        "count": 82
+        "count": 83
       },
       {
         "value": "Paraguarí",
-        "count": 50
+        "count": 51
       },
       {
         "value": "Boquerón",
@@ -58,7 +58,7 @@
       },
       {
         "value": "Misiones",
-        "count": 13
+        "count": 14
       },
       {
         "value": "Alto Paraguay",
@@ -73,12 +73,12 @@
         "count": 5
       },
       {
-        "value": "Amambay",
+        "value": "Guairá",
         "count": 4
       },
       {
-        "value": "Guairá",
-        "count": 3
+        "value": "Amambay",
+        "count": 4
       },
       {
         "value": "Caazapá",
@@ -88,15 +88,15 @@
     "property_type": [
       {
         "value": "apartment",
-        "count": 1471
+        "count": 1479
       },
       {
         "value": "house",
-        "count": 1238
+        "count": 1247
       },
       {
         "value": "land",
-        "count": 1190
+        "count": 1202
       },
       {
         "value": "?",
@@ -112,13 +112,13 @@
       },
       {
         "value": "unknown",
-        "count": 14
+        "count": 15
       }
     ],
     "currency": [
       {
         "value": "USD",
-        "count": 4046
+        "count": 4062
       },
       {
         "value": "?",
@@ -126,7 +126,7 @@
       },
       {
         "value": "PYG",
-        "count": 612
+        "count": 626
       }
     ],
     "source": [
@@ -144,7 +144,7 @@
       },
       {
         "value": "inmueblespy",
-        "count": 30
+        "count": 60
       }
     ],
     "features": []

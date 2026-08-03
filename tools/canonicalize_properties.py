@@ -427,6 +427,53 @@ def cluster_id(p: dict, idx: int) -> str:
 # 4.  Pipeline
 # ----------------------------------------------------------------------
 
+_PROPERTY_TYPE_NORMALIZE = {
+    # canonical → list of aliases that should be normalized
+    "house":     ["house", "houses", "casa", "casas", "home", "single_family",
+                  "quinta", "casona"],
+    "apartment": ["apartment", "apartments", "departamento", "departamentos",
+                  "depto", "deptos", "apto", "aptos", "flat", "unit",
+                  "penthouse", "loft", "edificio", "building"],
+    "land":      ["land", "lands", "terreno", "terrenos", "lote", "lotes",
+                  "lote_de_terreno", "campo", "finca", "granja", "hacienda"],
+    "commercial": ["commercial", "local", "locales", "bodega", "deposito",
+                   "galpon", "cochera", "garaje", "shop", "store"],
+    "office":    ["office", "oficina", "oficinas"],
+}
+
+
+def _normalize_property_type(value):
+    """Normalize a property_type string to a canonical 1-word enum.
+
+    Examples:
+      'houses'     → 'house'
+      'departamento' → 'apartment'
+      'terrenos'   → 'land'
+      'galpón'     → 'commercial'
+      '?'          → 'unknown'
+      None         → 'unknown'
+    """
+    import unicodedata
+    if not value:
+        return "unknown"
+    s = str(value).strip().lower()
+    if not s or s in ("?", "na", "n/a", "none", "null"):
+        return "unknown"
+    # Strip accents: "galpón" → "galpon"
+    s = unicodedata.normalize("NFD", s)
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    # Try exact match against aliases
+    for canonical, aliases in _PROPERTY_TYPE_NORMALIZE.items():
+        if s in aliases:
+            return canonical
+    # Try substring matching
+    for canonical, aliases in _PROPERTY_TYPE_NORMALIZE.items():
+        for alias in aliases:
+            if alias in s or s in alias:
+                return canonical
+    return "unknown"
+
+
 def canonicalize(feats: list[dict], fx_pyg_per_usd: float, now: _dt.datetime) -> dict:
     canonical_features_out: list[dict] = []
     facet_counter: dict[str, collections.Counter] = {
@@ -476,11 +523,19 @@ def canonicalize(feats: list[dict], fx_pyg_per_usd: float, now: _dt.datetime) ->
         p["canonical_features"] = canon
         p["features_raw"] = raw_feats
 
-        # 5. property_type
-        if p.get("property_type") is None:
+        # 5. property_type (normalise + flag null)
+        raw = p.get("property_type")
+        normalized = _normalize_property_type(raw)
+        if raw is None or (isinstance(raw, str) and raw.strip() == ""):
+            # Truly missing - keep raw as None and flag
             flags.append("null_property_type")
+            p["property_type"] = None
         else:
-            facet_counter["property_type"][p["property_type"]] += 1
+            p["property_type"] = normalized
+            if normalized == "unknown":
+                flags.append("null_property_type")
+            else:
+                facet_counter["property_type"][normalized] += 1
 
         # 6. last_seen
         p["last_seen_at"] = p.get("scraped_at_utc") or now_iso

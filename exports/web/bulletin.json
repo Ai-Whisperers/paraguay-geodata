@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-03T19:16:39Z",
+  "as_of": "2026-08-03T19:42:22Z",
   "service": "paraguay-geodata",
   "version": "2026-08-03",
   "deployed_at": "2026-08-03T12:00:00Z",
@@ -15,6 +15,12 @@
     "freshness_median_hours": 24
   },
   "deploys": [
+    {
+      "sha": "14f4919",
+      "subject": "feat: A+B+C+D — wire argenprop, cache-prune, drop widgets.v3.js, add inmueblespy",
+      "date": "2026-08-03 16:17:21 -0300",
+      "author": "Erebus"
+    },
     {
       "sha": "757b14f",
       "subject": "feat: PMTiles vector tiles + status page + bulletin + R2 mirror + monitoring hooks",
@@ -38,59 +44,53 @@
       "subject": "fix: deploy canonical properties_latest.geojson (11 MB, 5,784 features) fix: _redirects no longer loops on .html (CF Pages handles extensionless natively)",
       "date": "2026-08-03 13:48:36 -0300",
       "author": "Erebus"
-    },
-    {
-      "sha": "f354484",
-      "subject": "feat: 40-role UX overhaul — i18n, tabs, compare, saved, API, privacy, sitemap",
-      "date": "2026-08-03 13:43:14 -0300",
-      "author": "Erebus"
     }
   ],
   "new_listings": [
     {
-      "id": "ip_1db205fb30f1",
-      "source": "inmueblespy",
-      "city": "Itá",
-      "state_province": "Central",
-      "price_usd": 950000.0,
-      "area_sqm": 360.0,
-      "scraped_at": "2026-08-03T19:13:40.996767+00:00"
-    },
-    {
-      "id": "ip_8b612e457484",
+      "id": "ip_5be9e1e397dc",
       "source": "inmueblespy",
       "city": "Asunción",
       "state_province": "Asunción",
       "price_usd": null,
-      "area_sqm": 350.0,
-      "scraped_at": "2026-08-03T19:13:37.790959+00:00"
+      "area_sqm": 55.0,
+      "scraped_at": "2026-08-03T19:41:58.899864+00:00"
     },
     {
-      "id": "ip_98acef67c755",
+      "id": "ip_db28f36db2ec",
       "source": "inmueblespy",
-      "city": "Nueva Colombia",
-      "state_province": "Cordillera",
-      "price_usd": 550000000.0,
-      "area_sqm": 26000.0,
-      "scraped_at": "2026-08-03T19:13:34.584050+00:00"
+      "city": "Nanawa",
+      "state_province": "Presidente Hayes",
+      "price_usd": 700000.0,
+      "area_sqm": 18103.0,
+      "scraped_at": "2026-08-03T19:41:56.485833+00:00"
     },
     {
-      "id": "ip_706a1ca06753",
+      "id": "ip_50ff6d8f0e2a",
       "source": "inmueblespy",
-      "city": "Nueva Colombia",
-      "state_province": "Cordillera",
-      "price_usd": 1900000000.0,
-      "area_sqm": 550.0,
-      "scraped_at": "2026-08-03T19:13:31.571564+00:00"
+      "city": "Itauguá",
+      "state_province": "Central",
+      "price_usd": 65000000.0,
+      "area_sqm": 367.0,
+      "scraped_at": "2026-08-03T19:41:54.099390+00:00"
     },
     {
-      "id": "ip_cee6cf69759f",
+      "id": "ip_ebac8f204735",
       "source": "inmueblespy",
-      "city": "Nueva Colombia",
-      "state_province": "Cordillera",
-      "price_usd": 60500000.0,
-      "area_sqm": 150.0,
-      "scraped_at": "2026-08-03T19:13:28.217941+00:00"
+      "city": "Asunción",
+      "state_province": "Asunción",
+      "price_usd": null,
+      "area_sqm": 374.0,
+      "scraped_at": "2026-08-03T19:41:51.903861+00:00"
+    },
+    {
+      "id": "ip_c78efe8e20dd",
+      "source": "inmueblespy",
+      "city": "Asunción",
+      "state_province": "Asunción",
+      "price_usd": null,
+      "area_sqm": 964.0,
+      "scraped_at": "2026-08-03T19:41:49.522776+00:00"
     }
   ],
   "subscribe_url": "https://geodata.paragu-ai.com/changelog.xml"

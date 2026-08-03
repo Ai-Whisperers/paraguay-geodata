@@ -105,15 +105,37 @@ CITY_TO_DEPTO = {
 
 PROPERTY_TYPE_HINTS = {
     "casa": "house",
+    "casas": "house",
     "departamento": "apartment",
+    "departamentos": "apartment",
     "depto": "apartment",
+    "deptos": "apartment",
+    "departamentos": "apartment",
+    "apartamento": "apartment",
+    "apartamentos": "apartment",
+    "penthouse": "apartment",
     "terreno": "land",
+    "terrenos": "land",
     "lote": "land",
-    "local": "commercial",
-    "oficina": "office",
-    "galpon": "commercial",
+    "lotes": "land",
     "quinta": "house",
+    "campo": "land",
+    "finca": "land",
+    "granja": "land",
+    "local": "commercial",
+    "locales": "commercial",
+    "oficina": "office",
+    "oficinas": "office",
+    "galpon": "commercial",
+    "galpón": "commercial",
+    "galpones": "commercial",
     "edificio": "apartment",
+    "edificios": "apartment",
+    "bodega": "commercial",
+    "deposito": "commercial",
+    "depósito": "commercial",
+    "cochera": "commercial",
+    "garaje": "commercial",
 }
 
 
@@ -256,13 +278,29 @@ def _parse_detail(detail_url: str, html: str) -> dict | None:
         if region and region != "PY":
             state_province = _depto_from_city(region)
 
-    # Property type. Prefer ld+json, fall back to slug + term.
+    # Property type. Try in order: term, slug, ld+json name/description.
     prop_type = terms["property_type"]
     if not prop_type:
-        slug = detail_url.rstrip("/").rsplit("/", 1)[-1]
+        slug = detail_url.rstrip("/").rsplit("/", 1)[-1].lower()
+        # Strip common prefixes
+        for prefix in ("en-venta-", "en-alquiler-", "vendo-", "vendo-",
+                       "alquilo-", "se-vende-", "se-alquila-", "disponible-",
+                       "en-", "de-", "el-", "la-"):
+            if slug.startswith(prefix):
+                slug = slug[len(prefix):]
         for k, v in PROPERTY_TYPE_HINTS.items():
-            if slug.startswith(k) or f"-{k}-" in slug:
+            if slug.startswith(k) or f"-{k}-" in slug or slug.endswith(k):
                 prop_type = v
+                break
+    if not prop_type:
+        # Try ld+json.name and description
+        for text in (ld.get("name", ""), ld.get("description", "")):
+            t = text.lower()
+            for k, v in PROPERTY_TYPE_HINTS.items():
+                if k in t:
+                    prop_type = v
+                    break
+            if prop_type:
                 break
 
     # Operation: "Venta" / "Alquiler" from operation route.

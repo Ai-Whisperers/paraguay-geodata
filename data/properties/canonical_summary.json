@@ -1,51 +1,50 @@
 {
-  "generated_at": "2026-08-03T19:16:37.902355Z",
+  "generated_at": "2026-08-03T19:42:20.504892Z",
   "source_file": "exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
-  "feature_count": 5814,
+  "feature_count": 5844,
   "facets": {
     "property_type": {
-      "house": 1238,
-      "apartment": 1471,
-      "land": 1190,
+      "house": 1247,
+      "apartment": 1479,
+      "land": 1202,
       "office": 225,
-      "commercial": 520,
-      "unknown": 14
+      "commercial": 520
     },
     "depto": {
-      "Asunción": 2049,
-      "Central": 1464,
-      "Alto Paraná": 287,
-      "Cordillera": 464,
-      "Itapúa": 111,
+      "Asunción": 2061,
+      "Central": 1473,
+      "Alto Paraná": 288,
+      "Cordillera": 467,
+      "Itapúa": 112,
       "Boquerón": 41,
-      "Presidente Hayes": 82,
-      "Paraguarí": 50,
+      "Presidente Hayes": 83,
+      "Paraguarí": 51,
       "San Pedro": 16,
       "Caaguazú": 24,
-      "Misiones": 13,
+      "Misiones": 14,
       "Concepción": 8,
       "Ñeembucú": 17,
       "Alto Paraguay": 9,
       "Caazapá": 2,
       "Canindeyú": 5,
-      "Guairá": 3,
+      "Guairá": 4,
       "Amambay": 4
     },
     "currency": {
       "?": 1156,
-      "USD": 4046,
-      "PYG": 612
+      "USD": 4062,
+      "PYG": 626
     },
     "source": {
       "infocasas": 1156,
       "asuncion_estate": 2590,
-      "inmueblespy": 30,
+      "inmueblespy": 60,
       "tulugar": 2038
     },
     "flags": {
-      "missing_price": 435,
-      "null_property_type": 1156,
+      "missing_price": 449,
+      "null_property_type": 1171,
       "missing_area": 87,
       "area_inferred_from_title": 674,
       "area_recovered_from_title_m2": 7,
@@ -54,7 +53,7 @@
       "missing_price_pyg_inferred": 1429
     },
     "year_seen": {
-      "2026": 5814
+      "2026": 5844
     }
   }
 }

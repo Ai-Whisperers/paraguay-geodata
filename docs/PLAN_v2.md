@@ -33,14 +33,14 @@ Updated: 2026-08-03.
 11. **Lighthouse CI + Web Vitals** — needs API key, runs in CI
 12. **Wire `argenprop` into cron** — quick fetch + 20 listings/month
 13. **Source-portal registry** ✅ SHIPPED (`data/properties/source_registry.json`)
-14. **Cache-prune cron** — automatic cleanup of > 14d old files
+14. **Cache-prune cron** ✅ SHIPPED (tools/cache_prune.py with 6 tests, wired into refresh_properties.sh). 14b. **Plausible analytics** — automatic cleanup of > 14d old files
 15. **Public bulletin endpoint** — `/bulletin.json` with today’s changes
 16. **Plausible analytics** — privacy-friendly, no cookies
 17. **Sentry error tracking** — needs DSN key
 18. **UptimeRobot / BetterStack** — needs API key
 
 ### Larger (3-5 days)
-19. **`fetch_inmueblespy.py`** — new fetcher, ~1,500 listings/month
+19. **fetch_inmueblespy.py** ✅ SHIPPED (10 tests, 60 listings live, 11 deptos). 19. **fetch_inmueblespy.py** — new fetcher, ~1,500 listings/month
 20. **Lazy-load the legacy geojson** — keep the eager one + PMTiles default
 21. **Drop `widgets.v3.js` legacy widget** —-30 KB HTML
 22. **Replace Stripe checkout-worker with real implementation**
