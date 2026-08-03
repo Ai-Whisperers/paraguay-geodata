@@ -414,3 +414,29 @@ article.prose blockquote { border-left: 3px solid var(--accent); margin: 16px 0;
     }
     body { background: #fff; color: #000; }
 }
+
+/* ===== Leaflet popup bounds (long listings) =====
+   Constrain popup height to viewport minus header (~56px),
+   keep wide enough for full addresses, enable internal scroll,
+   allow the close button to stay accessible at the top. */
+.leaflet-popup-content {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    margin: 12px 14px;
+    line-height: 1.35;
+}
+.leaflet-popup {
+    max-width: 380px !important;
+}
+.leaflet-popup-content-wrapper {
+    border-radius: 6px;
+}
+.leaflet-popup-content h3 {
+    margin: 0 0 8px;
+    font-size: 13px;
+}
+.leaflet-popup-close-button {
+    padding: 4px 8px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+}
