@@ -11,6 +11,9 @@ This folder groups the working documents for the Paraguay Geodata platform.
 - [`UX_AUDIT_40_ROLES.md`](UX_AUDIT_40_ROLES.md) — **40-role adversarial
   audit of the live site, ~2,000 findings.** Use this to prioritize
   the next quarter of UX work.
+- [`ROAST_2026-08-03.md`](ROAST_2026-08-03.md) — **The Roast: a no-mercy
+  audit of the codebase, data, infra, ops, and security (~500 findings).**
+  Pair with the UX audit. Drives the next quarter of tech-debt work.
 - [`MIGRATION_FROM_LQV.md`](MIGRATION_FROM_LQV.md) — How the national fork
   came out of the La Quebrada Viva (LQV) project.
 - [`LUCIA_HANDOFF.md`](LUCIA_HANDOFF.md) — Architect export handoff notes.
