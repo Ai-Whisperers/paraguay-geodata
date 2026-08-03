@@ -1,0 +1,11 @@
+{
+  "as_of": "2026-07-10",
+  "source": "Banco Central del Paraguay (bcp.gov.py)",
+  "tpm": 5.5,
+  "reservas": 11611.4,
+  "fx_usd_pyg": null,
+  "ipc": 2.3,
+  "pib_2025_growth_pct": 6.0,
+  "pib_2026_proyeccion_pct": 4.2,
+  "morosidad_bancos_pct": 2.29
+}

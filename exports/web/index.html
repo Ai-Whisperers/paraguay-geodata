@@ -911,11 +911,49 @@
                 <h2 style="margin:0; font-size:14px;">📊 Insights (live)</h2>
                 <button onclick="window.refreshInsights()" style="background:none; border:none; color:var(--accent); cursor:pointer; font-size:11px;" aria-label="Refresh insights" title="Refresh insights">↻</button>
             </div>
+            <div id="bcpWidget"></div>
             <div id="qualitySummary" style="margin-bottom:8px;"></div>
             <div id="marketSignals" style="font-size:11px; line-height:1.5; color:var(--fg);">
                 <div style="color:var(--fg-dim);">Loading…</div>
             </div>
-            <div id="secondaryInsights"></div>
+            <div id="secondaryInsights">
+            <div style="font-size:11px; line-height:1.6;">
+                <div style="margin-bottom:4px;"><strong>🌾 Zafra:</strong> <span id="insightDrought">—</span></div>
+                <div style="margin-bottom:4px;"><strong>🌱 Soja:</strong> <span id="insightSoja">—</span></div>
+                <div style="margin-bottom:4px;"><strong>💰 Prices:</strong> <span id="insightPrices">—</span></div>
+                <div style="margin-bottom:4px;"><strong>📊 Macros:</strong> <span id="insightMacros">—</span></div>
+                <div><strong>🗺️ Density:</strong> <span id="insightDensity">—</span></div>
+            </div>
+        </div>
+        </div>
+
+        <!-- BCP Macro widget container (filled by JS) -->
+        <div class="bcp-widget">
+            <h3>📈 BCP Macro</h3>
+            <div id="bcpWidgetContent"></div>
+        </div>
+
+        <!-- Climate widget container -->
+        <div class="climate-widget">
+            <h3>🌡️ Climate (NASA POWER Asunción)</h3>
+            <div id="climateWidget"></div>
+        </div>
+
+        <!-- INBIO zafra widget -->
+        <div class="inbio-widget">
+            <h3>🌾 INBIO Zafra 2025/2026</h3>
+            <div id="inbioWidget"></div>
+        </div>
+
+        <!-- Fair price widget -->
+        <div class="insights-widget">
+            <h3>💰 Fair Price Model (ML)</h3>
+            <div id="fairPriceWidget"></div>
+        </div>
+
+        <!-- Esri satellite toggle -->
+        <div id="esriToggleLabel" style="margin-top:8px; padding:6px; background:var(--bg-elev-2); border-radius:4px; font-size:11px;">
+            🛰️ Esri Satellite: <span style="color:var(--fg-dim);">click layer control to switch</span>
         </div>
 
         <div id="constructionZonesSection" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px;">
