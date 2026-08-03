@@ -51,8 +51,11 @@
     console.log('[monitoring] Plausible enabled for ' + plausibleDomain);
   }
 
-  // ─── Heartbeat: report JS errors to /api/v1/vitals ──────────────────
-  // Always on (lightweight, ~1 line).  Falls back to console if beacon fails.
+  // ─── Heartbeat: log JS errors to console ──────────────────────────────
+  // Note: CF Pages doesn't host an API endpoint, so we log to console only.
+  // The local webhook_ingest.py can be run separately for ingestion during dev.
+  // To enable real telemetry, deploy a Cloudflare Worker at /api/v1/vitals
+  // and uncomment the sendBeacon line below.
   window.addEventListener('error', function (e) {
     var body = JSON.stringify({
       type: 'js_error',
@@ -62,12 +65,8 @@
       col: e.colno || 0,
       ts: Date.now(),
     });
-    try {
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/v1/vitals', body);
-      } else {
-        console.warn('[js_error]', body);
-      }
-    } catch (_) { /* swallow */ }
+    if (typeof console !== 'undefined') console.warn('[js_error]', body);
+    // To enable POST when worker is deployed:
+    // try { if (navigator.sendBeacon) navigator.sendBeacon('/api/v1/vitals', body); } catch (_) {}
   });
 })();
