@@ -1,0 +1,27 @@
+/* Self-hosted Inter font — only the variable font weights (100-900).
+ * Replaces the rsms.me/inter/inter.css reference which redirected
+ * cross-origin and added 2 redirects per request.
+ *
+ * File: /fonts/InterVariable.woff2 (352 KB) + /fonts/InterVariable-Italic.woff2 (388 KB)
+ * Both cache for 1 year via the _headers file.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/InterVariable.woff2') format('woff2-variations'),
+       url('/fonts/InterVariable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/InterVariable-Italic.woff2') format('woff2-variations'),
+       url('/fonts/InterVariable-Italic.woff2') format('woff2');
+}
+/* Older browsers fall back to system font */
+@supports not (font-variation-settings: normal) {
+  :root { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+}

@@ -60,9 +60,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://rsms.me/" crossorigin="">
+    
     <link rel="preconnect" href="https://tile.openstreetmap.org/" crossorigin="">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="fonts/inter.css">
 
     <!-- i18n translations (consumed by inline script below) -->
     <script id="i18n-data" type="application/json">
@@ -877,7 +877,7 @@
         }
 
 </style>
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css" media="print" onload="this.media='all';this.dataset.loaded='1'"><noscript><link rel="stylesheet" href="site.css"></noscript>
 </head>
 <body>
 <div class="loading-banner" id="loading">Loading Paraguay geodata…</div>
@@ -1356,7 +1356,7 @@
     <script src="data/leaflet-pmtiles.js" defer></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin="" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin="" defer></script>
+</script>
 
 <script src="i18n.js" defer></script>
 <script src="site.js" defer></script>
@@ -1367,5 +1367,28 @@
 <script src="monitoring.js" defer></script>
 <script src="lang-switcher.js" defer></script>
 <script src="index.js" defer></script>
+
+<script>
+// Lazy-load chart.js (~50 KB) only when the Insights tab is first opened.
+(function () {
+  if (window.__chartJsLoaded) return;
+  document.addEventListener('click', function once(e) {
+    var t = e.target;
+    if (!t) return;
+    while (t && t.nodeType === 1) {
+      if (t.matches && t.matches('[data-tab="insights"]')) break;
+      t = t.parentElement;
+    }
+    if (!t) return;
+    document.removeEventListener('click', once, true);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js';
+    s.crossOrigin = 'anonymous';
+    s.defer = true;
+    s.onload = function () { window.__chartJsLoaded = true; };
+    document.head.appendChild(s);
+  }, true);
+})();
+</script>
 </body>
 </html>

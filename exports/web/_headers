@@ -22,7 +22,7 @@
   # Note: index.html uses inline JS; if we move to ES6 modules, we can tighten this.
   # Currently allowing 'unsafe-inline' for scripts because of legacy code.
   # TODO: tighten once index.html is modularized.
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://photon.komoot.io https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://rsms.me; img-src 'self' data: blob: https:; font-src 'self' data: https://rsms.me; connect-src 'self' data: blob: https://geodata.paragu-ai.com https://datos.paragu-ai.com https://datos.paragu-ai.com https://photon.komoot.io https://nominatim.openstreetmap.org https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://rsms.me https://static.cloudflareinsights.com https://*.tile.openstreetmap.org https://*.basemaps.cartocdn.com https://server.arcgisonline.com https://*.googleapis.com; worker-src 'self'; manifest-src 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://photon.komoot.io https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' data: blob: https://geodata.paragu-ai.com https://datos.paragu-ai.com https://datos.paragu-ai.com https://photon.komoot.io https://nominatim.openstreetmap.org https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://static.cloudflareinsights.com https://*.tile.openstreetmap.org https://*.basemaps.cartocdn.com https://server.arcgisonline.com https://*.googleapis.com; worker-src 'self'; manifest-src 'self'
 
   # Short HTML cache — push fresh code on every deploy
   Cache-Control: public, max-age=300, must-revalidate
@@ -51,3 +51,6 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Cache-Control: public, max-age=60
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
