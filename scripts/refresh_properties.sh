@@ -104,6 +104,12 @@ log "impute default values"
 # 4,442 area, 141 depto, 723 currency imputed on the 10,780 dataset.
 python3 -m tools.impute_default_values || log "WARN impute-default-values failed"
 
+log "add listing numbers"
+# Assign stable 1-based listing_number to every canonical feature.
+# Useful for human citation: "Listing #1234 in our dataset" vs the
+# opaque sha-hash source IDs.
+python3 -m tools.add_listing_numbers || log "WARN add-listing-numbers failed"
+
 log "extract listing metadata"
 # Extract area/bedrooms/address/barrio from title for listings that
 # didn't expose them as structured fields. Runs AFTER infer so we benefit

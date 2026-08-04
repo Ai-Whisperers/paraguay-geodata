@@ -210,7 +210,7 @@
                 ${e.canonical_features.map(g=>`<span style="font-size:10px; padding:2px 6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:10px;">${g}</span>`).join("")}
             </div>
         `),`
-        <h3 style="max-width:280px;">${(e.title||e.source_id||"Property").slice(0,80)}</h3>
+        <h3 style="max-width:280px;">${(e.title||e.source_id||"Property").slice(0,80)}${e.listing_number?` <span style="background:var(--accent-dim); color:var(--accent); padding:2px 6px; border-radius:3px; font-size:10px; font-weight:600; margin-left:6px; vertical-align:middle;">#${e.listing_number.toLocaleString()}</span>`:""}</h3>
         ${p}
         <div class="row"><span class="k">Price</span><span class="v" style="color:var(--accent)">${n}</span></div>
         ${e.area_ha?`<div class="row"><span class="k">Area</span><span class="v">${e.area_ha.toLocaleString()} ha</span></div>`:""}
