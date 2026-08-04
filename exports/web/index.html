@@ -951,6 +951,42 @@
             <div id="fairPriceWidget"></div>
         </div>
 
+        <!-- Calculators panel (yield, mortgage, affordability) -->
+        <div class="calc-panel" style="background:var(--bg-elev); border:1px solid var(--line); border-radius:6px; padding:12px; margin-bottom:12px;">
+            <h2 style="margin:0 0 8px; font-size:14px;">🧮 Calculators</h2>
+            <details style="margin-bottom:8px;">
+                <summary style="cursor:pointer; font-size:12px; font-weight:600;">Rental yield</summary>
+                <div style="padding:6px 0; font-size:11px;">
+                    <label>Price (USD): <input id="yieldPrice" type="number" style="width:90%; padding:2px 4px;" /></label>
+                    <label>Monthly rent (USD): <input id="yieldRent" type="number" style="width:90%; padding:2px 4px;" /></label>
+                    <label>Annual costs (USD): <input id="yieldCosts" type="number" style="width:90%; padding:2px 4px;" /></label>
+                    <button onclick="window.Ge()" style="background:var(--accent); color:var(--bg); border:none; padding:4px 8px; border-radius:3px; cursor:pointer; margin-top:4px;">Calculate</button>
+                    <div id="yieldResult" style="margin-top:6px;"></div>
+                </div>
+            </details>
+            <details style="margin-bottom:8px;">
+                <summary style="cursor:pointer; font-size:12px; font-weight:600;">Mortgage</summary>
+                <div style="padding:6px 0; font-size:11px;">
+                    <label>Property value (USD): <input id="mortValue" type="number" style="width:90%; padding:2px 4px;" /></label>
+                    <label>Down payment (%): <input id="mortDownPct" type="number" style="width:90%; padding:2px 4px;" value="20" /></label>
+                    <label>Interest rate (% APR): <input id="mortRate" type="number" step="0.01" style="width:90%; padding:2px 4px;" value="9.5" /></label>
+                    <label>Term (years): <input id="mortTerm" type="number" style="width:90%; padding:2px 4px;" value="20" /></label>
+                    <button onclick="window.computeMortgage()" style="background:var(--accent); color:var(--bg); border:none; padding:4px 8px; border-radius:3px; cursor:pointer; margin-top:4px;">Calculate</button>
+                    <div id="mortResult" style="margin-top:6px;"></div>
+                </div>
+            </details>
+            <details>
+                <summary style="cursor:pointer; font-size:12px; font-weight:600;">Affordability</summary>
+                <div style="padding:6px 0; font-size:11px;">
+                    <label>Monthly income (USD): <input id="affIncome" type="number" style="width:90%; padding:2px 4px;" /></label>
+                    <label>Monthly debts (USD): <input id="affDebts" type="number" style="width:90%; padding:2px 4px;" /></label>
+                    <label>Max % income: <input id="affPct" type="number" style="width:90%; padding:2px 4px;" value="30" /></label>
+                    <button onclick="window.computeAffordability()" style="background:var(--accent); color:var(--bg); border:none; padding:4px 8px; border-radius:3px; cursor:pointer; margin-top:4px;">Calculate</button>
+                    <div id="affResult" style="margin-top:6px;"></div>
+                </div>
+            </details>
+        </div>
+
         <!-- Esri satellite toggle -->
         <div id="esriToggleLabel" style="margin-top:8px; padding:6px; background:var(--bg-elev-2); border-radius:4px; font-size:11px;">
             🛰️ Esri Satellite: <span style="color:var(--fg-dim);">click layer control to switch</span>
@@ -1124,6 +1160,14 @@
             <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
                 <input type="checkbox" id="filterHasImages" style="margin:0;">
                 <span>With images only</span>
+            </label>
+            <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
+                <input type="checkbox" id="filterUsdOnly" style="margin:0;">
+                <span>USD-denominated only</span>
+            </label>
+            <label style="font-size:11px; display:flex; align-items:center; gap:6px; padding:6px; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:4px;">
+                <input type="checkbox" id="filterExcludeIndigenous" style="margin:0;">
+                <span>Exclude indigenous territories</span>
             </label>
         </div>
         <div style="display:flex; gap:8px; margin-top:12px;">
@@ -1308,7 +1352,9 @@
 </div>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+<script src="https://unpkg.com/leaflet@4.0.1/dist/pmtiles.js"></script>
+    <script src="data/leaflet-pmtiles.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin="" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin="" defer></script>
 
