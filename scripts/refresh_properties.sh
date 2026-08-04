@@ -87,6 +87,12 @@ log "cross-source dedupe"
 # that surfaces "this property is also listed by Infocasas" in the popup.
 python3 -m tools.cross_source_dedupe || log "WARN cross-source-dedupe failed"
 
+log "home stats"
+# Refresh the home page hero numbers and meta tags from live data.
+# Without this, the home page says "5,784 properties" while the live
+# dataset has 10,780. Runs AFTER canonicalize so it sees the latest.
+python3 -m tools.build_home_stats || log "WARN build-home-stats failed"
+
 log "deploy"
 cp "$ROOT/data/properties/canonical_properties.geojson" \
    "$ROOT/exports/web/data/properties_latest.geojson"
