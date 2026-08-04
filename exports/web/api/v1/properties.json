@@ -10,27 +10,27 @@
     "depto": [
       {
         "value": "Asunción",
-        "count": 4410
+        "count": 4424
       },
       {
         "value": "Central",
-        "count": 3407
-      },
-      {
-        "value": "?",
-        "count": 1165
+        "count": 3470
       },
       {
         "value": "Cordillera",
-        "count": 1032
+        "count": 1059
+      },
+      {
+        "value": "?",
+        "count": 910
       },
       {
         "value": "Alto Paraná",
-        "count": 302
+        "count": 346
       },
       {
         "value": "Itapúa",
-        "count": 149
+        "count": 158
       },
       {
         "value": "Presidente Hayes",
@@ -38,35 +38,35 @@
       },
       {
         "value": "Paraguarí",
-        "count": 58
-      },
-      {
-        "value": "Boquerón",
-        "count": 47
+        "count": 60
       },
       {
         "value": "Caaguazú",
-        "count": 26
+        "count": 56
       },
       {
-        "value": "Ñeembucú",
-        "count": 18
+        "value": "Boquerón",
+        "count": 49
       },
       {
         "value": "San Pedro",
-        "count": 17
+        "count": 48
       },
       {
         "value": "Misiones",
-        "count": 17
+        "count": 47
+      },
+      {
+        "value": "Ñeembucú",
+        "count": 19
+      },
+      {
+        "value": "Alto Paraguay",
+        "count": 12
       },
       {
         "value": "Concepción",
         "count": 12
-      },
-      {
-        "value": "Alto Paraguay",
-        "count": 10
       },
       {
         "value": "Guairá",
@@ -114,15 +114,15 @@
     "currency": [
       {
         "value": "USD",
-        "count": 8932
-      },
-      {
-        "value": "?",
-        "count": 1157
+        "count": 9637
       },
       {
         "value": "PYG",
-        "count": 691
+        "count": 709
+      },
+      {
+        "value": "?",
+        "count": 434
       }
     ],
     "source": [
@@ -145,7 +145,7 @@
     ],
     "features": []
   },
-  "updated_at": "2026-08-04T19:47:57Z",
+  "updated_at": "2026-08-04T21:14:20Z",
   "docs": "https://geodata.paragu-ai.com/api/v1/properties.json",
   "geojson_endpoint": "https://geodata.paragu-ai.com/data/properties_latest.geojson",
   "vitals_endpoint": "/api/v1/vitals",

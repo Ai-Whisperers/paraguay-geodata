@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T19:46:38.500948Z",
+  "generated_at": "2026-08-04T21:12:57.707590Z",
   "params": {
     "max_distance_m": 200.0,
     "max_price_diff": 0.3,
@@ -8,10 +8,10 @@
   },
   "totals": {
     "features": 10780,
-    "clusters": 10678,
-    "multi_listing_clusters": 51,
-    "duplicate_pairs": 107,
-    "merged": 102
+    "clusters": 10672,
+    "multi_listing_clusters": 52,
+    "duplicate_pairs": 113,
+    "merged": 108
   },
   "clusters": [
     {
@@ -231,7 +231,7 @@
     },
     {
       "cluster_id": "cls-00010525",
-      "size": 15,
+      "size": 17,
       "canonical_id": "ic_c1686d96f8a3",
       "members": [
         {
@@ -290,6 +290,12 @@
         },
         {
           "source": "asuncion_estate",
+          "source_id": "1548817",
+          "source_url": "https://asuncion.estate/en/cordillera/venta-de-residencia-en-1548817",
+          "id": "ae_7da593bf2e05"
+        },
+        {
+          "source": "asuncion_estate",
           "source_id": "1548208",
           "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-a-estrenar-1548208",
           "id": "ae_57ce1f961c6c"
@@ -317,6 +323,12 @@
           "source_id": "1545985",
           "source_url": "https://asuncion.estate/en/cordillera/en-venta-casa-en-1545985",
           "id": "ae_4ddaf2ef143d"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1526466",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-venta-en-1526466",
+          "id": "ae_1269b1f96b6c"
         },
         {
           "source": "tulugar",
@@ -559,6 +571,25 @@
       ]
     },
     {
+      "cluster_id": "cls-00009922",
+      "size": 2,
+      "canonical_id": "ae_27b444b144fb",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565559",
+          "source_url": "https://asuncion.estate/en/asuncion/oportunidad-exclusiva-en-villa-1565559",
+          "id": "ae_27b444b144fb"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "af027f90-9c3e-4b82-991b-e11aef6d4755",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/af027f90-casa-en-venta-villa-morra-asuncion",
+          "id": "tl_d683e2291e99"
+        }
+      ]
+    },
+    {
       "cluster_id": "cls-00009658",
       "size": 2,
       "canonical_id": "ae_cf864b23a578",
@@ -722,9 +753,15 @@
     },
     {
       "cluster_id": "cls-00009923",
-      "size": 2,
-      "canonical_id": "ae_66b08f0498ef",
+      "size": 3,
+      "canonical_id": "ae_21a019710efb",
       "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565329",
+          "source_url": "https://asuncion.estate/en/central/vendo-casa-en-san-1565329",
+          "id": "ae_21a019710efb"
+        },
         {
           "source": "asuncion_estate",
           "source_id": "1565248",
@@ -1039,7 +1076,7 @@
     },
     {
       "cluster_id": "cls-00009036",
-      "size": 3,
+      "size": 5,
       "canonical_id": "ae_0dd424de6978",
       "members": [
         {
@@ -1049,10 +1086,22 @@
           "id": "ae_0dd424de6978"
         },
         {
+          "source": "asuncion_estate",
+          "source_id": "1563983",
+          "source_url": "https://asuncion.estate/en/asuncion/vendo-dpto-en-villa-1563983",
+          "id": "ae_49c34f0a4651"
+        },
+        {
           "source": "tulugar",
           "source_id": "191c5031-f60b-4fe3-92e8-16c183418f68",
           "source_url": "https://tulugar.com/es/paraguay/propiedades/191c5031-departamento-en-venta-villa-morra-asuncion",
           "id": "tl_fb26e9bbb3cf"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "cd90efe7-9098-4391-9896-f8af3132d641",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/cd90efe7-departamento-en-venta-villa-morra-asuncion",
+          "id": "tl_5eb20e0e40f8"
         },
         {
           "source": "tulugar",
@@ -1300,7 +1349,7 @@
       "title_jaccard": 1.0,
       "geo_m": 0.0,
       "price_ratio": 1.0,
-      "area_ratio": Infinity,
+      "area_ratio": 2.8,
       "jaccard": 1.0,
       "same_type": true,
       "score": 95.0
@@ -1342,7 +1391,7 @@
       "title_jaccard": 0.75,
       "geo_m": 32.131877489829314,
       "price_ratio": 1.0169491525423728,
-      "area_ratio": Infinity,
+      "area_ratio": 2.058823529411765,
       "jaccard": 0.75,
       "same_type": true,
       "score": 86.57
@@ -1754,6 +1803,20 @@
       "score": 77.0
     },
     {
+      "a": "ae_27b444b144fb",
+      "b": "tl_d683e2291e99",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.42857142857142855,
+      "geo_m": 10.693854229370112,
+      "price_ratio": 1.0,
+      "area_ratio": 1.1724999999999999,
+      "jaccard": 0.42857142857142855,
+      "same_type": false,
+      "score": 75.86
+    },
+    {
       "a": "ae_cf864b23a578",
       "b": "tl_9ea5998a29a0",
       "a_source": "asuncion_estate",
@@ -1950,6 +2013,20 @@
       "score": 79.0
     },
     {
+      "a": "ae_21a019710efb",
+      "b": "tl_b8912e8fe806",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.1837838189773568,
+      "area_ratio": 1.1111111111111112,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 75.0
+    },
+    {
       "a": "ae_66b08f0498ef",
       "b": "tl_b8912e8fe806",
       "a_source": "asuncion_estate",
@@ -1958,38 +2035,10 @@
       "title_jaccard": 0.75,
       "geo_m": 0.0,
       "price_ratio": 1.1986301666666666,
-      "area_ratio": Infinity,
+      "area_ratio": 1.5999999999999999,
       "jaccard": 0.75,
       "same_type": true,
       "score": 80.0
-    },
-    {
-      "a": "ae_eec794aae557",
-      "b": "tl_fe9e2cf2c09a",
-      "a_source": "asuncion_estate",
-      "b_source": "tulugar",
-      "same_source": false,
-      "title_jaccard": 0.5,
-      "geo_m": 0.0,
-      "price_ratio": 1.2789115646258504,
-      "area_ratio": 1.0666666666666667,
-      "jaccard": 0.5,
-      "same_type": true,
-      "score": 77.0
-    },
-    {
-      "a": "ae_e93a2805d39a",
-      "b": "tl_fe9e2cf2c09a",
-      "a_source": "asuncion_estate",
-      "b_source": "tulugar",
-      "same_source": false,
-      "title_jaccard": 0.5,
-      "geo_m": 0.0,
-      "price_ratio": 1.2789115646258504,
-      "area_ratio": 1.0666666666666667,
-      "jaccard": 0.5,
-      "same_type": true,
-      "score": 77.0
     }
   ]
 }

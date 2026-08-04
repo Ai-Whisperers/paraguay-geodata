@@ -82,6 +82,11 @@ python3 -m tools.cache_prune --root "$ROOT/data/properties/cache" --keep-days 14
 log "deploy-meta"
 python3 -m tools.build_deploy_meta --deployer "$(whoami)" || log "WARN deploy-meta build failed"
 
+log "jsonld"
+# Inject Dataset JSON-LD into index.html from live data (count, sources,
+# spatial coverage, temporal coverage). Helps Google understand the dataset.
+python3 -m tools.build_jsonld || log "WARN build-jsonld failed"
+
 log "cross-source dedupe"
 # Detect cross-posted listings (same property on multiple portals) and
 # assign a shared cluster_id + also_listed_by list. This is the only step
@@ -92,6 +97,12 @@ log "infer property_type"
 # Fill in property_type for listings missing it (1,183 → 8 after this).
 # Title wins; area is the fallback; bedrooms is the last resort.
 python3 -m tools.infer_property_type || log "WARN infer-property-type failed"
+
+log "impute default values"
+# Impute area/depto/currency from inference rules. Last step before
+# build_facets so the public facets counts reflect imputed values.
+# 4,442 area, 141 depto, 723 currency imputed on the 10,780 dataset.
+python3 -m tools.impute_default_values || log "WARN impute-default-values failed"
 
 log "extract listing metadata"
 # Extract area/bedrooms/address/barrio from title for listings that

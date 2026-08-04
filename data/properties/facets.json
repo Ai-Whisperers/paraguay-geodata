@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-08-04T19:41:17.003396Z",
+  "generated_at": "2026-08-04T21:12:10.170741Z",
   "feature_count": 10780,
   "facets": {
     "depto": [
       {
         "value": "Asunción",
-        "count": 4410
+        "count": 4424
       },
       {
         "value": "Central",
-        "count": 3407
-      },
-      {
-        "value": "?",
-        "count": 1165
+        "count": 3470
       },
       {
         "value": "Cordillera",
-        "count": 1032
+        "count": 1059
+      },
+      {
+        "value": "?",
+        "count": 910
       },
       {
         "value": "Alto Paraná",
-        "count": 302
+        "count": 346
       },
       {
         "value": "Itapúa",
-        "count": 149
+        "count": 158
       },
       {
         "value": "Presidente Hayes",
@@ -33,35 +33,35 @@
       },
       {
         "value": "Paraguarí",
-        "count": 58
-      },
-      {
-        "value": "Boquerón",
-        "count": 47
+        "count": 60
       },
       {
         "value": "Caaguazú",
-        "count": 26
+        "count": 56
       },
       {
-        "value": "Ñeembucú",
-        "count": 18
+        "value": "Boquerón",
+        "count": 49
       },
       {
         "value": "San Pedro",
-        "count": 17
+        "count": 48
       },
       {
         "value": "Misiones",
-        "count": 17
+        "count": 47
+      },
+      {
+        "value": "Ñeembucú",
+        "count": 19
+      },
+      {
+        "value": "Alto Paraguay",
+        "count": 12
       },
       {
         "value": "Concepción",
         "count": 12
-      },
-      {
-        "value": "Alto Paraguay",
-        "count": 10
       },
       {
         "value": "Guairá",
@@ -109,15 +109,15 @@
     "currency": [
       {
         "value": "USD",
-        "count": 8932
-      },
-      {
-        "value": "?",
-        "count": 1157
+        "count": 9637
       },
       {
         "value": "PYG",
-        "count": 691
+        "count": 709
+      },
+      {
+        "value": "?",
+        "count": 434
       }
     ],
     "source": [
@@ -147,13 +147,13 @@
   },
   "quality": {
     "total": 10780,
-    "clean": 5078,
-    "flagged": 5702,
+    "clean": 5780,
+    "flagged": 5000,
     "by_flag": {
-      "missing_area": 4453,
-      "null_property_type": 1183,
+      "missing_area": 4450,
       "missing_price": 515,
       "area_conflict": 34,
+      "null_property_type": 8,
       "area_published_round_but_title_larger": 2
     }
   }

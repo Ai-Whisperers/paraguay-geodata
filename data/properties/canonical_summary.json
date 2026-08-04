@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T19:46:33.635305Z",
+  "generated_at": "2026-08-04T21:12:52.310528Z",
   "source_file": "exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
   "feature_count": 10780,
@@ -12,29 +12,29 @@
       "office": 597
     },
     "depto": {
-      "Asunción": 4410,
-      "Central": 3407,
-      "Alto Paraná": 302,
-      "Cordillera": 1032,
-      "Itapúa": 149,
-      "Boquerón": 47,
+      "Alto Paraná": 346,
+      "Boquerón": 49,
+      "Asunción": 4424,
+      "Caaguazú": 56,
+      "Central": 3470,
+      "Cordillera": 1059,
+      "Itapúa": 158,
+      "San Pedro": 48,
+      "Misiones": 47,
+      "Ñeembucú": 19,
+      "Alto Paraguay": 12,
       "Presidente Hayes": 88,
-      "Paraguarí": 58,
-      "San Pedro": 17,
-      "Caaguazú": 26,
-      "Misiones": 17,
+      "Paraguarí": 60,
       "Concepción": 12,
-      "Ñeembucú": 18,
-      "Alto Paraguay": 10,
       "Caazapá": 4,
       "Canindeyú": 5,
       "Guairá": 8,
       "Amambay": 5
     },
     "currency": {
-      "?": 1157,
-      "USD": 8932,
-      "PYG": 691
+      "?": 434,
+      "USD": 9637,
+      "PYG": 709
     },
     "source": {
       "infocasas": 1156,
@@ -44,7 +44,7 @@
     },
     "flags": {
       "missing_price": 515,
-      "missing_area": 4450,
+      "missing_area": 8,
       "null_property_type": 8,
       "area_published_round_but_title_larger": 2,
       "area_conflict": 34
