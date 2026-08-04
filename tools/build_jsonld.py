@@ -144,22 +144,30 @@ def build_dataset_block() -> dict:
 
 
 def inject_into_html(block: dict) -> None:
-    """Inject the Dataset JSON-LD block into index.html."""
+    """Inject the Dataset JSON-LD block into index.html.
+
+    Removes any existing Dataset blocks first to avoid duplicates. Keeps
+    the WebSite schema (and any other non-Dataset schemas) intact.
+    """
     html = INDEX.read_text()
+
+    # Strip existing Dataset blocks (idempotency)
+    html = re.sub(
+        r'<script type="application/ld\+json">\s*\{[^}]*"@type":\s*"Dataset".*?</script>',
+        "", html, flags=re.DOTALL,
+    )
 
     block_str = json.dumps(block, ensure_ascii=False, indent=4)
     script = f'<script type="application/ld+json">\n{block_str}\n    </script>'
 
-    # Find the existing JSON-LD block and insert a new one after it
+    # Find the existing WebSite JSON-LD block and insert a new one after it
     m = re.search(r'(<script type="application/ld\+json">.*?</script>)', html, re.DOTALL)
     if m:
         pos = m.end()
-        # Insert the Dataset block after the existing WebSite block
         html = html[:pos] + "\n    " + script + html[pos:]
         INDEX.write_text(html)
         print(f"  ✓ injected Dataset JSON-LD after WebSite schema")
     else:
-        # No existing JSON-LD, append to <head>
         html = html.replace("</head>", script + "\n</head>")
         INDEX.write_text(html)
         print(f"  ✓ appended Dataset JSON-LD to <head>")

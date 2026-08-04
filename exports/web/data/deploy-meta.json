@@ -1,8 +1,8 @@
 {
-  "commit": "a02cbbc9bd2a0be032c3e8e1e7be32251e715546",
-  "commit_short": "a02cbbc",
+  "commit": "3068643b9be0024fa280c4851a5eeaab0849885c",
+  "commit_short": "3068643",
   "branch": "feat/architect-export",
-  "deployed_at_utc": "2026-08-04T21:12:34Z",
+  "deployed_at_utc": "2026-08-04T21:17:02Z",
   "deployer": "test",
   "project": "paraguay-geodata",
   "live_features_total": 87273,
