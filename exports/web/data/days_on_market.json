@@ -1,45 +1,45 @@
 {
-  "generated_at": "2026-08-03T20:52:55.744311Z",
+  "generated_at": "2026-08-04T01:34:08.055903Z",
   "summary": {
-    "median_days": 2,
+    "median_days": 1,
     "p25": 0,
     "p75": 2,
-    "n_listings": 5844
+    "n_listings": 10780
   },
   "by_depto": {
     "Alto Paraguay": {
-      "median_days": 0,
-      "n": 9,
+      "median_days": 1,
+      "n": 10,
       "stale_pct": 0.0
     },
     "Alto Paraná": {
-      "median_days": 0,
-      "n": 288,
+      "median_days": 1,
+      "n": 302,
       "stale_pct": 0.0
     },
     "Amambay": {
       "median_days": 0,
-      "n": 4,
+      "n": 5,
       "stale_pct": 0.0
     },
     "Asunción": {
-      "median_days": 2,
-      "n": 2061,
+      "median_days": 0,
+      "n": 4410,
       "stale_pct": 0.0
     },
     "Boquerón": {
-      "median_days": 0,
-      "n": 41,
+      "median_days": 1,
+      "n": 47,
       "stale_pct": 0.0
     },
     "Caaguazú": {
       "median_days": 1,
-      "n": 24,
+      "n": 26,
       "stale_pct": 0.0
     },
     "Caazapá": {
-      "median_days": null,
-      "n": 2,
+      "median_days": 0,
+      "n": 4,
       "stale_pct": 0.0
     },
     "Canindeyú": {
@@ -49,47 +49,47 @@
     },
     "Central": {
       "median_days": 0,
-      "n": 1473,
+      "n": 3407,
       "stale_pct": 0.0
     },
     "Concepción": {
-      "median_days": 0,
-      "n": 8,
+      "median_days": 1,
+      "n": 12,
       "stale_pct": 0.0
     },
     "Cordillera": {
       "median_days": 0,
-      "n": 467,
+      "n": 1032,
       "stale_pct": 0.0
     },
     "Guairá": {
       "median_days": 0,
-      "n": 4,
+      "n": 8,
       "stale_pct": 0.0
     },
     "Itapúa": {
-      "median_days": 0,
-      "n": 112,
+      "median_days": 1,
+      "n": 149,
       "stale_pct": 0.0
     },
     "Misiones": {
-      "median_days": 0,
-      "n": 14,
+      "median_days": 1,
+      "n": 17,
       "stale_pct": 0.0
     },
     "Paraguarí": {
-      "median_days": 0,
-      "n": 51,
+      "median_days": 1,
+      "n": 58,
       "stale_pct": 0.0
     },
     "Presidente Hayes": {
-      "median_days": 0,
-      "n": 83,
+      "median_days": 1,
+      "n": 88,
       "stale_pct": 0.0
     },
     "San Pedro": {
-      "median_days": 0,
-      "n": 16,
+      "median_days": 1,
+      "n": 17,
       "stale_pct": 0.0
     },
     "Unknown": {
@@ -99,7 +99,7 @@
     },
     "Ñeembucú": {
       "median_days": 2,
-      "n": 17,
+      "n": 18,
       "stale_pct": 0.0
     }
   },

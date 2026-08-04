@@ -27,9 +27,16 @@ cd "$ROOT"
 log "fetching properties"
 python3 -m tools.fetch_properties --portal infocasas  --output-dir "$WORK/infocasas"  || log "WARN infocasas fetch failed"
 python3 -m tools.fetch_tulugar    --output-dir "$WORK/tulugar"                          || log "WARN tulugar fetch failed"
-python3 -m tools.fetch_asuncion_estate --output-dir "$WORK/asuncion_estate"           || log "WARN asuncion_estate fetch failed"
+# asuncion.estate: two-pass (fast card walk → detail enrichment only for missing coords)
+python3 -m tools.fast_walk_asuncion_estate --output "$WORK/asuncion_estate/fast_walk.geojson" --concurrency 40  || log "WARN asuncion_estate walk failed"
+python3 -m tools.enrich_missing_only --walk-snapshot "$WORK/asuncion_estate/fast_walk.geojson" --output "$WORK/asuncion_estate/enriched.geojson" --concurrency 24  || log "WARN asuncion_estate enrich failed"
+# Rename so merge_fresh_sources picks it up (needs _YYYY-MM-DD suffix)
+if [ -f "$WORK/asuncion_estate/enriched.geojson" ]; then
+    DATE=$(date -u +%Y-%m-%d)
+    cp "$WORK/asuncion_estate/enriched.geojson" "$WORK/asuncion_estate/enriched_${DATE}.geojson"
+fi
 python3 -m tools.fetch_argenprop  --output-dir "$WORK/argenprop"                        || log "WARN argenprop fetch failed"
-python3 -m tools.fetch_inmueblespy --output-dir "$WORK/inmueblespy" --delay 0.5 --max 250  || log "WARN inmueblespy fetch failed"
+python3 -m tools.fetch_inmueblespy --output-dir "$WORK/inmueblespy" --concurrency 8 --max 500 --delay 0.3  || log "WARN inmueblespy fetch failed"
 
 # 2. Mirror the WORK files into the snapshots dir so the merger can find them.
 #    Snapshot dir is gitignored — it's the staging area for canonicalize.

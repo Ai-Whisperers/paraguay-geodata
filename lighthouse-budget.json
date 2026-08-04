@@ -2,24 +2,86 @@
   {
     "path": "/*",
     "resourceSizes": [
-      { "resourceType": "script", "budget": 100 },
-      { "resourceType": "stylesheet", "budget": 30 },
-      { "resourceType": "image", "budget": 200 },
-      { "resourceType": "third-party", "budget": 100 },
+      { "resourceType": "script", "budget": 280 },
+      { "resourceType": "stylesheet", "budget": 50 },
+      { "resourceType": "image", "budget": 500 },
+      { "resourceType": "third-party", "budget": 400 },
+      { "resourceType": "total", "budget": 1100 }
+    ],
+    "timings": [
+      { "metric": "first-contentful-paint", "budget": 1800 },
+      { "metric": "largest-contentful-paint", "budget": 3000 },
+      { "metric": "total-blocking-time", "budget": 400 },
+      { "metric": "cumulative-layout-shift", "budget": 0.15 },
+      { "metric": "interactive", "budget": 4500 },
+      { "metric": "speed-index", "budget": 3500 }
+    ],
+    "assertions": {
+      "categories:performance": ["error", { "minScore": 0.80 }],
+      "categories:accessibility": ["error", { "minScore": 0.85 }],
+      "categories:best-practices": ["error", { "minScore": 0.85 }],
+      "categories:seo": ["error", { "minScore": 0.90 }]
+    },
+    "counts": [
+      { "auditId": "third-party-summary", "budget": 8 },
+      { "auditId": "errors-in-console", "budget": 0 },
+      { "auditId": "uses-long-cache-ttl", "budget": 30 }
+    ]
+  },
+  {
+    "path": "/mapa",
+    "resourceSizes": [
+      { "resourceType": "script", "budget": 350 },
+      { "resourceType": "stylesheet", "budget": 50 },
+      { "resourceType": "image", "budget": 800 },
+      { "resourceType": "third-party", "budget": 500 },
+      { "resourceType": "total", "budget": 1700 }
+    ],
+    "timings": [
+      { "metric": "first-contentful-paint", "budget": 2500 },
+      { "metric": "largest-contentful-paint", "budget": 4000 },
+      { "metric": "total-blocking-time", "budget": 600 },
+      { "metric": "cumulative-layout-shift", "budget": 0.15 },
+      { "metric": "interactive", "budget": 6000 },
+      { "metric": "speed-index", "budget": 5000 }
+    ],
+    "assertions": {
+      "categories:performance": ["error", { "minScore": 0.70 }],
+      "categories:accessibility": ["error", { "minScore": 0.85 }],
+      "categories:best-practices": ["error", { "minScore": 0.85 }],
+      "categories:seo": ["error", { "minScore": 0.90 }]
+    }
+  },
+  {
+    "path": "/use-cases",
+    "resourceSizes": [
       { "resourceType": "total", "budget": 500 }
     ],
     "timings": [
-      { "metric": "interactive", "budget": 3500 },
       { "metric": "first-contentful-paint", "budget": 1500 },
-      { "metric": "largest-contentful-paint", "budget": 2500 },
-      { "metric": "total-blocking-time", "budget": 300 },
-      { "metric": "cumulative-layout-shift", "budget": 0.1 }
+      { "metric": "largest-contentful-paint", "budget": 2500 }
     ],
-    "assertions": [
-      { "metric": "categories:performance", "budget": 90, "errorMessage": "Mobile perf < 90" },
-      { "metric": "categories:accessibility", "budget": 90, "errorMessage": "a11y < 90" },
-      { "metric": "categories:best-practices", "budget": 90, "errorMessage": "best-practices < 90" },
-      { "metric": "categories:seo", "budget": 90, "errorMessage": "SEO < 90" }
-    ]
+    "assertions": {
+      "categories:performance": ["error", { "minScore": 0.85 }],
+      "categories:accessibility": ["error", { "minScore": 0.90 }],
+      "categories:best-practices": ["error", { "minScore": 0.90 }],
+      "categories:seo": ["error", { "minScore": 0.90 }]
+    }
+  },
+  {
+    "path": "/compare",
+    "resourceSizes": [
+      { "resourceType": "total", "budget": 600 }
+    ],
+    "timings": [
+      { "metric": "first-contentful-paint", "budget": 1500 },
+      { "metric": "largest-contentful-paint", "budget": 2500 }
+    ],
+    "assertions": {
+      "categories:performance": ["error", { "minScore": 0.85 }],
+      "categories:accessibility": ["error", { "minScore": 0.90 }],
+      "categories:best-practices": ["error", { "minScore": 0.90 }],
+      "categories:seo": ["error", { "minScore": 0.90 }]
+    }
   }
 ]

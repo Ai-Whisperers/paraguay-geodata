@@ -1,57 +1,59 @@
 {
-  "generated_at": "2026-08-03T20:52:54.189584Z",
-  "source_file": "/root/paraguay-geodata/exports/web/data/properties_latest.geojson",
+  "generated_at": "2026-08-04T01:33:39.257912Z",
+  "source_file": "/tmp/raw_merge.geojson",
   "fx_pyg_per_usd": 7500.0,
-  "feature_count": 5844,
+  "feature_count": 10780,
   "facets": {
     "property_type": {
-      "house": 1247,
-      "apartment": 1479,
-      "land": 1202,
-      "office": 225,
-      "commercial": 520
+      "house": 3025,
+      "apartment": 2966,
+      "land": 2301,
+      "office": 596,
+      "commercial": 709
     },
     "depto": {
-      "Asunción": 2061,
-      "Central": 1473,
-      "Alto Paraná": 288,
-      "Cordillera": 467,
-      "Itapúa": 112,
-      "Boquerón": 41,
-      "Presidente Hayes": 83,
-      "Paraguarí": 51,
-      "San Pedro": 16,
-      "Caaguazú": 24,
-      "Misiones": 14,
-      "Concepción": 8,
-      "Ñeembucú": 17,
-      "Alto Paraguay": 9,
-      "Caazapá": 2,
+      "Asunción": 4410,
+      "Central": 3407,
+      "Alto Paraná": 302,
+      "Cordillera": 1032,
+      "Itapúa": 149,
+      "Boquerón": 47,
+      "Presidente Hayes": 88,
+      "Paraguarí": 58,
+      "San Pedro": 17,
+      "Caaguazú": 26,
+      "Misiones": 17,
+      "Concepción": 12,
+      "Ñeembucú": 18,
+      "Alto Paraguay": 10,
+      "Caazapá": 4,
       "Canindeyú": 5,
-      "Guairá": 4,
-      "Amambay": 4
+      "Guairá": 8,
+      "Amambay": 5
     },
     "currency": {
-      "?": 1156,
-      "USD": 4062,
-      "PYG": 626
+      "?": 1157,
+      "USD": 8932,
+      "PYG": 691
     },
     "source": {
       "infocasas": 1156,
-      "asuncion_estate": 2590,
-      "inmueblespy": 60,
+      "asuncion_estate": 7383,
+      "inmueblespy": 203,
       "tulugar": 2038
     },
     "flags": {
-      "missing_price": 449,
-      "null_property_type": 1171,
-      "missing_area": 87,
+      "missing_price": 515,
+      "null_property_type": 1183,
+      "missing_area": 4453,
+      "area_inferred_from_title": 928,
+      "area_recovered_from_title_m2": 9,
       "area_published_round_but_title_larger": 2,
-      "area_conflict": 34,
-      "area_recovered_from_title_m2": 15
+      "missing_area_ha_inferred": 1340,
+      "missing_price_pyg_inferred": 1429
     },
     "year_seen": {
-      "2026": 5844
+      "2026": 10780
     }
   }
 }

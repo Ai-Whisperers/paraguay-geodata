@@ -174,11 +174,15 @@ def _walk_catalog() -> list[tuple[str, str, str, int]]:
         )
         return (city, op, ptype, page, bool(cards))
 
-    # Probe up to 5 pages per active combo in parallel
+    # Probe up to 20 pages per active combo in parallel.  Each page is 24
+    # cards so 20 pages × 24 = 480 unique per combo before dup across pages;
+    # asuncion.estate caps at ~15 pages (3,600 total) for the busiest
+    # categories.  Raising from the legacy 5-page cap → 4× more listings
+    # on a single cron run.
     page_candidates = [
         (city, op, ptype, page)
         for city, op, ptype in active
-        for page in range(1, 6)
+        for page in range(1, 21)
     ]
     found: list[tuple[str, str, str, int]] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:

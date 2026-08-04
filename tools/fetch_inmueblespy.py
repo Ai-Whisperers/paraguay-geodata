@@ -365,8 +365,16 @@ def _sitemap_urls(sitemap_xml: str) -> list[str]:
     return [u for u in urls if "/inmueble/" in u]
 
 
-def scrape_inmueblespy(*, max_pages: int = 1, max_listings: int = 500, delay: float = 1.5) -> list[dict]:
-    """Walk the sitemap + detail pages and return a list of features."""
+def scrape_inmueblespy(*, max_pages: int = 1, max_listings: int = 500, delay: float = 1.5,
+                        concurrency: int = 8) -> list[dict]:
+    """Walk the sitemap + detail pages and return a list of features.
+
+    Uses a ThreadPoolExecutor with bounded concurrency so we keep the wall-clock
+    under 2 minutes for 200+ listings instead of the previous 10-minute
+    sequential crawl. The site tolerates ~10 req/s; default 8 leaves headroom.
+    """
+    import concurrent.futures
+
     sitemap_url = "https://inmueblespy.com/wp-sitemap-posts-property-1.xml"
     print(f"  fetching sitemap: {sitemap_url}")
     raw, _ = _fetch(sitemap_url)
@@ -375,23 +383,29 @@ def scrape_inmueblespy(*, max_pages: int = 1, max_listings: int = 500, delay: fl
         print(f"  WARN: no URLs found in sitemap")
         return []
     urls = urls[:max_listings]
-    print(f"  {len(urls)} candidate URLs")
+    print(f"  {len(urls)} candidate URLs (concurrency={concurrency})")
 
-    feats = []
-    for i, url in enumerate(urls):
+    feats: list[dict] = []
+    fetched: dict[str, bytes] = {}
+
+    def _fetch_one(url: str) -> tuple[str, bytes | None]:
         try:
             raw, _ = _fetch(url)
-            html = raw.decode("utf-8", errors="ignore")
+            return url, raw
         except Exception as e:
             print(f"  warn {url}: {e}")
-            continue
-        feat = _parse_detail(url, html)
-        if feat is None:
-            continue
-        feats.append(feat)
-        if (i + 1) % 20 == 0:
-            print(f"  {i + 1}/{len(urls)}: kept {len(feats)}")
-        time.sleep(delay)
+            return url, None
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=concurrency) as ex:
+        for i, (url, body) in enumerate(ex.map(_fetch_one, urls)):
+            if body is None:
+                continue
+            html = body.decode("utf-8", errors="ignore")
+            feat = _parse_detail(url, html)
+            if feat is not None:
+                feats.append(feat)
+            if (i + 1) % 20 == 0 or (i + 1) == len(urls):
+                print(f"  {i + 1}/{len(urls)}: kept {len(feats)}")
     return feats
 
 
@@ -401,8 +415,10 @@ def main(argv=None):
                         default=ROOT / "data" / "properties" / "snapshots")
     parser.add_argument("--max", type=int, default=500,
                         help="Max listings to fetch (default: 500).")
-    parser.add_argument("--delay", type=float, default=1.5,
-                        help="Seconds between requests (default: 1.5).")
+    parser.add_argument("--delay", type=float, default=0.5,
+                        help="Deprecated — kept for backwards compatibility. Use --concurrency.")
+    parser.add_argument("--concurrency", type=int, default=8,
+                        help="Concurrent detail-page fetches (default: 8).")
     parser.add_argument("--no-fetch", action="store_true",
                         help="Skip network (CI mode).")
     args = parser.parse_args(argv)
@@ -410,7 +426,7 @@ def main(argv=None):
     if args.no_fetch:
         feats: list[dict] = []
     else:
-        feats = scrape_inmueblespy(max_listings=args.max, delay=args.delay)
+        feats = scrape_inmueblespy(max_listings=args.max, delay=args.delay, concurrency=args.concurrency)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H%M")

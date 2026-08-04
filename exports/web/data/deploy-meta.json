@@ -1,9 +1,9 @@
 {
-  "commit": "5c319258ab12f8b7bbd721e326671819381c4852",
-  "commit_short": "5c31925",
+  "commit": "88cac03bcde746dc42d6a54cc75776496c7f5fc1",
+  "commit_short": "88cac03",
   "branch": "feat/architect-export",
-  "deployed_at_utc": "2026-08-04T00:29:41Z",
-  "deployer": "root",
+  "deployed_at_utc": "2026-08-04T01:34:13Z",
+  "deployer": "erebus",
   "project": "paraguay-geodata",
   "live_features_total": 87273,
   "data_layers_loaded": [
@@ -155,7 +155,7 @@
       "id": "days_on_market",
       "label": "Days-on-market by depto",
       "file": "data/days_on_market.json",
-      "size_b": 15102
+      "size_b": 15103
     },
     {
       "id": "property_risk",

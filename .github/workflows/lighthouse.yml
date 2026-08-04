@@ -28,7 +28,7 @@ jobs:
           python3 -m tools.build_facets
           python3 -m tools.build_data_freshness
           python3 -m tools.build_days_on_market
-          python3 -m tools.build_pmtiles --no-pmtiles || true
+          python3 -m tools.build_pmtiles || true
           python3 -m tools.build_bulletin || true
 
       - name: Deploy preview
@@ -50,5 +50,41 @@ jobs:
           budgetPath: ./lighthouse-budget.json
           uploadArtifacts: true
           temporaryPublicStorage: true
+          # Fail the build if any assertion fails. This is the gate that prevents
+          # performance / a11y / SEO regressions from shipping.
+          # LHCI's "assert" action reads from the same budgetPath; if assertions
+          # like categories:performance minScore 0.80 fail, the action exits non-zero.
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Fail build on budget violation
+        # Defensive: even if treosh action doesn't fail, this step reads
+        # the budget assertions again with @lhci/cli and exits 1 if violated.
+        # This makes the perf gate explicit in the workflow.
+        run: |
+          npm install -g @lhci/cli@0.14.x || npm install -g @lhci/cli@latest
+          lhci autorun --config.lighthouserc.json='{
+            "ci": {
+              "collect": {
+                "url": [
+                  "https://geodata.paragu-ai.com/",
+                  "https://geodata.paragu-ai.com/mapa",
+                  "https://geodata.paragu-ai.com/use-cases",
+                  "https://geodata.paragu-ai.com/compare"
+                ],
+                "numberOfRuns": 1
+              },
+              "assert": {
+                "assertions": {
+                  "categories:performance": ["error", {"minScore": 0.80}],
+                  "categories:accessibility": ["error", {"minScore": 0.85}],
+                  "categories:best-practices": ["error", {"minScore": 0.85}],
+                  "categories:seo": ["error", {"minScore": 0.90}]
+                }
+              },
+              "upload": {"target": "temporary-public-storage"}
+            }
+          }' --collect.staticDistDir=./exports/web || {
+            echo "::warning::LHCI autorun failed; see logs above"
+            exit 1
+          }

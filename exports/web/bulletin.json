@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-03T20:52:55Z",
+  "as_of": "2026-08-04T01:34:08Z",
   "service": "paraguay-geodata",
   "version": "2026-08-03",
   "deployed_at": "2026-08-03T12:00:00Z",
@@ -7,8 +7,8 @@
     "total_listings": 5784,
     "sources": {
       "infocasas": 1156,
-      "asuncion_estate": 2590,
-      "inmueblespy": 60,
+      "asuncion_estate": 7383,
+      "inmueblespy": 203,
       "tulugar": 2038
     },
     "n_sources": 4,
@@ -16,81 +16,81 @@
   },
   "deploys": [
     {
-      "sha": "1099f9b",
-      "subject": "feat: 3 follow-ups — full 60-list fetch, esbuild bundle, taxonomy cleanup",
-      "date": "2026-08-03 16:43:45 -0300",
+      "sha": "88cac03",
+      "subject": "docs: in-depth roadmap (ROADMAP_NEXT_STEPS_2026-08-03.md)",
+      "date": "2026-08-03 21:38:35 -0300",
       "author": "Erebus"
     },
     {
-      "sha": "14f4919",
-      "subject": "feat: A+B+C+D — wire argenprop, cache-prune, drop widgets.v3.js, add inmueblespy",
-      "date": "2026-08-03 16:17:21 -0300",
+      "sha": "a484672",
+      "subject": "fix(round2): pmtiles URL, deploy-meta builder, time slider freshness",
+      "date": "2026-08-03 21:30:05 -0300",
       "author": "Erebus"
     },
     {
-      "sha": "757b14f",
-      "subject": "feat: PMTiles vector tiles + status page + bulletin + R2 mirror + monitoring hooks",
-      "date": "2026-08-03 14:36:16 -0300",
+      "sha": "5c31925",
+      "subject": "feat(enrichment): 11 ambient fields per listing + popup badges + calculators",
+      "date": "2026-08-03 21:01:30 -0300",
       "author": "Erebus"
     },
     {
-      "sha": "67198e4",
-      "subject": "refactor: 30-issue Roast cleanup — kill dead code, ship CI + DR + runbook",
-      "date": "2026-08-03 14:11:32 -0300",
+      "sha": "2388b08",
+      "subject": "docs: STATUS.md feature audit (50 features verified, 5 known issues, 7 next steps)",
+      "date": "2026-08-03 19:55:28 -0300",
       "author": "Erebus"
     },
     {
-      "sha": "5466117",
-      "subject": "docs: ROAST — repo audit with ~500 findings, prioritized for tech-debt work",
-      "date": "2026-08-03 13:59:54 -0300",
+      "sha": "9975788",
+      "subject": "feat(audit): add missing widget container IDs, Ge= shadow fix, bcp_latest.json",
+      "date": "2026-08-03 19:54:43 -0300",
       "author": "Erebus"
     }
   ],
   "new_listings": [
     {
-      "id": "ip_5be9e1e397dc",
-      "source": "inmueblespy",
-      "city": "Asunción",
-      "state_province": "Asunción",
-      "price_usd": null,
-      "area_sqm": 55.0,
-      "scraped_at": "2026-08-03T19:41:58.899864+00:00"
+      "id": "ae_997345c9080e",
+      "source": "asuncion_estate",
+      "city": "Caazapa",
+      "state_province": "Caazapá",
+      "price_usd": 10000000.0,
+      "area_sqm": 22330.0,
+      "scraped_at": "2026-08-04T01:30:12.524981+00:00"
     },
     {
-      "id": "ip_db28f36db2ec",
-      "source": "inmueblespy",
-      "city": "Nanawa",
-      "state_province": "Presidente Hayes",
-      "price_usd": 700000.0,
-      "area_sqm": 18103.0,
-      "scraped_at": "2026-08-03T19:41:56.485833+00:00"
+      "id": "ae_3b06875f159e",
+      "source": "asuncion_estate",
+      "city": "Alto Paraguay",
+      "state_province": "Alto Paraguay",
+      "price_usd": 5500000.0,
+      "area_sqm": null,
+      "scraped_at": "2026-08-04T01:30:12.524959+00:00"
     },
     {
-      "id": "ip_50ff6d8f0e2a",
-      "source": "inmueblespy",
-      "city": "Itauguá",
-      "state_province": "Central",
-      "price_usd": 65000000.0,
-      "area_sqm": 367.0,
-      "scraped_at": "2026-08-03T19:41:54.099390+00:00"
+      "id": "ae_8a626fd4856c",
+      "source": "asuncion_estate",
+      "city": "Neembucu",
+      "state_province": "Ñeembucú",
+      "price_usd": 2200000.0,
+      "area_sqm": 2500000.0,
+      "scraped_at": "2026-08-04T01:30:12.524945+00:00"
     },
     {
-      "id": "ip_ebac8f204735",
-      "source": "inmueblespy",
-      "city": "Asunción",
-      "state_province": "Asunción",
-      "price_usd": null,
-      "area_sqm": 374.0,
-      "scraped_at": "2026-08-03T19:41:51.903861+00:00"
+      "id": "ae_e0eab9d72df2",
+      "source": "asuncion_estate",
+      "city": "Concepcion",
+      "state_province": "Concepción",
+      "price_usd": 15000000.0,
+      "area_sqm": 2200000.0,
+      "scraped_at": "2026-08-04T01:30:12.524911+00:00"
     },
     {
-      "id": "ip_c78efe8e20dd",
-      "source": "inmueblespy",
-      "city": "Asunción",
-      "state_province": "Asunción",
-      "price_usd": null,
-      "area_sqm": 964.0,
-      "scraped_at": "2026-08-03T19:41:49.522776+00:00"
+      "id": "ae_c616e18d04a4",
+      "source": "asuncion_estate",
+      "city": "Concepcion",
+      "state_province": "Concepción",
+      "price_usd": 180000.0,
+      "area_sqm": null,
+      "scraped_at": "2026-08-04T01:30:12.524867+00:00"
     }
   ],
   "subscribe_url": "https://geodata.paragu-ai.com/changelog.xml"
