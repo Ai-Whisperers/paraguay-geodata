@@ -95,14 +95,18 @@ def _parse_amount(s: str) -> int | None:
 
 
 def _parse_detail(url: str, html: str) -> dict | None:
-    """Extract lat/lon/price/images from an asuncion.estate detail page."""
+    """Extract lat/lon/price/images from an asuncion.estate detail page.
+
+    Note: the site uses `data-lon` (not `data-lng`) for the longitude
+    attribute. We try both to be safe.
+    """
     out: dict = {}
 
     # lat/lon
     m = re.search(r'data-lat="([\d.\-]+)"', html)
     if m:
         out["lat"] = float(m.group(1))
-    m = re.search(r'data-lng="([\d.\-]+)"', html)
+    m = re.search(r'data-l(?:on|ng)="([\d.\-]+)"', html)
     if m:
         out["lon"] = float(m.group(1))
 

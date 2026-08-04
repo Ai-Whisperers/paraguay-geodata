@@ -81,6 +81,12 @@ python3 -m tools.cache_prune --root "$ROOT/data/properties/cache" --keep-days 14
 log "deploy-meta"
 python3 -m tools.build_deploy_meta --deployer "$(whoami)" || log "WARN deploy-meta build failed"
 
+log "cross-source dedupe"
+# Detect cross-posted listings (same property on multiple portals) and
+# assign a shared cluster_id + also_listed_by list. This is the only step
+# that surfaces "this property is also listed by Infocasas" in the popup.
+python3 -m tools.cross_source_dedupe || log "WARN cross-source-dedupe failed"
+
 log "deploy"
 cp "$ROOT/data/properties/canonical_properties.geojson" \
    "$ROOT/exports/web/data/properties_latest.geojson"

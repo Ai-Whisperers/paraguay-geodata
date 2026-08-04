@@ -1,0 +1,1976 @@
+{
+  "generated_at": "2026-08-04T01:58:18.080778Z",
+  "params": {
+    "max_distance_m": 200.0,
+    "max_price_diff": 0.3,
+    "max_area_diff": 0.5,
+    "score_threshold": 55.0
+  },
+  "totals": {
+    "features": 10780,
+    "clusters": 10679,
+    "multi_listing_clusters": 50,
+    "duplicate_pairs": 106,
+    "merged": 101
+  },
+  "clusters": [
+    {
+      "cluster_id": "cls-00002935",
+      "size": 2,
+      "canonical_id": "ic_05e265fe47fd",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193863229",
+          "source_url": "https://www.infocasas.com.py/inversion-estrategica-departamento-moderno-en-pozo-barrio-boqueron-1-ciudad-del-este-asegura-tu-futuro-en-la-zona-de-mayor-demanda/193863229",
+          "id": "ic_05e265fe47fd"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1549527",
+          "source_url": "https://asuncion.estate/en/alto-parana/inversion-estrategica-departamento-moderno-1549527",
+          "id": "ae_185246cf5c0a"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00002949",
+      "size": 2,
+      "canonical_id": "ic_9d953ec4829c",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193871753",
+          "source_url": "https://www.infocasas.com.py/oportunidad-de-inversion-en-3-fronteras-terreno-19220m2-presidente-franco/193871753",
+          "id": "ic_9d953ec4829c"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565252",
+          "source_url": "https://asuncion.estate/en/alto-parana/oportunidad-de-inversion-en-1565252",
+          "id": "ae_101f51ae134e"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009964",
+      "size": 2,
+      "canonical_id": "ic_50785bb72578",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "191728608",
+          "source_url": "https://www.infocasas.com.py/departamento-de-3-dormitorios-con-2-cocheras-en-venta-en-recoleta-/191728608",
+          "id": "ic_50785bb72578"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "66da1a84-c9c9-4e98-a8d5-e1696772449a",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/66da1a84-departamento-en-venta-recoleta-asuncion",
+          "id": "tl_0817d96b86b0"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009738",
+      "size": 2,
+      "canonical_id": "ic_10c8933b8d94",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193608699",
+          "source_url": "https://www.infocasas.com.py/vendo-monoambiente-en-barrio-recoleta-/193608699",
+          "id": "ic_10c8933b8d94"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "5a594520-bdcd-4079-b630-59a870beb78e",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/5a594520-departamento-en-venta-recoleta-asuncion",
+          "id": "tl_3bcce23fbec2"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003707",
+      "size": 2,
+      "canonical_id": "ic_2268e7a9af0e",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "194026366",
+          "source_url": "https://www.infocasas.com.py/58-hectareas-en-caaguazu/194026366",
+          "id": "ic_2268e7a9af0e"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1548674",
+          "source_url": "https://asuncion.estate/en/caaguazu/vendo-hectareas-en-caaguazu-1548674",
+          "id": "ae_0687c7a41c97"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00002466",
+      "size": 2,
+      "canonical_id": "ic_f0dd573323be",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193853152",
+          "source_url": "https://www.infocasas.com.py/vendo-propiedad-con-construccion-en-aregua-sobre-ruta/193853152",
+          "id": "ic_f0dd573323be"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1550755",
+          "source_url": "https://asuncion.estate/en/central/vendo-propiedad-con-construccion-1550755",
+          "id": "ae_d0df935625c1"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00002344",
+      "size": 2,
+      "canonical_id": "ic_24aec6aafa4b",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193817460",
+          "source_url": "https://www.infocasas.com.py/vendo-terreno-en-san-lorenzo-laurelty/193817460",
+          "id": "ic_24aec6aafa4b"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565565",
+          "source_url": "https://asuncion.estate/en/central/vendo-terreno-en-san-1565565",
+          "id": "ae_0f8c8030894a"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00002396",
+      "size": 3,
+      "canonical_id": "ic_2be4099e756e",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193708827",
+          "source_url": "https://www.infocasas.com.py/vendo-duplex-en-fernando-de-la-mora-zona-sur-/193708827",
+          "id": "ic_2be4099e756e"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565353",
+          "source_url": "https://asuncion.estate/en/central/vendo-duplex-en-fernando-1565353",
+          "id": "ae_20c89493df7c"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565092",
+          "source_url": "https://asuncion.estate/en/central/terreno-en-venta-en-1565092",
+          "id": "ae_ce32014eacb8"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010444",
+      "size": 2,
+      "canonical_id": "ic_c296e54d6742",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193496335",
+          "source_url": "https://www.infocasas.com.py/vendo-terreno-de-600-m2-en-san-bernardino-zona-puerta-del-lago/193496335",
+          "id": "ic_c296e54d6742"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "d3eb7e0d-c608-4e1e-ba46-390908985a8d",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/d3eb7e0d-terreno-en-venta-san-bernardino",
+          "id": "tl_b04750918b1f"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003171",
+      "size": 2,
+      "canonical_id": "ic_f70c38ca6c23",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193916702",
+          "source_url": "https://www.infocasas.com.py/casa-con-vista-al-lago-ypacarai/193916702",
+          "id": "ic_f70c38ca6c23"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1563038",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-con-vista-al-1563038",
+          "id": "ae_82fd1b1e1ddb"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010525",
+      "size": 15,
+      "canonical_id": "ic_c1686d96f8a3",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193647149",
+          "source_url": "https://www.infocasas.com.py/vendo-lotes-en-la-ciudad-de-san-bernardino-/193647149",
+          "id": "ic_c1686d96f8a3"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564464",
+          "source_url": "https://asuncion.estate/en/cordillera/venta-de-hermosa-residencia-1564464",
+          "id": "ae_ec2005cef29c"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1563523",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-exclusiva-casa-en-1563523",
+          "id": "ae_98a9f34680d4"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1563034",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-en-san-1563034",
+          "id": "ae_c1102705bf3d"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1563006",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-amoblada-con-1563006",
+          "id": "ae_0507e63f8ac2"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1562887",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-amoblada-en-venta-1562887",
+          "id": "ae_c2912e2d3665"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1562884",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-moderna-en-1562884",
+          "id": "ae_dc62285bb8ac"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1562658",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-moderna-en-1562658",
+          "id": "ae_7e6b7b03feb0"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1549833",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-en-san-1549833",
+          "id": "ae_a2d92627a103"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1548208",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-a-estrenar-1548208",
+          "id": "ae_57ce1f961c6c"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1548014",
+          "source_url": "https://asuncion.estate/en/cordillera/en-venta-casa-amoblada-1548014",
+          "id": "ae_b430960f6532"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1547042",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-de-autor-de-1547042",
+          "id": "ae_296005586fff"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1546399",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-de-autor-1546399",
+          "id": "ae_0d2cf7927771"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1545985",
+          "source_url": "https://asuncion.estate/en/cordillera/en-venta-casa-en-1545985",
+          "id": "ae_4ddaf2ef143d"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "cae81915-3a2c-46cb-9975-9b6523000333",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/cae81915-casa-en-venta-san-bernardino",
+          "id": "tl_a538d997f63a"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003465",
+      "size": 2,
+      "canonical_id": "ic_44e08e21224f",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193854618",
+          "source_url": "https://www.infocasas.com.py/terreno-listo-para-edificar-/193854618",
+          "id": "ic_44e08e21224f"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565558",
+          "source_url": "https://asuncion.estate/en/itapua/terreno-listo-para-edificar-1565558",
+          "id": "ae_a7f445d39b13"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003450",
+      "size": 2,
+      "canonical_id": "ic_66bf9274de88",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193894143",
+          "source_url": "https://www.infocasas.com.py/casa-de-verano-de-lujo-en-rio-beach-encarnacion-itapua-paraguay/193894143",
+          "id": "ic_66bf9274de88"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1545309",
+          "source_url": "https://asuncion.estate/en/itapua/casa-de-verano-de-1545309",
+          "id": "ae_4c919217e303"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003720",
+      "size": 6,
+      "canonical_id": "ic_38864d73f278",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193899053",
+          "source_url": "https://www.infocasas.com.py/vendo-terreno-en-villa-florida-/193899053",
+          "id": "ic_38864d73f278"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193452075",
+          "source_url": "https://www.infocasas.com.py/hermoso-terreno-en-venta-villa-florida/193452075",
+          "id": "ic_8c41c3fba2d1"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193822475",
+          "source_url": "https://www.infocasas.com.py/vendo-terreno-en-villa-florida-/193822475",
+          "id": "ic_11faa362fd7c"
+        },
+        {
+          "source": "infocasas",
+          "source_id": "193730647",
+          "source_url": "https://www.infocasas.com.py/vendo-terreno-en-villa-florida-/193730647",
+          "id": "ic_6c5a587ffc35"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1548219",
+          "source_url": "https://asuncion.estate/en/misiones/vendo-terreno-en-villa-1548219",
+          "id": "ae_6162823a17d8"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1547367",
+          "source_url": "https://asuncion.estate/en/misiones/vendo-terreno-en-villa-1547367",
+          "id": "ae_9ed306ea131c"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003709",
+      "size": 2,
+      "canonical_id": "ic_71831f24e2d7",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193894708",
+          "source_url": "https://www.infocasas.com.py/exclusiva-residencia-colonial-en-venta-en-coratei-ayolas/193894708",
+          "id": "ic_71831f24e2d7"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564594",
+          "source_url": "https://asuncion.estate/en/misiones/exclusiva-residencia-colonial-en-1564594",
+          "id": "ae_41ba26fb5bdb"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003715",
+      "size": 2,
+      "canonical_id": "ic_6e95c063f8f9",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193859931",
+          "source_url": "https://www.infocasas.com.py/vendo-propiedad-sobre-ruta-4ta-san-ignacio-pilar/193859931",
+          "id": "ic_6e95c063f8f9"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565505",
+          "source_url": "https://asuncion.estate/en/misiones/vendo-propiedad-sobre-ruta-1565505",
+          "id": "ae_148f1df1df25"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00003684",
+      "size": 2,
+      "canonical_id": "ic_5dff86440064",
+      "members": [
+        {
+          "source": "infocasas",
+          "source_id": "193909079",
+          "source_url": "https://www.infocasas.com.py/estancia-de-2200000-m2-en-punta-suerte-san-estanislao-en-venta/193909079",
+          "id": "ic_5dff86440064"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1563825",
+          "source_url": "https://asuncion.estate/en/san-pedro/estancia-de-m-en-1563825",
+          "id": "ae_2f6eede92cfe"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009985",
+      "size": 2,
+      "canonical_id": "ae_7bdabf115a39",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564830",
+          "source_url": "https://asuncion.estate/en/asuncion/residencia-en-mburucuya-en-1564830",
+          "id": "ae_7bdabf115a39"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "c5cebbb1-2220-4056-9a8c-fc7c14e28f96",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/c5cebbb1-casa-en-venta-mburucuya-asuncion",
+          "id": "tl_10384358b6d4"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00008743",
+      "size": 2,
+      "canonical_id": "ae_5ab4b838f9f9",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565571",
+          "source_url": "https://asuncion.estate/en/asuncion/vendo-departamento-amoblado-en-1565571",
+          "id": "ae_5ab4b838f9f9"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "3aa54221-9212-44fa-bca4-8054bdb54fa9",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/3aa54221-departamento-en-venta-recoleta-asuncion",
+          "id": "tl_b3b5eda1f3d3"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009807",
+      "size": 2,
+      "canonical_id": "ae_f919e686cf96",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565492",
+          "source_url": "https://asuncion.estate/en/asuncion/departamentos-de-dormitorio-en-1565492",
+          "id": "ae_f919e686cf96"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "5ece7648-b9ad-42ab-8e67-f4fb796e3f5c",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/5ece7648-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_f0aec4c0b76f"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009800",
+      "size": 5,
+      "canonical_id": "ae_0c37d2b9a718",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565272",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-venta-ycua-sati-1565272",
+          "id": "ae_0c37d2b9a718"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "c5a2c457-dfac-4cdd-a8f5-30fca5a1f805",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/c5a2c457-departamento-en-venta-ycua-sati-asuncion",
+          "id": "tl_42e0a849363c"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "8518d7f6-e7d2-4d3f-90f4-d3161d912381",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/8518d7f6-departamento-en-venta-ycua-sati-asuncion",
+          "id": "tl_9a6ad2e01c3a"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "b86ad3a5-9adc-4b54-9284-4d224eec634c",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/b86ad3a5-departamento-en-venta-ycua-sati-asuncion",
+          "id": "tl_2640769fcb98"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "ea001a7b-b660-489c-82bb-9055cd8b7030",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/ea001a7b-departamento-en-venta-ycua-sati-asuncion",
+          "id": "tl_e8db6cc75e21"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009658",
+      "size": 2,
+      "canonical_id": "ae_cf864b23a578",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568919",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-depto-de-d-1568919",
+          "id": "ae_cf864b23a578"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "f71fe1cc-0f04-4329-8fea-78c2504647e2",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/f71fe1cc-departamento-en-alquiler-villa-morra-asuncion",
+          "id": "tl_9ea5998a29a0"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010327",
+      "size": 6,
+      "canonical_id": "ae_7526e5652b8d",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568895",
+          "source_url": "https://asuncion.estate/en/asuncion/alqulilo-departamento-de-dormitorios-1568895",
+          "id": "ae_7526e5652b8d"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "90bc6d38-008b-4e31-bb7d-7cd8c4131f33",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/90bc6d38-departamento-en-alquiler-herrera-asuncion",
+          "id": "tl_f4f4df2067ca"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "14967086-e2e0-452f-9ed7-69537fea4ad7",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/14967086-departamento-en-alquiler-herrera-asuncion",
+          "id": "tl_f6607231f72b"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "cb509440-ab1a-4213-85e9-44fb0d838b29",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/cb509440-departamento-en-alquiler-herrera-asuncion",
+          "id": "tl_8a7e0c158136"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "87a19774-5e19-4ec8-8d5a-9db9242c326c",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/87a19774-departamento-en-alquiler-herrera-asuncion",
+          "id": "tl_753957ecb78e"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "a0b261b2-6cbd-4cb8-ab4f-104789ae3b02",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/a0b261b2-departamento-en-alquiler-herrera-asuncion",
+          "id": "tl_597b909a9ade"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00008779",
+      "size": 4,
+      "canonical_id": "ae_539ffd5b9b21",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568833",
+          "source_url": "https://asuncion.estate/en/asuncion/alquiler-de-apartamento-exclusivo-1568833",
+          "id": "ae_539ffd5b9b21"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568686",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-departamento-de-dormitorio-1568686",
+          "id": "ae_b2782614a0b0"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "00dfe994-154a-4416-bacd-30a05c282c1a",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/00dfe994-departamento-en-alquiler-los-laureles-asuncion",
+          "id": "tl_eac49bc35615"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "129f3988-8582-418d-b47b-f0a15507164c",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/129f3988-departamento-en-alquiler-los-laureles-asuncion",
+          "id": "tl_1da251eb1c62"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010282",
+      "size": 3,
+      "canonical_id": "ae_f944918ed2ae",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568830",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-alquiler-ycua-sati-1568830",
+          "id": "ae_f944918ed2ae"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "4d25fc5f-881a-4ccd-8c5a-20580c175882",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/4d25fc5f-departamento-en-alquiler-ycua-sati-asuncion",
+          "id": "tl_c65cbcf4866e"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "6b934ace-3ba7-4b0d-b20c-9242cdfab1a4",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/6b934ace-departamento-en-alquiler-ycua-sati-asuncion",
+          "id": "tl_5f2c3ca452b3"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010274",
+      "size": 2,
+      "canonical_id": "ae_29d90518cc6b",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568683",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-alquiler-mburucuya-asuncion-1568683",
+          "id": "ae_29d90518cc6b"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "e42d0e0c-7fc1-4541-89be-a13448367505",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/e42d0e0c-departamento-en-alquiler-mburucuya-asuncion",
+          "id": "tl_0304b6d9e666"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010778",
+      "size": 3,
+      "canonical_id": "ae_6990e12ddff3",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568452",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-oficina-corporativa-en-1568452",
+          "id": "ae_6990e12ddff3"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568451",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-oficina-corporativa-en-1568451",
+          "id": "ae_ac0946346921"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "5f196c83-da0f-4bb3-8c5d-eebe6dbb3e5b",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/5f196c83-oficina-en-alquiler-villa-morra-asuncion",
+          "id": "tl_9f38ca6e2ea4"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009923",
+      "size": 2,
+      "canonical_id": "ae_66b08f0498ef",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565248",
+          "source_url": "https://asuncion.estate/en/central/vendo-casa-amplia-en-1565248",
+          "id": "ae_66b08f0498ef"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "7f545d03-2ce8-4030-90e0-5b8993b0928b",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/7f545d03-casa-en-venta-san-lorenzo",
+          "id": "tl_b8912e8fe806"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009369",
+      "size": 5,
+      "canonical_id": "ae_eec794aae557",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564456",
+          "source_url": "https://asuncion.estate/en/central/loft-en-pozo-en-1564456",
+          "id": "ae_eec794aae557"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564455",
+          "source_url": "https://asuncion.estate/en/central/loft-en-pozo-en-1564455",
+          "id": "ae_e93a2805d39a"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564454",
+          "source_url": "https://asuncion.estate/en/central/loft-en-pozo-en-1564454",
+          "id": "ae_415f7c71d878"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564453",
+          "source_url": "https://asuncion.estate/en/central/loft-en-pozo-en-1564453",
+          "id": "ae_b587622c130e"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "a7589868-66ff-4581-ac1e-a1ef4065a370",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/a7589868-departamento-en-venta-mariano-roque-alonso",
+          "id": "tl_fe9e2cf2c09a"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009175",
+      "size": 2,
+      "canonical_id": "ae_9d045308d46f",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564400",
+          "source_url": "https://asuncion.estate/en/central/departamento-monoambiente-en-pozo-1564400",
+          "id": "ae_9d045308d46f"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "f6e9cbb3-3659-47ef-a481-cd44f06b898e",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/f6e9cbb3-departamento-en-venta-fernando-de-la-mora",
+          "id": "tl_202f25a8ae35"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010751",
+      "size": 2,
+      "canonical_id": "ae_4e6f25ae83cc",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564951",
+          "source_url": "https://asuncion.estate/en/central/vendo-terreno-con-construcciones-1564951",
+          "id": "ae_4e6f25ae83cc"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "bcc65ef8-459e-4860-aa39-17edde9deb25",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/bcc65ef8-terreno-en-venta-ykaa-luque",
+          "id": "tl_5a8dc4ff3433"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00008974",
+      "size": 4,
+      "canonical_id": "ae_61d353d0d003",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568013",
+          "source_url": "https://asuncion.estate/en/central/alquilo-departamento-de-habitaciones-1568013",
+          "id": "ae_61d353d0d003"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568012",
+          "source_url": "https://asuncion.estate/en/central/alquilo-departamento-de-habitaciones-1568012",
+          "id": "ae_ba149c6ebb79"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1567958",
+          "source_url": "https://asuncion.estate/en/central/alquilo-departamento-de-habitaciones-1567958",
+          "id": "ae_fcb65f20baae"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "2e10e47f-929a-4331-a8e7-2c832f535c6f",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/2e10e47f-departamento-en-alquiler-luque",
+          "id": "tl_7b16d9fecf6d"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009408",
+      "size": 2,
+      "canonical_id": "ae_bd4c6c585cb7",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565041",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-venta-en-1565041",
+          "id": "ae_bd4c6c585cb7"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "d1bd5d4f-29c1-4dc7-990a-e99b2cf081cd",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/d1bd5d4f-casa-en-venta-san-bernardino",
+          "id": "tl_866d5d988f3a"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009140",
+      "size": 8,
+      "canonical_id": "ae_37e88b30a1a7",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568778",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-alquiler-amoblado-1568778",
+          "id": "ae_37e88b30a1a7"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568278",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-alquiler-amoblado-1568278",
+          "id": "ae_cb17faee0c2c"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568210",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-alquiler-amoblado-1568210",
+          "id": "ae_6bd7a54be81b"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1556481",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-alquiler-amoblado-1556481",
+          "id": "ae_cd534e25e089"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1537225",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-alquiler-amoblada-1537225",
+          "id": "ae_cd54bb35302c"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1517308",
+          "source_url": "https://asuncion.estate/en/cordillera/alquilo-casa-de-habitaciones-1517308",
+          "id": "ae_e448a6f414c1"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1502859",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-en-alquiler-amoblado-1502859",
+          "id": "ae_def9f73d6a12"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "48d8abf2-3cb9-4223-919f-e032cd66c22e",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/48d8abf2-casa-en-alquiler-san-bernardino",
+          "id": "tl_7ed7faffd48f"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009559",
+      "size": 2,
+      "canonical_id": "ae_53bc87ad9f37",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1567928",
+          "source_url": "https://asuncion.estate/en/cordillera/alquilo-hermosa-casa-amoblada-1567928",
+          "id": "ae_53bc87ad9f37"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "adb5a15a-bdab-453b-8e77-507e98820c5a",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/adb5a15a-casa-en-alquiler-san-bernardino",
+          "id": "tl_f8b9427b22c0"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009851",
+      "size": 2,
+      "canonical_id": "ae_01311fd0db35",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564314",
+          "source_url": "https://asuncion.estate/en/asuncion/vendo-casa-de-habitaciones-1564314",
+          "id": "ae_01311fd0db35"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "7e883086-0b60-4bc2-9238-291f3b32f9ea",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/7e883086-departamento-en-venta-santisima-trinidad-asuncion",
+          "id": "tl_007a33f2394c"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009237",
+      "size": 8,
+      "canonical_id": "ae_a49ce8ad5b58",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565095",
+          "source_url": "https://asuncion.estate/en/asuncion/en-venta-departamento-de-1565095",
+          "id": "ae_a49ce8ad5b58"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564390",
+          "source_url": "https://asuncion.estate/en/asuncion/vendo-departamento-de-dormitorio-1564390",
+          "id": "ae_73bcaae82e5a"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "b85d7d59-44e1-4398-abc3-c065479b7ed8",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/b85d7d59-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_8fc6226e37af"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "9082940d-60c7-42ff-8b8e-990642ebce6b",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/9082940d-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_fdea84c77e0c"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "a97e006c-2c93-418b-968b-74111dc37419",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/a97e006c-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_9e770c18dac0"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "b27d79ef-7515-4d22-9253-42dc5c77d90f",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/b27d79ef-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_129dfdb6b076"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "c21fa2bb-e9b9-4884-b54d-6c2fb48ba4e3",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/c21fa2bb-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_81c0b14bec5c"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "4bab142b-6ec1-4367-9a6f-36f6beb38dd5",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/4bab142b-departamento-en-venta-mburucuya-asuncion",
+          "id": "tl_10b5b2b6aec4"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009165",
+      "size": 3,
+      "canonical_id": "ae_022daed83c66",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1565063",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-de-dormitorios-en-1565063",
+          "id": "ae_022daed83c66"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564065",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-de-dormitorios-en-1564065",
+          "id": "ae_d012fdd27922"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "93785013-ae78-4f23-a42d-aafc047edec2",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/93785013-departamento-en-venta-las-mercedes-asuncion",
+          "id": "tl_d2e93c1cd378"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009036",
+      "size": 3,
+      "canonical_id": "ae_0dd424de6978",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1564508",
+          "source_url": "https://asuncion.estate/en/asuncion/vendo-departamento-de-dos-1564508",
+          "id": "ae_0dd424de6978"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "191c5031-f60b-4fe3-92e8-16c183418f68",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/191c5031-departamento-en-venta-villa-morra-asuncion",
+          "id": "tl_fb26e9bbb3cf"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "ba06099f-de85-4b55-854a-57a9edbfcc68",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/ba06099f-departamento-en-venta-villa-morra-asuncion",
+          "id": "tl_86b79558a558"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00008772",
+      "size": 2,
+      "canonical_id": "ae_578e309d1f18",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1567879",
+          "source_url": "https://asuncion.estate/en/asuncion/casa-alquiler-san-jorge-1567879",
+          "id": "ae_578e309d1f18"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "db1e742d-6607-4746-a9fa-2791a11da9b0",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/db1e742d-casa-en-alquiler-san-jorge-asuncion",
+          "id": "tl_c1b3f247c9aa"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009742",
+      "size": 2,
+      "canonical_id": "ae_901062230a49",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1555619",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-residencia-a-estrenar-1555619",
+          "id": "ae_901062230a49"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "4217fc64-6361-4361-8268-1aa74af7ede8",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/4217fc64-casa-en-alquiler-mariscal-estigarribia-asuncion",
+          "id": "tl_a3b5353f2981"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010610",
+      "size": 2,
+      "canonical_id": "ae_0c1848fd9c91",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1538815",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-casa-para-oficina-1538815",
+          "id": "ae_0c1848fd9c91"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "14da8e56-8cde-43ad-80d3-5d165cd6c99b",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/14da8e56-oficina-en-alquiler-villa-morra-asuncion",
+          "id": "tl_273b4da9b9ba"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010329",
+      "size": 2,
+      "canonical_id": "ae_84accae0c3d0",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568471",
+          "source_url": "https://asuncion.estate/en/asuncion/alquiler-de-departamento-amoblado-1568471",
+          "id": "ae_84accae0c3d0"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "b55b63d1-209e-403b-9e8b-fcedbae3a6a2",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/b55b63d1-departamento-en-alquiler-villa-morra-asuncion",
+          "id": "tl_e456df11f334"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00008981",
+      "size": 3,
+      "canonical_id": "ae_907f4beee68d",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568293",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-alquiler-las-lomas-1568293",
+          "id": "ae_907f4beee68d"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568215",
+          "source_url": "https://asuncion.estate/en/asuncion/alquilo-departamento-amoblado-las-1568215",
+          "id": "ae_d20a05d7945f"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "f7a44d1e-ccd4-4b12-b07e-41c3f8977fad",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/f7a44d1e-departamento-en-alquiler-las-lomas-carmelitas-asuncion",
+          "id": "tl_107fcb8b5e6d"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009064",
+      "size": 4,
+      "canonical_id": "ae_23d22202a12b",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568250",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-alquiler-las-lomas-1568250",
+          "id": "ae_23d22202a12b"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568248",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-alquiler-las-lomas-1568248",
+          "id": "ae_20fddd30e20d"
+        },
+        {
+          "source": "asuncion_estate",
+          "source_id": "1567881",
+          "source_url": "https://asuncion.estate/en/asuncion/departamento-alquiler-las-lomas-1567881",
+          "id": "ae_9b4f6d61f73a"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "3c4d05bb-dfcf-4406-8d32-ecd62ceb0887",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/3c4d05bb-departamento-en-alquiler-las-lomas-carmelitas-asuncion",
+          "id": "tl_818bb6151d4a"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00008949",
+      "size": 2,
+      "canonical_id": "ae_a28851c32dfd",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1568206",
+          "source_url": "https://asuncion.estate/en/asuncion/alquiler-de-departamento-terminados-1568206",
+          "id": "ae_a28851c32dfd"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "13a2ca81-601c-4dce-a60f-1d78e7900410",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/13a2ca81-departamento-en-alquiler-salvador-del-mundo-asuncion",
+          "id": "tl_739582fe21ee"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00009146",
+      "size": 2,
+      "canonical_id": "ae_eaae99308238",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1563799",
+          "source_url": "https://asuncion.estate/en/central/vendo-exclusiva-residencia-en-1563799",
+          "id": "ae_eaae99308238"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "94f08a04-2f78-4abe-83cd-38e6fb4eae70",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/94f08a04-casa-en-venta-laguna-sati-fernando-de-la-mora",
+          "id": "tl_1ed7a0e19e0b"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010024",
+      "size": 2,
+      "canonical_id": "ae_9360c73a6b73",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1549156",
+          "source_url": "https://asuncion.estate/en/cordillera/casa-a-estrenar-en-1549156",
+          "id": "ae_9360c73a6b73"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "bc5437bf-38c2-411c-b7e0-865b7eca3770",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/bc5437bf-casa-en-venta-san-bernardino",
+          "id": "tl_8accfbf68936"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010496",
+      "size": 2,
+      "canonical_id": "ae_2fc010a12c13",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1526377",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-casa-en-san-1526377",
+          "id": "ae_2fc010a12c13"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "750e84c0-5542-4180-b279-b2a52f68f93d",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/750e84c0-casa-en-venta-san-bernardino",
+          "id": "tl_a450af2dedad"
+        }
+      ]
+    },
+    {
+      "cluster_id": "cls-00010495",
+      "size": 2,
+      "canonical_id": "ae_ac96bf0819c1",
+      "members": [
+        {
+          "source": "asuncion_estate",
+          "source_id": "1546222",
+          "source_url": "https://asuncion.estate/en/cordillera/vendo-terreno-de-m-1546222",
+          "id": "ae_ac96bf0819c1"
+        },
+        {
+          "source": "tulugar",
+          "source_id": "d511d8a7-8b0e-4404-8f41-38c4b917cee1",
+          "source_url": "https://tulugar.com/es/paraguay/propiedades/d511d8a7-terreno-en-venta-san-bernardino",
+          "id": "tl_51a9bebe6fcb"
+        }
+      ]
+    }
+  ],
+  "pair_samples": [
+    {
+      "a": "ic_05e265fe47fd",
+      "b": "ae_185246cf5c0a",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": Infinity,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ic_9d953ec4829c",
+      "b": "ae_101f51ae134e",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.00030545700362273994,
+      "price_ratio": 1.0,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ic_50785bb72578",
+      "b": "tl_0817d96b86b0",
+      "a_source": "infocasas",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 7.143177052054873e-10,
+      "price_ratio": 1.15,
+      "area_ratio": 1.22,
+      "jaccard": 0.5,
+      "same_type": false,
+      "score": 75.0
+    },
+    {
+      "a": "ic_10c8933b8d94",
+      "b": "tl_3bcce23fbec2",
+      "a_source": "infocasas",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.75,
+      "geo_m": 32.131877489829314,
+      "price_ratio": 1.0169491525423728,
+      "area_ratio": Infinity,
+      "jaccard": 0.75,
+      "same_type": false,
+      "score": 81.57
+    },
+    {
+      "a": "ic_2268e7a9af0e",
+      "b": "ae_0687c7a41c97",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 0.75,
+      "geo_m": 1.427633204930138e-09,
+      "price_ratio": 1.215419501133787,
+      "area_ratio": 10000.0,
+      "jaccard": 0.75,
+      "same_type": false,
+      "score": 75.0
+    },
+    {
+      "a": "ic_f0dd573323be",
+      "b": "ae_d0df935625c1",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 8.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ic_24aec6aafa4b",
+      "b": "ae_0f8c8030894a",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 0.0,
+      "price_ratio": 1.1237157715847055,
+      "area_ratio": 1.0,
+      "jaccard": 0.6666666666666666,
+      "same_type": false,
+      "score": 79.0
+    },
+    {
+      "a": "ic_2be4099e756e",
+      "b": "ae_20c89493df7c",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 0.75,
+      "geo_m": 0.0,
+      "price_ratio": 1.0889166471391665,
+      "area_ratio": 2.4305555555555554,
+      "jaccard": 0.75,
+      "same_type": false,
+      "score": 82.0
+    },
+    {
+      "a": "ic_2be4099e756e",
+      "b": "ae_ce32014eacb8",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 0.6,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273972912680809,
+      "area_ratio": 4.404761904761905,
+      "jaccard": 0.6,
+      "same_type": false,
+      "score": 80.0
+    },
+    {
+      "a": "ic_c296e54d6742",
+      "b": "tl_b04750918b1f",
+      "a_source": "infocasas",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.4166666666666667,
+      "geo_m": 0.00022092656619552748,
+      "price_ratio": 1.0,
+      "area_ratio": 1.0,
+      "jaccard": 0.4166666666666667,
+      "same_type": false,
+      "score": 80.0
+    },
+    {
+      "a": "ic_f70c38ca6c23",
+      "b": "ae_82fd1b1e1ddb",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 218.91664327813638,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ic_c1686d96f8a3",
+      "b": "tl_a538d997f63a",
+      "a_source": "infocasas",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.024,
+      "area_ratio": 79.22360863537332,
+      "jaccard": 0.5,
+      "same_type": false,
+      "score": 80.0
+    },
+    {
+      "a": "ic_44e08e21224f",
+      "b": "ae_a7f445d39b13",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 1.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 95.0
+    },
+    {
+      "a": "ic_66bf9274de88",
+      "b": "ae_4c919217e303",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 254.54545454545456,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ic_38864d73f278",
+      "b": "ae_6162823a17d8",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 88.0
+    },
+    {
+      "a": "ic_38864d73f278",
+      "b": "ae_9ed306ea131c",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 88.0
+    },
+    {
+      "a": "ic_71831f24e2d7",
+      "b": "ae_41ba26fb5bdb",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 204.27350427350427,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ic_6e95c063f8f9",
+      "b": "ae_148f1df1df25",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 1.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 95.0
+    },
+    {
+      "a": "ic_8c41c3fba2d1",
+      "b": "ae_6162823a17d8",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 0.6666666666666666,
+      "same_type": false,
+      "score": 80.0
+    },
+    {
+      "a": "ic_8c41c3fba2d1",
+      "b": "ae_9ed306ea131c",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 0.6666666666666666,
+      "same_type": false,
+      "score": 80.0
+    },
+    {
+      "a": "ic_11faa362fd7c",
+      "b": "ae_6162823a17d8",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 88.0
+    },
+    {
+      "a": "ic_11faa362fd7c",
+      "b": "ae_9ed306ea131c",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 88.0
+    },
+    {
+      "a": "ic_6c5a587ffc35",
+      "b": "ae_6162823a17d8",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 88.0
+    },
+    {
+      "a": "ic_6c5a587ffc35",
+      "b": "ae_9ed306ea131c",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0273973483365992,
+      "area_ratio": 1000.0,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 88.0
+    },
+    {
+      "a": "ic_5dff86440064",
+      "b": "ae_2f6eede92cfe",
+      "a_source": "infocasas",
+      "b_source": "asuncion_estate",
+      "same_source": false,
+      "title_jaccard": 1.0,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": Infinity,
+      "jaccard": 1.0,
+      "same_type": false,
+      "score": 90.0
+    },
+    {
+      "a": "ae_7bdabf115a39",
+      "b": "tl_10384358b6d4",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.4,
+      "geo_m": 0.0,
+      "price_ratio": 1.0285714285714285,
+      "area_ratio": 1.161290322580645,
+      "jaccard": 0.4,
+      "same_type": true,
+      "score": 81.0
+    },
+    {
+      "a": "ae_5ab4b838f9f9",
+      "b": "tl_b3b5eda1f3d3",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 16.977915844940853,
+      "price_ratio": 1.023076923076923,
+      "area_ratio": 1.1232876712328768,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 84.6
+    },
+    {
+      "a": "ae_f919e686cf96",
+      "b": "tl_f0aec4c0b76f",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.42857142857142855,
+      "geo_m": 0.0,
+      "price_ratio": 1.0304449648711944,
+      "area_ratio": 1.8194444444444446,
+      "jaccard": 0.42857142857142855,
+      "same_type": true,
+      "score": 78.0
+    },
+    {
+      "a": "ae_0c37d2b9a718",
+      "b": "tl_42e0a849363c",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.1423328058300197,
+      "area_ratio": 1.4262295081967211,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 80.0
+    },
+    {
+      "a": "ae_0c37d2b9a718",
+      "b": "tl_9a6ad2e01c3a",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.1423328058300197,
+      "area_ratio": 1.4262295081967211,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 80.0
+    },
+    {
+      "a": "ae_0c37d2b9a718",
+      "b": "tl_2640769fcb98",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.1423328058300197,
+      "area_ratio": 1.4262295081967211,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 80.0
+    },
+    {
+      "a": "ae_0c37d2b9a718",
+      "b": "tl_e8db6cc75e21",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.187281407502959,
+      "area_ratio": 1.0344827586206897,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 77.0
+    },
+    {
+      "a": "ae_cf864b23a578",
+      "b": "tl_9ea5998a29a0",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.4444444444444444,
+      "geo_m": 0.0,
+      "price_ratio": 1.0386923076923078,
+      "area_ratio": 1.168421052631579,
+      "jaccard": 0.4444444444444444,
+      "same_type": true,
+      "score": 81.0
+    },
+    {
+      "a": "ae_7526e5652b8d",
+      "b": "tl_f4f4df2067ca",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 5.534501128304003,
+      "price_ratio": 1.0098306404516255,
+      "area_ratio": 1.0625,
+      "jaccard": 0.6666666666666666,
+      "same_type": true,
+      "score": 88.89
+    },
+    {
+      "a": "ae_7526e5652b8d",
+      "b": "tl_f6607231f72b",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 2.937692874372531,
+      "price_ratio": 1.1208050945686117,
+      "area_ratio": 1.777777777777778,
+      "jaccard": 0.6666666666666666,
+      "same_type": true,
+      "score": 78.41
+    },
+    {
+      "a": "ae_7526e5652b8d",
+      "b": "tl_8a7e0c158136",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 2.937692874372531,
+      "price_ratio": 1.0544456881448316,
+      "area_ratio": 1.2,
+      "jaccard": 0.6666666666666666,
+      "same_type": true,
+      "score": 81.41
+    },
+    {
+      "a": "ae_7526e5652b8d",
+      "b": "tl_753957ecb78e",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 13.649703510090973,
+      "price_ratio": 1.0273999999999999,
+      "area_ratio": 1.6326530612244898,
+      "jaccard": 0.6666666666666666,
+      "same_type": true,
+      "score": 82.27
+    },
+    {
+      "a": "ae_7526e5652b8d",
+      "b": "tl_597b909a9ade",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.6666666666666666,
+      "geo_m": 2.937692874372531,
+      "price_ratio": 1.0814736842105264,
+      "area_ratio": 1.0375,
+      "jaccard": 0.6666666666666666,
+      "same_type": true,
+      "score": 83.41
+    },
+    {
+      "a": "ae_539ffd5b9b21",
+      "b": "tl_eac49bc35615",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.0274013221007097,
+      "area_ratio": 1.0416666666666667,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 90.0
+    },
+    {
+      "a": "ae_539ffd5b9b21",
+      "b": "tl_1da251eb1c62",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.2449578975960887,
+      "area_ratio": 1.0416666666666667,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 77.0
+    },
+    {
+      "a": "ae_f944918ed2ae",
+      "b": "tl_c65cbcf4866e",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5714285714285714,
+      "geo_m": 0.0,
+      "price_ratio": 1.0428616122640526,
+      "area_ratio": 1.4999999999999998,
+      "jaccard": 0.5714285714285714,
+      "same_type": true,
+      "score": 86.0
+    },
+    {
+      "a": "ae_f944918ed2ae",
+      "b": "tl_5f2c3ca452b3",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5714285714285714,
+      "geo_m": 0.0,
+      "price_ratio": 1.0093684210526315,
+      "area_ratio": 1.3043478260869565,
+      "jaccard": 0.5714285714285714,
+      "same_type": true,
+      "score": 86.0
+    },
+    {
+      "a": "ae_b2782614a0b0",
+      "b": "tl_eac49bc35615",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.7142857142857143,
+      "geo_m": 73.73874971812617,
+      "price_ratio": 1.0274013221007097,
+      "area_ratio": 1.1400000000000001,
+      "jaccard": 0.7142857142857143,
+      "same_type": true,
+      "score": 81.25
+    },
+    {
+      "a": "ae_29d90518cc6b",
+      "b": "tl_0304b6d9e666",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.0,
+      "area_ratio": 1.1956521739130435,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 90.0
+    },
+    {
+      "a": "ae_6990e12ddff3",
+      "b": "tl_9f38ca6e2ea4",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.0619108527131782,
+      "area_ratio": 1.075,
+      "jaccard": 0.5,
+      "same_type": false,
+      "score": 79.0
+    },
+    {
+      "a": "ae_ac0946346921",
+      "b": "tl_9f38ca6e2ea4",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.0619108527131782,
+      "area_ratio": 1.075,
+      "jaccard": 0.5,
+      "same_type": false,
+      "score": 79.0
+    },
+    {
+      "a": "ae_66b08f0498ef",
+      "b": "tl_b8912e8fe806",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.75,
+      "geo_m": 0.0,
+      "price_ratio": 1.1986301666666666,
+      "area_ratio": Infinity,
+      "jaccard": 0.75,
+      "same_type": true,
+      "score": 80.0
+    },
+    {
+      "a": "ae_eec794aae557",
+      "b": "tl_fe9e2cf2c09a",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.2789115646258504,
+      "area_ratio": 1.0666666666666667,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 77.0
+    },
+    {
+      "a": "ae_e93a2805d39a",
+      "b": "tl_fe9e2cf2c09a",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.2789115646258504,
+      "area_ratio": 1.0666666666666667,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 77.0
+    },
+    {
+      "a": "ae_415f7c71d878",
+      "b": "tl_fe9e2cf2c09a",
+      "a_source": "asuncion_estate",
+      "b_source": "tulugar",
+      "same_source": false,
+      "title_jaccard": 0.5,
+      "geo_m": 0.0,
+      "price_ratio": 1.2789115646258504,
+      "area_ratio": 1.0666666666666667,
+      "jaccard": 0.5,
+      "same_type": true,
+      "score": 77.0
+    }
+  ]
+}
