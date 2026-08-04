@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-04T01:34:08Z",
+  "as_of": "2026-08-04T19:16:46Z",
   "service": "paraguay-geodata",
   "version": "2026-08-03",
   "deployed_at": "2026-08-03T12:00:00Z",
@@ -16,33 +16,33 @@
   },
   "deploys": [
     {
+      "sha": "572fbfb",
+      "subject": "feat(gn): Guaraní translation pipeline + completeness tests",
+      "date": "2026-08-04 03:22:05 -0300",
+      "author": "Erebus"
+    },
+    {
+      "sha": "105b713",
+      "subject": "feat(home): auto-refresh home page stats from live data (no more 5,784)",
+      "date": "2026-08-04 03:10:51 -0300",
+      "author": "Erebus"
+    },
+    {
+      "sha": "6c4a88d",
+      "subject": "feat(dedupe): cross-source duplicate detection (50 clusters, 101 merged)",
+      "date": "2026-08-03 23:00:40 -0300",
+      "author": "Erebus"
+    },
+    {
+      "sha": "26a2aa8",
+      "subject": "feat(coverage): hit 10K listings (5,844 → 10,780) + Lighthouse CI gate",
+      "date": "2026-08-03 22:36:02 -0300",
+      "author": "Erebus"
+    },
+    {
       "sha": "88cac03",
       "subject": "docs: in-depth roadmap (ROADMAP_NEXT_STEPS_2026-08-03.md)",
       "date": "2026-08-03 21:38:35 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "a484672",
-      "subject": "fix(round2): pmtiles URL, deploy-meta builder, time slider freshness",
-      "date": "2026-08-03 21:30:05 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "5c31925",
-      "subject": "feat(enrichment): 11 ambient fields per listing + popup badges + calculators",
-      "date": "2026-08-03 21:01:30 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "2388b08",
-      "subject": "docs: STATUS.md feature audit (50 features verified, 5 known issues, 7 next steps)",
-      "date": "2026-08-03 19:55:28 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "9975788",
-      "subject": "feat(audit): add missing widget container IDs, Ge= shadow fix, bcp_latest.json",
-      "date": "2026-08-03 19:54:43 -0300",
       "author": "Erebus"
     }
   ],

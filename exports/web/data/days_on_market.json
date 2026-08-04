@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-08-04T01:34:08.055903Z",
+  "generated_at": "2026-08-04T19:16:43.729538Z",
   "summary": {
     "median_days": 1,
     "p25": 0,
-    "p75": 2,
+    "p75": 3,
     "n_listings": 10780
   },
   "by_depto": {
@@ -18,7 +18,7 @@
       "stale_pct": 0.0
     },
     "Amambay": {
-      "median_days": 0,
+      "median_days": 1,
       "n": 5,
       "stale_pct": 0.0
     },
@@ -43,7 +43,7 @@
       "stale_pct": 0.0
     },
     "Canindeyú": {
-      "median_days": 2,
+      "median_days": 3,
       "n": 5,
       "stale_pct": 0.0
     },
@@ -93,12 +93,12 @@
       "stale_pct": 0.0
     },
     "Unknown": {
-      "median_days": 23,
+      "median_days": 24,
       "n": 1165,
       "stale_pct": 0.0
     },
     "Ñeembucú": {
-      "median_days": 2,
+      "median_days": 3,
       "n": 18,
       "stale_pct": 0.0
     }
@@ -108,7 +108,7 @@
       "id": "ic_c2c684ea3608",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estancia-7686-ha-en-fuerte-olimpo-950-usdha/193633421"
     },
@@ -116,7 +116,7 @@
       "id": "ic_a3eb5bd2ce38",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/en-venta-estancia-en-bahia-negra-chaco-paraguayo/193710647"
     },
@@ -124,7 +124,7 @@
       "id": "ic_11052bc3959b",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/venta-estancia-en-agua-dulce-en-bahia-negra-chaco-pyo/193973139"
     },
@@ -132,7 +132,7 @@
       "id": "ic_c572299e479f",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/venta-estancia-en-agua-dulce-bahia-negra-chaco-pyo/193844728"
     },
@@ -140,7 +140,7 @@
       "id": "ic_2ae53eda8ba2",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/venta-estancia-en-agua-dulce-bahia-negra-chaco-pyo/193866910"
     },
@@ -148,7 +148,7 @@
       "id": "ic_99937873a994",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estancia-en-carmelo-peralta-alto-paraguay/193652416"
     },
@@ -156,7 +156,7 @@
       "id": "ic_e829d0fa239d",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-terreno-de-5579-hectareas-en-alto-paraguay-carmelo-peralta-/193389403"
     },
@@ -164,7 +164,7 @@
       "id": "ic_0a048d6c240e",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/-vendo-estancia-en-alto-paraguayfortin-florida-1500has/193253155"
     },
@@ -172,7 +172,7 @@
       "id": "ic_502cb83c9558",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/en-carmelo-peralta-sobre-la-nueva-costanera-del-rio-py-26x99-en-esquina/193475793"
     },
@@ -180,7 +180,7 @@
       "id": "ic_2dfb820e170c",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/en-venta-propiedad-en-el-chaco-alto-paraguay/191645603"
     },
@@ -188,7 +188,7 @@
       "id": "ic_2fb4331557f4",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-en-fuerte-olimpo/191808963"
     },
@@ -196,7 +196,7 @@
       "id": "ic_e6445517ee09",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-de-20000-has-en-alto-paraguayclla4993208/190267183"
     },
@@ -204,7 +204,7 @@
       "id": "ic_cb1b2a69c239",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-campo-en-puerto-casado-312-hectareas/192938324"
     },
@@ -212,7 +212,7 @@
       "id": "ic_93a3881a3ee5",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-propiedad-en-el-chaco-dpto-de-alto-paraguay-zona-tte-martinez-/192626139"
     },
@@ -220,7 +220,7 @@
       "id": "ic_1b34ac8e11df",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-de-2800-hectareas-en-tte-martinez-fuerte-olimpo-clcs7644540/193239815"
     },
@@ -228,7 +228,7 @@
       "id": "ic_73d55c520500",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estancia-campo-venta-fuerte-olimpo-paraguay-/193158322"
     },
@@ -236,7 +236,7 @@
       "id": "ic_bc38bbb74eb8",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/3974-hectareas-en-bahia-negra-oportunidad-unica-de-inversion-y-desarrollo/193149604"
     },
@@ -244,7 +244,7 @@
       "id": "ic_7d34267be5b7",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-establecimiento-ganadero-en-bahia-negra/187578595"
     },
@@ -252,7 +252,7 @@
       "id": "ic_ab1c01ec3412",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-campo-de-3904-hectareas-en-fuerte-olimpo-alto-paraguay-clcs6637780/191768494"
     },
@@ -260,7 +260,7 @@
       "id": "ic_e96e9bd32444",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-en-fortin-florida-bahia-negra-chaco/190899013"
     },
@@ -268,7 +268,7 @@
       "id": "ic_ea9123eb612e",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estanciacampo-venta-fuerte-olimpo-alto-paraguay-paraguay/193841181"
     },
@@ -276,7 +276,7 @@
       "id": "ic_e33f19d27dcb",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estancia-de-3500-hectareas-en-venta-fuerte-olimpo-chaco-paraguayo/193974620"
     },
@@ -284,7 +284,7 @@
       "id": "ic_15ac3b5213b9",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-campo-de-3356-hectareas-en-el-chaco-zona-agua-dulce-clcs8004672/193700669"
     },
@@ -292,7 +292,7 @@
       "id": "ic_20f2466d52e6",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-propiedad-de-5-hectareas-en-carmelo-peralta-alto-paraguay-clcs7667902/193265591"
     },
@@ -300,7 +300,7 @@
       "id": "ic_1aa06f648b87",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/venta-5562-hs-para-la-ganaderia-bahia-negra-fuerte-olimpo-alto-paraguay/193480620"
     },
@@ -308,7 +308,7 @@
       "id": "ic_a5fbceca1aa7",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estancia-en-venta-18800-hectareas/193268881"
     },
@@ -316,7 +316,7 @@
       "id": "ic_c789359347f8",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-campo-ganadero-en-fuerte-olimpo/192072405"
     },
@@ -324,7 +324,7 @@
       "id": "ic_a0a5e49ed5d9",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-fuerte-olimpo/192062611"
     },
@@ -332,7 +332,7 @@
       "id": "ic_d7d2d76caa9b",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-7mil-hectareas-en-fuerte-olimpo-/192746066"
     },
@@ -340,7 +340,7 @@
       "id": "ic_429fc9a1a63e",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/estancia-en-venta-en-el-chaco-7686-hectareas-/193349085"
     },
@@ -348,7 +348,7 @@
       "id": "ic_c55c9895f848",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-4872-has-en-la-region-de-agua-dulce-linea-28/193809797"
     },
@@ -356,7 +356,7 @@
       "id": "ic_0c8928c5bccb",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-de-20000-hectareas-en-la-zona-este-de-alto-paraguayclcs7606330/193197007"
     },
@@ -364,7 +364,7 @@
       "id": "ic_7dcdf6d328e4",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-en-el-chaco-paraguayo/193640365"
     },
@@ -372,7 +372,7 @@
       "id": "ic_5f267e3b951d",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/venta-estancia-en-agua-dulce-bahia-negra-chaco-pyo/193889722"
     },
@@ -380,7 +380,7 @@
       "id": "ic_ff3d48d5d111",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/venta-estancia-7686-ha-zona-puerto-guarani-fuerte-olimpo/193887758"
     },
@@ -388,7 +388,7 @@
       "id": "ic_1497c8507eb0",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/en-venta-imponente-propiedad-de-5562-has-apta-para-la-ganaderia/192898014"
     },
@@ -396,7 +396,7 @@
       "id": "ic_07de084fd9ce",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-estancia-de-22500-has-por-el-camino-bioceanico/193026381"
     },
@@ -404,7 +404,7 @@
       "id": "ic_f63caabce2be",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/oportunidad-unica-en-zona-centro-ciudad-del-este/193396907"
     },
@@ -412,7 +412,7 @@
       "id": "ic_51e4f29749f8",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/departamento-en-pozo-terrazas-del-lago/193267383"
     },
@@ -420,7 +420,7 @@
       "id": "ic_06516dec5170",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/piso-40-inverti-seguro-en-ciudad-del-este/193253321"
     },
@@ -428,7 +428,7 @@
       "id": "ic_1dfb759e7dcc",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/departamentos-exclusivos-en-pozo-en-ciudad-del-este-la-vista-al-lago-de-la-republica/191211916"
     },
@@ -436,7 +436,7 @@
       "id": "ic_7440386e0189",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-terreno-de-360-m2-km-7-acaray/193858385"
     },
@@ -444,7 +444,7 @@
       "id": "ic_13e9cc25d3fd",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/duplex-en-altura/193497670"
     },
@@ -452,7 +452,7 @@
       "id": "ic_5abf01401d49",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/departamentos-en-venta-1-dormitorio-estandar-en-ciudad-del-este-edificio-inizio-2/193768711"
     },
@@ -460,7 +460,7 @@
       "id": "ic_7dece54243e2",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-terreno-km-14-acaray-sobre-calle-que-conecta-km-14-con-km-16-por-220-millones/193609620"
     },
@@ -468,7 +468,7 @@
       "id": "ic_38d7deeb69d0",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/inversion-km-20-monday-ciudad-del-este-5-lotes-a-70-ms-de-la-ruta-lindero-a-colegio-maria-auxiliadora/193650850"
     },
@@ -476,7 +476,7 @@
       "id": "ic_dd3c55dfe23d",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/exclusiva-casa-duplex-en-venta-tu-oasis-de-lujo-en-condominio-cerrado/193638795"
     },
@@ -484,7 +484,7 @@
       "id": "ic_0add9c685729",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/exclusiva-casa-en-hernandarias/193558631"
     },
@@ -492,7 +492,7 @@
       "id": "ic_abb7e0511a50",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/en-venta-propiedad-de-20-hectareas-en-minga-guazu/193770901"
     },
@@ -500,7 +500,7 @@
       "id": "ic_ebb57338c14e",
       "title": null,
       "depto": "Unknown",
-      "freshness_days": 23,
+      "freshness_days": 24,
       "source": "infocasas",
       "source_url": "https://www.infocasas.com.py/vendo-a-estrenar-departamento-de-2-dormitorios-entrega-inmediata-oprtunidad-/193762857"
     }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T01:34:06.956493Z",
+  "generated_at": "2026-08-04T19:16:42.984853Z",
   "feature_count": 10780,
   "facets": {
     "depto": [
@@ -151,16 +151,13 @@
   },
   "quality": {
     "total": 10780,
-    "clean": 2849,
-    "flagged": 7931,
+    "clean": 5078,
+    "flagged": 5702,
     "by_flag": {
       "missing_area": 4453,
-      "missing_price_pyg_inferred": 1429,
-      "missing_area_ha_inferred": 1340,
       "null_property_type": 1183,
-      "area_inferred_from_title": 928,
       "missing_price": 515,
-      "area_recovered_from_title_m2": 9,
+      "area_conflict": 34,
       "area_published_round_but_title_larger": 2
     }
   }

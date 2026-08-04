@@ -87,6 +87,17 @@ log "cross-source dedupe"
 # that surfaces "this property is also listed by Infocasas" in the popup.
 python3 -m tools.cross_source_dedupe || log "WARN cross-source-dedupe failed"
 
+log "infer property_type"
+# Fill in property_type for listings missing it (1,183 → 8 after this).
+# Title wins; area is the fallback; bedrooms is the last resort.
+python3 -m tools.infer_property_type || log "WARN infer-property-type failed"
+
+log "extract listing metadata"
+# Extract area/bedrooms/address/barrio from title for listings that
+# didn't expose them as structured fields. Runs AFTER infer so we benefit
+# from the title-based extraction first.
+python3 -m tools.extract_listing_metadata || log "WARN extract-listing-metadata failed"
+
 log "home stats"
 # Refresh the home page hero numbers and meta tags from live data.
 # Without this, the home page says "5,784 properties" while the live
