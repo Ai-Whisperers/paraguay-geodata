@@ -127,25 +127,7 @@
         <h2>Como removo uma propriedade?</h2>
         <p>Cada imóvel tem um <code>source_url</code>. Para remoção, envie o link a <a href="mailto:erebus@ai-whisperers.org">erebus@ai-whisperers.org</a>; aplicamos no batch semanal seguinte.</p>
       `,
-      gn: `
-        <h2>Mba'épa ojeporu ko dataset?</h2>
-        <p><strong>5.800 yvypyta oñemúva ha ojerendáva</strong> Paraguay-pe, 4 portal público-gui ojapóva. Coordenada, precio (Guaraní ha USD-pe), superficie, dormitório, baño. CC0 licencia (orekóva'atã).</p>
-
-        <h2>Araka'épa oñemyakãja?</h2>
-        <p>Ariaso ñepytvõ 04:00 PY-pe (cron semanal). Peteĩ ñepytvõ ohóva ojagarra'a ambue kosecha rehe — sitio-pe ojegueromandu'a lunes mba'e ambue ko'ãga oikóvape.</p>
-
-        <h2>Ikatu pa hagua descargajey hína?</h2>
-        <p>Héicha. Mbojojapy: GeoJSON (vista), GeoJSON (filtro), DXF (parcela, AutoCAD-pe g̃uarã). Exportación oguahëva país entero-pe oñemongu'emo'ã Stripe checkout ndive.</p>
-
-        <h2>Mba'épa ojeporu jepi?</h2>
-        <p>Arquitecto, urbanista, constructor, inmobiliaria opavave, ONG ambiental, periodique dato rehegua. CC0 ojeporurã mba'e comercial.</p>
-
-        <h2>Ikatu pa hagua app apojey?</h2>
-        <p>Héicha. API ko'ápe <code>/api/v1/properties.json</code>. Ikatu descarga GeoJSON (411 KB) ha oñemohenda nde CDN-pe.</p>
-
-        <h2>Mba'éichapa ajepói peteĩ propiedad?</h2>
-        <p>Jesareko <code>source_url</code>. Mbovy'á <a href="mailto:erebus@ai-whisperers.org">erebus@ai-whisperers.org</a>; jaapyte rire ko'ã semana-pe.</p>
-      `,
+      gn: `<h2>¿Mba'épa oĩ ko dataset-pe?</h2><p>Ojepyhy <strong>10,780 óga jepyhy ha ñepyrũ</strong> Paraguay-pe, 4 portal público-gui ojoajúva. Coordenada, viru (Guaraní ha USD-pe), supy, kuatiarã, y'u. Licencia CC0 (iporã ojeipurukuaáva atribución ndive).</p><h2>¿Arépa oñembopyahu rireta ko mba'e?</h2><p>Arapokõindy 04:00 PY-pe (cron semanal). Peteĩ jepyhu peteĩ ára ohasáva oñemyatyrõ jepyhy, ñemobyta ha ñemobyta pyahu, ndaha'éi portal oñemobyta jey — ta'anga ohechauka lunes-pegua mba'e ha apekue jepykuegua ára.</p><h2>¿Aiporu piko opaite dataset?</h2><p>Héẽ. Oreko mba'e ipyahu: GeoJSON, DXF, CSV. Eipuru "Emboty" porupyhápe, ipyahu mba'e.</p>`,
     },
     /* ─────────── USE CASES ─────────── */
     "use-cases": {
@@ -197,22 +179,7 @@
         <h2>Para pesquisadores</h2>
         <p>Combinar com cadastro (lotes públicos via <code>datos.py</code>), enchentes (JRC GSW), cobertura florestal (Hansen), infraestrutura (ESSAP, ANDE). CC0 → pronto para papers.</p>
       `,
-      gn: `
-        <h2>Arquitecto ha urbanista-kuérape</h2>
-        <p>Omba'apo jepi. Ojefiltrá depto + barrio + tipo de propiedad rupive. Catálogo completo (411 KB) navegador-pe oñemohenda.</p>
-
-        <h2>Constructora-kuérape</h2>
-        <p>Mba'e stock competidores barrio-pe, mba'épa typología oguahë, margen-kuéra.</p>
-
-        <h2>Inmobiliaria-kuérape</h2>
-        <p>Comps SaaS $200/me sin pagar. Dataset BI dashboard (Metabase, Superset) térã Jupyter notebook-pe oñemohenda.</p>
-
-        <h2>ONG ha periodique-kuérape</h2>
-        <p>Gentrificación jepuruvo: listín histórico barrio-pe oñembojoapy, mba'épa ajeno-gui oñeguahë, social vivienda'ỹva lote.</p>
-
-        <h2>Académico-kuérape</h2>
-        <p>Catastro, inundación (JRC GSW), bosque cobertura (Hansen), infraestructura ndive ojavy. CC0 datos.</p>
-      `,
+      gn: `<h2>Arquitecto ha urbanista-kuérape g̃uara</h2><p>Ko'ã mba'e oñemohenda — departamento + barrio + mba'e — iporã jepyhy ha eichapa mba'e ojehecha, viru m² rehe, ha'épa pe tape ikatu oñemobyta jey. Ta'anga opaite (411 KB) oñemohenda ta'anga-pe.</p><h2>Constructora-kuérape g̃uara</h2><p>¿Mba'épa oñemohenda barrio oĩhápe, ¿mba'épa mba'e oñemohenda, ha ¿mba'épa viru oñemohenda? Ipaguã peicha mba'e ojepyhy ha ojepyhy jey.</p><h2>Agente inmobiliario-kuérape g̃uara</h2><p>Jepyhy oñemohenda mercado-pe g̃uara (comps) upeicha licencia SaaS ikatupyrýva pago-pe. Ko dataset oheja ka tablero oñemopu'ã hína BI-pe (Metabase, Superset) tÃ©rã Jupyter notebook-pe.</p><h2>ONG ha periodístico-kuérape g̃uara</h2><p>Jepyhy ha jepyhy jey: oñemohasa jepyhy histórico barrio oĩhápe, ojehecha mba'e oñemobyta extranjero-kuéra gui, ojeheka manzana oñepyrũ'ỹre. Licencia CC0 oheja remobyta.</p><h2>Investigador ha académico-kuérape g̃uara</h2><p>Emoĩtapa ko dataset catastro (lotes público <code>datos.py</code>), yvy (JRC GSW), ka'a (Hansen), ha infraestructura (ESSAP, ANDE) jepyhy jepyhu rehe g̃uarã. Mba'e CC0 → oñemopyta'a paper-pe.</p>`,
     },
     /* ─────────── PRICING ─────────── */
     pricing: {
@@ -264,22 +231,7 @@
         <h2>Para projetos sérios</h2>
         <p>Licenças em volume, dados brutos pré-canonização ou cruzamentos com cadastro/infra? Email <a href="mailto:erebus@ai-whisperers.org">erebus@ai-whisperers.org</a>.</p>
       `,
-      gn: `
-        <h2>Gratis (CC0)</h2>
-        <p>Mapa, filtro, descarga-kueera opa gratis. Licencia CC0 — opa mba'e ojeporu.</p>
-
-        <h2>GeoJSON opa · pago único</h2>
-        <p><strong>$29 USD.</strong> Dataset opa (5.800+ propiedad, 16 departamento, 4 fuente), descarga GeoJSON.</p>
-
-        <h2>DXF opa · pago único</h2>
-        <p><strong>$99 USD.</strong> Dataset DXF-pe oñemoambue, AutoCAD-pe g̃uarã.</p>
-
-        <h2>Suscripción anual · próximos</h2>
-        <p><strong>$299 USD / año.</strong> Acceso semanal GeoJSON + DXF + Territorial Inteligencia (precio quartil, mapa de calor, 12 mes tendencia). Oñemohenda hína fuente 8-pe.</p>
-
-        <h2>Proyecto serio-kuérape</h2>
-        <p>Volumen licencia, datos crudo pre-canonización, catastro/infra cruce. Mail <a href="mailto:erebus@ai-whisperers.org">erebus@ai-whisperers.org</a>.</p>
-      `,
+      gn: `<h2>Emboty mba'e (CC0)</h2><p>1,000 listing/ha peteĩ javeve: pyahu. Oĩ peteĩ descarga gratuita.</p><h2>Plan arquitectura</h2><p>$29/ha ta'anga opaite rehe. 12 USD/mes — listado al día, oĩveha listado rendáva, ha consulta API.</p>`,
     },
   };
 })();
