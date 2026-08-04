@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T19:38:50.148636Z",
+  "generated_at": "2026-08-04T19:46:38.500948Z",
   "params": {
     "max_distance_m": 200.0,
     "max_price_diff": 0.3,
@@ -1652,8 +1652,8 @@
       "price_ratio": 1.0,
       "area_ratio": 1.0,
       "jaccard": 1.0,
-      "same_type": false,
-      "score": 95.0
+      "same_type": true,
+      "score": 100.0
     },
     {
       "a": "ae_7bdabf115a39",

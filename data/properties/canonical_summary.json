@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-04T19:37:39.238949Z",
+  "generated_at": "2026-08-04T19:46:33.635305Z",
   "source_file": "exports/web/data/properties_latest.geojson",
   "fx_pyg_per_usd": 7500.0,
   "feature_count": 10780,
   "facets": {
     "property_type": {
-      "house": 3025,
-      "apartment": 2966,
-      "land": 2301,
-      "office": 596,
-      "commercial": 709
+      "house": 3751,
+      "land": 2604,
+      "apartment": 3103,
+      "commercial": 717,
+      "office": 597
     },
     "depto": {
       "Asunción": 4410,
@@ -44,8 +44,8 @@
     },
     "flags": {
       "missing_price": 515,
-      "null_property_type": 1183,
-      "missing_area": 4453,
+      "missing_area": 4450,
+      "null_property_type": 8,
       "area_published_round_but_title_larger": 2,
       "area_conflict": 34
     },
