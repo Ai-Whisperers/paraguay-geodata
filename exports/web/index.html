@@ -161,6 +161,7 @@
     
     
     
+    
 
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -992,6 +993,18 @@
 <link rel="stylesheet" href="site.css" media="print" onload="this.media='all';this.dataset.loaded='1'"><noscript><link rel="stylesheet" href="site.css"></noscript>
 </head>
 <body>
+<!-- Aria-live region for screen-reader announcements. JS uses announce() to push messages here. -->
+<div id="srAnnouncer" aria-live="polite" aria-atomic="true" style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;" data-aria="announcer"></div>
+<script>
+// Push announcements to the aria-live region. Reset first so screen readers
+// re-read on every change (otherwise duplicates get dropped).
+window.announce = function (msg) {
+  const el = document.getElementById('srAnnouncer');
+  if (!el || !msg) return;
+  el.textContent = '';
+  setTimeout(function () { el.textContent = msg; }, 50);
+};
+</script>
 <div class="loading-banner" id="loading">Loading Paraguay geodata…</div>
 
 <header>
