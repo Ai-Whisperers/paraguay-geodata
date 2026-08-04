@@ -59,9 +59,8 @@ python3 -m tools.canonicalize_properties \
     --input "$ROOT/exports/web/data/properties_latest.geojson" \
     --output "$ROOT/data/properties"
 
-# 5. Build the facets artifact for the viewer.
-log "facets"
-python3 -m tools.build_facets
+# 5. Build the facets artifact LATER — after infer_property_type updates
+#    the property_type field for the 1,183 unknown listings.
 
 # 6. Diff against last deployed artifact; abort if size shrank >30%.
 log "diff vs deployed"
@@ -99,6 +98,9 @@ log "extract listing metadata"
 # didn't expose them as structured fields. Runs AFTER infer so we benefit
 # from the title-based extraction first.
 python3 -m tools.extract_listing_metadata || log "WARN extract-listing-metadata failed"
+
+log "facets (rebuild after infer)"
+python3 -m tools.build_facets
 
 log "home stats"
 # Refresh the home page hero numbers and meta tags from live data.

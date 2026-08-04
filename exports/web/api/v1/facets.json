@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-02T23:00:34.131603Z",
-  "feature_count": 5784,
+  "generated_at": "2026-08-04T19:41:17.003396Z",
+  "feature_count": 10780,
   "facets": {
     "depto": [
       {
         "value": "Asunción",
-        "count": 2047
+        "count": 4410
       },
       {
         "value": "Central",
-        "count": 1453
+        "count": 3407
       },
       {
         "value": "?",
@@ -17,50 +17,54 @@
       },
       {
         "value": "Cordillera",
-        "count": 458
+        "count": 1032
       },
       {
         "value": "Alto Paraná",
-        "count": 285
+        "count": 302
       },
       {
         "value": "Itapúa",
-        "count": 111
+        "count": 149
       },
       {
         "value": "Presidente Hayes",
-        "count": 82
+        "count": 88
       },
       {
         "value": "Paraguarí",
-        "count": 48
+        "count": 58
       },
       {
         "value": "Boquerón",
-        "count": 41
+        "count": 47
       },
       {
         "value": "Caaguazú",
-        "count": 24
+        "count": 26
       },
       {
         "value": "Ñeembucú",
-        "count": 17
+        "count": 18
       },
       {
         "value": "San Pedro",
-        "count": 15
+        "count": 17
       },
       {
         "value": "Misiones",
-        "count": 13
-      },
-      {
-        "value": "Alto Paraguay",
-        "count": 9
+        "count": 17
       },
       {
         "value": "Concepción",
+        "count": 12
+      },
+      {
+        "value": "Alto Paraguay",
+        "count": 10
+      },
+      {
+        "value": "Guairá",
         "count": 8
       },
       {
@@ -68,58 +72,58 @@
         "count": 5
       },
       {
-        "value": "Caazapá",
-        "count": 2
+        "value": "Amambay",
+        "count": 5
       },
       {
-        "value": "Amambay",
-        "count": 1
+        "value": "Caazapá",
+        "count": 4
       }
     ],
     "property_type": [
       {
-        "value": "apartment",
-        "count": 1470
+        "value": "house",
+        "count": 3751
       },
       {
-        "value": "house",
-        "count": 1235
+        "value": "apartment",
+        "count": 3103
       },
       {
         "value": "land",
-        "count": 1178
-      },
-      {
-        "value": "?",
-        "count": 1156
+        "count": 2604
       },
       {
         "value": "commercial",
-        "count": 520
+        "count": 717
       },
       {
         "value": "office",
-        "count": 225
+        "count": 597
+      },
+      {
+        "value": "?",
+        "count": 8
       }
     ],
     "currency": [
       {
         "value": "USD",
-        "count": 4018
+        "count": 8932
       },
       {
         "value": "?",
-        "count": 1156
+        "count": 1157
       },
       {
         "value": "PYG",
-        "count": 610
+        "count": 691
       }
     ],
     "source": [
       {
         "value": "asuncion_estate",
-        "count": 2590
+        "count": 7383
       },
       {
         "value": "tulugar",
@@ -128,27 +132,28 @@
       {
         "value": "infocasas",
         "count": 1156
+      },
+      {
+        "value": "inmueblespy",
+        "count": 203
       }
     ],
     "features": []
   },
   "freshness": {
     "min": "2026-07-11T03:17:00.691897+00:00",
-    "max": "2026-08-02T22:53:15.880985+00:00",
+    "max": "2026-08-04T01:30:12.524981+00:00",
     "median_days": 1
   },
   "quality": {
-    "total": 5784,
-    "clean": 2576,
-    "flagged": 3208,
+    "total": 10780,
+    "clean": 5078,
+    "flagged": 5702,
     "by_flag": {
-      "missing_price_pyg_inferred": 1429,
-      "missing_area_ha_inferred": 1340,
-      "null_property_type": 1156,
-      "area_inferred_from_title": 674,
-      "missing_price": 433,
-      "missing_area": 87,
-      "area_recovered_from_title_m2": 7,
+      "missing_area": 4453,
+      "null_property_type": 1183,
+      "missing_price": 515,
+      "area_conflict": 34,
       "area_published_round_but_title_larger": 2
     }
   }

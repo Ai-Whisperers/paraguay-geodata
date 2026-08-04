@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T19:32:55.595450Z",
+  "generated_at": "2026-08-04T19:41:17.003396Z",
   "feature_count": 10780,
   "facets": {
     "depto": [
@@ -83,31 +83,27 @@
     "property_type": [
       {
         "value": "house",
-        "count": 3025
+        "count": 3751
       },
       {
         "value": "apartment",
-        "count": 2966
+        "count": 3103
       },
       {
         "value": "land",
-        "count": 2301
-      },
-      {
-        "value": "?",
-        "count": 1156
+        "count": 2604
       },
       {
         "value": "commercial",
-        "count": 709
+        "count": 717
       },
       {
         "value": "office",
-        "count": 596
+        "count": 597
       },
       {
-        "value": "unknown",
-        "count": 27
+        "value": "?",
+        "count": 8
       }
     ],
     "currency": [

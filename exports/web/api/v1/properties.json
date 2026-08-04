@@ -88,31 +88,27 @@
     "property_type": [
       {
         "value": "house",
-        "count": 3025
+        "count": 3751
       },
       {
         "value": "apartment",
-        "count": 2966
+        "count": 3103
       },
       {
         "value": "land",
-        "count": 2301
-      },
-      {
-        "value": "?",
-        "count": 1156
+        "count": 2604
       },
       {
         "value": "commercial",
-        "count": 709
+        "count": 717
       },
       {
         "value": "office",
-        "count": 596
+        "count": 597
       },
       {
-        "value": "unknown",
-        "count": 27
+        "value": "?",
+        "count": 8
       }
     ],
     "currency": [
@@ -149,7 +145,7 @@
     ],
     "features": []
   },
-  "updated_at": "2026-08-04T19:32:56Z",
+  "updated_at": "2026-08-04T19:41:18Z",
   "docs": "https://geodata.paragu-ai.com/api/v1/properties.json",
   "geojson_endpoint": "https://geodata.paragu-ai.com/data/properties_latest.geojson",
   "vitals_endpoint": "/api/v1/vitals",
