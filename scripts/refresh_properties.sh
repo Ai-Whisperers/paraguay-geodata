@@ -37,6 +37,8 @@ if [ -f "$WORK/asuncion_estate/enriched.geojson" ]; then
 fi
 python3 -m tools.fetch_argenprop  --output-dir "$WORK/argenprop"                        || log "WARN argenprop fetch failed"
 python3 -m tools.fetch_inmueblespy --output-dir "$WORK/inmueblespy" --concurrency 8 --max 500 --delay 0.3  || log "WARN inmueblespy fetch failed"
+# Fetch USD/PYG exchange rate (BCP API or stub)
+python3 -m tools.fetch_bcp_rates || log "WARN bcp_rates fetch failed"
 
 # 2. Mirror the WORK files into the snapshots dir so the merger can find them.
 #    Snapshot dir is gitignored — it's the staging area for canonicalize.

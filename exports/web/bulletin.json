@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-04T19:16:46Z",
+  "as_of": "2026-08-04T19:32:57Z",
   "service": "paraguay-geodata",
   "version": "2026-08-03",
   "deployed_at": "2026-08-03T12:00:00Z",
@@ -16,6 +16,18 @@
   },
   "deploys": [
     {
+      "sha": "47ee007",
+      "subject": "perf(frontend): 3 mobile Lighthouse improvements (font, chart, CSS)",
+      "date": "2026-08-04 16:29:42 -0300",
+      "author": "Erebus"
+    },
+    {
+      "sha": "142bca2",
+      "subject": "feat(infer): property_type inference from title + area + bedrooms",
+      "date": "2026-08-04 16:21:19 -0300",
+      "author": "Erebus"
+    },
+    {
       "sha": "572fbfb",
       "subject": "feat(gn): Guaraní translation pipeline + completeness tests",
       "date": "2026-08-04 03:22:05 -0300",
@@ -31,18 +43,6 @@
       "sha": "6c4a88d",
       "subject": "feat(dedupe): cross-source duplicate detection (50 clusters, 101 merged)",
       "date": "2026-08-03 23:00:40 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "26a2aa8",
-      "subject": "feat(coverage): hit 10K listings (5,844 → 10,780) + Lighthouse CI gate",
-      "date": "2026-08-03 22:36:02 -0300",
-      "author": "Erebus"
-    },
-    {
-      "sha": "88cac03",
-      "subject": "docs: in-depth roadmap (ROADMAP_NEXT_STEPS_2026-08-03.md)",
-      "date": "2026-08-03 21:38:35 -0300",
       "author": "Erebus"
     }
   ],

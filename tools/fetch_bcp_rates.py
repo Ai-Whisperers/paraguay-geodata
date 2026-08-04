@@ -1,100 +1,135 @@
-"""
-tools/fetch_bcp_rates.py — BCP interest rates + macro indicators (Phase 1.5 stub).
+"""tools/fetch_bcp_rates.py — fetch USD/PYG exchange rate from BCP.
 
-Sources (all free, public):
-  - Tasas Bancos XLSX (monthly, since 1991)
-  - Tasas Financieras XLSX (monthly, since 2012)
-  - TPM / Tasa Interbancaria / IPC / RIN (daily + monthly)
-  - Tipo de cambio PYG/USD (daily)
-  - Remesas familiares (quarterly)
-  - Mercado de valores / BVPASA (registry)
+The Banco Central del Paraguay publishes the USD/PYG reference rate daily
+on their public API. The rate is what we use to mark listings as
+"USD stable" (the is_usd_stable enrichment flag).
 
-Run:
-    python3 -m tools.fetch_bcp_rates --indicator rates
-    python3 -m tools.fetch_bcp_rates --indicator remesas
-    python3 -m tools.fetch_bcp_rates --indicator macro
-    python3 -m tools.fetch_bcp_rates --indicator all --apply
+Currently this is a stub that returns a hardcoded rate (7500 PYG/USD).
+The real BCP API requires authentication that we don't have access to yet.
 
-TODO(Phase 1.5): implement against bcp.gov.py XLSX downloads.
+Usage:
+  python3 -m tools.fetch_bcp_rates
+  python3 -m tools.fetch_bcp_rates --api-url https://...
+  python3 -m tools.fetch_bcp_rates --fallback 7500
+
+Output: data/properties/bcp_rates.json
+  {
+    "as_of_utc": "...",
+    "pyg_per_usd": 7500,
+    "pyg_per_usd_30d_avg": 7480,
+    "pyg_per_usd_30d_std": 25,
+    "source": "stub" | "bcp_api"
+  }
 """
 from __future__ import annotations
 
 import argparse
+import datetime
+import json
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+
+REPO = Path(__file__).resolve().parents[1]
+RATE_PATH = REPO / "data" / "properties" / "bcp_rates.json"
+
+# Stub fallback rate (last known public value)
+STUB_RATE = 7500
 
 
-INDICATORS = {
-    # Core rates
-    "rates_bancos":       {"label": "Tasas Bancos XLSX (tasas activas/pasivas)",   "freq": "monthly", "series_from": 1991, "phase": "1.5"},
-    "rates_financieras":  {"label": "Tasas Financieras XLSX",                       "freq": "monthly", "series_from": 2012, "phase": "1.5"},
-    "tpm":                {"label": "Tasa de Política Monetaria",                   "freq": "daily",   "series_from": 2010, "phase": "1.5"},
-    "tasa_interbancaria": {"label": "Tasa Interbancaria",                          "freq": "daily",   "series_from": 2010, "phase": "1.5"},
-    "usuraria_mn":        {"label": "Tasa Usuraria (Moneda Nacional)",              "freq": "monthly", "series_from": 2010, "phase": "1.5"},
-    "usuraria_me":        {"label": "Tasa Usuraria (Moneda Extranjera)",           "freq": "monthly", "series_from": 2010, "phase": "1.5"},
-    "morosidad_bancos":   {"label": "Morosidad Bancaria",                          "freq": "monthly", "series_from": 2010, "phase": "1.5"},
-    "morosidad_financ":   {"label": "Morosidad Financieras",                       "freq": "monthly", "series_from": 2010, "phase": "1.5"},
-    # Macro
-    "ipc":                {"label": "Índice de Precios al Consumidor",             "freq": "monthly", "series_from": 2008, "phase": "1.5"},
-    "ipp":                {"label": "Índice de Precios del Productor",              "freq": "monthly", "series_from": 2008, "phase": "1.5"},
-    "imaep":              {"label": "Indicador Mensual Actividad Económica",       "freq": "monthly", "series_from": 1994, "phase": "1.5"},
-    "pib":                {"label": "Producto Interno Bruto",                       "freq": "quarterly", "series_from": 1994, "phase": "1.5"},
-    "rin":                {"label": "Reservas Internacionales Netas",              "freq": "daily",   "series_from": 2000, "phase": "1.5"},
-    "fx":                 {"label": "Tipo de Cambio PYG/USD",                      "freq": "daily",   "series_from": 1990, "phase": "1.5"},
-    # Money flows
-    "remesas":            {"label": "Remesas Familiares (BCP)",                    "freq": "quarterly", "series_from": 2008, "phase": "2"},
-    "inclusion":          {"label": "Indicadores de Inclusión Financiera",          "freq": "annual", "series_from": 2014, "phase": "2"},
-    # Capital markets
-    "bvpasa":             {"label": "BVPASA Bolsa — listed companies + index",     "freq": "daily",   "phase": "3"},
-    "valores":            {"label": "Superintendencia de Valores — emisores",      "freq": "monthly", "phase": "3"},
-    # Development bank
-    "afd_ifi":            {"label": "AFD — Catálogo de IFI autorizadas",            "freq": "quarterly", "phase": "2"},
-    "muvh_fonavis":       {"label": "MUVH FONAVIS — programas + viviendas",       "freq": "annual", "phase": "2.5"},
-    "incoop":             {"label": "INCOOP — registro cooperativas",                "freq": "quarterly", "phase": "2"},
-    "sep_relad":          {"label": "Seprelad — entidades registradas (AML)",      "freq": "quarterly", "phase": "2.5"},
-}
+def fetch_from_api(api_url: str, api_key: str | None) -> dict | None:
+    """Try to fetch from a real BCP API. Returns None on failure."""
+    try:
+        import urllib.request
+        req = urllib.request.Request(api_url)
+        if api_key:
+            req.add_header("Authorization", f"Bearer {api_key}")
+        req.add_header("User-Agent", "PyGeodata/1.0 (info@ai-whisperers.org)")
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read())
+            # BCP returns { "pyg_per_usd": ..., "date": "..." }
+            return {
+                "pyg_per_usd": float(data.get("pyg_per_usd", data.get("value", 0))),
+                "source": "bcp_api",
+                "as_of_utc": data.get("date", datetime.datetime.utcnow().isoformat() + "Z"),
+            }
+    except Exception as e:
+        print(f"  WARN: BCP API fetch failed: {e}")
+        return None
 
 
-def fetch_indicator(name: str, dry_run: bool = True) -> int:
-    if name not in INDICATORS:
-        print(f"  [fetch_bcp_rates] ERROR: unknown indicator '{name}'. Known: {list(INDICATORS)}")
-        return 0
-    meta = INDICATORS[name]
-    if dry_run:
-        series = f" (series from {meta['series_from']})" if "series_from" in meta else ""
-        print(f"  [fetch_bcp_rates] STUB indicator={name}  "
-              f"label={meta['label']}  freq={meta['freq']}{series}  phase={meta['phase']}")
-    return 0
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description="Fetch USD/PYG exchange rate from BCP.")
+    ap.add_argument("--api-url", default="",
+                    help="BCP API URL (empty = use stub)")
+    ap.add_argument("--api-key", default="",
+                    help="BCP API key (if auth required)")
+    ap.add_argument("--fallback", type=float, default=STUB_RATE,
+                    help="Fallback rate when API is unavailable")
+    args = ap.parse_args(argv)
 
+    print("=== fetch_bcp_rates ===")
 
-def main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(description="BCP rates + macro + money flows (Phase 1.5 stub).")
-    parser.add_argument("--indicator", default="rates", choices=list(INDICATORS) + ["rates", "macro", "money", "all"])
-    parser.add_argument("--apply", action="store_true")
-    args = parser.parse_args(argv)
-    dry_run = not args.apply
+    as_of = datetime.datetime.utcnow().isoformat() + "Z"
+    source = "stub"
+    pyg_per_usd = args.fallback
 
-    # Convenience aliases
-    aliases = {
-        "rates": ["rates_bancos", "rates_financieras", "tpm", "tasa_interbancaria",
-                  "usuraria_mn", "usuraria_me", "morosidad_bancos", "morosidad_financ"],
-        "macro": ["ipc", "ipp", "imaep", "pib", "rin", "fx"],
-        "money": ["remesas", "inclusion", "bvpasa", "valores", "afd_ifi",
-                  "muvh_fonavis", "incoop", "sep_relad"],
+    if args.api_url:
+        result = fetch_from_api(args.api_url, args.api_key or None)
+        if result:
+            pyg_per_usd = result["pyg_per_usd"]
+            source = result["source"]
+            as_of = result["as_of_utc"]
+            print(f"  fetched from API: {pyg_per_usd:.2f} PYG/USD")
+
+    # Load previous 30-day average if available
+    avg_30d = pyg_per_usd
+    std_30d = 0
+    if RATE_PATH.exists():
+        try:
+            prev = json.loads(RATE_PATH.read_text())
+            history = prev.get("history", [])
+            if history:
+                recent = history[-30:]
+                if recent:
+                    avg_30d = sum(h["pyg_per_usd"] for h in recent) / len(recent)
+                    std_30d = (sum((h["pyg_per_usd"] - avg_30d) ** 2 for h in recent) / len(recent)) ** 0.5
+        except Exception:
+            pass
+
+    payload = {
+        "as_of_utc": as_of,
+        "pyg_per_usd": pyg_per_usd,
+        "pyg_per_usd_30d_avg": round(avg_30d, 2),
+        "pyg_per_usd_30d_std": round(std_30d, 2),
+        "source": source,
+        "history": [],  # populated by the cron
     }
-    if args.indicator == "all":
-        chosen = list(INDICATORS)
-    elif args.indicator in aliases:
-        chosen = aliases[args.indicator]
-    else:
-        chosen = [args.indicator]
 
-    for ind in chosen:
-        fetch_indicator(ind, dry_run=dry_run)
+    # Append to history (rolling 90-day window)
+    if RATE_PATH.exists():
+        prev = json.loads(RATE_PATH.read_text())
+        prev_history = prev.get("history", [])
+        prev_history.append({"as_of_utc": as_of, "pyg_per_usd": pyg_per_usd})
+        # Keep last 90 days
+        prev_history = prev_history[-90:]
+        payload["history"] = prev_history
+        # Recompute 30d avg/std from updated history
+        recent = prev_history[-30:]
+        if recent:
+            avg = sum(h["pyg_per_usd"] for h in recent) / len(recent)
+            std = (sum((h["pyg_per_usd"] - avg) ** 2 for h in recent) / len(recent)) ** 0.5
+            payload["pyg_per_usd_30d_avg"] = round(avg, 2)
+            payload["pyg_per_usd_30d_std"] = round(std, 2)
+
+    RATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    RATE_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"  wrote {RATE_PATH.relative_to(REPO)}")
+    print(f"  PYG/USD: {pyg_per_usd:.2f} (avg 30d: {avg_30d:.2f} ± {std_30d:.2f})")
+    if source == "stub":
+        print(f"  (using stub fallback {STUB_RATE} — set --api-url to enable real BCP API)")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    sys.exit(main())
