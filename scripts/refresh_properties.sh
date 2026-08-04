@@ -71,6 +71,9 @@ log "cache prune"
 python3 -m tools.cache_prune --root "$ROOT/data/properties/cache" --keep-days 14 || log "WARN cache prune failed"
 
 # 8. Atomic swap + Pages deploy.
+log "deploy-meta"
+python3 -m tools.build_deploy_meta --deployer "$(whoami)" || log "WARN deploy-meta build failed"
+
 log "deploy"
 cp "$ROOT/data/properties/canonical_properties.geojson" \
    "$ROOT/exports/web/data/properties_latest.geojson"

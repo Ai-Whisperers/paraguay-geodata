@@ -115,6 +115,42 @@ PII-scrubbed, CC0.
 If you change anything above, update this doc.
 
 
+## Listing enrichment (2026-08-03)
+
+**Goal:** give every listing 11 ambient data points derived from existing geojson.
+
+| Field | Coverage | Source |
+|---|---|---|
+| `depto` | 99.9% | point-in-poly vs departamentos.geojson |
+| `nearest_road_km` | 99.8% | haversine vs 14.8K road midpoints |
+| `nearest_gbif_km` | 96.4% | haversine vs 200 GBIF species |
+| `nearest_water_km` | 94.3% | haversine vs 247 water features |
+| `flood_zone` | 81.8% | point-in-poly vs flood_risk.geojson |
+| `is_usd_stable` | 69.5% | currency=USD and price_usd present |
+| `nearest_building_m` | 64.9% | Asunción bbox only, vs 49.6K buildings |
+| `risk_score` / `risk_level` | 27.3% | from property_risk_index.json |
+| `in_indigenous_territory` | 0.7% | point-in-poly vs indigenous_territories |
+| `catastro_cda` | 0.2% | Asunción bbox only, vs 7.5K catastro parcels |
+| `freshness_label` | 100% | fresh/recent/aging/stale buckets |
+| `price_outlier` | flag | price_usd > 1M USD (PYG-as-USD detector) |
+| `usd_per_m2` | derived | price_usd / area_sqm |
+| `dom_vs_depto_median` | computed | freshness_days − depto median |
+
+**Total new data points:** ~64K across 5,844 listings.
+
+### UI surfaces (live at fbf95c96)
+
+- **Listing popup:** USD badge, $/m², road/water/building distance, flood zone flag, climate risk, risk score, indigenous warning, freshness label, price-outlier warning, catastro cda
+- **New filters:** USD-denominated only, Exclude indigenous territories
+- **New calculators panel:** rental yield + mortgage + affordability (10 form fields)
+
+### Files
+
+- `data/properties/canonical_properties_enriched.geojson` — 14MB master
+- `exports/web/data/properties_enriched.geojson` — 14MB deployed
+- `exports/web/data/properties_enriched_lite.geojson` — 3.8MB lite, used by site
+- `docs/research/100-role-audit.md` — 100-role adversarial analysis
+
 ## Feature audit (2026-08-03)
 
 Comprehensive puppeteer-driven audit of every UI element, filter, layer,

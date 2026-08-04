@@ -1,155 +1,168 @@
 {
-  "commit": "02c6069",
-  "branch": "main",
-  "deployed_at": "2026-07-11T06:05:04.686419+00:00",
-  "deployer": "Erebus",
+  "commit": "5c319258ab12f8b7bbd721e326671819381c4852",
+  "commit_short": "5c31925",
+  "branch": "feat/architect-export",
+  "deployed_at_utc": "2026-08-04T00:29:41Z",
+  "deployer": "root",
   "project": "paraguay-geodata",
-  "layers_loaded": [
+  "live_features_total": 87273,
+  "data_layers_loaded": [
     {
       "id": "tile_fabric",
       "label": "National tile fabric (10\u00d710 km)",
-      "features": 7912,
-      "phase": 0,
-      "source": "derived"
+      "file": "data/tile_index.json",
+      "size_b": 3770820,
+      "features": 7912
     },
     {
       "id": "priority_tiles",
       "label": "Priority tiles (urban anchors)",
-      "features": 37,
-      "phase": 0,
-      "source": "derived"
+      "file": "data/priority_tiles.json",
+      "size_b": 21707,
+      "features": 37
     },
     {
       "id": "departamentos_py",
       "label": "Departamentos boundaries (OSM)",
-      "features": 18,
-      "phase": 1,
-      "source": "OSM/Geofabrik"
+      "file": "data/admin/departamentos.geojson",
+      "size_b": 114264,
+      "features": 18
     },
     {
       "id": "distritos_py",
       "label": "Distritos boundaries (OSM)",
-      "features": 23,
-      "phase": 2,
-      "source": "OSM/Geofabrik",
-      "note": "10 al6 + 13 al7"
-    },
-    {
-      "id": "localidades",
-      "label": "Localidades (admin_level 8)",
-      "features": 141,
-      "phase": 2,
-      "source": "OSM/Geofabrik"
+      "file": "data/admin/distritos.geojson",
+      "size_b": 12007,
+      "features": 10
     },
     {
       "id": "barrios_py",
-      "label": "Barrios (admin_level 9-11)",
-      "features": 1114,
-      "phase": 2,
-      "source": "OSM/Geofabrik",
-      "note": "236+852+26"
+      "label": "Barrios / Localidades (OSM)",
+      "file": "data/admin/barrios_py.geojson",
+      "size_b": 90838,
+      "features": 236
     },
     {
-      "id": "inbio_soja",
-      "label": "Soja area zafra 2025-2026 choropleth",
-      "features": 15,
-      "phase": 1.5,
-      "source": "INBIO (PDF)"
+      "id": "catastro_parcels",
+      "label": "Catastro \u00b7 parcelas sample",
+      "file": "data/admin/catastro_parcels_sample.geojson",
+      "size_b": 4777993,
+      "features": 7500
     },
     {
-      "id": "properties_infocasas",
-      "label": "Real-estate listings (infocasas)",
-      "features": 676,
-      "phase": 2,
-      "source": "infocasas.com.py"
+      "id": "catastro_dpto",
+      "label": "Catastro \u00b7 deptos",
+      "file": "data/admin/catastro_dpto.geojson",
+      "size_b": 35521,
+      "features": 18
     },
     {
-      "id": "gbif_species",
-      "label": "Species observations (GBIF)",
-      "features": 200,
-      "phase": 1,
-      "source": "GBIF",
-      "unique_species": 138
+      "id": "catastro_dist",
+      "label": "Catastro \u00b7 distritos",
+      "file": "data/admin/catastro_dist.geojson",
+      "size_b": 303451,
+      "features": 268
+    },
+    {
+      "id": "catastro_urba",
+      "label": "Catastro \u00b7 urban zoning",
+      "file": "data/admin/catastro_urba.geojson",
+      "size_b": 742843,
+      "features": 470
+    },
+    {
+      "id": "properties",
+      "label": "Real-estate listings (canonical)",
+      "file": "data/properties_enriched_lite.geojson",
+      "size_b": 3983343,
+      "features": 5844
+    },
+    {
+      "id": "gbif_paraguay",
+      "label": "GBIF biodiversity (PY)",
+      "file": "data/gbif_paraguay.geojson",
+      "size_b": 96654,
+      "features": 200
+    },
+    {
+      "id": "roads",
+      "label": "OSM roads",
+      "file": "data/roads.geojson",
+      "size_b": 5809132,
+      "features": 14835
+    },
+    {
+      "id": "water",
+      "label": "OSM water",
+      "file": "data/water.geojson",
+      "size_b": 2584577,
+      "features": 247
+    },
+    {
+      "id": "buildings_asuncion",
+      "label": "Buildings (Asunci\u00f3n footprint)",
+      "file": "data/buildings_asuncion.geojson",
+      "size_b": 13552078,
+      "features": 49641
+    },
+    {
+      "id": "indigenous",
+      "label": "Indigenous territories (10)",
+      "file": "data/indigenous_territories.geojson",
+      "size_b": 5454,
+      "features": 10
+    },
+    {
+      "id": "flood_risk",
+      "label": "Flood zones (5 SEN)",
+      "file": "data/flood_risk.geojson",
+      "size_b": 3708,
+      "features": 5
+    },
+    {
+      "id": "climate_risk",
+      "label": "Climate risk by depto",
+      "file": "data/climate_risk.geojson",
+      "size_b": 34794,
+      "features": 18
+    },
+    {
+      "id": "construction_zones",
+      "label": "Construction zones (Asunci\u00f3n)",
+      "file": "data/construction_zones.json",
+      "size_b": 3061,
+      "features": 4
     },
     {
       "id": "bcp_snapshot",
-      "label": "BCP macro/monetary/rates snapshot",
-      "phase": 1.5,
-      "source": "BCP",
-      "file": "data/bcp_snapshot.json"
+      "label": "BCP macro/monetary/rates",
+      "file": "data/bcp_snapshot.json",
+      "size_b": 1597
     },
     {
       "id": "nasa_power",
-      "label": "NASA POWER climate 2024 (Asunci\u00f3n)",
-      "phase": 1,
-      "source": "NASA POWER",
-      "file": "data/nasa_power_asuncion.json"
+      "label": "NASA POWER (Asunci\u00f3n climate)",
+      "file": "data/nasa_power_asuncion.json",
+      "size_b": 1292
+    },
+    {
+      "id": "inbio_zafra",
+      "label": "INBIO zafra 2025/2026 (per depto)",
+      "file": "data/inbio_zafra_2025_2026.json",
+      "size_b": 4135
+    },
+    {
+      "id": "days_on_market",
+      "label": "Days-on-market by depto",
+      "file": "data/days_on_market.json",
+      "size_b": 15102
+    },
+    {
+      "id": "property_risk",
+      "label": "Per-property risk index",
+      "file": "data/property_risk_index.json",
+      "size_b": 3203057
     }
   ],
-  "live_features_total": 10259,
-  "widgets_active": [
-    "Coverage",
-    "Insights",
-    "BCP",
-    "NASA POWER",
-    "INBIO",
-    "Layers",
-    "Anchor cities",
-    "Status"
-  ],
-  "deferred_sources": [
-    {
-      "id": "bcp_rates_xlsx",
-      "reason": "CDN 403 on direct XLSX download"
-    },
-    {
-      "id": "firms_active",
-      "reason": "Requires NASA FIRMS MAP_KEY (free signup in 30s)"
-    },
-    {
-      "id": "datos_gov_py",
-      "reason": "Cloudflare challenge blocks programmatic access"
-    },
-    {
-      "id": "inbio_pdfs_full",
-      "reason": "55 PDFs catalogued, parser ready \u2014 backfill 2007-2025 series"
-    },
-    {
-      "id": "hansen_jrc",
-      "reason": "Microsoft Planetary Computer STAC auth needed"
-    },
-    {
-      "id": "mapbiomas_py",
-      "reason": "Available publicly but ~800MB raster download"
-    }
-  ],
-  "data_sources": {
-    "infocasas": {
-      "cache_size": "~37K cached HTML pages",
-      "ethical_rate": "0.5 req/s",
-      "last_crawl": "2026-07-11"
-    },
-    "geofabrik": {
-      "url": "https://download.geofabrik.de/south-america/paraguay-latest-free.shp.zip",
-      "downloaded": "2026-07-11"
-    },
-    "inbio": {
-      "url": "https://inbio.org.py/informes/superficies-siembra/",
-      "last_pdf": "2026-04"
-    },
-    "bcp": {
-      "capture_method": "manual snapshot from BCP homepage HTML"
-    },
-    "nasa_power": {
-      "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
-      "auth": "no key required"
-    }
-  },
-  "wave1_features": {
-    "properties_merged": 10898,
-    "osm_roads_major": 14835,
-    "osm_buildings_asuncion": 50000,
-    "osm_water_filtered": 247,
-    "clasipar_url_inventory": 445230
-  }
+  "deferred_sources": []
 }

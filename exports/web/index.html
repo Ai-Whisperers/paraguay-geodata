@@ -1276,8 +1276,8 @@
                 <span style="color:var(--fg-dim);">Data snapshot</span>
                 <span id="timeLabel" style="color:var(--accent); font-weight:600;">Today</span>
             </div>
-            <input type="range" id="timeInput" min="0" max="0" value="0" style="width:100%; accent-color:var(--accent);" disabled>
-            <div style="font-size:9px; color:var(--fg-dim); margin-top:2px;">Single snapshot — multi-time data coming soon</div>
+            <input type="range" id="timeInput" min="0" max="0" value="0" style="width:100%; accent-color:var(--accent);" disabled title="Historical playback coming in Q4 2026">
+            <div style="font-size:9px; color:var(--fg-dim); margin-top:2px;"><span id="timeFreshness">Loading…</span> · Historical playback in Q4 2026</div>
         </div>
 
     <details open style="margin:6px 0;">
@@ -1352,7 +1352,7 @@
 </div>
 
 
-<script src="https://unpkg.com/leaflet@4.0.1/dist/pmtiles.js"></script>
+<script src="https://unpkg.com/pmtiles@4.0.1/dist/pmtiles.js"></script>
     <script src="data/leaflet-pmtiles.js" defer></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin="" defer></script>
