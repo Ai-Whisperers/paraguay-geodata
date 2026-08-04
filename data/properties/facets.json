@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-04T21:12:10.170741Z",
+  "generated_at": "2026-08-04T21:37:46.398645Z",
   "feature_count": 10780,
   "facets": {
     "depto": [
@@ -147,12 +147,12 @@
   },
   "quality": {
     "total": 10780,
-    "clean": 5780,
-    "flagged": 5000,
+    "clean": 10222,
+    "flagged": 558,
     "by_flag": {
-      "missing_area": 4450,
       "missing_price": 515,
       "area_conflict": 34,
+      "missing_area": 8,
       "null_property_type": 8,
       "area_published_round_but_title_larger": 2
     }

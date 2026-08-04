@@ -172,13 +172,18 @@ def main(argv=None) -> int:
 
     for f in features:
         p = f["properties"]
+        flags = p.get("quality_flags") or []
 
         # area
         result = impute_area(p)
         if result:
             p["area_ha"] = result[0]
             p["area_source"] = result[1]
+            # Drop the missing_area flag now that we've imputed
+            p["quality_flags"] = [f for f in flags if f != "missing_area"]
             n_area += 1
+        else:
+            pass  # keep flags as-is
 
         # depto
         if not p.get("state_province"):
@@ -186,6 +191,8 @@ def main(argv=None) -> int:
             if d:
                 p["state_province"] = d
                 p["state_province_source"] = "title"
+                # Drop any foreign_depto flag now that we've resolved
+                p["quality_flags"] = [f for f in p.get("quality_flags", []) if f != "foreign_depto"]
                 n_depto += 1
 
         # currency
@@ -194,6 +201,8 @@ def main(argv=None) -> int:
             if c:
                 p["currency"] = c
                 p["currency_source"] = "inferred"
+                # Drop currency_conflict flag (we picked one)
+                p["quality_flags"] = [f for f in p.get("quality_flags", []) if f != "currency_conflict"]
                 n_currency += 1
 
     print(f"  area imputed: {n_area:,}")

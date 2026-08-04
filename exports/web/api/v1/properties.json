@@ -145,7 +145,7 @@
     ],
     "features": []
   },
-  "updated_at": "2026-08-04T21:33:44Z",
+  "updated_at": "2026-08-04T21:45:45Z",
   "docs": "https://geodata.paragu-ai.com/api/v1/properties.json",
   "geojson_endpoint": "https://geodata.paragu-ai.com/data/properties_latest.geojson",
   "vitals_endpoint": "/api/v1/vitals",
