@@ -1,5 +1,9 @@
 # Paraguay Geodata
 
+[![Tests](https://img.shields.io/badge/tests-294_passing-brightgreen)](#)
+[![Coverage](https://img.shields.io/badge/coverage-25%25-yellow)](#)
+[![Live](https://img.shields.io/badge/live-geodata.paragu--ai.com-blue)](https://geodata.paragu-ai.com)
+
 National-scale Paraguay satellite + geospatial data platform.
 
 Forked from [`Ai-Whisperers/la-quebrada-viva`](https://github.com/Ai-Whisperers/la-quebrada-viva) — the same architecture that powers the [LQV walkthrough viewer](https://lqv-walkthrough.pages.dev/mapa.html) (62-ha property in Escobar, Paraguarí), extended to country scale.
