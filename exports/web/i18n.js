@@ -141,6 +141,8 @@ const i18n = {
         "cookieBanner.text": "Usamos cookies para recordar idioma y propiedades guardadas. No rastreamos nada más.",
         "cookieBanner.accept": "Aceptar",
         "cookieBanner.decline": "Solo necesarias",
+        "pwa.installPrompt": "Instalar Paraguay Geodata",
+        "pwa.install": "Instalar"
     },
     "en": {
         "site.title": "Paraguay Geodata — National Viewer",
@@ -273,6 +275,8 @@ const i18n = {
         "cookieBanner.text": "We use cookies to remember language and saved properties. Nothing else is tracked.",
         "cookieBanner.accept": "Accept",
         "cookieBanner.decline": "Necessary only",
+        "pwa.installPrompt": "Install Paraguay Geodata",
+        "pwa.install": "Install"
     },
     "pt": {
         "site.title": "Paraguay Geodata — Visualizador nacional",
@@ -405,6 +409,8 @@ const i18n = {
         "cookieBanner.text": "Usamos cookies para lembrar idioma e imóveis salvos. Nada mais é rastreado.",
         "cookieBanner.accept": "Aceitar",
         "cookieBanner.decline": "Apenas necessários",
+        "pwa.installPrompt": "Instalar Paraguay Geodata",
+        "pwa.install": "Instalar"
     },
     "gn": {
         "site.title": "Paraguay Geodata — Vista Tetã",
@@ -537,6 +543,8 @@ const i18n = {
         "cookieBanner.text": "Eiporu ñeñe'ẽ ha óga oñongatu ñongatu hag̃ua. Ambue mba'e ndojuhúi.",
         "cookieBanner.accept": "Acepta",
         "cookieBanner.decline": "Tekotevẽha año",
+        "pwa.installPrompt": "Embohasa Paraguay Geodata",
+        "pwa.install": "Embohasa"
     },
 };
 

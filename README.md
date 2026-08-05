@@ -1,6 +1,6 @@
 # Paraguay Geodata
 
-[![Tests](https://img.shields.io/badge/tests-294_passing-brightgreen)](#)
+[![Tests](https://img.shields.io/badge/tests-339_passing-brightgreen)](#)
 [![Coverage](https://img.shields.io/badge/coverage-25%25-yellow)](#)
 [![Live](https://img.shields.io/badge/live-geodata.paragu--ai.com-blue)](https://geodata.paragu-ai.com)
 

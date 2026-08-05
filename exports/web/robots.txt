@@ -28,6 +28,9 @@ Disallow: /
 User-agent: PetalBot
 Disallow: /
 
+# Block internal APIs (if any exist)
+Disallow: /api/v1/internal/
+
 # Sitemap
 Sitemap: https://geodata.paragu-ai.com/sitemap.xml
 
