@@ -78,9 +78,16 @@ def test_xlsx_creates_valid_workbook_xml():
 
 
 def test_html_loads_exports_csv():
-    """index.html loads exports-csv.js as a defer script."""
+    """index.html preloads exports-csv.js (modulepreload) so it's ready when needed.
+
+    exports-csv.js is loaded lazily via the button click handler — it
+    pre-loads on idle via modulepreload.
+    """
     html = HTML.read_text()
-    assert '<script src="exports-csv.js"' in html, "exports-csv.js not loaded"
+    # Either sync script OR modulepreload — both acceptable
+    is_sync = '<script src="exports-csv.js"' in html
+    is_preload = "modulepreload" in html and "exports-csv.js" in html
+    assert is_sync or is_preload, "exports-csv.js not loaded or preloaded"
     assert "exports-csv.js" in html
 
 

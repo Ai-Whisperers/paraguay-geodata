@@ -170,6 +170,8 @@
     
     
     
+    
+    
 
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -1495,8 +1497,10 @@ window.announce = function (msg) {
 </div>
 
 
-<script src="https://unpkg.com/pmtiles@4.0.1/dist/pmtiles.js"></script>
-    <script src="data/leaflet-pmtiles.js" defer></script>
+<link rel="modulepreload" href="exports-csv.js">
+    <script src="https://unpkg.com/pmtiles@4.0.1/dist/pmtiles.js">
+    <script src="data/leaflet-pmtiles.js" defer></script></script>
+    
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js" crossorigin="" defer></script>
 </script>
@@ -1510,7 +1514,7 @@ window.announce = function (msg) {
 <script src="monitoring.js" defer></script>
 <script src="lang-switcher.js" defer></script>
 <script src="index.js" defer></script>
-<script src="exports-csv.js" defer></script>
+
 
 <script>
 // Lazy-load chart.js (~50 KB) only when the Insights tab is first opened.

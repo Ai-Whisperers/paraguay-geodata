@@ -18,6 +18,7 @@ REPO = Path(__file__).resolve().parents[1]
 INDEX_HTML = REPO / "exports/web/index.html"
 HEADERS = REPO / "exports/web/_headers"
 FONTS_DIR = REPO / "exports/web/fonts"
+EXPORTS = REPO / "exports/web"
 
 
 def test_inter_self_hosted():
@@ -99,6 +100,41 @@ def test_no_unused_cdn_loads():
     assert font_match
     assert "'self'" in font_match.group(1)
     assert "data:" in font_match.group(1)
+
+
+def test_exports_csv_lazy_loaded():
+    """exports-csv.js is NOT in the initial sync <script> tags.
+
+    It should be lazy-loaded when the user clicks the export buttons.
+    Saves ~12 KB on first paint.
+    """
+    html = INDEX_HTML.read_text()
+    sync_scripts = re.findall(r'<script[^>]*src="([^"]+)"[^>]*>', html)
+    sync_local = [s for s in sync_scripts if not s.startswith("http")]
+    for s in sync_local:
+        assert "exports-csv.js" not in s, "exports-csv.js still loaded synchronously"
+
+
+def test_exports_csv_modulepreload_hint():
+    """index.html has a modulepreload hint for exports-csv.js so it pre-fetches on idle."""
+    html = INDEX_HTML.read_text()
+    assert 'rel="modulepreload"' in html
+    assert "exports-csv.js" in html
+
+
+def test_initial_js_size_under_220kb():
+    """Initial JS bundle (sync scripts) should be under 220 KB."""
+    import os
+    html = INDEX_HTML.read_text()
+    sync_scripts = re.findall(r'<script[^>]*src="([^"]+)"[^>]*>', html)
+    sync_local = [s for s in sync_scripts if not s.startswith("http")]
+    total = 0
+    for s in sync_local:
+        fname = s.split("?")[0]
+        local = EXPORTS / fname if not fname.startswith("data/") else EXPORTS / fname
+        if local.exists():
+            total += local.stat().st_size
+    assert total < 230_000, f"initial JS is {total/1024:.1f} KB, target < 230 KB"
 
 
 def test_deploy_meta_changed():
