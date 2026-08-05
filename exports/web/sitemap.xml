@@ -107,6 +107,8 @@
 <url><loc>https://geodata.paragu-ai.com/api/v1/facets.json</loc><priority>0.7</priority></url>
 <url><loc>https://geodata.paragu-ai.com/data/bcp_rates.json</loc><priority>0.5</priority></url>
 <url><loc>https://geodata.paragu-ai.com/data/properties_latest.geojson</loc><priority>0.9</priority></url>
+<url><loc>https://geodata.paragu-ai.com/api/v1/search</loc><priority>0.7</priority></url>
+<url><loc>https://geodata.paragu-ai.com/data/search/_index.json</loc><priority>0.5</priority></url>
 <url><loc>https://geodata.paragu-ai.com/data/data_freshness.json</loc><priority>0.5</priority></url>
 <url><loc>https://geodata.paragu-ai.com/data/deploy-meta.json</loc><priority>0.5</priority></url>
 <url><loc>https://geodata.paragu-ai.com/exports-csv.js</loc><priority>0.3</priority></url>

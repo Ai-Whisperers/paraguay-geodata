@@ -39,6 +39,25 @@ and date the artifact was generated. Use it as a healthcheck.
 curl -s https://geodata.paragu-ai.com/api/v1/properties.json | jq
 ```
 
+### `GET /api/v1/search?...`
+Server-side filtered search over the slim per-depto indexes. Faster than
+loading the full 18 MB geojson and filtering client-side.
+
+```bash
+curl -s 'https://geodata.paragu-ai.com/api/v1/search?depto=Asunción&type=apartment&min=50000&max=200000&k=2&limit=20' | jq
+```
+
+Parameters (all optional):
+- `depto` — slug or full name (`Asunción` or `asuncion`); default = all deptos
+- `type` — `apartment|house|land|commercial|office`
+- `min` — min price_usd
+- `max` — max price_usd
+- `k` — min bedrooms (2 = "2+")
+- `q` — substring match against title (case-insensitive)
+- `limit` — max results (default 20, capped at 200)
+
+Response includes the slim feature records with short keys (id, t, p, a, k, w, pt, c, b, s, f, usd, lat, lng, img).
+
 ### `GET /api/v1/geojson?...`
 Filtered GeoJSON. Pass bbox, property_type, depto, etc. as query params.
 

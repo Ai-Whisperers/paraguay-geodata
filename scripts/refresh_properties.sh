@@ -82,6 +82,12 @@ python3 -m tools.cache_prune --root "$ROOT/data/properties/cache" --keep-days 14
 log "deploy-meta"
 python3 -m tools.build_deploy_meta --deployer "$(whoami)" || log "WARN deploy-meta build failed"
 
+log "search index"
+# Build per-depto slim indexes (50 KB to 1.4 MB each) for the
+# /api/v1/search CF Function. Avoids loading the 18 MB full
+# geojson on every search request.
+python3 -m tools.build_search_index || log "WARN build-search-index failed"
+
 log "jsonld"
 # Inject Dataset JSON-LD into index.html from live data (count, sources,
 # spatial coverage, temporal coverage). Helps Google understand the dataset.

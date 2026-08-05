@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-08-05T00:03:35.793603Z",
+  "deptos": [
+    {
+      "depto": "Asunción",
+      "slug": "asuncion",
+      "feature_count": 4424,
+      "size_kb": 1383.5,
+      "url": "/data/search/asuncion.json"
+    },
+    {
+      "depto": "Central",
+      "slug": "central",
+      "feature_count": 3470,
+      "size_kb": 1067.0,
+      "url": "/data/search/central.json"
+    },
+    {
+      "depto": "Cordillera",
+      "slug": "cordillera",
+      "feature_count": 1059,
+      "size_kb": 322.9,
+      "url": "/data/search/cordillera.json"
+    },
+    {
+      "depto": "unknown",
+      "slug": "unknown",
+      "feature_count": 910,
+      "size_kb": 205.3,
+      "url": "/data/search/unknown.json"
+    },
+    {
+      "depto": "Alto Paraná",
+      "slug": "alto-parana",
+      "feature_count": 346,
+      "size_kb": 109.0,
+      "url": "/data/search/alto-parana.json"
+    },
+    {
+      "depto": "Itapúa",
+      "slug": "itapua",
+      "feature_count": 158,
+      "size_kb": 47.8,
+      "url": "/data/search/itapua.json"
+    },
+    {
+      "depto": "Presidente Hayes",
+      "slug": "presidente-hayes",
+      "feature_count": 88,
+      "size_kb": 27.9,
+      "url": "/data/search/presidente-hayes.json"
+    },
+    {
+      "depto": "Paraguarí",
+      "slug": "paraguari",
+      "feature_count": 60,
+      "size_kb": 17.8,
+      "url": "/data/search/paraguari.json"
+    },
+    {
+      "depto": "Caaguazú",
+      "slug": "caaguazu",
+      "feature_count": 56,
+      "size_kb": 17.5,
+      "url": "/data/search/caaguazu.json"
+    },
+    {
+      "depto": "Boquerón",
+      "slug": "boqueron",
+      "feature_count": 49,
+      "size_kb": 15.6,
+      "url": "/data/search/boqueron.json"
+    },
+    {
+      "depto": "San Pedro",
+      "slug": "san-pedro",
+      "feature_count": 48,
+      "size_kb": 15.4,
+      "url": "/data/search/san-pedro.json"
+    },
+    {
+      "depto": "Misiones",
+      "slug": "misiones",
+      "feature_count": 47,
+      "size_kb": 14.6,
+      "url": "/data/search/misiones.json"
+    },
+    {
+      "depto": "Ñeembucú",
+      "slug": "neembucu",
+      "feature_count": 19,
+      "size_kb": 5.8,
+      "url": "/data/search/neembucu.json"
+    },
+    {
+      "depto": "Alto Paraguay",
+      "slug": "alto-paraguay",
+      "feature_count": 12,
+      "size_kb": 3.9,
+      "url": "/data/search/alto-paraguay.json"
+    },
+    {
+      "depto": "Concepción",
+      "slug": "concepcion",
+      "feature_count": 12,
+      "size_kb": 3.7,
+      "url": "/data/search/concepcion.json"
+    },
+    {
+      "depto": "Guairá",
+      "slug": "guaira",
+      "feature_count": 8,
+      "size_kb": 2.1,
+      "url": "/data/search/guaira.json"
+    },
+    {
+      "depto": "Canindeyú",
+      "slug": "canindeyu",
+      "feature_count": 5,
+      "size_kb": 1.6,
+      "url": "/data/search/canindeyu.json"
+    },
+    {
+      "depto": "Amambay",
+      "slug": "amambay",
+      "feature_count": 5,
+      "size_kb": 1.5,
+      "url": "/data/search/amambay.json"
+    },
+    {
+      "depto": "Caazapá",
+      "slug": "caazapa",
+      "feature_count": 4,
+      "size_kb": 1.3,
+      "url": "/data/search/caazapa.json"
+    }
+  ],
+  "total_features": 10780,
+  "total_size_kb": 3264.2
+}
