@@ -152,3 +152,54 @@ A free, open, viewer for Paraguay real-estate + cadastral + environmental data. 
 ## How to extend
 
 See `/docs/PLAN.md` for the 312-item roadmap organized into 7 phases.
+
+## Live deploy probes (verified 2026-08-14)
+
+The custom domain `geodata.paragu-ai.com` (and alias `datos.paragu-ai.com`) was
+returning **HTTP 404** from 2026-08-10 until 2026-08-14 because the catch-all
+CF Worker `aiw-fallback` (route `*.paragu-ai.com/*`) was returning 404 for these
+hosts before traffic reached the CF Pages project.
+
+**Fix:** Updated `aiw-fallback` (in CF account `9eb1832f3e42a1dbd6ba854f8d6a1cb2`)
+to forward `geodata.paragu-ai.com` and `datos.paragu-ai.com` to the
+`paraguay-geodata` CF Pages origin (`paraguay-geodata.pages.dev`). Canonical
+source now lives in `Ai-Whisperers/infrastructure/workers/aiw-fallback.js` with
+a deploy workflow in `.github/workflows/deploy-worker.yml`.
+
+**Deploy pipeline:** `.github/workflows/deploy.yml` (CF Pages via
+`cloudflare/pages-action@v1`) auto-deploys `exports/web/` on every push to
+`main` touching `exports/web/**`. Worker deploy pipeline in
+`Ai-Whisperers/infrastructure`.
+
+**Probe results (2026-08-14):**
+
+| URL                                              | Status | Size       |
+|--------------------------------------------------|--------|------------|
+| `https://paraguay-geodata.pages.dev/`            | 200    | 81,354 B   |
+| `https://geodata.paragu-ai.com/`                 | 200    | 81,713 B   |
+| `https://geodata.paragu-ai.com/mapa.html`        | 200    | 16,810 B   |
+| `https://geodata.paragu-ai.com/datos.html`       | 200    | 39,718 B   |
+| `https://geodata.paragu-ai.com/manifest.webmanifest` | 200 | 1,166 B   |
+| `https://geodata.paragu-ai.com/data/properties_latest.geojson` | 200 | 19,007,147 B |
+| `https://geodata.paragu-ai.com/data/tile_index.json`         | 200 | 3,770,820 B |
+| `https://geodata.paragu-ai.com/data/roads.geojson`           | 200 | 5,809,132 B |
+| `https://geodata.paragu-ai.com/data/buildings_asuncion.geojson` | 200 | 13,552,078 B |
+| `https://geodata.paragu-ai.com/data/water.geojson`           | 200 | 2,584,577 B |
+| `https://geodata.paragu-ai.com/data/admin/catastro_dpto.geojson` | 200 | 35,521 B |
+| `https://geodata.paragu-ai.com/data/ml/fair_price_model.json` | 200 | 5,962 B   |
+| `https://datos.paragu-ai.com/`                   | 200    | 81,713 B   |
+| `https://datos.paragu-ai.com/mapa.html`          | 200    | 16,810 B   |
+
+**To re-verify any time:**
+
+```bash
+UA='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36'
+for url in \
+  "https://paraguay-geodata.pages.dev/" \
+  "https://geodata.paragu-ai.com/" \
+  "https://geodata.paragu-ai.com/mapa.html" \
+  "https://geodata.paragu-ai.com/data/properties_latest.geojson" \
+  "https://datos.paragu-ai.com/mapa.html" ; do
+  curl -s -o /dev/null -w "%{http_code} %{size_download}B  $url\n" --max-time 10 -A "$UA" "$url"
+done
+```

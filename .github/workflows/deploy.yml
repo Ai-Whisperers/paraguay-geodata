@@ -1,0 +1,53 @@
+name: Deploy — Paraguay Geodata to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'exports/web/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy static site to CF Pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production  # requires CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: paraguay-geodata
+          directory: exports/web
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # No buildCommand: pure static site, exports/web/ is the deploy root
+          # No wranglerVersion pin: pages-action bundles its own
+
+      - name: Verify deployment (live probe)
+        if: success()
+        run: |
+          echo "=== Probing deployed URLs ==="
+          for url in \
+            "https://paraguay-geodata.pages.dev/" \
+            "https://paraguay-geodata.pages.dev/mapa.html" \
+            "https://paraguay-geodata.pages.dev/manifest.webmanifest" \
+            "https://geodata.paragu-ai.com/" \
+            "https://datos.paragu-ai.com/mapa.html"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}|bytes=%{size_download}" \
+              --max-time 10 \
+              -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36" \
+              "$url")
+            echo "  $code  $url"
+            case "$code" in
+              200*) ;;
+              *) echo "::warning::Probe failed: $url"; exit 1 ;;
+            esac
+          done
