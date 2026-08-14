@@ -84,6 +84,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install pytest + project deps
+        run: pip install pytest playwright pytest-cov 2>&1 | tail -3
       - name: Run scrub_pii unit suite
         run: python3 -m pytest tests/test_pii_scrub.py -q -m 'not live'
 
@@ -96,6 +98,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install pytest
+        run: pip install pytest 2>&1 | tail -3
       - name: Run merge contract suite
         run: python3 -m pytest tests/test_merge_property_sources.py -q -m 'not live'
 
@@ -108,6 +112,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install pytest
+        run: pip install pytest 2>&1 | tail -3
       - name: Run risk + fair-price suites
         run: |
           python3 -m pytest tests/test_property_risk.py tests/test_fair_price_model.py -v
@@ -121,6 +127,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install pytest
+        run: pip install pytest 2>&1 | tail -3
       - name: Run hillshade builder + regression suites
         run: |
           python3 -m pytest tests/test_build_paraguay_hillshade_v3.py tests/test_hillshade_regression.py tests/test_national_tile_index.py tests/test_tile_fabric_regression.py -v
@@ -135,6 +143,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install pytest
+        run: pip install pytest 2>&1 | tail -3
       - name: Smoke against live base
         run: |
           python3 -m pytest tests/test_deploy_smoke.py tests/test_layer_registry.py tests/test_user_features.py tests/test_security_headers.py -m live -q --tb=short --no-header

@@ -30,9 +30,12 @@ import pystac_client
 # Class-level terrain/raster technique:
 # ~/.hermes/skills/devops/satellite-to-blender-pipeline/SKILL.md
 
-ROOT = Path('/root/paraguay-geodata')
+ROOT = Path(__file__).resolve().parents[1]  # repo root = parent of scripts/
 DATA = ROOT / 'exports' / 'web' / 'data'
-DATA.mkdir(parents=True, exist_ok=True)
+# Only mkdir when running as a script, not when imported by tests.
+# Tests don't need write access and shouldn't fail on read-only CI filesystems.
+if __name__ == '__main__':
+    DATA.mkdir(parents=True, exist_ok=True)
 
 # 4 regions covering Paraguay at 4° x 4°
 REGIONS = [

@@ -1,7 +1,7 @@
 // Service Worker — Paraguay Geodata PWA
 // Cache-first for static assets, stale-while-revalidate for data
 // Robust against CSP-blocked fetches, offline mode
-const CACHE_NAME = 'paraguay-geodata-v8';  // bumped 2026-07-15 — legend rewrite + esri basemap + construction zones + risk dots + blend modes
+const CACHE_NAME = 'paraguay-geodata-v9';  // bumped 2026-08-14 — orphan v1-* JS files in cache invalidate (see STATUS.md)
 
 // On-install: precache critical same-origin assets only
 // CDN assets (Leaflet, Inter font) are cached on first fetch, not on install

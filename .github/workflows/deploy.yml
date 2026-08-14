@@ -34,14 +34,17 @@ jobs:
       - name: Verify deployment (live probe)
         if: success()
         run: |
-          echo "=== Probing deployed URLs ==="
+          echo "=== Probing deployed URLs (follow redirects) ==="
           for url in \
             "https://paraguay-geodata.pages.dev/" \
-            "https://paraguay-geodata.pages.dev/mapa.html" \
+            "https://paraguay-geodata.pages.dev/mapa" \
             "https://paraguay-geodata.pages.dev/manifest.webmanifest" \
             "https://geodata.paragu-ai.com/" \
-            "https://datos.paragu-ai.com/mapa.html"; do
-            code=$(curl -s -o /dev/null -w "%{http_code}|bytes=%{size_download}" \
+            "https://geodata.paragu-ai.com/mapa" \
+            "https://datos.paragu-ai.com/mapa"; do
+            # -L follows redirects so 308→200 is treated as success.
+            # We want to confirm the FINAL response is 200, not the redirect itself.
+            code=$(curl -sL -o /dev/null -w "%{http_code}|bytes=%{size_download}|final=%{url_effective}" \
               --max-time 10 \
               -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36" \
               "$url")
