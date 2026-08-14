@@ -73,6 +73,7 @@ jobs:
           "
       - name: Audit PII scrub (full sample, not 500)
         run: |
+          pip install pytest 2>&1 | tail -3
           python3 -m pytest tests/test_pii_scrub.py::test_live_properties_full_pii_scan -v
 
   pii-unit:
@@ -127,8 +128,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install pytest
-        run: pip install pytest 2>&1 | tail -3
+      - name: Install pytest + project deps
+        run: pip install pytest playwright pytest-cov numpy Pillow rasterio 2>&1 | tail -3
       - name: Run hillshade builder + regression suites
         run: |
           python3 -m pytest tests/test_build_paraguay_hillshade_v3.py tests/test_hillshade_regression.py tests/test_national_tile_index.py tests/test_tile_fabric_regression.py -v
