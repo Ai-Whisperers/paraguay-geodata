@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sponsors · Polki Squad</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B35">
     <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
     <meta name="description" content="Sé sponsor corporativo de Polki Squad. Tu empresa apoya el bienestar animal en Paraguay.">
     <link rel="canonical" href="https://polkisquad.com/sponsors">
@@ -54,7 +56,9 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://polkisquad.com/sponsors">
-</head>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NGO", "name": "Polki Squad", "alternateName": "Polki Squad Paraguay", "url": "https://polkisquad.paragu-ai.com", "logo": "https://polkisquad.paragu-ai.com/favicon.svg", "description": "Refugio de animales en Asunción, Paraguay. Rescatamos, rehabilitamos y encontramos hogares amorosos para perros y gatos.", "foundingDate": "2020", "address": {"@type": "PostalAddress", "streetAddress": "Av. Dr. Felipe Molas López 1620", "addressLocality": "Asunción", "addressCountry": "PY"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+595-971-771371", "contactType": "customer service", "areaServed": "PY", "availableLanguage": ["es", "gn"]}, "sameAs": ["https://www.instagram.com/polkisquad/", "https://www.facebook.com/polki-squad/"]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Polki Squad", "url": "https://polkisquad.paragu-ai.com", "inLanguage": "es-PY"}</script>
+    </head>
 <body>
     <div class="demo-banner" role="status">
         <span class="demo-banner__icon">🚧</span>
@@ -118,7 +122,7 @@
             <div class="tiers-grid">
                 <div class="tier">
                     <h3>Bronce</h3>
-                    <div class="tier__price">Gs. 1M<small style="font-size:0.5em;display:block;color:var(--c-text-muted);">/ año</small></div>
+                    <div class="tier__price">Gs. 1M<small class="tier__period-suffix">/ año</small></div>
                     <ul class="tier__benefits">
                         <li>Logo en /sponsors</li>
                         <li>Mención en newsletter</li>
@@ -129,7 +133,7 @@
 
                 <div class="tier">
                     <h3>Plata</h3>
-                    <div class="tier__price">Gs. 3M<small style="font-size:0.5em;display:block;color:var(--c-text-muted);">/ año</small></div>
+                    <div class="tier__price">Gs. 3M<small class="tier__period-suffix">/ año</small></div>
                     <ul class="tier__benefits">
                         <li>Todo Bronce</li>
                         <li>Logo en home (footer)</li>
@@ -142,7 +146,7 @@
                 <div class="tier tier--featured">
                     <span class="tier__badge">Más elegido</span>
                     <h3>Oro</h3>
-                    <div class="tier__price">Gs. 5M<small style="font-size:0.5em;display:block;color:rgba(255,255,255,0.7);">/ año</small></div>
+                    <div class="tier__price">Gs. 5M<small class="tier__period-suffix tier__period-suffix--light">/ año</small></div>
                     <ul class="tier__benefits">
                         <li>Todo Plata</li>
                         <li>Logo en todas las páginas</li>
@@ -155,7 +159,7 @@
 
                 <div class="tier">
                     <h3>Platino</h3>
-                    <div class="tier__price">Gs. 10M+<small style="font-size:0.5em;display:block;color:var(--c-text-muted);">/ año</small></div>
+                    <div class="tier__price">Gs. 10M+<small class="tier__period-suffix">/ año</small></div>
                     <ul class="tier__benefits">
                         <li>Todo Oro</li>
                         <li>Exclusividad de industria</li>
@@ -185,7 +189,7 @@
         <div class="container">
             <h2>¿Tu empresa quiere ser parte?</h2>
             <p>Escribinos por WhatsApp o email. Te contamos cómo sería la alianza.</p>
-            <div style="display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap;">
+            <div class="cta-banner__ctas">
                 <a href="https://wa.me/595971771371?text=Hola!%20Mi%20empresa%20quiere%20ser%20sponsor%20de%20Polki%20Squad" class="btn btn--primary btn--lg">WhatsApp</a>
                 <a href="mailto:sponsors@polkisquad.com" class="btn btn--secondary btn--lg">Email</a>
             </div>
@@ -203,5 +207,7 @@
             </div>
         </div>
     </footer>
-</body>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
+    </body>
 </html>

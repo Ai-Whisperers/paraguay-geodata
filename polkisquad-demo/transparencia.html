@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transparencia · Polki Squad</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B35">
     <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
     <meta name="description" content="Reportes anuales, financials, lista de padrinos y sponsors. 100% transparente.">
     <link rel="canonical" href="https://polkisquad.com/transparencia">
@@ -54,7 +56,9 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://polkisquad.com/transparencia">
-</head>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NGO", "name": "Polki Squad", "alternateName": "Polki Squad Paraguay", "url": "https://polkisquad.paragu-ai.com", "logo": "https://polkisquad.paragu-ai.com/favicon.svg", "description": "Refugio de animales en Asunción, Paraguay. Rescatamos, rehabilitamos y encontramos hogares amorosos para perros y gatos.", "foundingDate": "2020", "address": {"@type": "PostalAddress", "streetAddress": "Av. Dr. Felipe Molas López 1620", "addressLocality": "Asunción", "addressCountry": "PY"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+595-971-771371", "contactType": "customer service", "areaServed": "PY", "availableLanguage": ["es", "gn"]}, "sameAs": ["https://www.instagram.com/polkisquad/", "https://www.facebook.com/polki-squad/"]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Polki Squad", "url": "https://polkisquad.paragu-ai.com", "inLanguage": "es-PY"}</script>
+    </head>
 <body>
     <div class="demo-banner" role="status">
         <span class="demo-banner__icon">🚧</span>
@@ -120,7 +124,7 @@
     <section class="trans-reports">
         <div class="container">
             <h2 class="section-title">Reportes anuales</h2>
-            <p style="text-align:center;color:var(--c-text-muted);max-width:600px;margin:0 auto;">Documentos completos con financials, padrinos, sponsors, e impacto.</p>
+            <p class="paragraph--narrow">Documentos completos con financials, padrinos, sponsors, e impacto.</p>
             <div class="reports-list">
                 <div class="report-card">
                     <span class="report-card__icon">📊</span>
@@ -169,7 +173,7 @@
                 <div class="finance-row"><span class="finance-row__label">Eventos</span><span class="finance-row__value">Gs. 5.8M (6%)</span></div>
                 <div class="finance-row"><span class="finance-row__label">Total ingresos</span><span class="finance-row__value">Gs. 84.5M</span></div>
 
-                <h3 style="margin-top:var(--s-7);">Gastos</h3>
+                <h3 class="finance-summary__heading">Gastos</h3>
                 <div class="finance-row"><span class="finance-row__label">Alimento</span><span class="finance-row__value">Gs. 31.2M (37%)</span></div>
                 <div class="finance-row"><span class="finance-row__label">Atención veterinaria</span><span class="finance-row__value">Gs. 28.9M (34%)</span></div>
                 <div class="finance-row"><span class="finance-row__label">Castración + vacunas</span><span class="finance-row__value">Gs. 11.4M (14%)</span></div>
@@ -184,7 +188,7 @@
     <section class="trans-padrinos">
         <div class="container">
             <h2 class="section-title">Nuestros padrinos</h2>
-            <p style="text-align:center;color:var(--c-text-muted);max-width:600px;margin:0 auto;">100+ personas y empresas que apadrinan mensualmente a un animalito.</p>
+            <p class="paragraph--narrow">100+ personas y empresas que apadrinan mensualmente a un animalito.</p>
             <div class="padrinos-list">
                 <span class="padrino-tag">Familia González</span>
                 <span class="padrino-tag">María Rodríguez</span>
@@ -214,5 +218,7 @@
             </div>
         </div>
     </footer>
-</body>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
+    </body>
 </html>

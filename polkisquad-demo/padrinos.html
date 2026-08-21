@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apadrinar · Polki Squad</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B35">
     <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
     <meta name="description" content="Convertite en padrino de un animalito de Polki Squad. Desde Gs. 50.000/mes, acompañás a un animalito específico.">
     <link rel="canonical" href="https://polkisquad.com/padrinos">
@@ -23,7 +25,10 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://polkisquad.com/padrinos">
-</head>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NGO", "name": "Polki Squad", "alternateName": "Polki Squad Paraguay", "url": "https://polkisquad.paragu-ai.com", "logo": "https://polkisquad.paragu-ai.com/favicon.svg", "description": "Refugio de animales en Asunción, Paraguay. Rescatamos, rehabilitamos y encontramos hogares amorosos para perros y gatos.", "foundingDate": "2020", "address": {"@type": "PostalAddress", "streetAddress": "Av. Dr. Felipe Molas López 1620", "addressLocality": "Asunción", "addressCountry": "PY"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+595-971-771371", "contactType": "customer service", "areaServed": "PY", "availableLanguage": ["es", "gn"]}, "sameAs": ["https://www.instagram.com/polkisquad/", "https://www.facebook.com/polki-squad/"]}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Polki Squad", "url": "https://polkisquad.paragu-ai.com", "inLanguage": "es-PY"}</script>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Apadrinar · Polki Squad", "description": "Convertite en padrino de un animalito. Desde Gs. 50.000/mes, acompañás a un animalito específico."}</script>
+    </head>
 <body>
     <div class="demo-banner" role="status">
         <span class="demo-banner__icon">🚧</span>
@@ -203,25 +208,25 @@
             <div class="padrino-form__inner">
                 <h2>Empezá a apadrinar</h2>
                 <p>Llená el form y te contactamos por WhatsApp para coordinar.</p>
-                <form>
+                <form novalidate aria-label="Formulario">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Nombre completo *</label>
-                            <input type="text" required>
+                            <label for="nombre-completo-1">Nombre completo *</label>
+                            <input type="text" required id="nombre-completo-1" aria-required="true">
                         </div>
                         <div class="form-group">
-                            <label>Email *</label>
-                            <input type="email" required>
+                            <label for="email">Email *</label>
+                            <input type="email" required id="nombre-completo-1" aria-required="true">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>WhatsApp *</label>
-                            <input type="tel" required>
+                            <label for="whatsapp-2">WhatsApp *</label>
+                            <input type="tel" required id="whatsapp-2" aria-required="true">
                         </div>
                         <div class="form-group">
-                            <label>Tier *</label>
-                            <select required>
+                            <label for="tier">Tier *</label>
+                            <select required id="whatsapp-2" aria-required="true">
                                 <option value="">Elegí un tier</option>
                                 <option>Café (Gs. 50.000)</option>
                                 <option>Comida (Gs. 100.000)</option>
@@ -231,12 +236,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Animalito preferido (opcional)</label>
-                        <input type="text" placeholder="Si tenés un favorito de la lista">
+                        <label for="animalito-preferido-3">Animalito preferido (opcional)</label>
+                        <input type="text" placeholder="Si tenés un favorito de la lista" id="animalito-preferido-3" aria-required="false">
                     </div>
                     <div class="form-group">
-                        <label>Mensaje (opcional)</label>
-                        <textarea rows="3" placeholder="Cualquier cosa que quieras contarnos..."></textarea>
+                        <label for="mensaje">Mensaje (opcional)</label>
+                        <textarea rows="3" placeholder="Cualquier cosa que quieras contarnos..." id="animalito-preferido-3" aria-required="false"></textarea>
                     </div>
                     <button type="submit" class="btn btn--primary btn--lg btn--full">Enviar</button>
                 </form>
@@ -256,5 +261,7 @@
             </div>
         </div>
     </footer>
-</body>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
+    </body>
 </html>

@@ -758,3 +758,146 @@ main {
     display: block;
     min-height: 50vh;
 }
+
+
+/* 18. Tier period suffix (e.g. "/ mes", "/ año") */
+.tier__price {
+    /* already has font-size + color from main .tier__price */
+}
+.tier__period-suffix {
+    display: block;
+    font-size: 0.5em;
+    color: var(--c-text-muted);
+    line-height: 1.4;
+}
+.tier__period-suffix--light {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* 19. CTA banner ctas (was inline) */
+.cta-banner__ctas {
+    display: flex;
+    gap: var(--s-3);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 20. Narrow paragraph (centered + max-width) */
+.paragraph--narrow {
+    text-align: center;
+    color: var(--c-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* 21. Section title with extra spacing */
+.section-title--spaced {
+    margin-top: var(--s-7);
+}
+
+/* 22. Finance summary heading */
+.finance-summary__heading {
+    margin-top: var(--s-7);
+}
+
+
+/* 23. Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: var(--s-5);
+    right: var(--s-5);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-full);
+    background: var(--c-primary);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+}
+.back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+.back-to-top:hover {
+    background: var(--c-primary-dark);
+}
+.back-to-top:focus-visible {
+    outline: 3px solid var(--c-warm);
+    outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: none;
+    }
+}
+
+
+/* 24. Print styles */
+@media print {
+    /* Reset colors for ink savings */
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+    }
+
+    /* Hide non-printable elements */
+    .header, .footer, .demo-banner, .back-to-top, .skip-link, .btn,
+    .newsletter, .nav, .stats-strip, .form, .cta-banner__ctas,
+    .way-card, .hero__ctas, .hero__visual, .tier--featured .tier__badge,
+    .padrinos-wall, .sponsors-wall, .contact-info__social,
+    .animal-card__badge, .pagination, .blog-categories {
+        display: none !important;
+    }
+
+    /* Layout */
+    body {
+        font-size: 11pt;
+        line-height: 1.4;
+    }
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    main {
+        display: block;
+        min-height: auto;
+    }
+    section {
+        padding: var(--s-3) 0;
+        page-break-inside: avoid;
+    }
+
+    /* Headings */
+    h1 { font-size: 22pt; margin-top: 0; }
+    h2 { font-size: 16pt; margin-top: var(--s-4); page-break-after: avoid; }
+    h3 { font-size: 13pt; }
+
+    /* Links */
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        color: #666;
+    }
+
+    /* Page breaks */
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    table, figure, blockquote {
+        page-break-inside: avoid;
+    }
+}

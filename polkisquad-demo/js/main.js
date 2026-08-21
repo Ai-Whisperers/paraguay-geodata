@@ -79,3 +79,33 @@
     document.body.classList.add('js-ready');
 
 })();
+
+
+// 5. Service Worker registration (PWA)
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then((reg) => {
+            console.log('[SW] Registered:', reg.scope);
+        }).catch((err) => {
+            console.warn('[SW] Registration failed:', err);
+        });
+    });
+}
+
+
+// 6. Back to top button
+const backToTop = document.getElementById('back-to-top');
+if (backToTop) {
+    const toggleVisibility = () => {
+        if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    };
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}

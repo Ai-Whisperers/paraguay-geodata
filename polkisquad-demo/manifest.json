@@ -1,0 +1,55 @@
+{
+  "name": "Polki Squad",
+  "short_name": "Polki Squad",
+  "description": "Refugio de animales en Asunción, Paraguay",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFCF8",
+  "theme_color": "#FF6B35",
+  "lang": "es-PY",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/og/default.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["nonprofit", "lifestyle", "social"],
+  "screenshots": [
+    {
+      "src": "/og/default.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Adoptar",
+      "short_name": "Adoptar",
+      "url": "/adopta.html",
+      "icons": [{"src": "/favicon.svg", "sizes": "any"}]
+    },
+    {
+      "name": "Apadrinar",
+      "short_name": "Apadrinar",
+      "url": "/padrinos.html",
+      "icons": [{"src": "/favicon.svg", "sizes": "any"}]
+    },
+    {
+      "name": "Donar",
+      "short_name": "Donar",
+      "url": "/donar.html",
+      "icons": [{"src": "/favicon.svg", "sizes": "any"}]
+    }
+  ]
+}
