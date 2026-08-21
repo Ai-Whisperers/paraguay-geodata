@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoptar · Polki Squad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="Adoptá un animalito de Polki Squad. Perros y gatos en Asunción, Paraguay, esperando un hogar amoroso.">
+    <link rel="canonical" href="https://polkisquad.com/adopta">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adoptar · Polki Squad">
+    <meta name="twitter:description" content="Adoptá un animalito de Polki Squad. Perros y gatos en Asunción, Paraguay, esperando un hogar amoroso.">
+    <meta name="twitter:image" content="https://polkisquad.com/og/default.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/page-adopta.css">
+
+    <meta property="og:image" content="https://polkisquad.com/og/default.svg">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://polkisquad.com/adopta">
+</head>
+<body>
+    <div class="demo-banner" role="status">
+        <span class="demo-banner__icon">🚧</span>
+        <span class="demo-banner__text">
+            <strong>Demo / Preview</strong> — Este es un prototipo. Algunas partes son placeholders.
+            Para el sitio real, contactanos por WhatsApp.
+        </span>
+        <a href="https://wa.me/595971771371" class="demo-banner__cta">Contactar</a>
+    </div>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo">
+                <span class="logo__mark">🐾</span>
+                <span class="logo__text">Polki Squad</span>
+            </a>
+            <nav class="nav">
+                <a href="adopta.html" class="nav__link nav__link--active">Adoptar</a>
+                <a href="padrinos.html" class="nav__link">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <a href="donar.html" class="btn btn--primary btn--small">Doná ahora</a>
+        </div>
+    </header>
+
+    <main id="main">
+
+    <!-- Page header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Adoptar salva dos vidas</h1>
+            <p>La del animalito que adoptás, y la del que va a tomar su lugar en el refugio.</p>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters__bar">
+                <div class="filter">
+                    <label>Especie</label>
+                    <select>
+                        <option>Todos</option>
+                        <option>Perros</option>
+                        <option>Gatos</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label>Edad</label>
+                    <select>
+                        <option>Todos</option>
+                        <option>Cachorro (&lt;1 año)</option>
+                        <option>Adulto (1-7 años)</option>
+                        <option>Senior (7+ años)</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label>Tamaño</label>
+                    <select>
+                        <option>Todos</option>
+                        <option>Chico</option>
+                        <option>Mediano</option>
+                        <option>Grande</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label>Sexo</label>
+                    <select>
+                        <option>Todos</option>
+                        <option>Macho</option>
+                        <option>Hembra</option>
+                    </select>
+                </div>
+                <div class="filter filter--count">
+                    <span class="filter__count">12 animalitos disponibles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animals grid -->
+    <section class="animals-listing">
+        <div class="container">
+            <div class="animals-grid">
+                <article class="animal-card" id="animal-card-toby">
+                    <div class="animal-card__photo">
+                        <div class="animal-card__photo-placeholder">🐕</div>
+                        <span class="animal-card__badge">Disponible</span>
+                    </div>
+                    <div class="animal-card__body">
+                        <h3 class="animal-card__name">Toby</h3>
+                        <p class="animal-card__meta">Macho · 2 años · Mediano</p>
+                        <p class="animal-card__desc">Cariñoso, le encantan los chicos, ya está castrado.</p>
+                        <a href="#" class="btn btn--tertiary btn--small">Conocé a Toby</a>
+                    </div>
+                </article>
+
+                <article class="animal-card" id="animal-card-luna">
+                    <div class="animal-card__photo">
+                        <div class="animal-card__photo-placeholder">🐈</div>
+                        <span class="animal-card__badge">Disponible</span>
+                    </div>
+                    <div class="animal-card__body">
+                        <h3 class="animal-card__name">Luna</h3>
+                        <p class="animal-card__meta">Hembra · 1 año · Chica</p>
+                        <p class="animal-card__desc">Tranquila, perfecta para departamento, ya está castrada.</p>
+                        <a href="#" class="btn btn--tertiary btn--small">Conocé a Luna</a>
+                    </div>
+                </article>
+
+                <article class="animal-card" id="animal-card-rocky">
+                    <div class="animal-card__photo">
+                        <div class="animal-card__photo-placeholder">🐕</div>
+                        <span class="animal-card__badge animal-card__badge--urgent">Urgente</span>
+                    </div>
+                    <div class="animal-card__body">
+                        <h3 class="animal-card__name">Rocky</h3>
+                        <p class="animal-card__meta">Macho · 8 años · Grande</p>
+                        <p class="animal-card__desc">Senior, súper noble, ideal para familias tranquilas.</p>
+                        <a href="#" class="btn btn--tertiary btn--small">Conocé a Rocky</a>
+                    </div>
+                </article>
+
+                <article class="animal-card">
+                    <div class="animal-card__photo">
+                        <div class="animal-card__photo-placeholder">🐈</div>
+                        <span class="animal-card__badge">Disponible</span>
+                    </div>
+                    <div class="animal-card__body">
+                        <h3 class="animal-card__name">Mishi</h3>
+                        <p class="animal-card__meta">Hembra · 3 años · Chica</p>
+                        <p class="animal-card__desc">Independiente, le gusta mirar por la ventana, ya está castrada.</p>
+                        <a href="#" class="btn btn--tertiary btn--small">Conocé a Mishi</a>
+                    </div>
+                </article>
+
+                <article class="animal-card">
+                    <div class="animal-card__photo">
+                        <div class="animal-card__photo-placeholder">🐕</div>
+                        <span class="animal-card__badge">Disponible</span>
+                    </div>
+                    <div class="animal-card__body">
+                        <h3 class="animal-card__name">Bruno</h3>
+                        <p class="animal-card__meta">Macho · 6 meses · Mediano</p>
+                        <p class="animal-card__desc">Cachorro juguetón, le encanta correr, ideal para familias activas.</p>
+                        <a href="#" class="btn btn--tertiary btn--small">Conocé a Bruno</a>
+                    </div>
+                </article>
+
+                <article class="animal-card">
+                    <div class="animal-card__photo">
+                        <div class="animal-card__photo-placeholder">🐈</div>
+                        <span class="animal-card__badge animal-card__badge--urgent">Urgente</span>
+                    </div>
+                    <div class="animal-card__body">
+                        <h3 class="animal-card__name">Pelusa</h3>
+                        <p class="animal-card__meta">Hembra · 10 años · Chica</p>
+                        <p class="animal-card__desc">Senior, súper cariñosa, busca un hogar tranquilo para su retiro.</p>
+                        <a href="#" class="btn btn--tertiary btn--small">Conocé a Pelusa</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+        <div class="container">
+            <div class="cta-banner__inner">
+                <h2>¿No encontraste a tu compañero ideal?</h2>
+                <p>Escribinos por WhatsApp y te contamos qué animalitos están por llegar al refugio.</p>
+                <a href="https://wa.me/595971771371" class="btn btn--primary btn--lg">Hablar por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">
+                <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
+                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

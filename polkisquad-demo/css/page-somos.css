@@ -1,0 +1,323 @@
+/* Polki Squad — page-somos.css v0.1
+   Quienes somos page: story, mission, stats, team, timeline.
+*/
+
+.story-hero {
+    padding: var(--s-9) 0;
+    background: linear-gradient(180deg, var(--c-bg-alt) 0%, var(--c-bg) 100%);
+}
+.story-hero__inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--s-8);
+    align-items: center;
+}
+.story-hero__eyebrow {
+    display: inline-block;
+    padding: var(--s-2) var(--s-4);
+    background: var(--c-warm);
+    color: var(--c-text);
+    border-radius: var(--r-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: var(--s-5);
+}
+.story-hero h1 {
+    margin-bottom: var(--s-5);
+    line-height: 1.1;
+}
+.story-hero p {
+    font-size: 1.0625rem;
+    color: var(--c-text-muted);
+    margin-bottom: var(--s-4);
+}
+.story-hero__visual {
+    text-align: center;
+}
+.story-hero__photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    max-width: 400px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-secondary) 100%);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 5rem;
+}
+.story-hero__caption {
+    margin-top: var(--s-3);
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* Mission/Vision/Values */
+.mvv {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.mvv__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-5);
+}
+.mvv-card {
+    background: white;
+    padding: var(--s-6);
+    border-radius: var(--r-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--c-primary);
+}
+.mvv-card:nth-child(2) { border-top-color: var(--c-secondary); }
+.mvv-card:nth-child(3) { border-top-color: var(--c-accent); }
+.mvv-card__icon {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: var(--s-3);
+}
+.mvv-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--s-3);
+}
+.mvv-card p {
+    color: var(--c-text-muted);
+    line-height: 1.7;
+}
+
+/* Stats */
+.our-stats {
+    background: var(--c-bg-alt);
+    padding: var(--s-9) 0;
+    text-align: center;
+}
+.our-stats .section-title { margin-bottom: var(--s-6); }
+.our-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--s-4);
+}
+.our-stat {
+    padding: var(--s-4);
+}
+.our-stat__number {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--c-primary);
+    line-height: 1;
+    margin-bottom: var(--s-2);
+}
+.our-stat__label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Team */
+.team {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.team__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-5);
+    margin-top: var(--s-6);
+}
+.team-card {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+.team-card:hover { transform: translateY(-4px); }
+.team-card__photo {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--r-full);
+    background: linear-gradient(135deg, var(--c-warm) 0%, var(--c-secondary) 100%);
+    margin: 0 auto var(--s-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+.team-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-1);
+}
+.team-card__role {
+    color: var(--c-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: var(--s-3);
+}
+.team-card__bio {
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Partners */
+.partners {
+    background: var(--c-bg-alt);
+    padding: var(--s-9) 0;
+    text-align: center;
+}
+.partners__lead {
+    color: var(--c-text-muted);
+    margin-bottom: var(--s-5);
+}
+.partners__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-4);
+    max-width: 800px;
+    margin: 0 auto;
+}
+.partner-logo {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-md);
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* Timeline */
+.timeline {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.timeline .section-title { text-align: center; margin-bottom: var(--s-6); }
+.timeline__list {
+    list-style: none;
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: var(--s-6);
+}
+.timeline__list::before {
+    content: '';
+    position: absolute;
+    left: 80px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--c-border);
+}
+.timeline__item {
+    display: flex;
+    gap: var(--s-4);
+    margin-bottom: var(--s-5);
+    position: relative;
+}
+.timeline__year {
+    flex-shrink: 0;
+    width: 60px;
+    font-family: var(--f-display);
+    font-weight: 700;
+    color: var(--c-primary);
+    font-size: 1.125rem;
+    text-align: right;
+}
+.timeline__item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: var(--r-full);
+    background: var(--c-primary);
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--c-primary);
+}
+.timeline__content {
+    background: white;
+    padding: var(--s-4);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-sm);
+    flex: 1;
+    margin-left: var(--s-5);
+}
+.timeline__content h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-1);
+}
+.timeline__content p {
+    color: var(--c-text-muted);
+    font-size: 0.9375rem;
+    margin: 0;
+}
+
+/* CTA */
+.cta-banner {
+    background: var(--c-primary);
+    color: white;
+    padding: var(--s-8) 0;
+}
+.cta-banner__inner {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+.cta-banner h2 { color: white; margin-bottom: var(--s-3); }
+.cta-banner p { color: rgba(255,255,255,0.9); margin-bottom: var(--s-5); }
+.cta-banner__ctas {
+    display: flex;
+    gap: var(--s-3);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.cta-banner .btn--secondary {
+    background: white;
+    color: var(--c-primary);
+    border-color: white;
+}
+.cta-banner .btn--secondary:hover {
+    background: var(--c-primary-dark);
+    color: white;
+}
+.cta-banner .btn--tertiary {
+    color: white;
+    border-color: white;
+}
+.cta-banner .btn--tertiary:hover {
+    background: white;
+    color: var(--c-primary);
+}
+
+@media (max-width: 968px) {
+    .story-hero__inner {
+        grid-template-columns: 1fr;
+    }
+    .mvv__grid,
+    .team__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .our-stats__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .partners__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .mvv__grid,
+    .team__grid,
+    .our-stats__grid,
+    .partners__grid {
+        grid-template-columns: 1fr;
+    }
+}

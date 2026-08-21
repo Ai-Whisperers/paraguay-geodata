@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#2E7D5B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="100" y="200" font-family="Georgia, serif" font-size="80" font-weight="700" fill="white">Polki Squad</text>
+  <text x="100" y="280" font-family="Georgia, serif" font-size="40" font-weight="400" fill="rgba(255,255,255,0.9)">Refugio de animales en Asunción, Paraguay</text>
+  <text x="100" y="450" font-family="sans-serif" font-size="60" fill="white">🐾</text>
+  <text x="100" y="540" font-family="sans-serif" font-size="32" fill="rgba(255,255,255,0.95)">+3.000 animalitos rescatados</text>
+  <text x="100" y="580" font-family="sans-serif" font-size="32" fill="rgba(255,255,255,0.95)">polkisquad.com</text>
+</svg>

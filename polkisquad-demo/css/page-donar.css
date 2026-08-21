@@ -1,0 +1,222 @@
+/* Polki Squad — page-donar.css v0.1
+   Donation page: impact calculator, methods, trust.
+*/
+
+.page-header {
+    padding: var(--s-9) 0 var(--s-7);
+    background: linear-gradient(180deg, var(--c-bg-alt) 0%, var(--c-bg) 100%);
+    text-align: center;
+}
+.page-header h1 { margin-bottom: var(--s-4); }
+.page-header p {
+    font-size: 1.125rem;
+    color: var(--c-text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* Impact calculator */
+.impact-calc {
+    background: var(--c-warm);
+    padding: var(--s-7) 0;
+}
+.impact-calc__inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-4);
+    margin-top: var(--s-6);
+}
+.impact-card {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+.impact-card:hover { transform: translateY(-4px); }
+.impact-card__amount {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--c-primary);
+    margin-bottom: var(--s-2);
+}
+.impact-card__eq {
+    display: block;
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--s-2);
+}
+.impact-card__what {
+    display: block;
+    color: var(--c-text);
+    font-weight: 500;
+    font-size: 0.9375rem;
+}
+
+/* Donation methods */
+.donate-methods {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.methods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-5);
+    margin-top: var(--s-6);
+}
+.method-card {
+    background: white;
+    padding: var(--s-6);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--c-border);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.method-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+.method-card--featured {
+    background: var(--c-text);
+    color: white;
+    border-color: var(--c-text);
+    grid-column: span 2;
+}
+.method-card--featured .method-card__title { color: white; }
+.method-card--featured .method-card__label { color: rgba(255,255,255,0.7); }
+.method-card--featured .method-card__value { color: white; }
+.method-card--featured .method-card__note { color: rgba(255,255,255,0.8); }
+.method-card__badge {
+    position: absolute;
+    top: -10px;
+    right: var(--s-4);
+    background: var(--c-primary);
+    color: white;
+    padding: var(--s-1) var(--s-3);
+    border-radius: var(--r-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.method-card__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--s-4);
+}
+.method-card__details {
+    margin-bottom: var(--s-4);
+}
+.method-card__row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--c-border);
+    font-size: 0.9375rem;
+}
+.method-card--featured .method-card__row {
+    border-bottom-color: rgba(255,255,255,0.15);
+}
+.method-card__row:last-child { border-bottom: none; }
+.method-card__label {
+    font-weight: 500;
+    color: var(--c-text-muted);
+}
+.method-card__value {
+    font-weight: 600;
+    font-family: var(--f-body);
+}
+.method-card__note {
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+    margin-top: var(--s-3);
+    font-style: italic;
+}
+
+/* Other ways */
+.other-ways {
+    background: var(--c-bg-alt);
+    padding: var(--s-9) 0;
+}
+.other-ways__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-5);
+    margin-top: var(--s-6);
+}
+.other-card {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+.other-card:hover { transform: translateY(-4px); }
+.other-card__icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: var(--s-3);
+}
+.other-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-2);
+}
+.other-card p {
+    color: var(--c-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: var(--s-3);
+}
+
+/* Trust banner */
+.trust-banner {
+    background: var(--c-secondary);
+    color: white;
+    padding: var(--s-7) 0;
+}
+.trust-banner__inner {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+.trust-banner h2 { color: white; margin-bottom: var(--s-3); }
+.trust-banner p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.0625rem;
+    margin-bottom: var(--s-4);
+}
+.trust-banner .link-arrow {
+    color: var(--c-warm);
+    font-weight: 600;
+}
+.trust-banner .link-arrow:hover { color: white; }
+
+@media (max-width: 968px) {
+    .impact-grid,
+    .other-ways__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .methods-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .method-card--featured {
+        grid-column: span 2;
+    }
+}
+@media (max-width: 640px) {
+    .impact-grid,
+    .other-ways__grid,
+    .methods-grid {
+        grid-template-columns: 1fr;
+    }
+    .method-card--featured {
+        grid-column: span 1;
+    }
+}

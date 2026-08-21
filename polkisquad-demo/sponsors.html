@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsors · Polki Squad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="Sé sponsor corporativo de Polki Squad. Tu empresa apoya el bienestar animal en Paraguay.">
+    <link rel="canonical" href="https://polkisquad.com/sponsors">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sponsors · Polki Squad">
+    <meta name="twitter:description" content="Sé sponsor corporativo de Polki Squad. Tu empresa apoya el bienestar animal en Paraguay.">
+    <meta name="twitter:image" content="https://polkisquad.com/og/default.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .page-header { padding: var(--s-9) 0 var(--s-7); background: linear-gradient(180deg, var(--c-text) 0%, #1a1310 100%); color: white; text-align: center; }
+        .page-header h1 { color: white; margin-bottom: var(--s-4); }
+        .page-header p { font-size: 1.125rem; color: rgba(255,255,255,0.9); max-width: 720px; margin: 0 auto; }
+        .why-sponsor { padding: var(--s-9) 0; background: var(--c-bg); }
+        .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); margin-top: var(--s-6); }
+        .why-card { background: white; padding: var(--s-6); border-radius: var(--r-lg); text-align: center; box-shadow: var(--shadow-sm); }
+        .why-card__icon { font-size: 3rem; margin-bottom: var(--s-3); }
+        .why-card h3 { font-size: 1.25rem; margin-bottom: var(--s-2); }
+        .why-card p { color: var(--c-text-muted); }
+        .sponsor-tiers { padding: var(--s-9) 0; background: var(--c-bg-alt); }
+        .tiers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); margin-top: var(--s-6); align-items: start; }
+        .tier { background: white; padding: var(--s-6); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); text-align: center; position: relative; transition: transform 0.2s ease; }
+        .tier:hover { transform: translateY(-4px); }
+        .tier--featured { background: var(--c-text); color: white; transform: scale(1.05); box-shadow: var(--shadow-lg); }
+        .tier--featured h3, .tier--featured .tier__price { color: white; }
+        .tier__badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--c-primary); color: white; padding: var(--s-1) var(--s-3); border-radius: var(--r-full); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .tier h3 { font-size: 1.5rem; margin-bottom: var(--s-3); }
+        .tier__price { font-family: var(--f-display); font-size: 2rem; font-weight: 700; color: var(--c-primary); margin-bottom: var(--s-4); }
+        .tier__benefits { list-style: none; margin: var(--s-4) 0; text-align: left; }
+        .tier__benefits li { padding: var(--s-2) 0; font-size: 0.9375rem; border-bottom: 1px solid var(--c-border); }
+        .tier--featured .tier__benefits li { border-bottom-color: rgba(255,255,255,0.15); }
+        .sponsor-cta { padding: var(--s-9) 0; background: var(--c-bg); text-align: center; }
+        .sponsor-cta h2 { margin-bottom: var(--s-3); }
+        .sponsor-cta p { color: var(--c-text-muted); max-width: 720px; margin: 0 auto var(--s-5); }
+        .current-sponsors { padding: var(--s-9) 0; background: var(--c-bg-alt); text-align: center; }
+        .current-sponsors h2 { margin-bottom: var(--s-5); }
+        .sponsors-wall { display: flex; flex-wrap: wrap; gap: var(--s-4); justify-content: center; max-width: 800px; margin: 0 auto; }
+        .sponsor-logo { background: white; padding: var(--s-5); border-radius: var(--r-md); color: var(--c-text-muted); font-size: 0.875rem; min-width: 160px; text-align: center; }
+        @media (max-width: 968px) { .why-grid, .tiers-grid { grid-template-columns: 1fr 1fr; } .tier--featured { transform: none; } }
+        @media (max-width: 640px) { .why-grid, .tiers-grid { grid-template-columns: 1fr; } }
+    </style>
+
+    <meta property="og:image" content="https://polkisquad.com/og/default.svg">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://polkisquad.com/sponsors">
+</head>
+<body>
+    <div class="demo-banner" role="status">
+        <span class="demo-banner__icon">🚧</span>
+        <span class="demo-banner__text">
+            <strong>Demo / Preview</strong> — Este es un prototipo. Algunas partes son placeholders.
+            Para el sitio real, contactanos por WhatsApp.
+        </span>
+        <a href="https://wa.me/595971771371" class="demo-banner__cta">Contactar</a>
+    </div>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo"><span class="logo__mark">🐾</span><span class="logo__text">Polki Squad</span></a>
+            <nav class="nav">
+                <a href="adopta.html" class="nav__link">Adoptar</a>
+                <a href="padrinos.html" class="nav__link">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <a href="donar.html" class="btn btn--primary btn--small">Doná ahora</a>
+        </div>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Tu empresa + Polki Squad = impacto medible</h1>
+            <p>3+ años de partnerships corporativos. 100% transparente, con reporte de impacto anual.</p>
+        </div>
+    </section>
+
+    <section class="why-sponsor">
+        <div class="container">
+            <h2 class="section-title">Por qué ser sponsor</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <span class="why-card__icon">❤️</span>
+                    <h3>Impacto real</h3>
+                    <p>Tu marca ayuda a salvar vidas. Cada peso que invertís llega directo a un animalito.</p>
+                </div>
+                <div class="why-card">
+                    <span class="why-card__icon">📢</span>
+                    <h3>Visibilidad</h3>
+                    <p>80K seguidores en IG + 47K en FB. Tu marca asociada a una causa noble.</p>
+                </div>
+                <div class="why-card">
+                    <span class="why-card__icon">💼</span>
+                    <h3>Engagement del equipo</h3>
+                    <p>Tu equipo puede ser voluntario. Team building con propósito.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sponsor-tiers">
+        <div class="container">
+            <h2 class="section-title">Tiers de sponsorship</h2>
+            <div class="tiers-grid">
+                <div class="tier">
+                    <h3>Bronce</h3>
+                    <div class="tier__price">Gs. 1M<small style="font-size:0.5em;display:block;color:var(--c-text-muted);">/ año</small></div>
+                    <ul class="tier__benefits">
+                        <li>Logo en /sponsors</li>
+                        <li>Mención en newsletter</li>
+                        <li>Reporte anual</li>
+                    </ul>
+                    <a href="contacto.html" class="btn btn--tertiary btn--full">Contactar</a>
+                </div>
+
+                <div class="tier">
+                    <h3>Plata</h3>
+                    <div class="tier__price">Gs. 3M<small style="font-size:0.5em;display:block;color:var(--c-text-muted);">/ año</small></div>
+                    <ul class="tier__benefits">
+                        <li>Todo Bronce</li>
+                        <li>Logo en home (footer)</li>
+                        <li>1 evento branded/año</li>
+                        <li>Posts en redes (2x/mes)</li>
+                    </ul>
+                    <a href="contacto.html" class="btn btn--tertiary btn--full">Contactar</a>
+                </div>
+
+                <div class="tier tier--featured">
+                    <span class="tier__badge">Más elegido</span>
+                    <h3>Oro</h3>
+                    <div class="tier__price">Gs. 5M<small style="font-size:0.5em;display:block;color:rgba(255,255,255,0.7);">/ año</small></div>
+                    <ul class="tier__benefits">
+                        <li>Todo Plata</li>
+                        <li>Logo en todas las páginas</li>
+                        <li>2 eventos branded/año</li>
+                        <li>Posts en redes (4x/mes)</li>
+                        <li>Visita del refugio (equipo)</li>
+                    </ul>
+                    <a href="contacto.html" class="btn btn--primary btn--full">Contactar</a>
+                </div>
+
+                <div class="tier">
+                    <h3>Platino</h3>
+                    <div class="tier__price">Gs. 10M+<small style="font-size:0.5em;display:block;color:var(--c-text-muted);">/ año</small></div>
+                    <ul class="tier__benefits">
+                        <li>Todo Oro</li>
+                        <li>Exclusividad de industria</li>
+                        <li>Co-branding oficial</li>
+                        <li>Reporte trimestral</li>
+                        <li>Mentions en PR</li>
+                    </ul>
+                    <a href="contacto.html" class="btn btn--tertiary btn--full">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="current-sponsors">
+        <div class="container">
+            <h2 class="section-title">Nuestros sponsors actuales</h2>
+            <div class="sponsors-wall">
+                <div class="sponsor-logo">[Logo Sponsor 1]</div>
+                <div class="sponsor-logo">[Logo Sponsor 2]</div>
+                <div class="sponsor-logo">[Logo Sponsor 3]</div>
+                <div class="sponsor-logo">[Logo Sponsor 4]</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sponsor-cta">
+        <div class="container">
+            <h2>¿Tu empresa quiere ser parte?</h2>
+            <p>Escribinos por WhatsApp o email. Te contamos cómo sería la alianza.</p>
+            <div style="display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap;">
+                <a href="https://wa.me/595971771371?text=Hola!%20Mi%20empresa%20quiere%20ser%20sponsor%20de%20Polki%20Squad" class="btn btn--primary btn--lg">WhatsApp</a>
+                <a href="mailto:sponsors@polkisquad.com" class="btn btn--secondary btn--lg">Email</a>
+            </div>
+        </div>
+    </section>
+
+    
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">
+                <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
+                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

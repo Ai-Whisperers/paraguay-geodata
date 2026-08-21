@@ -1,0 +1,177 @@
+/* Polki Squad — page-contacto.css v0.1
+   Contacto page: contact info + form + map.
+*/
+
+.page-header {
+    padding: var(--s-9) 0 var(--s-7);
+    background: linear-gradient(180deg, var(--c-bg-alt) 0%, var(--c-bg) 100%);
+    text-align: center;
+}
+.page-header h1 { margin-bottom: var(--s-4); }
+.page-header p {
+    font-size: 1.125rem;
+    color: var(--c-text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* Contact grid */
+.contact-grid {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.contact-grid__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--s-7);
+}
+
+/* Contact info */
+.contact-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--s-5);
+}
+.contact-info__item {
+    display: flex;
+    gap: var(--s-3);
+    margin-bottom: var(--s-5);
+    padding-bottom: var(--s-5);
+    border-bottom: 1px solid var(--c-border);
+}
+.contact-info__item:last-of-type {
+    border-bottom: none;
+}
+.contact-info__icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-md);
+    background: var(--c-warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+.contact-info__item h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-1);
+}
+.contact-info__item p {
+    color: var(--c-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: var(--s-2);
+}
+.contact-info__social {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--c-border);
+}
+.contact-info__social h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-3);
+}
+.contact-info__social-links {
+    display: flex;
+    gap: var(--s-3);
+}
+.contact-info__social-links a {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-full);
+    background: var(--c-text);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.contact-info__social-links a:hover {
+    background: var(--c-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Contact form */
+.contact-form {
+    background: white;
+    padding: var(--s-6);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+}
+.contact-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--s-2);
+}
+.contact-form > p {
+    color: var(--c-text-muted);
+    margin-bottom: var(--s-5);
+    font-size: 0.9375rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+}
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--c-text);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: var(--s-3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    font-family: var(--f-body);
+    font-size: 0.9375rem;
+    background: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+/* Map */
+.map-section {
+    background: var(--c-bg-alt);
+    padding: var(--s-9) 0;
+}
+.map-section .section-title { text-align: center; margin-bottom: var(--s-5); }
+.map-placeholder {
+    background: white;
+    padding: var(--s-9);
+    border-radius: var(--r-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--s-3);
+}
+.map-placeholder > span {
+    font-size: 4rem;
+}
+.map-placeholder p {
+    color: var(--c-text);
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+@media (max-width: 968px) {
+    .contact-grid__inner {
+        grid-template-columns: 1fr;
+    }
+}

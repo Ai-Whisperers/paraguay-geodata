@@ -1,0 +1,220 @@
+/* Polki Squad — page-voluntarios.css v0.1
+   Voluntarios page: why, roles, requirements, form.
+*/
+
+.page-header {
+    padding: var(--s-9) 0 var(--s-7);
+    background: linear-gradient(180deg, var(--c-bg-alt) 0%, var(--c-bg) 100%);
+    text-align: center;
+}
+.page-header h1 { margin-bottom: var(--s-4); max-width: 800px; margin-left: auto; margin-right: auto; }
+.page-header p {
+    font-size: 1.0625rem;
+    color: var(--c-text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* Why volunteer */
+.why-volunteer {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-5);
+    margin-top: var(--s-6);
+}
+.why-card {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+.why-card:hover { transform: translateY(-4px); }
+.why-card__icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: var(--s-3);
+}
+.why-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-2);
+}
+.why-card p {
+    color: var(--c-text-muted);
+    font-size: 0.9375rem;
+}
+
+/* Roles */
+.roles {
+    background: var(--c-bg-alt);
+    padding: var(--s-9) 0;
+}
+.roles__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-4);
+    margin-top: var(--s-6);
+}
+.role-card {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+}
+.role-card:hover { transform: translateY(-4px); }
+.role-card__icon {
+    display: inline-block;
+    font-size: 2rem;
+    margin-bottom: var(--s-3);
+}
+.role-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-2);
+}
+.role-card p {
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: var(--s-2);
+}
+.role-card__commitment {
+    border-top: 1px solid var(--c-border);
+    padding-top: var(--s-3);
+    font-size: 0.8125rem !important;
+    color: var(--c-text) !important;
+    margin-bottom: 0 !important;
+}
+
+/* Requirements */
+.requirements {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.requirements__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-4);
+    max-width: 800px;
+    margin: var(--s-6) auto 0;
+}
+.req-card {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: var(--s-3);
+    align-items: start;
+}
+.req-card__check {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-full);
+    background: var(--c-secondary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+.req-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-1);
+}
+.req-card p {
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+}
+
+/* Form */
+.volunteer-form {
+    background: var(--c-bg-alt);
+    padding: var(--s-9) 0;
+}
+.volunteer-form__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    background: white;
+    padding: var(--s-7);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md);
+}
+.volunteer-form h2 {
+    margin-bottom: var(--s-3);
+    text-align: center;
+}
+.volunteer-form > div > p {
+    text-align: center;
+    color: var(--c-text-muted);
+    margin-bottom: var(--s-6);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+}
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+}
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--c-text);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: var(--s-3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-md);
+    font-family: var(--f-body);
+    font-size: 0.9375rem;
+    background: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+.form-note {
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+    margin-top: var(--s-3);
+}
+.form-note a {
+    color: var(--c-primary);
+    text-decoration: underline;
+}
+
+@media (max-width: 968px) {
+    .why-grid,
+    .roles__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .why-grid,
+    .roles__grid,
+    .requirements__grid,
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

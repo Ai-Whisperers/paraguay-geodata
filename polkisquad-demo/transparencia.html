@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparencia · Polki Squad</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="Reportes anuales, financials, lista de padrinos y sponsors. 100% transparente.">
+    <link rel="canonical" href="https://polkisquad.com/transparencia">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Transparencia · Polki Squad">
+    <meta name="twitter:description" content="Reportes anuales, financials, lista de padrinos y sponsors. 100% transparente.">
+    <meta name="twitter:image" content="https://polkisquad.com/og/default.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .page-header { padding: var(--s-9) 0 var(--s-7); background: linear-gradient(180deg, var(--c-bg-alt) 0%, var(--c-bg) 100%); text-align: center; }
+        .page-header h1 { margin-bottom: var(--s-4); }
+        .page-header p { font-size: 1.125rem; color: var(--c-text-muted); max-width: 720px; margin: 0 auto; }
+        .trans-stats { padding: var(--s-9) 0; background: var(--c-bg); }
+        .trans-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-5); margin-top: var(--s-6); }
+        .trans-stat { background: white; padding: var(--s-6); border-radius: var(--r-lg); text-align: center; box-shadow: var(--shadow-sm); border-top: 4px solid var(--c-secondary); }
+        .trans-stat:nth-child(2) { border-top-color: var(--c-primary); }
+        .trans-stat:nth-child(3) { border-top-color: var(--c-accent); }
+        .trans-stat:nth-child(4) { border-top-color: var(--c-warm); }
+        .trans-stat__label { display: block; font-size: 0.875rem; color: var(--c-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--s-2); }
+        .trans-stat__value { display: block; font-family: var(--f-display); font-size: 2.5rem; font-weight: 700; color: var(--c-text); }
+        .trans-stat__detail { display: block; font-size: 0.875rem; color: var(--c-text-muted); margin-top: var(--s-2); }
+        .trans-reports { padding: var(--s-9) 0; background: var(--c-bg-alt); }
+        .reports-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4); margin-top: var(--s-6); max-width: 800px; margin-left: auto; margin-right: auto; }
+        .report-card { background: white; padding: var(--s-5); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); display: flex; gap: var(--s-4); align-items: center; }
+        .report-card__icon { font-size: 3rem; }
+        .report-card h3 { font-size: 1.125rem; margin-bottom: var(--s-1); }
+        .report-card p { color: var(--c-text-muted); font-size: 0.875rem; }
+        .trans-finance { padding: var(--s-9) 0; background: var(--c-bg); }
+        .finance-summary { background: white; padding: var(--s-6); border-radius: var(--r-lg); box-shadow: var(--shadow-md); max-width: 800px; margin: var(--s-6) auto 0; }
+        .finance-summary h3 { text-align: center; margin-bottom: var(--s-5); }
+        .finance-row { display: flex; justify-content: space-between; padding: var(--s-3) 0; border-bottom: 1px solid var(--c-border); }
+        .finance-row:last-child { border-bottom: 2px solid var(--c-text); font-weight: 600; }
+        .finance-row__label { color: var(--c-text-muted); }
+        .finance-row__value { font-family: var(--f-body); font-weight: 600; }
+        .trans-padrinos { padding: var(--s-9) 0; background: var(--c-bg-alt); }
+        .padrinos-list { display: flex; flex-wrap: wrap; gap: var(--s-2); justify-content: center; max-width: 800px; margin: var(--s-5) auto 0; }
+        .padrino-tag { background: var(--c-warm); padding: var(--s-2) var(--s-4); border-radius: var(--r-full); font-size: 0.875rem; }
+        @media (max-width: 968px) { .trans-stats__grid, .reports-list { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .trans-stats__grid, .reports-list { grid-template-columns: 1fr; } }
+    </style>
+
+    <meta property="og:image" content="https://polkisquad.com/og/default.svg">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://polkisquad.com/transparencia">
+</head>
+<body>
+    <div class="demo-banner" role="status">
+        <span class="demo-banner__icon">🚧</span>
+        <span class="demo-banner__text">
+            <strong>Demo / Preview</strong> — Este es un prototipo. Algunas partes son placeholders.
+            Para el sitio real, contactanos por WhatsApp.
+        </span>
+        <a href="https://wa.me/595971771371" class="demo-banner__cta">Contactar</a>
+    </div>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo"><span class="logo__mark">🐾</span><span class="logo__text">Polki Squad</span></a>
+            <nav class="nav">
+                <a href="adopta.html" class="nav__link">Adoptar</a>
+                <a href="padrinos.html" class="nav__link">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <a href="donar.html" class="btn btn--primary btn--small">Doná ahora</a>
+        </div>
+    </header>
+
+    <main id="main">
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Transparencia total</h1>
+            <p>100% de todo corazón ❤️. Cada guaraní que donás llega a los animalitos. Acá te mostramos cómo.</p>
+        </div>
+    </section>
+
+    <section class="trans-stats">
+        <div class="container">
+            <h2 class="section-title">En números (2025)</h2>
+            <div class="trans-stats__grid">
+                <div class="trans-stat">
+                    <span class="trans-stat__label">Ingresos totales</span>
+                    <span class="trans-stat__value">Gs. 84.5M</span>
+                    <span class="trans-stat__detail">~USD 11,800</span>
+                </div>
+                <div class="trans-stat">
+                    <span class="trans-stat__label">Gastos en animalitos</span>
+                    <span class="trans-stat__value">Gs. 82.1M</span>
+                    <span class="trans-stat__detail">97% del total</span>
+                </div>
+                <div class="trans-stat">
+                    <span class="trans-stat__label">Gastos administrativos</span>
+                    <span class="trans-stat__value">Gs. 2.4M</span>
+                    <span class="trans-stat__detail">3% del total</span>
+                </div>
+                <div class="trans-stat">
+                    <span class="trans-stat__label">Animalitos rescatados</span>
+                    <span class="trans-stat__value">347</span>
+                    <span class="trans-stat__detail">+12% vs 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trans-reports">
+        <div class="container">
+            <h2 class="section-title">Reportes anuales</h2>
+            <p style="text-align:center;color:var(--c-text-muted);max-width:600px;margin:0 auto;">Documentos completos con financials, padrinos, sponsors, e impacto.</p>
+            <div class="reports-list">
+                <div class="report-card">
+                    <span class="report-card__icon">📊</span>
+                    <div>
+                        <h3>Annual Report 2025</h3>
+                        <p>PDF · 4 páginas · 1.2 MB</p>
+                        <a href="#" class="link-arrow">Descargar →</a>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <span class="report-card__icon">📊</span>
+                    <div>
+                        <h3>Annual Report 2024</h3>
+                        <p>PDF · 4 páginas · 1.1 MB</p>
+                        <a href="#" class="link-arrow">Descargar →</a>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <span class="report-card__icon">📊</span>
+                    <div>
+                        <h3>Annual Report 2023</h3>
+                        <p>PDF · 4 páginas · 980 KB</p>
+                        <a href="#" class="link-arrow">Descargar →</a>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <span class="report-card__icon">📊</span>
+                    <div>
+                        <h3>Annual Report 2022</h3>
+                        <p>PDF · 4 páginas · 850 KB</p>
+                        <a href="#" class="link-arrow">Descargar →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trans-finance">
+        <div class="container">
+            <h2 class="section-title">Financial summary 2025</h2>
+            <div class="finance-summary">
+                <h3>Ingresos</h3>
+                <div class="finance-row"><span class="finance-row__label">Donaciones puntuales</span><span class="finance-row__value">Gs. 32.1M (38%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Padrinos mensuales</span><span class="finance-row__value">Gs. 28.4M (34%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Sponsors corporativos</span><span class="finance-row__value">Gs. 18.2M (22%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Eventos</span><span class="finance-row__value">Gs. 5.8M (6%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Total ingresos</span><span class="finance-row__value">Gs. 84.5M</span></div>
+
+                <h3 style="margin-top:var(--s-7);">Gastos</h3>
+                <div class="finance-row"><span class="finance-row__label">Alimento</span><span class="finance-row__value">Gs. 31.2M (37%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Atención veterinaria</span><span class="finance-row__value">Gs. 28.9M (34%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Castración + vacunas</span><span class="finance-row__value">Gs. 11.4M (14%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Infraestructura refugio</span><span class="finance-row__value">Gs. 6.5M (8%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Eventos + transporte</span><span class="finance-row__value">Gs. 4.1M (4%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Administrativos</span><span class="finance-row__value">Gs. 2.4M (3%)</span></div>
+                <div class="finance-row"><span class="finance-row__label">Total gastos</span><span class="finance-row__value">Gs. 84.5M</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trans-padrinos">
+        <div class="container">
+            <h2 class="section-title">Nuestros padrinos</h2>
+            <p style="text-align:center;color:var(--c-text-muted);max-width:600px;margin:0 auto;">100+ personas y empresas que apadrinan mensualmente a un animalito.</p>
+            <div class="padrinos-list">
+                <span class="padrino-tag">Familia González</span>
+                <span class="padrino-tag">María Rodríguez</span>
+                <span class="padrino-tag">Carlos & Laura</span>
+                <span class="padrino-tag">Sofía M.</span>
+                <span class="padrino-tag">Diego P.</span>
+                <span class="padrino-tag">Familia Martínez</span>
+                <span class="padrino-tag">Ana Lucía</span>
+                <span class="padrino-tag">Roberto S.</span>
+                <span class="padrino-tag">Estudio Jurídico ABC</span>
+                <span class="padrino-tag">Familia Fernández</span>
+                <span class="padrino-tag">Juan Pablo</span>
+                <span class="padrino-tag">Tienda Patitas</span>
+                <span class="padrino-tag">+88 más</span>
+            </div>
+        </div>
+    </section>
+
+    
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">
+                <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
+                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
