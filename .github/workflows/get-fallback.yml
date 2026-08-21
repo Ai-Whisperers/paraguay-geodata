@@ -1,0 +1,24 @@
+name: Get aiw-fallback Worker code
+on: workflow_dispatch
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get worker code
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          # Get the worker source
+          result=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts/aiw-fallback" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "=== Worker metadata ==="
+          echo "$result" | python3 -m json.tool | head -30
+          echo ""
+          echo "=== Worker source (first 3000 chars) ==="
+          echo "$result" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          src = d.get('result', {}).get('source', '')[:3000]
+          print(src)
+          "
