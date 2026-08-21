@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perdidos y encontrados · Polki Squad</title>
+    <meta name="description" content="¿Perdiste o encontraste un animalito? Reportalo acá. Te ayudamos a encontrar a su familia.">
+    <link rel="canonical" href="https://polkisquad.com/perdidos-y-encontrados.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B35">
+    <meta property="og:title" content="Perdidos y encontrados · Polki Squad">
+    <meta property="og:description" content="Red de búsqueda comunitaria. Reportá un animalito perdido o encontrado.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    <div class="demo-banner" role="status" id="demo-banner">
+        <div class="demo-banner__content">
+            <span class="demo-banner__icon">🚧</span>
+            <span class="demo-banner__text"><strong>Demo / Preview</strong> — Some content is placeholder. This is a proof-of-concept for Polki Squad.</span>
+            <a href="for-polkisquad.html" class="demo-banner__cta">¿Sos de Polki Squad? Hablemos →</a>
+        </div>
+        <button type="button" class="demo-banner__close" aria-label="Cerrar banner" id="demo-banner-close">×</button>
+    </div>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo"><span class="logo__mark">🐾</span><span class="logo__text">Polki Squad</span></a>
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="adopta.html" class="nav__link">Adoptar</a>
+                <a href="padrinos.html" class="nav__link">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="perdidos-y-encontrados.html" class="nav__link">Perdidos</a>
+                <a href="cuenta-mi-caso.html" class="nav__link">Historias</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
+        </div>
+    </header>
+    <main id="main">
+        <section class="page-header">
+            <div class="container">
+                <h1>🔎 Perdidos y encontrados</h1>
+                <p>Red comunitaria de búsqueda. Reportá un animalito perdido o encontrado y te ayudamos.</p>
+            </div>
+        </section>
+
+        <section style="padding:var(--s-7) 0;background:var(--c-bg);">
+            <div class="container" style="max-width:900px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-7);">
+                    <a href="#reportar-perdido" style="background:var(--c-bg-alt);padding:var(--s-5);border-radius:var(--r-lg);text-decoration:none;color:var(--c-text);text-align:center;">
+                        <div style="font-size:3rem;">😢</div>
+                        <h3 style="color:var(--c-primary);">Perdí mi mascota</h3>
+                        <p style="color:var(--c-text-muted);font-size:0.9375rem;">Reportala y difundamos juntos.</p>
+                    </a>
+                    <a href="#reportar-encontrado" style="background:var(--c-bg-alt);padding:var(--s-5);border-radius:var(--r-lg);text-decoration:none;color:var(--c-text);text-align:center;">
+                        <div style="font-size:3rem;">🐾</div>
+                        <h3 style="color:var(--c-primary);">Encontré una mascota</h3>
+                        <p style="color:var(--c-text-muted);font-size:0.9375rem;">Ayudanos a encontrar a su familia.</p>
+                    </a>
+                </div>
+
+                <!-- Active alerts -->
+                <h2 class="section-title">Alertas activas</h2>
+                <div style="background:var(--c-warm);padding:var(--s-3) var(--s-4);border-radius:var(--r-md);margin-bottom:var(--s-5);">
+                    <strong>📢 12 alertas activas</strong> en Asunción y área metropolitana. Última actualización: hace 2 horas.
+                </div>
+
+                <!-- Sample cases -->
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s-4);">
+                    <article style="background:white;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);">
+                        <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#FF6B35,#2E7D5B);display:flex;align-items:center;justify-content:center;font-size:4rem;color:white;">🐕</div>
+                        <div style="padding:var(--s-4);">
+                            <span style="display:inline-block;background:var(--c-error);color:white;padding:var(--s-1) var(--s-3);border-radius:var(--r-full);font-size:0.75rem;font-weight:600;text-transform:uppercase;">Perdido</span>
+                            <h3 style="margin:var(--s-2) 0 var(--s-1);">Max</h3>
+                            <p style="color:var(--c-text-muted);font-size:0.875rem;margin-bottom:var(--s-2);">Golden retriever, macho, 3 años</p>
+                            <p style="font-size:0.8125rem;color:var(--c-text-muted);">📍 Barrio Villa Morra<br>📅 Perdido el 18 ago 2026<br>📞 +595 9XX XXX XXX</p>
+                        </div>
+                    </article>
+                    <article style="background:white;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);">
+                        <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#4A90E2,#FF6B35);display:flex;align-items:center;justify-content:center;font-size:4rem;color:white;">🐈</div>
+                        <div style="padding:var(--s-4);">
+                            <span style="display:inline-block;background:var(--c-success);color:white;padding:var(--s-1) var(--s-3);border-radius:var(--r-full);font-size:0.75rem;font-weight:600;text-transform:uppercase;">Encontrado</span>
+                            <h3 style="margin:var(--s-2) 0 var(--s-1);">Luna (encontrada)</h3>
+                            <p style="color:var(--c-text-muted);font-size:0.875rem;margin-bottom:var(--s-2);">Gata, hembra, joven</p>
+                            <p style="font-size:0.8125rem;color:var(--c-text-muted);">📍 Barrio Carmelitas<br>📅 Encontrada 15 ago 2026<br>📞 +595 9XX XXX XXX</p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Form -->
+                <h2 id="reportar-perdido" class="section-title" style="margin-top:var(--s-9);">Reportar mascota perdida</h2>
+                <form style="max-width:640px;margin:var(--s-5) auto 0;background:white;padding:var(--s-7);border-radius:var(--r-lg);box-shadow:var(--shadow-md);" novalidate aria-label="Formulario de reporte">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-4);">
+                        <div>
+                            <label for="perd-nombre" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">Tu nombre *</label>
+                            <input type="text" id="perd-nombre" required aria-required="true" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);">
+                        </div>
+                        <div>
+                            <label for="perd-contacto" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">WhatsApp *</label>
+                            <input type="tel" id="perd-contacto" required aria-required="true" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-4);">
+                        <div>
+                            <label for="perd-animal" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">Nombre de la mascota *</label>
+                            <input type="text" id="perd-animal" required aria-required="true" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);">
+                        </div>
+                        <div>
+                            <label for="perd-tipo" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">Tipo *</label>
+                            <select id="perd-tipo" required aria-required="true" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);background:white;">
+                                <option value="">Elegí</option>
+                                <option>Perro</option>
+                                <option>Gato</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:var(--s-4);">
+                        <label for="perd-ubicacion" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">¿Dónde se perdió? *</label>
+                        <input type="text" id="perd-ubicacion" required aria-required="true" placeholder="Barrio, calle, referencia" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);">
+                    </div>
+                    <div style="margin-bottom:var(--s-4);">
+                        <label for="perd-fecha" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">¿Cuándo se perdió? *</label>
+                        <input type="date" id="perd-fecha" required aria-required="true" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);">
+                    </div>
+                    <div style="margin-bottom:var(--s-4);">
+                        <label for="perd-desc" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">Descripción (señales particulares, collar, comportamiento)</label>
+                        <textarea id="perd-desc" rows="4" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);"></textarea>
+                    </div>
+                    <button type="submit" style="background:var(--c-primary);color:white;border:none;padding:var(--s-3) var(--s-5);border-radius:var(--r-full);font-weight:600;font-size:1rem;cursor:pointer;width:100%;">Publicar alerta</button>
+                    <p style="text-align:center;color:var(--c-text-muted);font-size:0.8125rem;margin-top:var(--s-3);">Publicamos en nuestro sitio + difundimos en redes. Gratis.</p>
+                </form>
+
+                <div style="margin-top:var(--s-9);padding:var(--s-6);background:var(--c-warm);border-radius:var(--r-lg);text-align:center;">
+                    <h3 style="margin-bottom:var(--s-2);">¿Encontraste una mascota?</h3>
+                    <p style="color:var(--c-text-muted);margin-bottom:var(--s-4);">También te ayudamos. Reportala y difundimos juntos.</p>
+                    <a href="https://wa.me/595971771371" class="btn btn--primary btn--lg">📱 Reportar por WhatsApp</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__bottom">
+                <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
+                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
+        <p style="text-align:center;margin-top:var(--s-3);font-size:0.875rem;opacity:0.8;">
+            <a href="privacidad.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Privacidad</a> ·
+            <a href="terminos.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Términos</a> ·
+            <a href="gracias/donar.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Donación</a> ·
+            <a href="gracias/padrino.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Padrino</a>
+        </p>
+
+            </div>
+        </div>
+    </footer>
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
+    <div class="outreach-cta" id="outreach-cta">
+        <button type="button" class="outreach-cta__button" aria-label="Abrir opciones de contacto">
+            <span class="outreach-cta__icon">💬</span><span class="outreach-cta__label">Hablemos</span>
+        </button>
+        <div class="outreach-cta__panel" role="dialog" aria-label="Opciones de contacto">
+            <h3 class="outreach-cta__heading">¿Sos de Polki Squad?</h3>
+            <div class="outreach-cta__options">
+                <a href="https://wa.me/595971771371" class="outreach-cta__option"><span class="outreach-cta__option-icon">📱</span><span>WhatsApp</span></a>
+                <a href="mailto:hola@polkisquad.com" class="outreach-cta__option"><span class="outreach-cta__option-icon">✉️</span><span>Email</span></a>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

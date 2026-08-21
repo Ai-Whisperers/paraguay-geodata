@@ -26,7 +26,10 @@
       "description": "Propuesta de Ai-Whisperers para Polki Squad. Sitio web reconstruido gratis."
     }
     </script>
-</head>
+    <!-- Plausible Analytics (privacy-friendly, no cookies) -->
+    <script defer data-domain="polkisquad.paragu-ai.com" src="https://plausible.io/js/script.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    </head>
 <body>
     <a href="#main" class="skip-link">Saltar al contenido principal</a>
 
@@ -56,10 +59,15 @@
             <nav class="nav">
                 <a href="index.html" class="nav__link">Inicio</a>
                 <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="index.html" class="nav__link">Inicio</a>
                 <a href="adopta.html" class="nav__link">Adoptar</a>
                 <a href="padrinos.html" class="nav__link">Apadrinar</a>
                 <a href="donar.html" class="nav__link">Donar</a>
-                <a href="#contacto" class="nav__link">Contacto</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="perdidos-y-encontrados.html" class="nav__link">Perdidos</a>
+                <a href="cuenta-mi-caso.html" class="nav__link">Historias</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>                <a href="#contacto" class="nav__link">Contacto</a>
             </nav>
             <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
         </div>
@@ -77,7 +85,7 @@
                     Somos una organización tech sin fines de lucro. <strong>Les reconstruimos el sitio web, gratis, en 4 semanas.</strong>
                 </p>
                 <div class="outreach-hero__ctas">
-                    <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="btn btn--primary btn--lg">
+                    <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa%20(desde%20outreach-page)" class="btn btn--primary btn--lg">
                         📱 Hablar por WhatsApp
                     </a>
                     <a href="#contacto" class="btn btn--secondary btn--lg">
@@ -361,6 +369,78 @@
             </div>
         </section>
 
+        
+        <!-- FAQ -->
+        <section class="faq">
+            <div class="container">
+                <h2 class="section-title">Preguntas frecuentes</h2>
+                <p class="paragraph--narrow">Las respuestas a las preguntas que más nos hacen.</p>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>¿Por qué lo hacen gratis?</summary>
+                        <div class="faq-item__content">
+                            <p>Ai-Whisperers es una organización tech sin fines de lucro. Nuestra misión es ayudar ONGs en Paraguay a tener presencia digital profesional. A cambio, conseguimos casos de éxito reales para mostrar a futuros clientes. Es un ganar-ganar.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Realmente 4 semanas? ¿Qué pasa si se atrasa?</summary>
+                        <div class="faq-item__content">
+                            <p>Sí, 4 semanas desde el kickoff hasta el lanzamiento. Las únicas razones de atraso serían: (a) ustedes tardan en darnos contenido (fotos, copy, datos), o (b) hay un imprevisto técnico serio. Si pasa, les avisamos inmediatamente y acordamos un nuevo timeline. Sin sorpresas.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Qué necesitan de nosotros?</summary>
+                        <div class="faq-item__content">
+                            <p>Para arrancar: 30 minutos para una llamada + 1 hora para llenar el cuestionario. Después, aproximadamente 4-6 horas repartidas en 4 semanas para aprobaciones. El resto lo hacemos nosotros.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Y si no nos gusta el resultado?</summary>
+                        <div class="faq-item__content">
+                            <p>Trabajamos con feedback en cada sprint. Si algo no les gusta, lo cambiamos. Si después del lanzamiento quieren ajustes, tienen 30 días de bug fixes gratis. Si quieren algo completamente diferente, hablamos.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Mantenemos el control del sitio?</summary>
+                        <div class="faq-item__content">
+                            <p>Sí, 100%. El código va a un repositorio de GitHub bajo su organización (o la de Polki Squad si la tienen). El contenido (textos, padrinos, animalitos) va a un Airtable que ustedes editan visualmente. No hay vendor lock-in.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Qué pasa con nuestro dominio actual (polkisquad.com)?</summary>
+                        <div class="faq-item__content">
+                            <p>Si lo tienen registrado y pueden transferir DNS, lo configuramos para apuntar al nuevo sitio. Si no lo tienen o no lo encuentran, compramos uno nuevo (o usamos polkisquad.paragu-ai.com como interim). El costo del dominio (~$10/año) lo cubren ustedes, pero lo ayudamos a elegir.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Y después del lanzamiento?</summary>
+                        <div class="faq-item__content">
+                            <p>30 días de bug fixes gratis incluidos. Después, tienen 2 opciones: (1) ustedes manejan el sitio internamente con la documentación que dejamos, o (2) soporte mensual opcional a costo compartido (~$20-50/mes) que cubre cambios pequeños + monitoreo.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Tenemos que tener personería jurídica / RUC?</summary>
+                        <div class="faq-item__content">
+                            <p>No. Pueden ser una organización informal. Si no tienen RUC o personería jurídica, igual pueden recibir donaciones (vía transferencia bancaria o Metrepay). Si en el futuro quieren formalizarse, los ayudamos.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Cómo manejan la privacidad / datos?</summary>
+                        <div class="faq-item__content">
+                            <p>Usamos Airtable (encriptado, GDPR-compliant) para padrinos/applicants. Usamos Brevo para emails (pueden darse de baja). Usamos Plausible para analytics (sin cookies, sin datos personales). No vendemos datos. No usamos Facebook Pixel ni Google Analytics.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>¿Puedo ver otros proyectos que hayan hecho?</summary>
+                        <div class="faq-item__content">
+                            <p>Sí — visitá <a href="portfolio.html">portfolio.html</a> para ver nuestros otros trabajos. Aunque ninguno es Polki Squad, podés ver nuestro approach técnico y diseño.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Contact form -->
         <section class="outreach-form-section" id="contacto">
             <div class="container">
@@ -369,7 +449,7 @@
 
                 <!-- Multi-channel options -->
                 <div class="outreach-channels" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s-4);max-width:900px;margin:var(--s-6) auto 0;">
-                    <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="why-us-card" style="text-decoration:none;color:var(--c-text);text-align:center;display:block;">
+                    <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa%20(desde%20outreach-page)" class="why-us-card" style="text-decoration:none;color:var(--c-text);text-align:center;display:block;">
                         <div class="why-us-card__icon">📱</div>
                         <h3>WhatsApp</h3>
                         <p>Más rápido. Respondemos en minutos.</p>
@@ -422,7 +502,11 @@
                         <label for="out-message">Mensaje</label>
                         <textarea id="out-message" name="message" rows="4" placeholder="Contanos lo que quieran..."></textarea>
                     </div>
-                    <input type="hidden" name="_subject" value="Nuevo outreach — Polki Squad">
+                    <input type="hidden" name="_subject" value="Nuevo outreach desde outreach-page">
+                    <input type="hidden" name="source_page" value="outreach-page">
+                    <input type="hidden" name="source_url" value="https://polkisquad.paragu-ai.com/for-polkisquad.html">
+                    <input type="hidden" name="utm_source" value="polkisquad-demo">
+                    <input type="hidden" name="utm_medium" value="outreach-page">
                     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                     <button type="submit" class="btn btn--primary btn--lg" style="width:100%;margin-top:var(--s-3);">
                         Enviar mensaje
@@ -455,7 +539,7 @@
             <h3 class="outreach-cta__heading">¿Sos de Polki Squad?</h3>
             <p class="outreach-cta__subheading">Respondemos en menos de 24h</p>
             <div class="outreach-cta__options">
-                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="outreach-cta__option">
+                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa%20(desde%20outreach-page)" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">📱</span>
                     <span>WhatsApp (más rápido)</span>
                 </a>

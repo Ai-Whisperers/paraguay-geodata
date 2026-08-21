@@ -1,0 +1,286 @@
+/* Polki Squad — page-animal.css v0.1
+   Individual animal detail page styles.
+*/
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-4) var(--s-5);
+    font-size: 0.875rem;
+    color: var(--c-text-muted);
+    max-width: var(--container);
+    margin: 0 auto;
+}
+.breadcrumb a {
+    color: var(--c-text-muted);
+    text-decoration: none;
+}
+.breadcrumb a:hover {
+    color: var(--c-primary);
+    text-decoration: underline;
+}
+.breadcrumb span[aria-current="page"] {
+    color: var(--c-text);
+    font-weight: 500;
+}
+
+/* Animal hero */
+.animal-hero {
+    padding: var(--s-6) 0 var(--s-8);
+    background: var(--c-bg);
+}
+.animal-hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--s-7);
+    align-items: center;
+}
+.animal-hero__photo {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+.animal-hero__photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--c-warm) 0%, var(--c-secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 8rem;
+}
+.animal-card__badge--available {
+    position: absolute;
+    top: var(--s-4);
+    right: var(--s-4);
+    background: var(--c-success);
+    color: white;
+    padding: var(--s-2) var(--s-4);
+    border-radius: var(--r-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.animal-hero__species {
+    display: inline-block;
+    color: var(--c-primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--s-2);
+}
+.animal-hero__name {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--c-text);
+    line-height: 1;
+    margin-bottom: var(--s-3);
+}
+.animal-hero__tagline {
+    font-size: 1.25rem;
+    color: var(--c-text-muted);
+    font-style: italic;
+    margin-bottom: var(--s-5);
+}
+.animal-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-3);
+}
+.animal-hero__stat {
+    background: var(--c-bg-alt);
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--r-md);
+    text-align: center;
+}
+.animal-hero__stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--c-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--s-1);
+}
+.animal-hero__stat-value {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--c-text);
+}
+
+/* About + sidebar */
+.animal-about {
+    padding: var(--s-8) 0;
+    background: var(--c-bg-alt);
+}
+.animal-about__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--s-7);
+}
+.animal-about p {
+    color: var(--c-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--s-3);
+}
+.animal-sidebar {
+    background: white;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    height: fit-content;
+}
+.animal-sidebar h3 {
+    font-size: 1rem;
+    margin-bottom: var(--s-3);
+    color: var(--c-text);
+}
+.animal-sidebar h3:not(:first-child) {
+    margin-top: var(--s-5);
+}
+.animal-checklist,
+.animal-needs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--s-3) 0;
+}
+.animal-checklist li,
+.animal-needs li {
+    padding: var(--s-2) 0;
+    color: var(--c-text-muted);
+    font-size: 0.9375rem;
+    border-bottom: 1px solid var(--c-border);
+}
+.animal-checklist li:last-child,
+.animal-needs li:last-child {
+    border-bottom: none;
+}
+
+/* Adoption process */
+.animal-process {
+    padding: var(--s-9) 0;
+    background: var(--c-bg);
+}
+.adoption-steps {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-6) auto 0;
+    max-width: 720px;
+    counter-reset: step;
+}
+.adoption-steps li {
+    display: flex;
+    gap: var(--s-4);
+    margin-bottom: var(--s-5);
+    padding-bottom: var(--s-5);
+    border-bottom: 1px solid var(--c-border);
+}
+.adoption-steps li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.adoption-step__number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-full);
+    background: var(--c-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.adoption-steps h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--s-1);
+}
+.adoption-steps p {
+    color: var(--c-text-muted);
+}
+.adoption-cta {
+    display: flex;
+    gap: var(--s-3);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--s-7);
+}
+
+/* Related animals */
+.animal-related {
+    padding: var(--s-9) 0;
+    background: var(--c-bg-alt);
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-4);
+    margin-top: var(--s-6);
+}
+.animal-card-link {
+    background: white;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: var(--c-text);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.animal-card-link:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    color: var(--c-text);
+}
+.animal-card-link__photo {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--c-warm) 0%, var(--c-secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+.animal-card-link__body {
+    padding: var(--s-4);
+}
+.animal-card-link__body h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--s-1);
+}
+.animal-card-link__body p {
+    color: var(--c-text-muted);
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .animal-hero__inner {
+        grid-template-columns: 1fr;
+    }
+    .animal-about__inner {
+        grid-template-columns: 1fr;
+    }
+    .animal-hero__stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Print */
+@media print {
+    .animal-hero__photo-placeholder {
+        background: white !important;
+    }
+}
