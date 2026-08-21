@@ -31,70 +31,20 @@
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Polki Squad", "url": "https://polkisquad.paragu-ai.com", "inLanguage": "es-PY"}</script>
     </head>
 <body>
-    <div class="demo-banner" role="status">
-        <span class="demo-banner__icon">🚧</span>
-        <span class="demo-banner__text">
-            <strong>Demo / Preview</strong> — Este es un prototipo. Algunas partes son placeholders.
-            Para el sitio real, contactanos por WhatsApp.
-        </span>
-        <a href="https://wa.me/595971771371" class="demo-banner__cta">Contactar</a>
-    </div>
-    <a href="#main" class="skip-link">Saltar al contenido principal</a>
-    <!-- Header -->
-    <header class="header">
-        <div class="container header__inner">
-            <a href="index.html" class="logo">
-                <span class="logo__mark">🐾</span>
-                <span class="logo__text">Polki Squad</span>
+    <div class="demo-banner" role="status" id="demo-banner">
+        <div class="demo-banner__content">
+            <span class="demo-banner__icon">🚧</span>
+            <span class="demo-banner__text">
+                <strong>Demo / Preview</strong> — Some content is placeholder. This is a proof-of-concept for Polki Squad.
+            </span>
+            <a href="for-polkisquad.html" class="demo-banner__cta">
+                ¿Sos de Polki Squad? Hablemos →
             </a>
-            <nav class="nav">
-                <a href="adopta.html" class="nav__link">Adoptar</a>
-                <a href="padrinos.html" class="nav__link">Apadrinar</a>
-                <a href="donar.html" class="nav__link">Donar</a>
-                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
-                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
-                <a href="contacto.html" class="nav__link">Contacto</a>
-            </nav>
-            <a href="donar.html" class="btn btn--primary btn--small">Doná ahora</a>
         </div>
-    </header>
-
-    <main id="main">
-
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container hero__inner">
-            <div class="hero__content">
-                <span class="hero__eyebrow">Hola tíos y tías 🐾</span>
-                <h1 class="hero__title">
-                    3.000 historias<br>
-                    de amor que<br>
-                    <span class="hero__title--accent">cambiaron todo.</span>
-                </h1>
-                <p class="hero__subtitle">
-                    En Asunción rescatamos, rehabilitamos y encontramos
-                    hogares amorosos para perros y gatos. Sé parte de la
-                    próxima historia.
-                </p>
-                <div class="hero__ctas">
-                    <a href="adopta.html" class="btn btn--primary">Adoptar</a>
-                    <a href="padrinos.html" class="btn btn--secondary">Apadrinar</a>
-                    <a href="donar.html" class="btn btn--tertiary">Donar</a>
-                </div>
-                <div class="hero__trust">
-                    <div class="trust-item">
-                        <strong>+3.000</strong>
-                        <span>animalitos rescatados</span>
-                    </div>
-                    <div class="trust-item">
-                        <strong>5+</strong>
-                        <span>años rescatando</span>
-                    </div>
-                    <div class="trust-item">
-                        <strong>100+</strong>
-                        <span>padrinos activos</span>
-                    </div>
-                </div>
+        <button type="button" class="demo-banner__close" aria-label="Cerrar banner" id="demo-banner-close">
+            ×
+        </button>
+    </div>
             </div>
             <div class="hero__visual">
                 <div class="hero__photo">
@@ -308,6 +258,34 @@
 
     <script src="js/main.js"></script>
 
+    <div class="outreach-cta" id="outreach-cta">
+        <button type="button" class="outreach-cta__button" aria-label="Abrir opciones de contacto">
+            <span class="outreach-cta__icon">💬</span>
+            <span class="outreach-cta__label">Hablemos</span>
+        </button>
+        <div class="outreach-cta__panel" role="dialog" aria-label="Opciones de contacto">
+            <h3 class="outreach-cta__heading">¿Sos de Polki Squad?</h3>
+            <p class="outreach-cta__subheading">Respondemos en menos de 24h</p>
+            <div class="outreach-cta__options">
+                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="outreach-cta__option">
+                    <span class="outreach-cta__option-icon">📱</span>
+                    <span>WhatsApp (más rápido)</span>
+                </a>
+                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com&body=Hola%2C%20vi%20el%20preview%20del%20sitio..." class="outreach-cta__option">
+                    <span class="outreach-cta__option-icon">✉️</span>
+                    <span>Email</span>
+                </a>
+                <a href="https://instagram.com/polkisquad" target="_blank" rel="noopener" class="outreach-cta__option">
+                    <span class="outreach-cta__option-icon">📷</span>
+                    <span>Instagram DM</span>
+                </a>
+                <a href="for-polkisquad.html" class="outreach-cta__option">
+                    <span class="outreach-cta__option-icon">📋</span>
+                    <span>Formulario completo</span>
+                </a>
+            </div>
+        </div>
+    </div>
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
     </body>
 </html>

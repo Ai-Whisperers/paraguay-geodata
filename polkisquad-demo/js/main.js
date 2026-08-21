@@ -109,3 +109,37 @@ if (backToTop) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
+
+
+// 7. Dismissible demo banner (localStorage remembers choice)
+const banner = document.getElementById('demo-banner');
+const bannerClose = document.getElementById('demo-banner-close');
+if (banner && bannerClose) {
+    if (localStorage.getItem('polkisquad-banner-dismissed') === '1') {
+        banner.classList.add('hidden');
+    }
+    bannerClose.addEventListener('click', () => {
+        banner.classList.add('hidden');
+        localStorage.setItem('polkisquad-banner-dismissed', '1');
+    });
+}
+
+// 8. Floating outreach CTA (collapsible)
+const outreachCta = document.querySelector('.outreach-cta');
+if (outreachCta) {
+    const toggleBtn = outreachCta.querySelector('.outreach-cta__button');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            // If it's a link, don't toggle
+            if (toggleBtn.tagName === 'A') return;
+            e.preventDefault();
+            outreachCta.classList.toggle('open');
+        });
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!outreachCta.contains(e.target)) {
+                outreachCta.classList.remove('open');
+            }
+        });
+    }
+}
