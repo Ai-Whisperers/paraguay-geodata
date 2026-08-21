@@ -1,0 +1,15 @@
+name: Setup Polki Squad Pages project
+on: workflow_dispatch
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Pages project
+        run: |
+          # Create a placeholder file first - CF Pages needs something to deploy
+          echo "placeholder" > /tmp/index.html
+          # Use wrangler via npx (auto-install)
+          npx -y wrangler@latest pages project create polkisquad-preview \
+            --production-branch main \
+            --compatibility-date 2025-01-01 2>&1
+          echo "---DONE---"
