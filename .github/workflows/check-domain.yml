@@ -1,0 +1,22 @@
+name: Check Polki Squad domain status
+on: workflow_dispatch
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check domain
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Custom domain status ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad-preview/domains" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -m json.tool
+
+          echo ""
+          echo "=== DNS records for polkisquad.paragu-ai.com ==="
+          zone_id="42471650cf41350a9ed3b29fe3d6fa1e"
+          result=$(curl -s "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=polkisquad.paragu-ai.com" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -m json.tool
