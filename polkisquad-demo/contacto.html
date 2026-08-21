@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es-PY">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto · Polki Squad</title>
@@ -31,11 +30,9 @@
         <!-- Plausible Analytics (privacy-friendly, no cookies) -->
     <script defer data-domain="polkisquad.paragu-ai.com" src="https://plausible.io/js/script.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-    
-</head>
+    </head>
 <body>
     <a href="#main" class="skip-link">Saltar al contenido principal</a>
-
     <div class="demo-banner" role="status" id="demo-banner">
         <div class="demo-banner__content">
             <span class="demo-banner__icon">🚧</span>
@@ -50,7 +47,6 @@
             ×
         </button>
     </div>
-
     <header class="header">
         <div class="container header__inner">
             <a href="index.html" class="logo">
@@ -75,9 +71,90 @@
     <main id="main">
         <h1>Contactanos</h1>
 
+<div class="contact-info__item">
+                        <span class="contact-info__icon">📍</span>
+                        <div>
+                            <h3>Ubicación</h3>
+                            <p>Av. Dr. Felipe Molas López 1620<br>Asunción, Paraguay</p>
+                            <a href="https://maps.google.com/?q=Av.+Dr.+Felipe+Molas+L%C3%B3pez+1620+Asunci%C3%B3n" target="_blank" rel="noopener" class="link-arrow">Ver en mapa →</a>
+                        </div>
+                    </div>
 
+                    <div class="contact-info__item">
+                        <span class="contact-info__icon">🕐</span>
+                        <div>
+                            <h3>Horarios</h3>
+                            <p>Lun-Vie: 10:00-18:00<br>Sáb: 10:00-14:00<br>Dom: cerrado</p>
+                        </div>
+                    </div>
 
+                    <div class="contact-info__social">
+                        <h3>Redes sociales</h3>
+                        <div class="contact-info__social-links">
+                            <a href="https://instagram.com/polkisquad" aria-label="Instagram">📷</a>
+                            <a href="https://facebook.com/polki-squad" aria-label="Facebook">📘</a>
+                            <a href="https://tiktok.com/@polkisquad" aria-label="TikTok">🎵</a>
+                        </div>
+                    </div>
+                
+
+                <!-- Contact form -->
+                <div class="contact-form">
+                    <h2>O escribinos por acá</h2>
+                    <p>Te respondemos en 24-48h.</p>
+                    <form novalidate aria-label="Formulario">
+                        <div class="form-group">
+                            <label for="nombre-1">Nombre *</label>
+                            <input type="text" required id="nombre-1" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="email-2">Email *</label>
+                            <input type="email" required id="nombre-1" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono-3">Teléfono (opcional)</label>
+                            <input type="tel" id="nombre-1" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="motivo-4">Motivo *</label>
+                            <select required id="nombre-1" aria-required="true">
+                                <option value="">Elegí un motivo</option>
+                                <option>Consulta general</option>
+                                <option>Adopción</option>
+                                <option>Padrinazgo</option>
+                                <option>Donación</option>
+                                <option>Voluntariado</option>
+                                <option>Prensa / medios</option>
+                                <option>Sponsor corporativo</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje-5">Mensaje *</label>
+                            <textarea rows="5" required id="nombre-1" aria-required="true"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full btn--lg">Enviar mensaje</button>
+                    </form>
+                </div>
+            
+        
+    
+
+    <!-- Map -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title">Dónde estamos</h2>
+            <div class="map-placeholder">
+                <span>📍</span>
+                <p>Av. Dr. Felipe Molas López 1620, Asunción</p>
+                <a href="https://maps.google.com/?q=Av.+Dr.+Felipe+Molas+L%C3%B3pez+1620+Asunci%C3%B3n" target="_blank" rel="noopener" class="btn btn--primary">Abrir en Google Maps</a>
+            </div>
+        </div>
+    </section>
+
+    
     </main>
+    
 
     <footer class="footer">
         <div class="container">

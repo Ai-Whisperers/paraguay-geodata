@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es-PY">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog · Polki Squad</title>
@@ -31,11 +30,9 @@
         <!-- Plausible Analytics (privacy-friendly, no cookies) -->
     <script defer data-domain="polkisquad.paragu-ai.com" src="https://plausible.io/js/script.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-    
-</head>
+    </head>
 <body>
     <a href="#main" class="skip-link">Saltar al contenido principal</a>
-
     <div class="demo-banner" role="status" id="demo-banner">
         <div class="demo-banner__content">
             <span class="demo-banner__icon">🚧</span>
@@ -50,7 +47,6 @@
             ×
         </button>
     </div>
-
     <header class="header">
         <div class="container header__inner">
             <a href="index.html" class="logo">
@@ -75,7 +71,28 @@
     <main id="main">
         <h1>Historias con corazón</h1>
 
-<article class="post-card">
+
+
+    <!-- Categories -->
+    <section class="blog-categories">
+        <div class="container">
+            <div class="blog-categories__bar">
+                <button class="blog-cat blog-cat--active">Todos</button>
+                <button class="blog-cat">Rescates</button>
+                <button class="blog-cat">Adopciones</button>
+                <button class="blog-cat">Padrinos</button>
+                <button class="blog-cat">Voluntarios</button>
+                <button class="blog-cat">Eventos</button>
+                <button class="blog-cat">Educación</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Posts grid -->
+    <section class="blog-posts">
+        <div class="container">
+            <div class="blog-grid">
+                <article class="post-card">
                     <div class="post-card__photo">📸</div>
                     <div class="post-card__body">
                         <span class="post-card__category">Rescate</span>
@@ -140,8 +157,35 @@
                         <a href="#" class="link-arrow">Leer →</a>
                     </div>
                 </article>
+            </div>
 
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn page-btn--active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter__inner">
+                <h2 class="newsletter__title">Recibí historias de amor en tu inbox</h2>
+                <p class="newsletter__desc">Una vez al mes, sin spam.</p>
+                <form class="newsletter__form">
+                    <input type="email" placeholder="tu@email.com.py" required class="newsletter__input">
+                    <button type="submit" class="btn btn--primary">Suscribirme</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    
     </main>
+    
 
     <footer class="footer">
         <div class="container">

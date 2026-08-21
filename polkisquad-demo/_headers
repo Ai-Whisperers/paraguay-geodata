@@ -20,18 +20,20 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
 
   # Cross-origin isolation
+  # NOTE: COEP require-corp breaks iframes (OSM map, IG embed, Bancard/Tigo widgets)
+  # unless they send Cross-Origin-Resource-Policy: cross-origin
+  # Removed to allow planned donation integrations.
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
 
-  # Caching for static assets
+  # Caching for static assets (default — overridden by specific rules below)
   Cache-Control: public, max-age=300, must-revalidate
 
-  # Allowed content sources (CSP)
-  # Note: this is a starting point. Adjust as needed.
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://plausible.io; frame-src 'self' https://www.openstreetmap.org; object-src 'none'; base-uri 'self'
+  # Content Security Policy
+  # Note: Single directive per header. Each rule category listed ONCE.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://plausible.io https://static.cloudflareinsights.com; frame-src 'self' https://www.openstreetmap.org; object-src 'none'; base-uri 'self'
 
-# Cache static assets aggressively
+# Cache static assets aggressively (filename-versioned in production would be better)
 /css/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -44,12 +46,21 @@
 /favicon.svg
   Cache-Control: public, max-age=86400
 
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
 /og/*
   Cache-Control: public, max-age=86400
 
-# Don't cache sitemap aggressively (so updates reflect quickly)
-  Cache-Control: public, max-age=3600
+# Sitemap — moderate cache (so updates reflect within an hour)
+/sitemap.xml
+  Cache-Control: public, max-age=3600, must-revalidate
 
 # Security.txt (RFC 9116)
 /.well-known/security.txt
   Content-Type: text/plain
+
+# Note on duplicate headers:
+# _headers file does NOT support having the same header twice with different values.
+# When a conflict exists, Cloudflare uses the first occurrence.
+# So this file is now strict — one CSP, one Cache-Control per path.
