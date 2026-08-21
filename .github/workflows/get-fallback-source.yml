@@ -1,0 +1,29 @@
+name: Get aiw-fallback worker source
+on: workflow_dispatch
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get worker source
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Worker metadata ==="
+          curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts/aiw-fallback" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c "
+          import json,sys
+          d = json.load(sys.stdin)
+          r = d.get('result', {})
+          print('modified:', r.get('modified_on'))
+          print('created:', r.get('created_on'))
+          print('etag:', r.get('etag'))
+          "
+          echo ""
+          echo "=== Worker source (full) ==="
+          curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts/aiw-fallback" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c "
+          import json,sys
+          d = json.load(sys.stdin)
+          print(d.get('result', {}).get('source', 'NO SOURCE'))
+          "
