@@ -143,3 +143,21 @@ if (outreachCta) {
         });
     }
 }
+
+
+// 9. Mobile nav toggle
+const navToggle = document.querySelector('.nav-toggle');
+const primaryNav = document.getElementById('primary-nav');
+if (navToggle && primaryNav) {
+    navToggle.addEventListener('click', () => {
+        const isOpen = primaryNav.classList.toggle('nav--open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && primaryNav.classList.contains('nav--open')) {
+            primaryNav.classList.remove('nav--open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+}

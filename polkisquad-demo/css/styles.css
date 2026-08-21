@@ -1414,3 +1414,31 @@ main {
         transition: none;
     }
 }
+/* 28. Primary button (contrast-safe variant) */
+:root {
+    --c-btn-primary: #C4471A;  /* darker orange, AA on white (4.74:1) */
+    --c-btn-primary-dark: #9C3A14;
+}
+
+.btn--primary {
+    background: var(--c-btn-primary);
+    color: white;
+}
+.btn--primary:hover {
+    background: var(--c-btn-primary-dark);
+    color: white;
+}
+
+
+/* 29. Visually hidden (for a11y) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

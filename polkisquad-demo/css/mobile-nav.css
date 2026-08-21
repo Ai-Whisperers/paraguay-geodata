@@ -1,0 +1,74 @@
+/* Polki Squad — mobile nav styles
+   Hamburger menu for screens < 968px
+*/
+
+/* Mobile nav toggle button - hidden on desktop */
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    padding: var(--s-2);
+    cursor: pointer;
+    color: var(--c-text);
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+.nav-toggle__bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    transform-origin: center;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Mobile nav: show toggle, hide nav list, make menu slide down */
+@media (max-width: 968px) {
+    .nav-toggle {
+        display: flex;
+    }
+    .header__inner {
+        flex-wrap: wrap;
+    }
+    .header__inner .nav {
+        display: none;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin-top: var(--s-3);
+        padding-top: var(--s-3);
+        border-top: 1px solid var(--c-border);
+    }
+    .header__inner .nav.nav--open {
+        display: flex;
+    }
+    .header__inner .nav__link {
+        padding: var(--s-3) 0;
+        border-bottom: 1px solid var(--c-border);
+        text-align: left;
+    }
+    .header__inner .nav__link:last-child {
+        border-bottom: none;
+    }
+    .header__inner .nav__link--active {
+        color: var(--c-primary);
+        font-weight: 700;
+    }
+    .header__inner .btn--primary {
+        margin-top: var(--s-2);
+    }
+}

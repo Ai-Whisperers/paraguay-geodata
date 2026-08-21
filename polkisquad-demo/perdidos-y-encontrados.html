@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perdidos y encontrados · Polki Squad</title>
     <meta name="description" content="¿Perdiste o encontraste un animalito? Reportalo acá. Te ayudamos a encontrar a su familia.">
-    <link rel="canonical" href="https://polkisquad.com/perdidos-y-encontrados.html">
+    <link rel="canonical" href="perdidos-y-encontrados.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FF6B35">
@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
 </head>
 <body>
     <a href="#main" class="skip-link">Saltar al contenido principal</a>
@@ -29,7 +30,7 @@
     <header class="header">
         <div class="container header__inner">
             <a href="index.html" class="logo"><span class="logo__mark">🐾</span><span class="logo__text">Polki Squad</span></a>
-            <nav class="nav" aria-label="Navegación principal">
+            <nav id="primary-nav" class="nav" aria-label="Navegación principal">
                 <a href="index.html" class="nav__link">Inicio</a>
                 <a href="adopta.html" class="nav__link">Adoptar</a>
                 <a href="padrinos.html" class="nav__link">Apadrinar</a>
@@ -43,12 +44,19 @@
                 <a href="contacto.html" class="nav__link">Contacto</a>
             </nav>
             <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
+            <button class="nav-toggle" type="button" aria-label="Menú" aria-expanded="false" aria-controls="primary-nav">
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+        </button>
         </div>
     </header>
     <main id="main">
         <section class="page-header">
             <div class="container">
                 <h1>🔎 Perdidos y encontrados</h1>
+    <h2 class="visually-hidden">Opciones para reportar</h2>
+    
                 <p>Red comunitaria de búsqueda. Reportá un animalito perdido o encontrado y te ayudamos.</p>
             </div>
         </section>
@@ -98,7 +106,8 @@
 
                 <!-- Form -->
                 <h2 id="reportar-perdido" class="section-title" style="margin-top:var(--s-9);">Reportar mascota perdida</h2>
-                <form style="max-width:640px;margin:var(--s-5) auto 0;background:white;padding:var(--s-7);border-radius:var(--r-lg);box-shadow:var(--shadow-md);" novalidate aria-label="Formulario de reporte">
+                <form style="max-width:640px;margin:var(--s-5) auto 0;background:white;padding:var(--s-7);border-radius:var(--r-lg);box-shadow:var(--shadow-md);" novalidate aria-label="Formulario de reporte" action="https://formspree.io/f/xwpgkqdj" method="POST">
+                    <input type="hidden" name="_subject" value="[polkisquad-demo] Reporte de mascota">
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-4);">
                         <div>
                             <label for="perd-nombre" style="display:block;font-weight:600;font-size:0.875rem;margin-bottom:var(--s-1);">Tu nombre *</label>

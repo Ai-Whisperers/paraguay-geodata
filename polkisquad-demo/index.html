@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#FF6B35">
     <link rel="alternate icon" type="image/x-icon" href="favicon.ico">
     <meta name="description" content="Polki Squad es un refugio de animales en Asunción, Paraguay. Rescatamos, rehabilitamos y encontramos hogares amorosos para perros y gatos.">
-    <link rel="canonical" href="https://polkisquad.com/">
+    <link rel="canonical" href="/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Polki Squad · Refugio de animales en Asunción, Paraguay">
     <meta name="twitter:description" content="+3.000 animalitos rescatados. Sé parte de la próxima historia de amor.">
@@ -22,11 +22,12 @@
     <meta property="og:image:type" content="image/svg+xml">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://polkisquad.com/">
+    <meta property="og:url" content="/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NGO", "name": "Polki Squad", "alternateName": "Polki Squad Paraguay", "url": "https://polkisquad.paragu-ai.com", "logo": "https://polkisquad.paragu-ai.com/favicon.svg", "description": "Refugio de animales en Asunción, Paraguay. Rescatamos, rehabilitamos y encontramos hogares amorosos para perros y gatos.", "foundingDate": "2020", "address": {"@type": "PostalAddress", "streetAddress": "Av. Dr. Felipe Molas López 1620", "addressLocality": "Asunción", "addressCountry": "PY"}, "contactPoint": {"@type": "ContactPoint", "telephone": "+595-971-771371", "contactType": "customer service", "areaServed": "PY", "availableLanguage": ["es", "gn"]}, "sameAs": ["https://www.instagram.com/polkisquad/", "https://www.facebook.com/polki-squad/"]}</script>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Polki Squad", "url": "https://polkisquad.paragu-ai.com", "inLanguage": "es-PY"}</script>
         <!-- Plausible Analytics (privacy-friendly, no cookies) -->
@@ -55,7 +56,7 @@
                 <span class="logo__mark">🐾</span>
                 <span class="logo__text">Polki Squad</span>
             </a>
-            <nav class="nav" aria-label="Navegación principal">
+            <nav id="primary-nav" class="nav" aria-label="Navegación principal">
                 <a href="index.html" class="nav__link nav__link--active">Inicio</a>
                 <a href="adopta.html" class="nav__link">Adoptar</a>
                 <a href="padrinos.html" class="nav__link">Apadrinar</a>
@@ -67,6 +68,11 @@
                 <a href="contacto.html" class="nav__link">Contacto</a>
             </nav>
             <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
+            <button class="nav-toggle" type="button" aria-label="Menú" aria-expanded="false" aria-controls="primary-nav">
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+        </button>
         </div>
     </header>
 
@@ -247,7 +253,8 @@
             <div class="newsletter__inner">
                 <h2 class="newsletter__title">Recibí historias de amor en tu inbox</h2>
                 <p class="newsletter__desc">Una vez al mes, sin spam. Solo historias que te van a hacer llorar (de la emoción).</p>
-                <form class="newsletter__form">
+                <form class="newsletter__form" action="https://formspree.io/f/xwpgkqdj" method="POST">
+                    <input type="hidden" name="_subject" value="[polkisquad-demo] Newsletter homepage">
                     <input type="email" placeholder="tu@email.com.py" required class="newsletter__input">
                     <button type="submit" class="btn btn--primary">Suscribirme</button>
                 </form>
