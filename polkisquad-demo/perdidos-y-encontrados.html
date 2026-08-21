@@ -77,7 +77,17 @@
                 </div>
 
                 <!-- Active alerts -->
-                <h2 class="section-title">Alertas activas</h2>
+                <h2>Alertas activas</h2>
+                    <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-bottom:var(--s-5);align-items:center;">
+                        <div style="flex:1;min-width:240px;">
+                            <input type="search" id="alert-search" placeholder="🔍 Buscar por nombre, zona, color..." aria-label="Buscar alertas" style="width:100%;padding:var(--s-3);border:1px solid var(--c-border);border-radius:var(--r-md);font-family:inherit;font-size:0.9375rem;">
+                        </div>
+                        <div role="tablist" style="display:flex;gap:var(--s-2);">
+                            <button type="button" class="filter-tab" data-filter="all" aria-pressed="true" style="padding:var(--s-2) var(--s-3);border:1px solid var(--c-primary);background:var(--c-primary);color:white;border-radius:var(--r-full);font-size:0.875rem;font-weight:600;cursor:pointer;">Todos</button>
+                            <button type="button" class="filter-tab" data-filter="lost" aria-pressed="false" style="padding:var(--s-2) var(--s-3);border:1px solid var(--c-border);background:white;color:var(--c-text);border-radius:var(--r-full);font-size:0.875rem;font-weight:600;cursor:pointer;">Perdidos</button>
+                            <button type="button" class="filter-tab" data-filter="found" aria-pressed="false" style="padding:var(--s-2) var(--s-3);border:1px solid var(--c-border);background:white;color:var(--c-text);border-radius:var(--r-full);font-size:0.875rem;font-weight:600;cursor:pointer;">Encontrados</button>
+                        </div>
+                    </div>
                 <div style="background:var(--c-warm);padding:var(--s-3) var(--s-4);border-radius:var(--r-md);margin-bottom:var(--s-5);">
                     <strong>📢 12 alertas activas</strong> en Asunción y área metropolitana. Última actualización: hace 2 horas.
                 </div>
@@ -106,7 +116,7 @@
 
                 <!-- Form -->
                 <h2 id="reportar-perdido" class="section-title" style="margin-top:var(--s-9);">Reportar mascota perdida</h2>
-                <form style="max-width:640px;margin:var(--s-5) auto 0;background:white;padding:var(--s-7);border-radius:var(--r-lg);box-shadow:var(--shadow-md);" novalidate aria-label="Formulario de reporte" action="https://formspree.io/f/xwpgkqdj" method="POST">
+                <form style="max-width:640px;margin:var(--s-5) auto 0;background:white;padding:var(--s-7);border-radius:var(--r-lg);box-shadow:var(--shadow-md);" novalidate aria-label="Formulario de reporte" action="https://formspree.io/f/xwpgkqdj?next=https%3A%2F%2Fpolkisquad.paragu-ai.com%2Fgracias%2Fperdido.html" method="POST">
                     <input type="hidden" name="_subject" value="[polkisquad-demo] Reporte de mascota">
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-4);">
                         <div>
@@ -186,5 +196,40 @@
         </div>
     </div>
     <script src="js/main.js"></script>
+<script>
+// Filter alerts based on status (lost/found) and search query
+(function() {
+    const searchInput = document.getElementById('alert-search');
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.alert-card');
+    if (!searchInput) return;
+
+    let activeFilter = 'all';
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => { t.setAttribute('aria-pressed', 'false'); t.style.background = 'white'; t.style.color = 'var(--c-text)'; t.style.borderColor = 'var(--c-border)'; });
+            tab.setAttribute('aria-pressed', 'true');
+            tab.style.background = 'var(--c-primary)';
+            tab.style.color = 'white';
+            tab.style.borderColor = 'var(--c-primary)';
+            activeFilter = tab.dataset.filter;
+            applyFilter();
+        });
+    });
+
+    function applyFilter() {
+        const query = (searchInput.value || '').toLowerCase().trim();
+        cards.forEach(card => {
+            const status = card.dataset.status;
+            const text = (card.textContent || '').toLowerCase();
+            const statusMatch = activeFilter === 'all' || status === activeFilter;
+            const queryMatch = !query || text.includes(query);
+            card.style.display = (statusMatch && queryMatch) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+})();
+</script>
 </body>
 </html>

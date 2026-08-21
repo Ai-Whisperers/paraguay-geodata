@@ -171,7 +171,7 @@
             <div class="volunteer-form__inner">
                 <h2>Postulate</h2>
                 <p>Llená el form y te contactamos por WhatsApp en 48h.</p>
-                <form novalidate aria-label="Formulario" action="https://formspree.io/f/xwpgkqdj" method="POST">
+                <form novalidate aria-label="Formulario" action="https://formspree.io/f/xwpgkqdj?next=https%3A%2F%2Fpolkisquad.paragu-ai.com%2Fgracias%2Fvoluntario.html" method="POST">
                     <input type="hidden" name="_subject" value="[polkisquad-demo] Voluntario">
                     <div class="form-row">
                         <div class="form-group">
@@ -226,7 +226,51 @@
                         <label for="por-que-queres-ser-voluntario">¿Por qué querés ser voluntario?</label>
                         <textarea rows="3" placeholder="Contanos un poco sobre vos y tu motivación..." id="tenes-experiencia-previa-con-animales-4"></textarea>
                     </div>
-                    <button type="submit" class="btn btn--primary btn--full btn--lg">Enviar postulación</button>
+                    
+                        <h3 style="margin-top:var(--s-5);margin-bottom:var(--s-3);font-size:1.125rem;">Información adicional</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="start-date">¿Cuándo podés empezar? *</label>
+                                <input type="date" id="start-date" name="start_date" required aria-required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">¿En qué zona vivís? *</label>
+                                <input type="text" id="city" name="city" required placeholder="Ej: Asunción centro, San Lorenzo" aria-required="true">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vehicle">¿Tenés vehículo propio?</label>
+                                <select id="vehicle" name="vehicle">
+                                    <option value="no">No</option>
+                                    <option value="moto">Sí, moto</option>
+                                    <option value="auto">Sí, auto</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="t-shirt">Talle de remera (opcional)</label>
+                                <select id="t-shirt" name="t_shirt">
+                                    <option value="">Prefiero no recibir</option>
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:var(--s-3);">
+                            <label style="display:flex;align-items:start;gap:var(--s-2);cursor:pointer;">
+                                <input type="checkbox" id="agreement" name="agreement" required aria-required="true" style="margin-top:4px;">
+                                <span>Confirmo que tengo 18+ años, puedo comprometerme a las horas elegidas, y acepto el <a href="terminos.html">código de conducta del voluntario</a>. *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn--primary btn--full btn--lg">Enviar postulación</button>
                 </form>
                 <p class="form-note">Al enviar, aceptás nuestros <a href="#">términos de voluntariado</a>.</p>
             </div>

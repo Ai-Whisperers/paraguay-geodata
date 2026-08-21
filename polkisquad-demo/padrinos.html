@@ -76,7 +76,17 @@
     </header>
 
     <main id="main">
-        <h1>Convertite en padrino</h1>
+        
+        <section class="padrinos-hero" style="background:linear-gradient(135deg,var(--c-primary) 0%,var(--c-secondary) 100%);color:white;padding:var(--s-9) 0 var(--s-7);text-align:center;">
+            <div class="container" style="max-width:640px;">
+                <h1 style="color:white;font-size:clamp(2rem,5vw,3rem);margin-bottom:var(--s-3);">Convertite en padrino</h1>
+                <p style="font-size:1.125rem;color:rgba(255,255,255,0.95);margin-bottom:var(--s-4);line-height:1.6;">Acompañá a un animalito específico con una contribución mensual. Recibí fotos y updates todos los meses. Cancelás cuando quieras.</p>
+                <div style="display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap;">
+                    <a href="#tiers" class="btn btn--secondary btn--lg">Ver tiers</a>
+                    <a href="https://wa.me/595971771371?text=Hola!%20Quiero%20apadrinar%20a%20un%20animalito" class="btn btn--tertiary btn--lg" style="color:white;border-color:white;">📱 WhatsApp</a>
+                </div>
+            </div>
+        </section>
 
 
 
@@ -210,7 +220,7 @@
             <div class="padrino-form__inner">
                 <h2>Empezá a apadrinar</h2>
                 <p>Llená el form y te contactamos por WhatsApp para coordinar.</p>
-                <form novalidate aria-label="Formulario" action="https://formspree.io/f/xwpgkqdj" method="POST">
+                <form novalidate aria-label="Formulario" action="https://formspree.io/f/xwpgkqdj?next=https%3A%2F%2Fpolkisquad.paragu-ai.com%2Fgracias%2Fpadrino.html" method="POST">
                     <input type="hidden" name="_subject" value="[polkisquad-demo] Padrino">
                     <div class="form-row">
                         <div class="form-group">
@@ -246,7 +256,21 @@
                         <label for="mensaje">Mensaje (opcional)</label>
                         <textarea rows="3" placeholder="Cualquier cosa que quieras contarnos..." id="animalito-preferido-3" aria-required="false"></textarea>
                     </div>
-                    <button type="submit" class="btn btn--primary btn--lg btn--full">Enviar</button>
+                    
+                        <div class="form-group" style="margin-bottom:var(--s-4);">
+                            <label style="display:block;margin-bottom:var(--s-2);font-weight:600;font-size:0.875rem;">Frecuencia *</label>
+                            <div style="display:flex;gap:var(--s-3);">
+                                <label style="display:flex;align-items:center;gap:var(--s-1);padding:var(--s-3) var(--s-4);border:2px solid var(--c-primary);border-radius:var(--r-md);cursor:pointer;flex:1;background:var(--c-warm);">
+                                    <input type="radio" name="frequency" value="monthly" checked aria-required="true" style="margin:0;">
+                                    <span style="font-weight:600;">Mensual</span>
+                                </label>
+                                <label style="display:flex;align-items:center;gap:var(--s-1);padding:var(--s-3) var(--s-4);border:2px solid var(--c-border);border-radius:var(--r-md);cursor:pointer;flex:1;">
+                                    <input type="radio" name="frequency" value="onetime" style="margin:0;">
+                                    <span style="font-weight:600;">Una vez</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--lg btn--full">Enviar</button>
                 </form>
                 <p class="form-note">Al enviar, aceptás recibir updates mensuales del animalito que apadrinás. Podés cancelar en cualquier momento.</p>
             </div>
@@ -338,5 +362,19 @@
     </div>
 
     <script src="js/main.js"></script>
+<script>
+function toggleAmount(value) {
+    const amountGroup = document.getElementById('amount-group');
+    const amountInput = document.getElementById('amount');
+    if (value === 'otro') {
+        amountGroup.style.display = 'block';
+        amountInput.required = true;
+    } else {
+        amountGroup.style.display = 'none';
+        amountInput.required = false;
+        amountInput.value = '';
+    }
+}
+</script>
 </body>
 </html>

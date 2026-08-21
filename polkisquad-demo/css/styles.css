@@ -1442,3 +1442,27 @@ main {
   white-space: nowrap;
   border: 0;
 }
+
+
+/* Page h1 in <main> - consistent, visible, not overwhelming */
+main h1 {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--c-text);
+    margin-bottom: var(--s-6);
+    letter-spacing: -0.01em;
+}
+
+
+/* Hero h1 (overrides main h1) */
+section.hero h1,
+.padrinos-hero h1,
+.outreach-hero h1,
+.animal-hero__name {
+    font-size: clamp(2rem, 5vw, 3rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: var(--s-3) !important;
+    letter-spacing: -0.02em !important;
+    max-width: none !important;
+}
