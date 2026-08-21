@@ -1,0 +1,40 @@
+name: Deploy Polki Squad to Cloudflare Pages
+on: workflow_dispatch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout polkisquad
+        uses: actions/checkout@v4
+        with:
+          repository: Ai-Whisperers/polkisquad
+          ref: main
+          path: polkisquad
+          token: ${{ secrets.CROSS_REPO_TOKEN }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: polkisquad-preview
+          directory: polkisquad/demo
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify deployment
+        if: success()
+        run: |
+          echo "=== Polki Squad live ==="
+          for url in \
+            "https://polkisquad-preview.pages.dev/" \
+            "https://polkisquad-preview.pages.dev/padrinos.html" \
+            "https://polkisquad-preview.pages.dev/donar.html" \
+            "https://polkisquad-preview.pages.dev/sitemap.xml" \
+            "https://polkisquad-preview.pages.dev/favicon.svg"; do
+            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 10 "$url")
+            echo "  $code  $url"
+          done
