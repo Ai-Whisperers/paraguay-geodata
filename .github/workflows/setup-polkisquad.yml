@@ -5,10 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Pages project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          # Create a placeholder file first - CF Pages needs something to deploy
-          echo "placeholder" > /tmp/index.html
-          # Use wrangler via npx (auto-install)
           npx -y wrangler@latest pages project create polkisquad-preview \
             --production-branch main \
             --compatibility-date 2025-01-01 2>&1
