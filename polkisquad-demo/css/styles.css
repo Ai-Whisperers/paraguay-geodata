@@ -121,7 +121,7 @@ section {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: var(--s-3) var(--s-5);
+    padding: var(--s-2) var(--s-5);
     border-radius: var(--r-full);
     font-family: var(--f-body);
     font-weight: 600;
@@ -714,6 +714,7 @@ section {
     font-size: 0.875rem;
     text-align: center;
     border-bottom: 2px solid #F57F17;
+    z-index: 99;
 }
 .demo-banner__icon {
     font-size: 1.25rem;
