@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-PY">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apadrinar · Polki Squad</title>
@@ -31,8 +32,11 @@
         <!-- Plausible Analytics (privacy-friendly, no cookies) -->
     <script defer data-domain="polkisquad.paragu-ai.com" src="https://plausible.io/js/script.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-    </head>
+    
+</head>
 <body>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+
     <div class="demo-banner" role="status" id="demo-banner">
         <div class="demo-banner__content">
             <span class="demo-banner__icon">🚧</span>
@@ -47,199 +51,85 @@
             ×
         </button>
     </div>
+
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo">
+                <span class="logo__mark">🐾</span>
+                <span class="logo__text">Polki Squad</span>
+            </a>
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="adopta.html" class="nav__link">Adoptar</a>
+                <a href="padrinos.html" class="nav__link nav__link--active">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="perdidos-y-encontrados.html" class="nav__link">Perdidos</a>
+                <a href="cuenta-mi-caso.html" class="nav__link">Historias</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
         </div>
-    </section>
+    </header>
 
-    <!-- Cómo funciona -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Cómo funciona</h2>
-            <div class="steps">
-                <div class="step">
-                    <span class="step__number">1</span>
-                    <h3>Elegís tu tier</h3>
-                    <p>Desde Gs. 50.000 hasta Gs. 500.000+ por mes. Vos decidís cuánto podés dar.</p>
-                </div>
-                <div class="step">
-                    <span class="step__number">2</span>
-                    <h3>Elegís un animalito</h3>
-                    <p>O dejás que nosotros te asignemos uno que necesita tu ayuda.</p>
-                </div>
-                <div class="step">
-                    <span class="step__number">3</span>
-                    <h3>Hacés tu aporte mensual</h3>
-                    <p>Transferencia, Tigo Money, Personal Pay, o Bancard. Vos elegís.</p>
-                </div>
-                <div class="step">
-                    <span class="step__number">4</span>
-                    <h3>Recibís updates</h3>
-                    <p>Cada mes, fotos y noticias del animalito que apadrinás. Y mucho amor.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <main id="main">
+        <h1>Convertite en padrino</h1>
 
-    <!-- Tiers -->
-    <section id="tiers" class="tiers">
-        <div class="container">
-            <h2 class="section-title">Elegí tu nivel de padrinazgo</h2>
-            <div class="tiers__grid">
-                <div class="tier">
-                    <h3 class="tier__name">Café</h3>
-                    <div class="tier__price">
-                        <span class="tier__amount">Gs. 50.000</span>
-                        <span class="tier__period">/ mes</span>
-                    </div>
-                    <p class="tier__tagline">El cafecito del animalito</p>
-                    <ul class="tier__benefits">
-                        <li>✓ Foto del animalito cada mes</li>
-                        <li>✓ Updates por email</li>
-                        <li>✓ Reconocimiento en el muro</li>
-                    </ul>
-                    <a href="#padrino-form" class="btn btn--tertiary btn--full">Apadrinar</a>
-                </div>
 
-                <div class="tier tier--featured">
-                    <span class="tier__badge">Más elegido</span>
-                    <h3 class="tier__name">Comida</h3>
-                    <div class="tier__price">
-                        <span class="tier__amount">Gs. 100.000</span>
-                        <span class="tier__period">/ mes</span>
-                    </div>
-                    <p class="tier__tagline">La comida del mes</p>
-                    <ul class="tier__benefits">
-                        <li>✓ Todo lo del tier Café</li>
-                        <li>✓ Foto + video cada mes</li>
-                        <li>✓ Newsletter exclusiva</li>
-                        <li>✓ Reconocimiento destacado</li>
-                    </ul>
-                    <a href="#padrino-form" class="btn btn--primary btn--full">Apadrinar</a>
-                </div>
 
-                <div class="tier">
-                    <h3 class="tier__name">Veterinaria</h3>
-                    <div class="tier__price">
-                        <span class="tier__amount">Gs. 200.000</span>
-                        <span class="tier__period">/ mes</span>
-                    </div>
-                    <p class="tier__tagline">Atención veterinaria</p>
-                    <ul class="tier__benefits">
-                        <li>✓ Todo lo del tier Comida</li>
-                        <li>✓ Invitación a eventos exclusivos</li>
-                        <li>✓ Certificado de padrino</li>
-                        <li>✓ Tour del refugio</li>
-                    </ul>
-                    <a href="#padrino-form" class="btn btn--tertiary btn--full">Apadrinar</a>
-                </div>
-
-                <div class="tier">
-                    <h3 class="tier__name">Rescate</h3>
-                    <div class="tier__price">
-                        <span class="tier__amount">Gs. 500.000+</span>
-                        <span class="tier__period">/ mes</span>
-                    </div>
-                    <p class="tier__tagline">Rescatá una vida completa</p>
-                    <ul class="tier__benefits">
-                        <li>✓ Todo lo del tier Veterinaria</li>
-                        <li>✓ Foto con el animalito</li>
-                        <li>✓ Padrino honorífico del mes</li>
-                        <li>✓ Reconocimiento en annual report</li>
-                    </ul>
-                    <a href="#padrino-form" class="btn btn--tertiary btn--full">Apadrinar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Padrinos wall -->
-    <section class="padrinos-wall">
-        <div class="container">
-            <h2 class="section-title">Algunos de nuestros padrinos</h2>
-            <p class="padrinos-wall__lead">120 personas y empresas que ya son parte de la manada.</p>
-            <div class="padrinos-wall__grid">
-                <span class="padrino-name">Familia González</span>
-                <span class="padrino-name">María Rodríguez</span>
-                <span class="padrino-name">Carlos & Laura</span>
-                <span class="padrino-name">Sofía M.</span>
-                <span class="padrino-name">Diego P.</span>
-                <span class="padrino-name">Familia Martínez</span>
-                <span class="padrino-name">Ana Lucía</span>
-                <span class="padrino-name">Roberto S.</span>
-                <span class="padrino-name">Estudio Jurídico ABC</span>
-                <span class="padrino-name">Familia Fernández</span>
-                <span class="padrino-name">Juan Pablo</span>
-                <span class="padrino-name">Tienda Patitas</span>
-                <!-- +108 more -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Form -->
-    <section id="padrino-form" class="padrino-form">
-        <div class="container">
-            <div class="padrino-form__inner">
-                <h2>Empezá a apadrinar</h2>
-                <p>Llená el form y te contactamos por WhatsApp para coordinar.</p>
-                <form novalidate aria-label="Formulario">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombre-completo-1">Nombre completo *</label>
-                            <input type="text" required id="nombre-completo-1" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" required id="nombre-completo-1" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="whatsapp-2">WhatsApp *</label>
-                            <input type="tel" required id="whatsapp-2" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="tier">Tier *</label>
-                            <select required id="whatsapp-2" aria-required="true">
-                                <option value="">Elegí un tier</option>
-                                <option>Café (Gs. 50.000)</option>
-                                <option>Comida (Gs. 100.000)</option>
-                                <option>Veterinaria (Gs. 200.000)</option>
-                                <option>Rescate (Gs. 500.000+)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="animalito-preferido-3">Animalito preferido (opcional)</label>
-                        <input type="text" placeholder="Si tenés un favorito de la lista" id="animalito-preferido-3" aria-required="false">
-                    </div>
-                    <div class="form-group">
-                        <label for="mensaje">Mensaje (opcional)</label>
-                        <textarea rows="3" placeholder="Cualquier cosa que quieras contarnos..." id="animalito-preferido-3" aria-required="false"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--lg btn--full">Enviar</button>
-                </form>
-                <p class="form-note">Al enviar, aceptás recibir updates mensuales del animalito que apadrinás. Podés cancelar en cualquier momento.</p>
-            </div>
-        </div>
-    </section>
-
-    
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo logo--footer">
+                        <span class="logo__mark">🐾</span>
+                        <span class="logo__text">Polki Squad</span>
+                    </a>
+                    <p>Refugio de animales en Asunción, Paraguay.<br>Rescatamos, rehabilitamos, y encontramos hogares.</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Cómo ayudar</h4>
+                    <ul>
+                        <li><a href="adopta.html">Adoptar</a></li>
+                        <li><a href="padrinos.html">Apadrinar</a></li>
+                        <li><a href="donar.html">Donar</a></li>
+                        <li><a href="voluntarios.html">Ser voluntario</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Sobre nosotros</h4>
+                    <ul>
+                        <li><a href="quienes-somos.html">Quiénes somos</a></li>
+                        <li><a href="transparencia.html">Transparencia</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>📱 <a href="https://wa.me/595971771371">+595 971 771371</a> (WhatsApp)</li>
+                        <li>✉️ <a href="mailto:hola@polkisquad.com">hola@polkisquad.com</a></li>
+                        <li>📍 Asunción, Paraguay</li>
+                    </ul>
+                    <div class="footer__social">
+                        <a href="https://www.instagram.com/polkisquad/" aria-label="Instagram">📷</a>
+                        <a href="https://www.facebook.com/polki-squad" aria-label="Facebook">📘</a>
+                        <a href="https://www.tiktok.com/@polkisquad" aria-label="TikTok">🎵</a>
+                    </div>
+                </div>
+            </div>
             <div class="footer__bottom">
                 <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
-                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
-        <p style="text-align:center;margin-top:var(--s-3);font-size:0.875rem;opacity:0.8;">
-            <a href="privacidad.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Privacidad</a> ·
-            <a href="terminos.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Términos</a> ·
-            <a href="gracias/donar.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Donación</a> ·
-            <a href="gracias/padrino.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Padrino</a>
-        </p>
-
+                <p><a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a> · Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
             </div>
         </div>
     </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
 
     <div class="outreach-cta" id="outreach-cta">
         <button type="button" class="outreach-cta__button" aria-label="Abrir opciones de contacto">
@@ -250,11 +140,11 @@
             <h3 class="outreach-cta__heading">¿Sos de Polki Squad?</h3>
             <p class="outreach-cta__subheading">Respondemos en menos de 24h</p>
             <div class="outreach-cta__options">
-                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa%20(desde%20Apadrinar)" class="outreach-cta__option">
+                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">📱</span>
-                    <span>WhatsApp (más rápido)</span>
+                    <span>WhatsApp</span>
                 </a>
-                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com&body=Hola%2C%20vi%20el%20preview%20del%20sitio..." class="outreach-cta__option">
+                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">✉️</span>
                     <span>Email</span>
                 </a>
@@ -269,6 +159,7 @@
             </div>
         </div>
     </div>
-    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
-    </body>
+
+    <script src="js/main.js"></script>
+</body>
 </html>

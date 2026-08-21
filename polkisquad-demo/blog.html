@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-PY">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog · Polki Squad</title>
@@ -30,8 +31,11 @@
         <!-- Plausible Analytics (privacy-friendly, no cookies) -->
     <script defer data-domain="polkisquad.paragu-ai.com" src="https://plausible.io/js/script.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-    </head>
+    
+</head>
 <body>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+
     <div class="demo-banner" role="status" id="demo-banner">
         <div class="demo-banner__content">
             <span class="demo-banner__icon">🚧</span>
@@ -46,29 +50,32 @@
             ×
         </button>
     </div>
-        </div>
-    </section>
 
-    <!-- Categories -->
-    <section class="blog-categories">
-        <div class="container">
-            <div class="blog-categories__bar">
-                <button class="blog-cat blog-cat--active">Todos</button>
-                <button class="blog-cat">Rescates</button>
-                <button class="blog-cat">Adopciones</button>
-                <button class="blog-cat">Padrinos</button>
-                <button class="blog-cat">Voluntarios</button>
-                <button class="blog-cat">Eventos</button>
-                <button class="blog-cat">Educación</button>
-            </div>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo">
+                <span class="logo__mark">🐾</span>
+                <span class="logo__text">Polki Squad</span>
+            </a>
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="adopta.html" class="nav__link">Adoptar</a>
+                <a href="padrinos.html" class="nav__link">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="perdidos-y-encontrados.html" class="nav__link">Perdidos</a>
+                <a href="cuenta-mi-caso.html" class="nav__link">Historias</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
         </div>
-    </section>
+    </header>
 
-    <!-- Posts grid -->
-    <section class="blog-posts">
-        <div class="container">
-            <div class="blog-grid">
-                <article class="post-card">
+    <main id="main">
+        <h1>Historias con corazón</h1>
+
+<article class="post-card">
                     <div class="post-card__photo">📸</div>
                     <div class="post-card__body">
                         <span class="post-card__category">Rescate</span>
@@ -133,50 +140,59 @@
                         <a href="#" class="link-arrow">Leer →</a>
                     </div>
                 </article>
-            </div>
 
-            <!-- Pagination -->
-            <div class="pagination">
-                <button class="page-btn page-btn--active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">→</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter">
-        <div class="container">
-            <div class="newsletter__inner">
-                <h2 class="newsletter__title">Recibí historias de amor en tu inbox</h2>
-                <p class="newsletter__desc">Una vez al mes, sin spam.</p>
-                <form class="newsletter__form">
-                    <input type="email" placeholder="tu@email.com.py" required class="newsletter__input">
-                    <button type="submit" class="btn btn--primary">Suscribirme</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo logo--footer">
+                        <span class="logo__mark">🐾</span>
+                        <span class="logo__text">Polki Squad</span>
+                    </a>
+                    <p>Refugio de animales en Asunción, Paraguay.<br>Rescatamos, rehabilitamos, y encontramos hogares.</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Cómo ayudar</h4>
+                    <ul>
+                        <li><a href="adopta.html">Adoptar</a></li>
+                        <li><a href="padrinos.html">Apadrinar</a></li>
+                        <li><a href="donar.html">Donar</a></li>
+                        <li><a href="voluntarios.html">Ser voluntario</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Sobre nosotros</h4>
+                    <ul>
+                        <li><a href="quienes-somos.html">Quiénes somos</a></li>
+                        <li><a href="transparencia.html">Transparencia</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>📱 <a href="https://wa.me/595971771371">+595 971 771371</a> (WhatsApp)</li>
+                        <li>✉️ <a href="mailto:hola@polkisquad.com">hola@polkisquad.com</a></li>
+                        <li>📍 Asunción, Paraguay</li>
+                    </ul>
+                    <div class="footer__social">
+                        <a href="https://www.instagram.com/polkisquad/" aria-label="Instagram">📷</a>
+                        <a href="https://www.facebook.com/polki-squad" aria-label="Facebook">📘</a>
+                        <a href="https://www.tiktok.com/@polkisquad" aria-label="TikTok">🎵</a>
+                    </div>
+                </div>
+            </div>
             <div class="footer__bottom">
                 <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
-                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
-        <p style="text-align:center;margin-top:var(--s-3);font-size:0.875rem;opacity:0.8;">
-            <a href="privacidad.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Privacidad</a> ·
-            <a href="terminos.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Términos</a> ·
-            <a href="gracias/donar.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Donación</a> ·
-            <a href="gracias/padrino.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Padrino</a>
-        </p>
-
+                <p><a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a> · Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
             </div>
         </div>
     </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
 
     <div class="outreach-cta" id="outreach-cta">
         <button type="button" class="outreach-cta__button" aria-label="Abrir opciones de contacto">
@@ -187,11 +203,11 @@
             <h3 class="outreach-cta__heading">¿Sos de Polki Squad?</h3>
             <p class="outreach-cta__subheading">Respondemos en menos de 24h</p>
             <div class="outreach-cta__options">
-                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa%20(desde%20Blog)" class="outreach-cta__option">
+                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">📱</span>
-                    <span>WhatsApp (más rápido)</span>
+                    <span>WhatsApp</span>
                 </a>
-                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com&body=Hola%2C%20vi%20el%20preview%20del%20sitio..." class="outreach-cta__option">
+                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">✉️</span>
                     <span>Email</span>
                 </a>
@@ -206,6 +222,7 @@
             </div>
         </div>
     </div>
-    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
-    </body>
+
+    <script src="js/main.js"></script>
+</body>
 </html>

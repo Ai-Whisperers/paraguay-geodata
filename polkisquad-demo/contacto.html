@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-PY">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto · Polki Squad</title>
@@ -30,8 +31,11 @@
         <!-- Plausible Analytics (privacy-friendly, no cookies) -->
     <script defer data-domain="polkisquad.paragu-ai.com" src="https://plausible.io/js/script.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-    </head>
+    
+</head>
 <body>
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+
     <div class="demo-banner" role="status" id="demo-banner">
         <div class="demo-banner__content">
             <span class="demo-banner__icon">🚧</span>
@@ -47,114 +51,84 @@
         </button>
     </div>
 
-                    <div class="contact-info__item">
-                        <span class="contact-info__icon">✉️</span>
-                        <div>
-                            <h3>Email</h3>
-                            <p>hola@polkisquad.com</p>
-                            <a href="mailto:hola@polkisquad.com" class="link-arrow">Escribinos →</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-info__item">
-                        <span class="contact-info__icon">📍</span>
-                        <div>
-                            <h3>Ubicación</h3>
-                            <p>Av. Dr. Felipe Molas López 1620<br>Asunción, Paraguay</p>
-                            <a href="https://maps.google.com/?q=Av.+Dr.+Felipe+Molas+L%C3%B3pez+1620+Asunci%C3%B3n" target="_blank" rel="noopener" class="link-arrow">Ver en mapa →</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-info__item">
-                        <span class="contact-info__icon">🕐</span>
-                        <div>
-                            <h3>Horarios</h3>
-                            <p>Lun-Vie: 10:00-18:00<br>Sáb: 10:00-14:00<br>Dom: cerrado</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-info__social">
-                        <h3>Redes sociales</h3>
-                        <div class="contact-info__social-links">
-                            <a href="https://instagram.com/polkisquad" aria-label="Instagram">📷</a>
-                            <a href="https://facebook.com/polki-squad" aria-label="Facebook">📘</a>
-                            <a href="https://tiktok.com/@polkisquad" aria-label="TikTok">🎵</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact form -->
-                <div class="contact-form">
-                    <h2>O escribinos por acá</h2>
-                    <p>Te respondemos en 24-48h.</p>
-                    <form novalidate aria-label="Formulario">
-                        <div class="form-group">
-                            <label for="nombre-1">Nombre *</label>
-                            <input type="text" required id="nombre-1" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="email-2">Email *</label>
-                            <input type="email" required id="nombre-1" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono-3">Teléfono (opcional)</label>
-                            <input type="tel" id="nombre-1" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="motivo-4">Motivo *</label>
-                            <select required id="nombre-1" aria-required="true">
-                                <option value="">Elegí un motivo</option>
-                                <option>Consulta general</option>
-                                <option>Adopción</option>
-                                <option>Padrinazgo</option>
-                                <option>Donación</option>
-                                <option>Voluntariado</option>
-                                <option>Prensa / medios</option>
-                                <option>Sponsor corporativo</option>
-                                <option>Otro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="mensaje-5">Mensaje *</label>
-                            <textarea rows="5" required id="nombre-1" aria-required="true"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn--primary btn--full btn--lg">Enviar mensaje</button>
-                    </form>
-                </div>
-            </div>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo">
+                <span class="logo__mark">🐾</span>
+                <span class="logo__text">Polki Squad</span>
+            </a>
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="adopta.html" class="nav__link">Adoptar</a>
+                <a href="padrinos.html" class="nav__link">Apadrinar</a>
+                <a href="donar.html" class="nav__link">Donar</a>
+                <a href="quienes-somos.html" class="nav__link">Nosotros</a>
+                <a href="voluntarios.html" class="nav__link">Voluntarios</a>
+                <a href="perdidos-y-encontrados.html" class="nav__link">Perdidos</a>
+                <a href="cuenta-mi-caso.html" class="nav__link">Historias</a>
+                <a href="contacto.html" class="nav__link nav__link--active">Contacto</a>
+            </nav>
+            <a href="https://wa.me/595971771371" class="btn btn--primary btn--small">WhatsApp</a>
         </div>
-    </section>
+    </header>
 
-    <!-- Map -->
-    <section class="map-section">
-        <div class="container">
-            <h2 class="section-title">Dónde estamos</h2>
-            <div class="map-placeholder">
-                <span>📍</span>
-                <p>Av. Dr. Felipe Molas López 1620, Asunción</p>
-                <a href="https://maps.google.com/?q=Av.+Dr.+Felipe+Molas+L%C3%B3pez+1620+Asunci%C3%B3n" target="_blank" rel="noopener" class="btn btn--primary">Abrir en Google Maps</a>
-            </div>
-        </div>
-    </section>
+    <main id="main">
+        <h1>Contactanos</h1>
 
-    
+
+
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo logo--footer">
+                        <span class="logo__mark">🐾</span>
+                        <span class="logo__text">Polki Squad</span>
+                    </a>
+                    <p>Refugio de animales en Asunción, Paraguay.<br>Rescatamos, rehabilitamos, y encontramos hogares.</p>
+                </div>
+                <div class="footer__col">
+                    <h4>Cómo ayudar</h4>
+                    <ul>
+                        <li><a href="adopta.html">Adoptar</a></li>
+                        <li><a href="padrinos.html">Apadrinar</a></li>
+                        <li><a href="donar.html">Donar</a></li>
+                        <li><a href="voluntarios.html">Ser voluntario</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Sobre nosotros</h4>
+                    <ul>
+                        <li><a href="quienes-somos.html">Quiénes somos</a></li>
+                        <li><a href="transparencia.html">Transparencia</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>📱 <a href="https://wa.me/595971771371">+595 971 771371</a> (WhatsApp)</li>
+                        <li>✉️ <a href="mailto:hola@polkisquad.com">hola@polkisquad.com</a></li>
+                        <li>📍 Asunción, Paraguay</li>
+                    </ul>
+                    <div class="footer__social">
+                        <a href="https://www.instagram.com/polkisquad/" aria-label="Instagram">📷</a>
+                        <a href="https://www.facebook.com/polki-squad" aria-label="Facebook">📘</a>
+                        <a href="https://www.tiktok.com/@polkisquad" aria-label="TikTok">🎵</a>
+                    </div>
+                </div>
+            </div>
             <div class="footer__bottom">
                 <p>&copy; 2026 Polki Squad. Hecho con 🐾 en Paraguay.</p>
-                <p>Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
-        <p style="text-align:center;margin-top:var(--s-3);font-size:0.875rem;opacity:0.8;">
-            <a href="privacidad.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Privacidad</a> ·
-            <a href="terminos.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Términos</a> ·
-            <a href="gracias/donar.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Donación</a> ·
-            <a href="gracias/padrino.html" style="color:rgba(255,255,255,0.85);margin:0 var(--s-2);">Padrino</a>
-        </p>
-
+                <p><a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a> · Sitio reconstruido voluntariamente por <a href="https://ai-whisperers.com">Ai-Whisperers</a></p>
             </div>
         </div>
     </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
 
     <div class="outreach-cta" id="outreach-cta">
         <button type="button" class="outreach-cta__button" aria-label="Abrir opciones de contacto">
@@ -165,11 +139,11 @@
             <h3 class="outreach-cta__heading">¿Sos de Polki Squad?</h3>
             <p class="outreach-cta__subheading">Respondemos en menos de 24h</p>
             <div class="outreach-cta__options">
-                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa%20(desde%20Contacto)" class="outreach-cta__option">
+                <a href="https://wa.me/595971771371?text=Hola!%20Vi%20el%20preview%20de%20polkisquad.com%20%E2%9C%89%20https%3A%2F%2Fpolkisquad.paragu-ai.com%20%E2%80%94%20me%20interesa" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">📱</span>
-                    <span>WhatsApp (más rápido)</span>
+                    <span>WhatsApp</span>
                 </a>
-                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com&body=Hola%2C%20vi%20el%20preview%20del%20sitio..." class="outreach-cta__option">
+                <a href="mailto:polkisquad@ai-whisperers.dev?subject=Vi%20el%20preview%20de%20polkisquad.com" class="outreach-cta__option">
                     <span class="outreach-cta__option-icon">✉️</span>
                     <span>Email</span>
                 </a>
@@ -184,6 +158,7 @@
             </div>
         </div>
     </div>
-    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba" type="button">↑</button>
-    </body>
+
+    <script src="js/main.js"></script>
+</body>
 </html>
