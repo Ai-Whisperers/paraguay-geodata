@@ -1,0 +1,37 @@
+name: Debug Polki Squad routing
+on: workflow_dispatch
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Investigate
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Workers (might be intercepting) ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for w in d.get('result', []):
+              print(f\"  - {w.get('id')}\")
+          "
+          echo ""
+          echo "=== Routes (filter for polkisquad or paragu-ai) ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/zones/42471650cf41350a9ed3b29fe3d6fa1e/workers/routes" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for r in d.get('result', []):
+              pattern = r.get('pattern', '')
+              if 'polkisquad' in pattern or 'paragu' in pattern:
+                  print(f\"  - {r}\")
+          "
+          echo ""
+          echo "=== Check Pages project directly ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad-preview" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -m json.tool | head -50
