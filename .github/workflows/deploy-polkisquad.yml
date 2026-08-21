@@ -8,27 +8,21 @@ jobs:
       contents: read
       deployments: write
     steps:
-      - name: Checkout polkisquad
-        uses: actions/checkout@v4
-        with:
-          repository: Ai-Whisperers/polkisquad
-          ref: main
-          path: polkisquad
-          token: ${{ secrets.CROSS_REPO_TOKEN }}
+      - uses: actions/checkout@v4
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy Polki Squad demo to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           projectName: polkisquad-preview
-          directory: polkisquad/demo
+          directory: polkisquad-demo
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify deployment
         if: success()
         run: |
-          echo "=== Polki Squad live ==="
+          echo "=== Polki Squad live at polkisquad-preview.pages.dev ==="
           for url in \
             "https://polkisquad-preview.pages.dev/" \
             "https://polkisquad-preview.pages.dev/padrinos.html" \
