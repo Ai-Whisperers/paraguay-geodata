@@ -1,0 +1,58 @@
+name: Fix Polki Squad routing
+on: workflow_dispatch
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Try to update aiw-fallback to allow polkisquad
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Step 1: List existing routes for *.paragu-ai.com ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/zones/42471650cf41350a9ed3b29fe3d6fa1e/workers/routes" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for r in d.get('result', []):
+              if 'paragu-ai.com' in r.get('pattern', ''):
+                  print(f\"  id={r['id']} pattern={r['pattern']} script={r['script']}\")
+          "
+
+          echo ""
+          echo "=== Step 2: Create a pass-through worker (or skip) ==="
+          # Create a tiny no-op worker
+          worker_src='addEventListener("fetch", e => e.respondWith(new Response("polkisquad handled by pages", { status: 404 })));'
+          echo "Worker script (will upload):"
+          echo "$worker_src"
+
+          echo ""
+          echo "=== Step 3: Try to create a more specific route for polkisquad ==="
+          # First, try the routes API to add a specific route
+          # We need a worker to route TO — use aiw-fallback but the route pattern is more specific
+          # Actually, a better approach: change the aiw-fallback worker to allow polkisquad
+          # But we don't know the worker source
+
+          # Let me try a different approach: add a worker route for polkisquad
+          # with a no-op script
+
+          # First create the script
+          echo "Creating script polkisquad-passthrough..."
+          result=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts/polkisquad-passthrough" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/javascript" \
+            -d '{"script":"addEventListener("fetch", e => e.passThroughOnException());"}')
+          echo "Script create result:"
+          echo "$result" | python3 -m json.tool | head -10
+          echo ""
+
+          # Then create the route
+          echo "Creating route for polkisquad.paragu-ai.com/*..."
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/42471650cf41350a9ed3b29fe3d6fa1e/workers/routes" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"pattern":"polkisquad.paragu-ai.com/*","script":"polkisquad-passthrough"}')
+          echo "Route create result:"
+          echo "$result" | python3 -m json.tool | head -20
+          echo "---"
