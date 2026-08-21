@@ -1,0 +1,44 @@
+name: Fix Polki Squad routing v3
+on: workflow_dispatch
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create proxy worker and route
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          # Write worker script to file - using addEventListener format
+          cat > /tmp/worker.js <<'WORKER_EOF'
+          addEventListener("fetch", event => {
+            event.respondWith(handleRequest(event.request));
+          });
+
+          async function handleRequest(request) {
+            const url = new URL(request.url);
+            // Rewrite to polkisquad-preview.pages.dev
+            const pagesUrl = "https://polkisquad-preview.pages.dev" + url.pathname + url.search;
+            return fetch(pagesUrl, request);
+          }
+          WORKER_EOF
+          echo "Worker script:"
+          cat /tmp/worker.js
+
+          # Create the worker
+          echo ""
+          echo "=== Creating worker ==="
+          result=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts/polkisquad-proxy" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/javascript" \
+            --data-binary @/tmp/worker.js)
+          echo "$result" | python3 -m json.tool | head -20
+
+          # Create the route
+          echo ""
+          echo "=== Creating route ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/42471650cf41350a9ed3b29fe3d6fa1e/workers/routes" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"pattern":"polkisquad.paragu-ai.com/*","script":"polkisquad-proxy"}')
+          echo "$result" | python3 -m json.tool | head -20
