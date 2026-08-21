@@ -1,0 +1,25 @@
+name: Check Polki Squad deployment
+on: workflow_dispatch
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List deployments
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Recent deployments ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad-preview/deployments?per_page=3" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for dep in d.get('result', []):
+              print(f\"  - {dep['id']} | {dep['environment']} | {dep.get('url','no-url')} | {dep['created_on']}\")
+          "
+          echo ""
+          echo "=== Latest deployment details ==="
+          result=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad-preview/deployments?per_page=1" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "$result" | python3 -m json.tool | head -60
