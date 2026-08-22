@@ -1,0 +1,53 @@
+name: Move custom domain to polkisquad project
+on: workflow_dispatch
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move custom domain
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Step 1: Remove from polkisquad-preview ==="
+          curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad-preview/domains/polkisquad.paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -m json.tool
+
+          echo ""
+          echo "=== Step 2: Add to polkisquad ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad/domains" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"name":"polkisquad.paragu-ai.com"}')
+          echo "$result" | python3 -m json.tool
+
+          echo ""
+          echo "=== Step 3: Update DNS CNAME ==="
+          zone_id=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c "import json,sys; print(json.load(sys.stdin)['result'][0]['id'])")
+
+          # Get existing CNAME
+          existing=$(curl -s "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=polkisquad&type=CNAME" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "Existing: $existing"
+
+          # Get the CNAME record ID
+          cname_id=$(echo "$existing" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['result'][0]['id'] if d['result'] else 'NONE')")
+          echo "CNAME ID: $cname_id"
+
+          if [ "$cname_id" != "NONE" ]; then
+            # Update to point to polkisquad.pages.dev
+            update=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records/$cname_id" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"type":"CNAME","name":"polkisquad","content":"polkisquad.pages.dev","proxied":true}')
+            echo "Update: $update"
+          else
+            # Create
+            create=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"type":"CNAME","name":"polkisquad","content":"polkisquad.pages.dev","proxied":true}')
+            echo "Create: $create"
+          fi
+
+          echo ""
+          echo "=== Step 4: Purge cache ==="
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zone_id/purge_cache" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"hosts":["polkisquad.paragu-ai.com"]}' | python3 -m json.tool
+
+          echo ""
+          echo "=== Step 5: Wait + verify ==="
+          sleep 15
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html" "https://polkisquad.paragu-ai.com/sitemap.xml"; do
+            size=$(curl -sL --max-time 15 "$url" | wc -c)
+            echo "  $url: $size bytes"
+          done
