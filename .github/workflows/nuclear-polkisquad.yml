@@ -1,0 +1,39 @@
+name: Nuclear deploy polkisquad
+on: workflow_dispatch
+
+jobs:
+  nuclear:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone + Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          git clone --depth=1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Ai-Whisperers/polkisquad.git /tmp/polkisquad
+          
+          cd /tmp/polkisquad
+          
+          # Force deploy with cache busting
+          npx -y wrangler@latest pages deploy demo \
+            --project-name=polkisquad \
+            --branch=main \
+            --commit-dirty=true \
+            2>&1
+          
+          echo "=== Purge ALL cache ==="
+          ZONE_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; print(json.load(sys.stdin)["result"][0]["id"])')
+          
+          # Purge everything in zone
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"purge_everything":true}' | python3 -m json.tool
+          
+          echo ""
+          echo "=== Wait + verify ==="
+          sleep 60
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html" "https://polkisquad.paragu-ai.com/sitemap.xml" "https://polkisquad.paragu-ai.com/animal/luna.html"; do
+            size=$(curl -sL --max-time 15 "$url" | wc -c)
+            echo "  $url: $size bytes"
+          done
