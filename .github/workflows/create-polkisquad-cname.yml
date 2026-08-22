@@ -11,17 +11,17 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -e
-          zone_id=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c "import json,sys; print(json.load(sys.stdin)['result'][0]["id"])")
-          echo "Zone: $zone_id"
+          ZONE_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; print(json.load(sys.stdin)["result"][0]["id"])')
+          echo "Zone: $ZONE_ID"
           
-          target="polkisquad.pages.dev"
-          echo "Target: $target"
+          TARGET="polkisquad.pages.dev"
+          echo "Target: $TARGET"
           
-          # Create the CNAME record
           echo "=== Creating CNAME ==="
-          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d "{\"type\":\"CNAME\",\"name\":\"polkisquad\",\"content\":\"$target\",\"proxied\":true}")
-          echo "$result"
-          
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"type":"CNAME","name":"polkisquad","content":"polkisquad.pages.dev","proxied":true}'
           echo ""
           echo "=== DNS state ==="
-          curl -s "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=polkisquad" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=polkisquad" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
