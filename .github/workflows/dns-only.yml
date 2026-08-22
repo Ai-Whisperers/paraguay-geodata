@@ -1,0 +1,33 @@
+name: Try DNS-only mode
+on: workflow_dispatch
+jobs:
+  dns:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Switch to DNS-only
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          ZONE_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; print(json.load(sys.stdin)["result"][0]["id"])')
+          
+          # Get current CNAME
+          CNAME_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=CNAME&name=polkisquad.paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["result"][0]["id"] if d["result"] else "")')
+          
+          if [ -z "$CNAME_ID" ]; then
+            echo "No CNAME found, creating DNS-only"
+            curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"type":"CNAME","name":"polkisquad","content":"polkisquad.pages.dev","proxied":false}'
+          else
+            echo "Updating CNAME $CNAME_ID to proxied=false"
+            curl -s -X PATCH "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$CNAME_ID" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"proxied":false}' | python3 -m json.tool
+          fi
+          
+          echo ""
+          echo "=== Wait + verify ==="
+          sleep 60
+          
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html"; do
+            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 30 "$url" 2>&1)
+            size=$(curl -sL --max-time 30 "$url" 2>/dev/null | wc -c)
+            echo "  $code  $url: $size bytes"
+          done
