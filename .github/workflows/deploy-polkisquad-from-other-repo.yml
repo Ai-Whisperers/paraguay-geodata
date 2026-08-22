@@ -15,11 +15,9 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-            echo "Creating polkisquad Pages project (idempotent)..."
             npx -y wrangler@latest pages project create polkisquad \
               --production-branch main \
               --compatibility-date 2025-01-01 2>&1 || echo "Project may already exist, continuing..."
-            echo "---PROJECT-STEP-DONE---"
             
       - name: Deploy to Cloudflare Pages
         env:
@@ -32,18 +30,73 @@ jobs:
               --branch=main \
               --commit-dirty=true \
               2>&1
-            echo "---DEPLOY-STEP-DONE---"
+            
+      - name: Attach custom domain polkisquad.paragu-ai.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+            echo "=== Attaching custom domain ==="
+            # Add the domain to the Pages project (idempotent — will fail if exists)
+            result=$(curl -s -X POST \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad/domains" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"name":"polkisquad.paragu-ai.com"}')
+            echo "Domain add: $result"
+            
+            # Get zone ID
+            zone_id=$(curl -s \
+              "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['result'][0]['id'] if d['result'] else 'NONE')")
+            echo "Zone ID: $zone_id"
+            
+            # Check if CNAME exists
+            existing=$(curl -s \
+              "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=polkisquad.paragu-ai.com" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+            echo "Existing CNAMEs: $existing"
+            
+            # Get the Pages project custom domain (target)
+            target=$(curl -s \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['result'].get('subdomain', 'polkisquad.pages.dev'))")
+            echo "Target: $target"
+            
+            # Create CNAME if not exists
+            cname_result=$(curl -s -X POST \
+              "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"type\":\"CNAME\",\"name\":\"polkisquad\",\"content\":\"$target\",\"proxied\":true}")
+            echo "CNAME result: $cname_result"
+            
+            # Purge cache for the custom domain
+            echo "=== Purging cache for polkisquad.paragu-ai.com ==="
+            purge_result=$(curl -s -X POST \
+              "https://api.cloudflare.com/client/v4/zones/$zone_id/purge_cache" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"hosts":["polkisquad.paragu-ai.com"]}')
+            echo "Purge result: $purge_result"
+            echo "---DONE---"
             
       - name: Verify deployment
         if: success()
         run: |
+            sleep 10
             echo "=== Polki Squad deployed ==="
             for url in \
               "https://polkisquad.paragu-ai.com/" \
               "https://polkisquad.paragu-ai.com/padrinos.html" \
               "https://polkisquad.paragu-ai.com/donar.html" \
-              "https://polkisquad.paragu-ai.com/sitemap.xml" \
-              "https://polkisquad.paragu-ai.com/mobile-nav.css"; do
+              "https://polkisquad.paragu-ai.com/contacto.html" \
+              "https://polkisquad.paragu-ai.com/perdidos-y-encontrados.html" \
+              "https://polkisquad.paragu-ai.com/animal/luna.html" \
+              "https://polkisquad.paragu-ai.com/css/mobile-nav.css" \
+              "https://polkisquad.paragu-ai.com/sitemap.xml"; do
               code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 15 "$url")
               echo "  $code  $url"
             done
