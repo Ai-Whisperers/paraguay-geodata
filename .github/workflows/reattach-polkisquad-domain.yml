@@ -1,0 +1,29 @@
+name: Re-attach polkisquad domain
+on: workflow_dispatch
+jobs:
+  reattach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-attach
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Delete old domain attachment ==="
+          curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad/domains/polkisquad.paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          echo ""
+          
+          sleep 5
+          
+          echo "=== Re-attach ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad/domains" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"name":"polkisquad.paragu-ai.com"}')
+          echo "$result" | python3 -m json.tool
+          
+          echo ""
+          echo "=== Wait + verify ==="
+          sleep 60
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html" "https://polkisquad.paragu-ai.com/sitemap.xml"; do
+            size=$(curl -sL --max-time 15 "$url" | wc -c)
+            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 15 "$url")
+            echo "  $code  $url: $size bytes"
+          done
