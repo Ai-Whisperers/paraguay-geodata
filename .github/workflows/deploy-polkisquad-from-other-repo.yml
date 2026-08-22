@@ -10,16 +10,29 @@ jobs:
         run: |
             git clone --depth=1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Ai-Whisperers/polkisquad.git /tmp/polkisquad
             
-      - name: Deploy to Cloudflare Pages via wrangler
+      - name: Create Pages project if not exists
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-            npx -y wrangler@latest pages deploy /tmp/polkisquad/demo \
+            echo "Creating polkisquad Pages project (idempotent)..."
+            npx -y wrangler@latest pages project create polkisquad \
+              --production-branch main \
+              --compatibility-date 2025-01-01 2>&1 || echo "Project may already exist, continuing..."
+            echo "---PROJECT-STEP-DONE---"
+            
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+            cd /tmp/polkisquad
+            npx -y wrangler@latest pages deploy demo \
               --project-name=polkisquad \
               --branch=main \
               --commit-dirty=true \
               2>&1
+            echo "---DEPLOY-STEP-DONE---"
             
       - name: Verify deployment
         if: success()
@@ -29,7 +42,8 @@ jobs:
               "https://polkisquad.paragu-ai.com/" \
               "https://polkisquad.paragu-ai.com/padrinos.html" \
               "https://polkisquad.paragu-ai.com/donar.html" \
-              "https://polkisquad.paragu-ai.com/sitemap.xml"; do
-              code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 10 "$url")
+              "https://polkisquad.paragu-ai.com/sitemap.xml" \
+              "https://polkisquad.paragu-ai.com/mobile-nav.css"; do
+              code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 15 "$url")
               echo "  $code  $url"
             done
