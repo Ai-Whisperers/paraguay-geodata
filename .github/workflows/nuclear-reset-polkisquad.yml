@@ -1,0 +1,60 @@
+name: Nuclear reset polkisquad
+on: workflow_dispatch
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Full reset
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -e
+          echo "=== 1. Delete polkisquad project ==="
+          curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -m json.tool
+          sleep 10
+          
+          echo ""
+          echo "=== 2. Delete any polkisquad CNAME ==="
+          ZONE_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; print(json.load(sys.stdin)["result"][0]["id"])')
+          echo "Zone: $ZONE_ID"
+          
+          IDS=$(curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=CNAME&name=polkisquad.paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(" ".join([r["id"] for r in d.get("result", [])]))')
+          for id in $IDS; do
+            echo "Deleting DNS $id"
+            curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$id" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" > /dev/null
+          done
+          sleep 5
+          
+          echo ""
+          echo "=== 3. Recreate polkisquad project ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"name":"polkisquad","production_branch":"main"}')
+          echo "$result" | python3 -m json.tool
+          sleep 5
+          
+          echo ""
+          echo "=== 4. Create CNAME ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"type":"CNAME","name":"polkisquad","content":"polkisquad.pages.dev","proxied":true}')
+          echo "$result" | python3 -m json.tool
+          sleep 5
+          
+          echo ""
+          echo "=== 5. Attach domain to project ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad/domains" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"name":"polkisquad.paragu-ai.com"}')
+          echo "$result" | python3 -m json.tool
+          
+          echo ""
+          echo "=== 6. Deploy content ==="
+          cd /tmp
+          rm -rf polkisquad && mkdir polkisquad && cd polkisquad
+          curl -sL https://github.com/Ai-Whisperers/polkisquad/archive/refs/heads/main.tar.gz | tar xz --strip 1
+          npx -y wrangler@latest pages deploy demo --project-name=polkisquad --branch=main --commit-dirty=true 2>&1 | tail -15
+          
+          echo ""
+          echo "=== 7. Wait + verify ==="
+          sleep 180
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html" "https://polkisquad.paragu-ai.com/sitemap.xml"; do
+            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 30 "$url" 2>&1)
+            size=$(curl -sL --max-time 30 "$url" 2>/dev/null | wc -c)
+            echo "  $code  $url: $size bytes"
+          done
