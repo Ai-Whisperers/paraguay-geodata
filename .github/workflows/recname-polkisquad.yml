@@ -1,0 +1,39 @@
+name: Recreate polkisquad CNAME
+on: workflow_dispatch
+jobs:
+  recname:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create CNAME
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          ZONE_ID=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; print(json.load(sys.stdin)["result"][0]["id"])')
+          echo "Zone: $ZONE_ID"
+          
+          # Check existing
+          echo "=== Existing DNS ==="
+          curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=polkisquad" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -m json.tool
+          
+          # Delete all
+          echo "=== Deleting any existing polkisquad records ==="
+          IDS=$(curl -s "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?name=polkisquad.paragu-ai.com" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(" ".join([r["id"] for r in d.get("result", [])]))')
+          for id in $IDS; do
+            echo "Deleting $id"
+            curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$id" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" > /dev/null
+          done
+          
+          # Create CNAME
+          echo "=== Creating CNAME ==="
+          result=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"type":"CNAME","name":"polkisquad","content":"polkisquad.pages.dev","proxied":true}')
+          echo "$result" | python3 -m json.tool
+          
+          echo ""
+          echo "=== Wait + verify ==="
+          sleep 90
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html" "https://polkisquad.paragu-ai.com/sitemap.xml"; do
+            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 20 "$url")
+            size=$(curl -sL --max-time 20 "$url" | wc -c)
+            echo "  $code  $url: $size bytes"
+          done
