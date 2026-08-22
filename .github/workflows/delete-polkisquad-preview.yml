@@ -1,0 +1,21 @@
+name: Delete polkisquad-preview project
+on: workflow_dispatch
+jobs:
+  del:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "=== Delete polkisquad-preview project ==="
+          curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/polkisquad-preview" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -m json.tool
+          
+          echo ""
+          echo "=== Sleep + verify ==="
+          sleep 30
+          for url in "https://polkisquad.paragu-ai.com/" "https://polkisquad.paragu-ai.com/padrinos.html" "https://polkisquad.paragu-ai.com/sitemap.xml"; do
+            size=$(curl -sL --max-time 15 "$url" | wc -c)
+            echo "  $url: $size bytes"
+          done
