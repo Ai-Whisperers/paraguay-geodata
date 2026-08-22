@@ -1,0 +1,35 @@
+name: Deploy Polki Squad from polkisquad repo
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Clone polkisquad repo
+        run: |
+            git clone --depth=1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Ai-Whisperers/polkisquad.git /tmp/polkisquad
+            
+      - name: Deploy to Cloudflare Pages via wrangler
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+            npx -y wrangler@latest pages deploy /tmp/polkisquad/demo \
+              --project-name=polkisquad \
+              --branch=main \
+              --commit-dirty=true \
+              2>&1
+            
+      - name: Verify deployment
+        if: success()
+        run: |
+            echo "=== Polki Squad deployed ==="
+            for url in \
+              "https://polkisquad.paragu-ai.com/" \
+              "https://polkisquad.paragu-ai.com/padrinos.html" \
+              "https://polkisquad.paragu-ai.com/donar.html" \
+              "https://polkisquad.paragu-ai.com/sitemap.xml"; do
+              code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 10 "$url")
+              echo "  $code  $url"
+            done
